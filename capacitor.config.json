@@ -1,0 +1,20 @@
+{
+  "appId": "app.lamma.game",
+  "appName": "لمّة",
+  "webDir": "www",
+  "android": {
+    "backgroundColor": "#161029"
+  },
+  "plugins": {
+    "SystemBars": {
+      "insetsHandling": "css",
+      "initialViewportFitValueHint": "cover"
+    },
+    "FirebaseAuthentication": {
+      "skipNativeAuth": true,
+      "providers": [
+        "google.com"
+      ]
+    }
+  }
+}

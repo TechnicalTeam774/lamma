@@ -1,0 +1,11 @@
+# بيتعمل وقت بناء الأبلكيشن
+node_modules/
+www/
+android/
+
+# مفتاح التوقيع وكلمة السر مش بيترفعوا أبدًا
+*.p12
+*.jks
+*.keystore
+KEYSTORE_*.txt
+google-services.json
