@@ -1,0 +1,60 @@
+# ارفع ملف lamma-repo-vN.zip، وبعدين Actions > Apply update > Run workflow
+# بيحط كل ملف في مكانه، ويمسح الملف المضغوط، ويبدأ بناء الأبلكيشن. مش بيغيّر .github أبدًا.
+name: Apply update
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: write
+  pages: write
+
+concurrency:
+  group: apply-update
+  cancel-in-progress: false
+
+jobs:
+  apply:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Unpack the update
+        run: |
+          ZIP=$(find . -maxdepth 1 -name 'lamma-repo*.zip' -printf '%f\n' | sort -V | tail -n 1)
+          if [ -z "$ZIP" ]; then
+            echo "::error title=No update file::Upload lamma-repo-vN.zip to the repository first, then run this again."
+            exit 1
+          fi
+          echo "Using $ZIP"
+          mkdir -p "$RUNNER_TEMP/new"
+          unzip -q "$ZIP" -d "$RUNNER_TEMP/new"
+          if [ ! -f "$RUNNER_TEMP/new/lamma/index.html" ]; then
+            echo "::error title=Unexpected file::$ZIP does not contain the lamma folder."
+            exit 1
+          fi
+          echo "ZIP=$ZIP" >> "$GITHUB_ENV"
+
+      - name: Replace the app files
+        run: |
+          find . -mindepth 1 -maxdepth 1 ! -name .git ! -name .github -exec rm -rf {} +
+          (cd "$RUNNER_TEMP/new/lamma" && find . -mindepth 1 -maxdepth 1 ! -name .github -exec cp -a {} "$GITHUB_WORKSPACE/" \;)
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing to change."
+          else
+            git diff --cached --stat | tail -n 1
+            git commit -q -m "Apply $ZIP"
+            git push
+          fi
+
+      - name: Update the website and start the app build
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh api -X POST "repos/${{ github.repository }}/pages/builds" > /dev/null || echo "Pages will update on the next change."
+          gh workflow run android.yml --ref "${{ github.ref_name }}"
