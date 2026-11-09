@@ -1,0 +1,107 @@
+# لمّة: بيبني أبلكيشن أندرويد موقّع (APK) ويحطه في Releases.
+# بيشتغل لوحده بعد Apply update، أو من Actions > Build Lamma APK > Run workflow.
+# محتاج مرة واحدة 3 أسرار في Settings > Secrets and variables > Actions:
+#   KEYSTORE_B64 و KEYSTORE_PASSWORD (مفتاح التوقيع)، و GOOGLE_SERVICES_JSON (دخول جوجل).
+name: Build Lamma APK
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['index.html', 'package.json', 'capacitor.config.json', 'scripts/**', 'native/**', 'android-res/**']
+
+concurrency:
+  group: apk-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  android:
+    name: Android APK (Releases)
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    permissions:
+      contents: write
+    steps:
+      - name: Check the secrets
+        env:
+          KEYSTORE_B64: ${{ secrets.KEYSTORE_B64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          missing=""
+          [ -z "$KEYSTORE_B64" ] && missing="$missing KEYSTORE_B64"
+          [ -z "$KEYSTORE_PASSWORD" ] && missing="$missing KEYSTORE_PASSWORD"
+          [ -z "$GOOGLE_SERVICES_JSON" ] && missing="$missing GOOGLE_SERVICES_JSON"
+          if [ -n "$missing" ]; then
+            echo "::error title=Secrets missing::Add these in Settings > Secrets and variables > Actions:$missing. Then run this workflow again."
+            exit 1
+          fi
+
+      - uses: actions/checkout@v6
+      - name: Check this is the app version
+        run: |
+          if [ ! -f package.json ]; then
+            echo "::error title=App files missing::Upload lamma-repo-vN.zip and run Apply update first."
+            exit 1
+          fi
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - run: npm ci
+      - name: Build the web part
+        run: npm run build
+
+      - name: Create the Android project
+        run: |
+          npx cap add android
+          node scripts/patch-android.mjs
+          npx cap sync android
+
+      - name: Unpack the signing key
+        env:
+          KEYSTORE_B64: ${{ secrets.KEYSTORE_B64 }}
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+        run: |
+          PASS=$(printf '%s' "$KEYSTORE_PASSWORD" | tr -d '[:space:]')
+          echo "::add-mask::$PASS"
+          printf '%s' "$KEYSTORE_B64" | tr -d '[:space:]' | base64 -d > "$RUNNER_TEMP/lamma.p12"
+          if ! keytool -list -storetype PKCS12 -keystore "$RUNNER_TEMP/lamma.p12" -storepass "$PASS" -alias lamma > /dev/null 2>&1; then
+            echo "::error title=Signing key not readable::KEYSTORE_B64 or KEYSTORE_PASSWORD does not match. Paste both values again exactly as they appear in the two text files."
+            exit 1
+          fi
+          echo "LAMMA_KEYSTORE=$RUNNER_TEMP/lamma.p12" >> "$GITHUB_ENV"
+          echo "LAMMA_STORE_PASSWORD=$PASS" >> "$GITHUB_ENV"
+
+      - name: Add the Firebase file
+        env:
+          GOOGLE_SERVICES_JSON: ${{ secrets.GOOGLE_SERVICES_JSON }}
+        run: |
+          printf '%s' "$GOOGLE_SERVICES_JSON" > android/app/google-services.json
+          SHA1=$(keytool -list -v -storetype PKCS12 -keystore "$LAMMA_KEYSTORE" -storepass "$LAMMA_STORE_PASSWORD" -alias lamma | grep -m1 'SHA1:' | awk '{print $2}')
+          node scripts/check-google-services.mjs android/app/google-services.json "$SHA1"
+
+      - name: Build the signed APK
+        working-directory: android
+        run: |
+          chmod +x gradlew
+          ./gradlew assembleRelease --no-daemon --stacktrace
+          cp app/build/outputs/apk/release/app-release.apk "$GITHUB_WORKSPACE/lamma-1.0.${{ github.run_number }}.apk"
+
+      - name: Publish the Release
+        uses: softprops/action-gh-release@v3
+        with:
+          tag_name: v1.0.${{ github.run_number }}
+          name: لمّة 1.0.${{ github.run_number }}
+          make_latest: true
+          fail_on_unmatched_files: true
+          files: lamma-1.0.${{ github.run_number }}.apk
+          body: |
+            **التثبيت على أندرويد:** نزّل الملف `lamma-1.0.${{ github.run_number }}.apk` من **Assets** تحت، وافتحه من الموبايل.
+            - أول مرة: الموبايل هيطلب إذن «تثبيت تطبيقات غير معروفة» للمتصفح أو مدير الملفات، اسمح بيه.
+            - تحديث: ثبّت الملف الجديد فوق القديم من غير ما تمسح الأبلكيشن.
