@@ -25,6 +25,7 @@ window.LammaNative = {
       PushNotifications.register();
     });
   },
+  signOut: () => FirebaseAuthentication.signOut(),
   exitApp: () => App.exitApp(),
 };
 // لما تدوس على إشعار: افتح الشات أو الطلبات

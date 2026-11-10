@@ -633,6 +633,59 @@ html.in-game .amb { display: none; }
 .away-bar { position: fixed; inset-inline: 10px; bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); z-index: 44; display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 16px; background: #3b1f2b; color: #ffd9d6; box-shadow: 0 12px 30px -12px rgba(0, 0, 0, .8); font-weight: 700; font-size: .9rem; }
 .away-bar span { flex: 1; }
 
+/* ===== المستوى والتحديات والإحصائيات والإطارات ===== */
+.pcard { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border-radius: 20px; background: var(--surface-2); }
+.pcard .avatar { position: relative; width: 64px; height: 64px; flex: none; border-radius: 50%; }
+.pcard .avatar > .av-img, .pcard .avatar > .av-mono, .pcard .avatar > .frm { width: 100%; height: 100%; border-radius: 50%; }
+.lvl-badge { position: absolute; bottom: -4px; inset-inline-end: -4px; min-width: 24px; height: 24px; padding: 0 5px; border-radius: 12px; background: var(--hl); color: #1a1230; font-weight: 800; font-size: .8rem; display: grid; place-items: center; border: 2px solid var(--bg); }
+.pc-mid { flex: 1; min-width: 0; }
+.pc-mid h1 { font-size: 1.25rem; margin: 0 0 6px; }
+.pc-mid small { color: var(--ink-2); font-size: .78rem; }
+.bar { height: 8px; border-radius: 4px; background: var(--surface); overflow: hidden; margin: 4px 0; }
+.bar i { display: block; height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--hl), #ffcf6b); transition: width .4s ease; }
+.qrow { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; }
+.qbtn { all: unset; position: relative; display: grid; justify-items: center; gap: 4px; padding: 10px 6px; border-radius: 16px; background: var(--surface-2); cursor: pointer; font-size: 1.3rem; }
+.qbtn span { font-size: .82rem; font-weight: 700; }
+.qbtn svg { width: 22px; height: 22px; }
+.qdot { position: absolute; top: 6px; inset-inline-end: 8px; min-width: 18px; height: 18px; border-radius: 9px; background: #e0544a; color: #fff; font-style: normal; font-size: .72rem; font-weight: 800; display: grid; place-items: center; }
+.ch-list { display: grid; gap: 10px; margin-top: 6px; }
+.ch { display: flex; align-items: center; gap: 10px; padding: 12px; border-radius: 16px; background: var(--surface-2); }
+.ch.done { box-shadow: inset 0 0 0 2px var(--hl); }
+.ch.claimed { opacity: .6; }
+.ch-txt { flex: 1; min-width: 0; text-align: start; }
+.ch-txt small { color: var(--ink-2); }
+.ch .btn.sm { display: inline-flex; align-items: center; gap: 4px; }
+.ch-ok { color: #35c26b; font-size: 1.3rem; font-weight: 800; }
+.login-days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin: 10px 0 14px; }
+.ld { display: grid; gap: 2px; padding: 8px 2px; border-radius: 12px; background: var(--surface-2); text-align: center; }
+.ld small { font-size: .66rem; color: var(--ink-2); }
+.ld b { font-size: .95rem; }
+.ld.past { opacity: .5; }
+.ld.now { background: var(--hl); color: #1a1230; }
+.ld.now small { color: #1a1230; }
+.st-top { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 8px 0 12px; }
+.st-top div { display: grid; padding: 10px 4px; border-radius: 14px; background: var(--surface-2); text-align: center; }
+.st-top b { font-size: 1.2rem; }
+.st-top small { font-size: .72rem; color: var(--ink-2); }
+.st-rows { display: grid; gap: 8px; }
+.st-row { display: grid; grid-template-columns: 70px 1fr auto; align-items: center; gap: 10px; text-align: start; }
+.st-row small { color: var(--ink-2); }
+.frm { position: relative; display: block; width: 100%; height: 100%; border-radius: 50%; }
+.frm > .av-img, .frm > .av-mono { width: 100%; height: 100%; border-radius: 50%; display: grid; place-items: center; object-fit: cover; }
+.frm::after { content: ''; position: absolute; inset: 0; border-radius: 50%; pointer-events: none; }
+.frm-gold::after { box-shadow: inset 0 0 0 3px #f2c12e, 0 0 8px rgba(242, 193, 46, .6); }
+.frm-neon::after { box-shadow: inset 0 0 0 3px #3cf0ff, 0 0 10px rgba(60, 240, 255, .8); }
+.frm-fire::after { box-shadow: inset 0 0 0 3px #ff6a2b, 0 0 12px rgba(255, 106, 43, .8); }
+.frm-royal::after { box-shadow: inset 0 0 0 3px #b48cff, inset 0 0 0 5px #f2c12e; }
+.fr-prev { width: 54px; height: 54px; border-radius: 50%; overflow: hidden; }
+.lb { display: grid; gap: 8px; padding: 0 14px; }
+.lb-row { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 14px; background: var(--surface-2); }
+.lb-row.me { box-shadow: inset 0 0 0 2px var(--hl); }
+.lb-row .av { width: 36px; height: 36px; border-radius: 50%; overflow: hidden; flex: none; }
+.lb-row small { margin-inline-start: auto; color: var(--ink-2); font-size: .78rem; }
+.lb-n { width: 26px; text-align: center; font-weight: 800; }
+.so-btn { width: 100%; margin-bottom: 8px; }
+
 </style>
 </head>
 <body>
@@ -1930,6 +1983,10 @@ var L = {
     vMahbusaHint: 'كل حجارتك بتبدأ في خانة واحدة، والحجر الفردي بيتحبس بدل ما يتضرب.',
     level: 'المستوى', easy: 'سهل', medium: 'وسط', hard: 'معلّم',
     matchTo: 'الجيم لحد', pointsUnit: 'نقطة', players: 'عدد اللاعيبة', letsPlay: 'يلا نلعب',
+    signOut: 'تسجيل الخروج من جوجل (عشان تغيّر الحساب)', signedOut: 'خرجت من حسابك، تقدر تدخل بحساب تاني', lvlUp: 'مبروك! وصلت المستوى {n}', lvlBonus: 'هدية: {n} كوينز', level: 'المستوى', lvlShort: 'مستوى {n}', winsN: '{n} فوز', xpLeft: 'فاضل {n} نقطة للمستوى الجاي',
+    daily: 'التحديات', dailySub: 'بتتجدد كل يوم', chDone: 'خلصت تحدي! خد جايزتك من التحديات', chPlay3: 'العب {n} جيمات', chWin1: 'اكسب جيم', chWin2: 'اكسب {n} جيمات', chOnline1: 'العب جيم مع صاحبك', chVariety: 'العب لعبتين مختلفين', chWinG: 'اكسب جيم {game}',
+    loginTitle: 'مكافأة النهارده', dayN: 'يوم {n}', takeN: 'خد {n}', statsT: 'إحصائياتي', played: 'جيمات', winRate: 'نسبة الفوز', bestStreak: 'أطول سلسلة', board: 'ترتيب الصحاب', frames: 'الإطارات',
+    fr_none: 'من غير', fr_gold: 'دهب', fr_neon: 'نيون', fr_fire: 'نار', fr_royal: 'ملكي',
     seenMin: 'كان أونلاين من {n} دقيقة', sent: 'اتبعتت', seen: 'اتشافت', sending: 'بتتبعت', friendAway: '{name} فصل… الجيم هيكمّل أول ما يرجع', exitGame: 'اخرج من الجيم',
     exitQ: 'تخرج من لمّة؟', exitNo: 'لأ، كمّل', exitYes: 'اخرج', gchat: 'الشات', gchatPh: 'اكتب لصحابك...', timerAsk: '{name} عايز يلعب بمؤقت {s} ثانية للدور', coins: 'كوينز', shop: 'المحل', buy: 'اشتري', owned: 'عندك', equipped: 'شغّال', notEnough: 'الكوينز مش مكفية', earned: 'كسبت {n} كوينز',
     settings: 'الإعدادات', language: 'اللغة', music: 'الموسيقى', sounds: 'الأصوات', yourName: 'اسمك', close: 'تمام',
@@ -1997,6 +2054,10 @@ var L = {
     vMahbusaHint: 'All your checkers start on one point, and a lone checker gets trapped instead of hit.',
     level: 'Level', easy: 'Easy', medium: 'Medium', hard: 'Master',
     matchTo: 'Play to', pointsUnit: 'points', players: 'Players', letsPlay: 'Start game',
+    signOut: 'Sign out of Google (switch account)', signedOut: 'Signed out, you can sign in with another account', lvlUp: 'Level {n} reached!', lvlBonus: 'Gift: {n} coins', level: 'Level', lvlShort: 'Lv {n}', winsN: '{n} wins', xpLeft: '{n} XP to next level',
+    daily: 'Challenges', dailySub: 'New ones every day', chDone: 'Challenge done! Claim it in Challenges', chPlay3: 'Play {n} games', chWin1: 'Win a game', chWin2: 'Win {n} games', chOnline1: 'Play a game with a friend', chVariety: 'Play two different games', chWinG: 'Win a {game} game',
+    loginTitle: 'Today’s reward', dayN: 'Day {n}', takeN: 'Take {n}', statsT: 'My stats', played: 'Games', winRate: 'Win rate', bestStreak: 'Best streak', board: 'Friends ranking', frames: 'Frames',
+    fr_none: 'None', fr_gold: 'Gold', fr_neon: 'Neon', fr_fire: 'Fire', fr_royal: 'Royal',
     seenMin: 'Online {n} min ago', sent: 'Sent', seen: 'Seen', sending: 'Sending', friendAway: '{name} disconnected… the game continues when they’re back', exitGame: 'Leave game',
     exitQ: 'Leave لمّة?', exitNo: 'No, keep playing', exitYes: 'Exit', gchat: 'Chat', gchatPh: 'Message your friends...', timerAsk: '{name} wants a {s}s turn timer', coins: 'Coins', shop: 'Shop', buy: 'Buy', owned: 'Owned', equipped: 'Active', notEnough: 'Not enough coins', earned: 'You earned {n} coins',
     settings: 'Settings', language: 'Language', music: 'Music', sounds: 'Sounds', yourName: 'Your name', close: 'Done',
@@ -2163,7 +2224,7 @@ function avHTML(name, photo) {
   }
   return '<span class="av-mono" style="background:' + m.col + '">' + esc(m.ch) + '</span>';
 }
-function myAv() { return avHTML(S.name, S.photo); }
+function myAv() { return framedAv(S.name, S.photo, S.frame); }
 function photoField(name) {
   return '<div class="ph-row"><div class="ph-prev">' + avHTML(name, S.photo) + '</div><div class="ph-btns">' +
     '<label class="btn plain ph-pick">' + (S.photo ? t('changePhoto') : t('addPhoto')) + '<input type="file" accept="image/*" hidden></label>' +
@@ -2327,11 +2388,10 @@ function renderHome() {
   app.innerHTML = '<div class="screen"><div class="home">' +
     '<div class="topbar"><div class="brand">' + markSVG() + '<span class="wordmark">لمّة</span></div>' +
     '<button class="ib" id="h-set" aria-label="' + t('settings') + '">' + ICON.gear + '</button></div>' +
-    '<div class="hello"><div class="avatar" aria-hidden="true">' + myAv() + '</div><div><h1>' + t('hi', { name: esc(S.name) }) + '</h1><p>' + t('homeQ') + '</p></div></div>' +
+    profileCardHTML() +
     '<div class="games">' + poster('tawla') + poster('domino') + '</div>' +
     '<div class="mgames">' + mini('ludo', LUDO_ART) + mini('chess', CHESS_ART) + mini('basra', BASRA_ART) + '</div>' +
     '<div><h3 class="sec-h">' + t('boardLook') + '</h3><div class="skins">' + skinsHTML() + '</div></div>' +
-    '<button class="note shop-note" id="h-shop">' + ICON.coin + '<span><b data-coins>' + coins() + '</b> ' + t('coins') + '</span><em>' + t('shop') + '</em></button>' +
     '<button class="note" id="h-social">' + ICON.users + '<span>' + socialNoteText() + '</span></button>' +
     '</div></div>';
   var root = app.firstChild;
@@ -2339,10 +2399,13 @@ function renderHome() {
     var p = ev.target.closest('.poster, .mg'), sk = ev.target.closest('[data-pick-skin]');
     if (p) { Snd.play('tap'); openSetup(p.getAttribute('data-game')); return; }
     if (ev.target.closest('#h-social')) { Snd.play('tap'); openSocial(); return; }
-    if (ev.target.closest('#h-shop')) { Snd.play('tap'); openShop(); return; }
-    if (sk) { Snd.play('tap'); setSkin(sk.getAttribute('data-pick-skin')); return; }
+    if (ev.target.closest('#h-shop2')) { Snd.play('tap'); openShop(); return; }
+    if (ev.target.closest('#h-daily')) { Snd.play('tap'); openDaily(); return; }
+    if (ev.target.closest('#h-stats')) { Snd.play('tap'); openStats(); return; }
+    if (sk) { Snd.play('tap'); var kk = sk.getAttribute('data-pick-skin'); if (ownsSkin(kk)) setSkin(kk); else openShop(); return; }
     if (ev.target.closest('#h-set')) { Snd.play('tap'); openSettings(); }
   });
+  if (S.name) setTimeout(maybeLoginReward, 500);
 }
 
 /* ----- اختيار اللعبة ----- */
@@ -2449,6 +2512,7 @@ function openSettings() {
     field(t('pace'), segHTML('pace', [['calm', t('paceCalm')], ['normal', t('paceNormal')], ['fast', t('paceFast')]], S.pace || 'calm')) +
     '<div class="toggle"><span>' + t('sounds') + '</span><button type="button" class="sw-btn" role="switch" data-tg="sfx" aria-checked="' + S.sfx + '" aria-label="' + t('sounds') + '"></button></div>' +
     '<div class="field" style="margin-top:16px"><div class="lbl">' + t('boardLook') + '</div><div class="skins">' + skinsHTML() + '</div></div>' +
+    (typeof myUid !== 'undefined' && myUid ? '<button class="btn plain so-btn" data-signout>' + t('signOut') + '</button>' : '') +
     '<button class="btn cta" data-close>' + t('close') + '</button>';
   var w = openSheet(html), nameInp = $('#s-name', w), dirty = false;
   bindPhoto(w, function () { return S.name; }, function () { dirty = true; });
@@ -2467,7 +2531,8 @@ function openSettings() {
       Snd.setSfx(val);
     }
     if (sk) setSkin(sk.getAttribute('data-pick-skin'));
-    if (ev.target.closest('[data-close]')) { closeSheet(w); if (dirty) refreshScreen(); }
+    if (ev.target.closest('[data-signout]')) { closeSheet(w); signOutGoogle(); return; }
+    if (ev.target.closest('[data-close]')) { closeSheet(w); if (dirty) { refreshScreen(); pushProfile(); } }
   });
 }
 function refreshScreen() {
@@ -2523,7 +2588,8 @@ function openShop() {
         (own ? '<small class="' + (on ? 'ok' : '') + '">' + t(on ? 'equipped' : 'owned') + '</small>'
              : '<button class="btn cta sm" data-buy="' + k + '">' + ICON.coin + ' ' + SKIN_PRICE[k] + '</button>') +
         '</div>';
-    }).join('') + '</div>');
+    }).join('') + '</div>' + framesShopHTML());
+  wireFramesShop(sh, openShop);
   sh.addEventListener('click', function (ev) {
     var b = ev.target.closest('[data-buy]'), it = ev.target.closest('[data-item]');
     if (b) {
@@ -2662,6 +2728,182 @@ function watchTick() {
 }
 function startWatchdog() { clearInterval(wdTimer); wdTimer = setInterval(watchTick, 4000); }
 
+/* ===== لمّة — المستوى والتحديات والإطارات والترتيب ===== */
+var XP_WIN = 30, XP_LOSE = 10, XP_ONLINE = 10;
+var FRAMES = { none: 0, gold: 250, neon: 400, fire: 600, royal: 900 };
+var LOGIN_REWARD = [20, 30, 40, 50, 60, 80, 120];
+var GAMES5 = ['tawla', 'domino', 'ludo', 'chess', 'basra'];
+
+function xpOf() { return S.xp || 0; }
+function levelOf(xp) { return Math.floor(Math.sqrt((xp || 0) / 50)) + 1; }
+function lvlStart(l) { return 50 * (l - 1) * (l - 1); }
+function lvlProgress() {
+  var x = xpOf(), l = levelOf(x), a = lvlStart(l), b = lvlStart(l + 1);
+  return { lvl: l, pct: Math.round(100 * (x - a) / (b - a)), left: b - x };
+}
+function todayKey() { var d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
+function dayNum(k) { var p = k.split('-'); return Math.floor(new Date(+p[0], +p[1] - 1, +p[2]).getTime() / 86400000); }
+
+/* ----- بعد كل جيم ----- */
+function recordGame(game, won, online) {
+  var before = levelOf(xpOf());
+  S.xp = xpOf() + (won ? XP_WIN : XP_LOSE) + (online ? XP_ONLINE : 0);
+  var st = S.streak || (S.streak = { cur: 0, best: 0 });
+  if (won) { st.cur++; if (st.cur > st.best) st.best = st.cur; } else st.cur = 0;
+  dailyBump(game, won, online);
+  save();
+  var c = (won ? WIN_COINS : PLAY_COINS) + (won && st.cur >= 3 ? 10 : 0);
+  addCoins(c);
+  var after = levelOf(xpOf());
+  if (after > before) setTimeout(function () { levelUp(after); }, 900);
+  pushStats();
+}
+function levelUp(l) {
+  var bonus = 50 + 10 * l;
+  S.coins = coins() + bonus; save(); paintCoins();
+  Snd.play('win'); if (typeof confetti === 'function') confetti();
+  var sh = openSheet('<p class="res-title">' + t('lvlUp', { n: l }) + '</p><p class="res-sub">' + t('lvlBonus', { n: bonus }) + '</p><button class="btn cta" data-ok>' + t('close') + '</button>');
+  $('[data-ok]', sh).addEventListener('click', function () { closeSheet(sh); });
+}
+
+/* ----- التحديات اليومية ----- */
+var DAILY_POOL = [
+  { id: 'play3', goal: 3, coins: 40, txt: 'chPlay3' },
+  { id: 'win1', goal: 1, coins: 40, txt: 'chWin1' },
+  { id: 'win2', goal: 2, coins: 70, txt: 'chWin2' },
+  { id: 'online1', goal: 1, coins: 60, txt: 'chOnline1' },
+  { id: 'variety', goal: 2, coins: 50, txt: 'chVariety' },
+  { id: 'wtawla', goal: 1, coins: 50, txt: 'chWinG', g: 'tawla' },
+  { id: 'wdomino', goal: 1, coins: 50, txt: 'chWinG', g: 'domino' },
+  { id: 'wludo', goal: 1, coins: 50, txt: 'chWinG', g: 'ludo' },
+  { id: 'wbasra', goal: 1, coins: 50, txt: 'chWinG', g: 'basra' },
+  { id: 'wchess', goal: 1, coins: 60, txt: 'chWinG', g: 'chess' }
+];
+function dailyState() {
+  var k = todayKey(), d = S.daily;
+  if (!d || d.day !== k) {
+    var n = dayNum(k), pick = [], i = 0;
+    while (pick.length < 3 && i < 40) { var c = DAILY_POOL[(n * 7 + i * 3) % DAILY_POOL.length]; if (pick.indexOf(c.id) < 0) pick.push(c.id); i++; }
+    d = S.daily = { day: k, tasks: pick.map(function (id) { return { id: id, prog: 0, claimed: false }; }), games: [] };
+    save();
+  }
+  return d;
+}
+function taskDef(id) { return DAILY_POOL.filter(function (x) { return x.id === id; })[0]; }
+function dailyBump(game, won, online) {
+  var d = dailyState();
+  if (d.games.indexOf(game) < 0) d.games.push(game);
+  d.tasks.forEach(function (tk) {
+    var def = taskDef(tk.id); if (!def || tk.prog >= def.goal) return;
+    if (tk.id === 'play3') tk.prog++;
+    else if (tk.id === 'win1' || tk.id === 'win2') { if (won) tk.prog++; }
+    else if (tk.id === 'online1') { if (online) tk.prog++; }
+    else if (tk.id === 'variety') tk.prog = Math.min(def.goal, d.games.length);
+    else if (def.g === game && won) tk.prog++;
+    if (tk.prog >= def.goal) setTimeout(function () { toast(t('chDone'), 1800); }, 1400);
+  });
+}
+function dailyReady() { var d = dailyState(); return d.tasks.filter(function (tk) { var def = taskDef(tk.id); return def && tk.prog >= def.goal && !tk.claimed; }).length; }
+function openDaily() {
+  var d = dailyState();
+  var sh = openSheet('<h2>' + t('daily') + '</h2><p class="res-sub">' + t('dailySub') + '</p><div class="ch-list">' + d.tasks.map(function (tk, i) {
+    var def = taskDef(tk.id), done = tk.prog >= def.goal, pct = Math.round(100 * Math.min(tk.prog, def.goal) / def.goal);
+    return '<div class="ch' + (tk.claimed ? ' claimed' : done ? ' done' : '') + '"><div class="ch-txt"><b>' + esc(t(def.txt, { game: def.g ? t(def.g) : '', n: def.goal })) + '</b>' +
+      '<div class="bar"><i style="width:' + pct + '%"></i></div><small>' + Math.min(tk.prog, def.goal) + ' / ' + def.goal + '</small></div>' +
+      (tk.claimed ? '<span class="ch-ok">✓</span>' : '<button class="btn ' + (done ? 'cta' : 'plain') + ' sm" data-claim="' + i + '"' + (done ? '' : ' disabled') + '>' + ICON.coin + ' ' + def.coins + '</button>') + '</div>';
+  }).join('') + '</div>');
+  sh.addEventListener('click', function (ev) {
+    var b = ev.target.closest('[data-claim]'); if (!b || b.disabled) return;
+    var tk = d.tasks[+b.getAttribute('data-claim')], def = taskDef(tk.id);
+    tk.claimed = true; S.coins = coins() + def.coins; save(); paintCoins(); Snd.play('pop');
+    closeSheet(sh); setTimeout(openDaily, 280); refreshHomeBadges();
+  });
+}
+
+/* ----- مكافأة الدخول كل يوم ----- */
+function maybeLoginReward() {
+  var k = todayKey(), L = S.login || { day: '', streak: 0 };
+  if (L.day === k) return;
+  var gap = L.day ? dayNum(k) - dayNum(L.day) : 99;
+  var streak = gap === 1 ? Math.min(L.streak + 1, 7) : 1, amt = LOGIN_REWARD[streak - 1];
+  var sh = openSheet('<p class="res-title">' + t('loginTitle') + '</p><div class="login-days">' + LOGIN_REWARD.map(function (v, i) {
+    return '<div class="ld' + (i < streak - 1 ? ' past' : i === streak - 1 ? ' now' : '') + '"><small>' + t('dayN', { n: i + 1 }) + '</small><b>' + v + '</b></div>';
+  }).join('') + '</div><button class="btn cta" data-take>' + ICON.coin + ' ' + t('takeN', { n: amt }) + '</button>', { locked: true });
+  $('[data-take]', sh).addEventListener('click', function () {
+    S.login = { day: k, streak: streak }; S.coins = coins() + amt; save(); paintCoins();
+    Snd.play('pop'); closeSheet(sh);
+  });
+}
+
+/* ----- الإحصائيات ----- */
+function openStats() {
+  var st = S.streak || { cur: 0, best: 0 }, tot = { w: 0, p: 0 };
+  GAMES5.forEach(function (g) { tot.w += S.stats[g].w; tot.p += S.stats[g].p; });
+  var pr = lvlProgress();
+  openSheet('<h2>' + t('statsT') + '</h2>' +
+    '<div class="st-top"><div><b>' + pr.lvl + '</b><small>' + t('level') + '</small></div><div><b>' + tot.p + '</b><small>' + t('played') + '</small></div>' +
+    '<div><b>' + (tot.p ? Math.round(100 * tot.w / tot.p) : 0) + '%</b><small>' + t('winRate') + '</small></div><div><b>' + st.best + '</b><small>' + t('bestStreak') + '</small></div></div>' +
+    '<div class="st-rows">' + GAMES5.map(function (g) {
+      var s = S.stats[g], r = s.p ? Math.round(100 * s.w / s.p) : 0;
+      return '<div class="st-row"><b>' + t(g) + '</b><div class="bar"><i style="width:' + r + '%"></i></div><small>' + s.w + ' / ' + s.p + '</small></div>';
+    }).join('') + '</div>');
+}
+
+/* ----- الإطارات ----- */
+function ownsFrame(k) { return !FRAMES[k] || (S.frames || []).indexOf(k) >= 0; }
+function framedAv(name, photo, frame) {
+  var inner = avHTML(name, photo);
+  return frame && frame !== 'none' ? '<span class="frm frm-' + frame + '">' + inner + '</span>' : inner;
+}
+function framesShopHTML() {
+  return '<h3 class="sec-h">' + t('frames') + '</h3><div class="shop-grid">' + Object.keys(FRAMES).map(function (k) {
+    var own = ownsFrame(k), on = (S.frame || 'none') === k;
+    return '<div class="shop-item' + (on ? ' on' : '') + '" data-fitem="' + k + '"><div class="fr-prev">' + framedAv(S.name, S.photo, k) + '</div><b>' + t('fr_' + k) + '</b>' +
+      (own ? '<small class="' + (on ? 'ok' : '') + '">' + t(on ? 'equipped' : 'owned') + '</small>' : '<button class="btn cta sm" data-fbuy="' + k + '">' + ICON.coin + ' ' + FRAMES[k] + '</button>') + '</div>';
+  }).join('') + '</div>';
+}
+function wireFramesShop(sh, reopen) {
+  sh.addEventListener('click', function (ev) {
+    var b = ev.target.closest('[data-fbuy]'), it = ev.target.closest('[data-fitem]');
+    if (b) {
+      var k = b.getAttribute('data-fbuy');
+      if (coins() < FRAMES[k]) { toast(t('notEnough')); return; }
+      S.coins = coins() - FRAMES[k]; S.frames = (S.frames || []).concat([k]); S.frame = k;
+      save(); Snd.play('pop'); pushStats(); closeSheet(sh); setTimeout(reopen, 280); return;
+    }
+    if (it) { var kk = it.getAttribute('data-fitem'); if (!ownsFrame(kk)) return; S.frame = kk; save(); pushStats(); Snd.play('tap'); closeSheet(sh); setTimeout(reopen, 280); }
+  });
+}
+
+/* ----- ترتيب الصحاب ----- */
+function pushStats() {
+  if (typeof fbDb === 'undefined' || !fbDb || !myUid) return;
+  var w = 0; GAMES5.forEach(function (g) { w += S.stats[g].w; });
+  fbDb.collection('users').doc(myUid).set({ xp: xpOf(), lvl: levelOf(xpOf()), wins: w, frame: S.frame || 'none' }, { merge: true }).catch(function () {});
+}
+function leaderboardHTML() {
+  var w = 0; GAMES5.forEach(function (g) { w += S.stats[g].w; });
+  var rows = [{ me: true, name: S.name, photo: S.photo, frame: S.frame, xp: xpOf(), wins: w }];
+  Object.keys(friendsData).forEach(function (u) { var f = friendsData[u]; rows.push({ name: f.name, photo: f.photo, frame: f.frame, xp: f.xp || 0, wins: f.wins || 0 }); });
+  if (rows.length < 2) return '';
+  rows.sort(function (a, b) { return b.xp - a.xp || b.wins - a.wins; });
+  return '<h3 class="sec-h">' + t('board') + '</h3><div class="lb">' + rows.map(function (r, i) {
+    return '<div class="lb-row' + (r.me ? ' me' : '') + '"><span class="lb-n">' + (i < 3 ? ['🥇', '🥈', '🥉'][i] : i + 1) + '</span><span class="av">' + framedAv(r.name, r.photo, r.frame) + '</span>' +
+      '<b>' + esc(r.name || '') + '</b><small>' + t('lvlShort', { n: levelOf(r.xp) }) + ' · ' + t('winsN', { n: r.wins }) + '</small></div>';
+  }).join('') + '</div>';
+}
+
+/* ----- الرئيسية: كارت اللاعب وأزرار التحديات ----- */
+function profileCardHTML() {
+  var pr = lvlProgress(), ready = dailyReady();
+  return '<div class="pcard"><div class="avatar">' + framedAv(S.name, S.photo, S.frame) + '<span class="lvl-badge">' + pr.lvl + '</span></div>' +
+    '<div class="pc-mid"><h1>' + t('hi', { name: esc(S.name) }) + '</h1><div class="bar xp"><i style="width:' + pr.pct + '%"></i></div><small>' + t('xpLeft', { n: pr.left }) + '</small></div></div>' +
+    '<div class="qrow"><button class="qbtn" id="h-daily">🎯<span>' + t('daily') + '</span>' + (ready ? '<i class="qdot">' + ready + '</i>' : '') + '</button>' +
+    '<button class="qbtn" id="h-stats">📊<span>' + t('statsT') + '</span></button>' +
+    '<button class="qbtn" id="h-shop2">' + ICON.coin + '<span><b data-coins>' + coins() + '</b></span></button></div>';
+}
+function refreshHomeBadges() { var b = $('#h-daily'); if (!b) return; var r = dailyReady(), d = $('.qdot', b); if (r && !d) b.insertAdjacentHTML('beforeend', '<i class="qdot">' + r + '</i>'); else if (d) { if (r) d.textContent = r; else d.remove(); } }
+
 /* ===== لمّة — الأصحاب والدخول بجوجل ===== */
 var fbApp = null, fbAuth = null, fbDb = null, myUid = null, myCode = '';
 var hbTimer = null, unsub = { friends: null, requests: null, invites: null, presence: {}, chat: null, inbox: null };
@@ -2742,7 +2984,8 @@ function listenFriends() {
         if (!u.exists) return;
         var d = u.data();
         var seen = d.lastSeen && d.lastSeen.toMillis ? d.lastSeen.toMillis() : 0;
-        friendsData[uid] = { name: d.name || friendsData[uid].name, photo: d.photo, online: isOnline(d.lastSeen), seen: seen };
+        friendsData[uid] = { name: d.name || friendsData[uid].name, photo: d.photo, online: isOnline(d.lastSeen), seen: seen, xp: d.xp || 0, wins: d.wins || 0, frame: d.frame || 'none' };
+        if (socialRoot && socialRoot.isConnected) paintBoard();
         if (socialRoot && socialRoot.isConnected) paintFriends();
       });
     });
@@ -2789,7 +3032,9 @@ function googleSignIn() {
       return fbAuth.signInWithCredential(firebase.auth.GoogleAuthProvider.credential(tok));
     });
   }
-  return fbAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider());
+  var pv = new firebase.auth.GoogleAuthProvider();
+  if (pv.setCustomParameters) pv.setCustomParameters({ prompt: 'select_account' });
+  return fbAuth.signInWithPopup(pv);
 }
 function addFriendByCode(code) {
   code = code.trim().toUpperCase();
@@ -2886,6 +3131,7 @@ function renderSocial() {
     '<div class="soc-reqs" id="soc-reqs"></div>' +
     '<h3 class="sec-h">' + t('friendsList') + '</h3>' +
     '<div class="soc-friends" id="soc-friends"></div>' +
+    '<div id="soc-board"></div>' +
     '<div id="soc-chat" hidden></div>';
   $('#soc-copy', socialRoot).addEventListener('click', function () {
     navigator.clipboard && navigator.clipboard.writeText(myCode).then(function () { toast(t('copied')); }).catch(function () {});
@@ -2894,8 +3140,10 @@ function renderSocial() {
   $('#soc-codein', socialRoot).addEventListener('keydown', function (ev) { if (ev.key === 'Enter') $('#soc-addbtn', socialRoot).click(); });
   var pb = $('#push-on', socialRoot);
   if (pb) pb.addEventListener('click', function () { Snd.play('tap'); pb.disabled = true; enablePush(true).then(function () { if (socialRoot && socialRoot.isConnected) renderSocial(); }); });
-  paintRequests(); paintFriends();
+  paintRequests(); paintFriends(); paintBoard();
+  pushStats();
 }
+function paintBoard() { var el = $('#soc-board', socialRoot); if (el) el.innerHTML = leaderboardHTML(); }
 function socialHeader() {
   return '<div class="gbar"><button class="ib back" id="soc-back" aria-label="' + t('toHome') + '">' + ICON.back + '</button>' +
     '<div class="gtitle"><b>' + t('friends') + '</b></div><span></span></div>';
@@ -2969,6 +3217,14 @@ setInterval(function () {
   Object.keys(friendsData).forEach(function (u) { friendsData[u].online = presAge(friendsData[u]) < 60000; });
   if (socialRoot && socialRoot.isConnected && !chatWith) paintFriends();
 }, 20000);
+
+// تسجيل الخروج عشان تدخل بحساب جوجل تاني
+function signOutGoogle() {
+  var done = function () { toast(t('signedOut')); if (socialRoot && socialRoot.isConnected) renderSocial(); };
+  var p = fbAuth ? fbAuth.signOut() : Promise.resolve();
+  if (window.LammaNative && window.LammaNative.signOut) window.LammaNative.signOut().catch(function () {});
+  p.then(done).catch(done);
+}
 
 /* ===== لمّة — الإشعارات =====
  * الموبايل بيسجّل «عنوان إشعارات» (token) في users/{uid}/tokens.
@@ -3156,7 +3412,7 @@ function OnlineLink(roomId, players, infos) {
 }
 OnlineLink.prototype.uidInfo = function (uid) {
   var f = friendsData[uid] || {}, i = this.infos[uid] || {};
-  return { uid: uid, name: i.name || f.name || '', photo: i.photo || f.photo || '' };
+  return { uid: uid, name: i.name || f.name || '', photo: f.photo || i.photo || '', frame: f.frame || 'none' };
 };
 // اللاعب اللي قاعد على كرسي (من ناحيتي): 0 أنا، 1 اللي بعدي، ...
 OnlineLink.prototype.info = function (localSeat) { return this.uidInfo(this.players[(localSeat + this.seat) % this.n]); };
@@ -3498,7 +3754,7 @@ function TawlaMatch(opts) {
 }
 var TP = TawlaMatch.prototype;
 TP.botName = function () { return this.online ? this.online.friend.name : t('bots')[this.bot.k]; };
-TP.opAv = function () { return this.online ? avHTML(this.online.friend.name, this.online.friend.photo) : this.bot.av; };
+TP.opAv = function () { return this.online ? framedAv(this.online.friend.name, this.online.friend.photo, this.online.friend.frame) : this.bot.av; };
 
 TP.render = function () {
   setInGame(true);
@@ -3894,7 +4150,7 @@ TP.gameOver = function (w, how) {
   var pts = how === 'stale' ? 1 : T.gamePoints(this.state, w), wi = w, meWon = wi === 0, self = this;
   this.score[wi] += pts; this.updateScore();
   var done = this.score[wi] >= this.target;
-  if (done) { S.stats.tawla.p++; if (meWon) S.stats.tawla.w++; save(); addCoins(meWon ? WIN_COINS : PLAY_COINS); } else if (meWon) addCoins(ROUND_COINS, 'quiet');
+  if (done) { S.stats.tawla.p++; if (meWon) S.stats.tawla.w++; save(); recordGame('tawla', meWon, !!this.online); } else if (meWon) addCoins(ROUND_COINS, 'quiet');
   Snd.play(meWon ? 'win' : 'lose');
   if (meWon && done) confetti();
   var sub = how === 'stale' ? t('staleEnd') : this.variant === 't31' ? t('t31Pts', { n: pts }) : T.isMars(this.state, w) ? t('mars') : '';
@@ -3990,7 +4246,7 @@ function DominoMatch(opts) {
 }
 var DP = DominoMatch.prototype;
 DP.pname = function (p) { return p === 0 ? (S.name || t('you')) : this.online ? this.online.info(p).name : t('bots')[this.bots[p - 1].k]; };
-DP.pav = function (p) { return p === 0 ? myAv() : this.online ? avHTML(this.online.info(p).name, this.online.info(p).photo) : this.bots[p - 1].av; };
+DP.pav = function (p) { return p === 0 ? myAv() : this.online ? framedAv(this.online.info(p).name, this.online.info(p).photo, this.online.info(p).frame) : this.bots[p - 1].av; };
 
 DP.render = function () {
   setInGame(true);
@@ -4223,7 +4479,7 @@ DP.roundOver = async function (res) {
   if (!this.alive) return;
   var top = Math.max.apply(null, this.scores), done = top >= this.target, mw = this.scores.indexOf(top);
   if (done) {
-    S.stats.domino.p++; if (mw === 0) S.stats.domino.w++; save(); addCoins(mw === 0 ? WIN_COINS : PLAY_COINS);
+    S.stats.domino.p++; if (mw === 0) S.stats.domino.w++; save(); recordGame('domino', mw === 0, !!this.online);
     Snd.play(mw === 0 ? 'win' : 'lose');
     if (mw === 0) confetti();
   } else Snd.play(w === 0 ? 'win' : 'pop');
@@ -4362,7 +4618,7 @@ function LudoMatch(opts) {
 }
 var LP = LudoMatch.prototype;
 LP.pname = function (i) { return i === 0 ? (S.name || t('you')) : this.online ? this.online.info(i).name : t('bots')[this.bots[i - 1].k]; };
-LP.pav = function (i) { return i === 0 ? myAv() : this.online ? avHTML(this.online.info(i).name, this.online.info(i).photo) : this.bots[i - 1].av; };
+LP.pav = function (i) { return i === 0 ? myAv() : this.online ? framedAv(this.online.info(i).name, this.online.info(i).photo, this.online.info(i).frame) : this.bots[i - 1].av; };
 LP.render = function () {
   setInGame(true);
   var self = this, seats = '', i;
@@ -4526,7 +4782,7 @@ LP.timeUp = async function () {
 LP.gameOver = function (w) {
   this.phase = 'over'; this.tt.stop(); this.updateMeta(); this.rollBtn.hidden = true;
   var meWon = w === 0, self = this;
-  S.stats.ludo.p++; if (meWon) S.stats.ludo.w++; save(); addCoins(meWon ? WIN_COINS : PLAY_COINS);
+  S.stats.ludo.p++; if (meWon) S.stats.ludo.w++; save(); recordGame('ludo', meWon, !!this.online);
   Snd.play(meWon ? 'win' : 'lose'); if (meWon) confetti();
   var guestWait = this.online && this.online.role === 'guest';
   var sh = openSheet('<p class="res-title">' + (meWon ? t('luWin') : esc(t('luLose', { name: this.pname(w) }))) + '</p>' +
@@ -4590,7 +4846,7 @@ CP.render = function () {
     '<div class="gtitle"><b>' + t('chess') + '</b><small>' + (this.online ? '' : t(this.level)) + '</small></div>' +
     gameChatButton() + '<button class="ib gear" aria-label="' + t('settings') + '">' + ICON.gear + '</button></div>' +
     '<div class="ch-main">' +
-    '<div class="seat op"><div class="av">' + (this.online ? avHTML(this.online.friend.name, this.online.friend.photo) : this.bot.av) + '</div><div class="who"><b>' + esc(this.botName()) + '</b><small class="caps" data-for="op"></small></div></div>' +
+    '<div class="seat op"><div class="av">' + (this.online ? framedAv(this.online.friend.name, this.online.friend.photo, this.online.friend.frame) : this.bot.av) + '</div><div class="who"><b>' + esc(this.botName()) + '</b><small class="caps" data-for="op"></small></div></div>' +
     '<div class="ch-wrap"><svg class="cboard" viewBox="-1 -1 82 82" aria-hidden="true"><rect class="cb-frame" x="-1" y="-1" width="82" height="82" rx="2"/><g class="cb-sq">' + sq + '</g><g class="cb-hl"></g><g class="cb-pc"></g><g class="cb-crd"></g></svg><div class="bmsg" aria-live="polite"></div></div>' +
     '<div class="seat me"><div class="av">' + myAv() + '</div><div class="who"><b>' + esc(S.name || t('you')) + '</b><small class="caps" data-for="me"></small></div><span class="ch-st"></span></div>' +
     '</div></div>';
@@ -4729,7 +4985,7 @@ CP.timeUp = function () {
 CP.gameOver = function (s) {
   this.phase = 'over'; this.tt.stop(); this.updateInfo(); this.stEl.textContent = '';
   var meWon = s.result === this.side, draw = s.result === 'draw', self = this;
-  S.stats.chess.p++; if (meWon) S.stats.chess.w++; save(); addCoins(meWon ? WIN_COINS : PLAY_COINS);
+  S.stats.chess.p++; if (meWon) S.stats.chess.w++; save(); recordGame('chess', meWon, !!this.online);
   Snd.play(meWon ? 'win' : draw ? 'pop' : 'lose'); if (meWon) confetti();
   var title = draw ? t('chDraw') : meWon ? t('mateWin') : esc(t('mateLose', { name: this.botName() }));
   var sub = draw ? t({ stalemate: 'drawStale', fifty: 'drawFifty', material: 'drawMaterial', repeat: 'drawRepeat' }[s.reason]) : '';
@@ -4800,7 +5056,7 @@ BP.render = function () {
     '<div class="gbar"><button class="ib back" aria-label="' + t('toHome') + '">' + ICON.back + '</button>' +
     '<div class="gtitle"><b>' + t('basra') + '</b><small class="g-score"></small></div>' +
     gameChatButton() + '<button class="ib gear" aria-label="' + t('settings') + '">' + ICON.gear + '</button></div>' +
-    '<div class="bs-top"><div class="seat op"><div class="av">' + (this.online ? avHTML(this.online.friend.name, this.online.friend.photo) : this.bot.av) + '</div><div class="who"><b>' + esc(this.botName()) + '</b><small class="meta" data-for="1"></small></div></div><div class="bs-ophand"></div></div>' +
+    '<div class="bs-top"><div class="seat op"><div class="av">' + (this.online ? framedAv(this.online.friend.name, this.online.friend.photo, this.online.friend.frame) : this.bot.av) + '</div><div class="who"><b>' + esc(this.botName()) + '</b><small class="meta" data-for="1"></small></div></div><div class="bs-ophand"></div></div>' +
     '<div class="table-wrap bs-table"><div class="bs-ground"></div><div class="bone-chip bs-deck"></div><div class="tmsg"></div></div>' +
     '<div class="me-bar"><div class="seat me"><div class="av">' + myAv() + '</div><div class="who"><b>' + esc(S.name || t('you')) + '</b><small class="meta" data-for="0"></small></div></div><div class="status" aria-live="polite"></div></div>' +
     '<div class="bs-hand" role="group"></div></div>';
@@ -4907,7 +5163,7 @@ BP.roundOver = function () {
   this.total[0] += sc.pts[0]; this.total[1] += sc.pts[1];
   var done = (this.total[0] >= this.target || this.total[1] >= this.target) && this.total[0] !== this.total[1];
   var w = this.total[0] > this.total[1] ? 0 : 1, meWon = done && w === 0;
-  if (done) { S.stats.basra.p++; if (meWon) S.stats.basra.w++; save(); addCoins(meWon ? WIN_COINS : PLAY_COINS); Snd.play(meWon ? 'win' : 'lose'); if (meWon) confetti(); }
+  if (done) { S.stats.basra.p++; if (meWon) S.stats.basra.w++; save(); recordGame('basra', meWon, !!this.online); Snd.play(meWon ? 'win' : 'lose'); if (meWon) confetti(); }
   this.paint();
   var rows = [0, 1].map(function (p) {
     return '<tr><td>' + esc(names[p]) + '</td><td><bdi dir="ltr">' + sc.piles[p] + (sc.piles[p] > sc.piles[1 - p] ? ' <small>+30</small>' : '') + '</bdi></td><td>' + sc.basras[p] + '</td><td><bdi dir="ltr"><b>+' + sc.pts[p] + '</b></bdi></td><td>' + self.total[p] + '</td></tr>';
