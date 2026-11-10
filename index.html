@@ -201,7 +201,7 @@ html.in-game .amb { display: none; }
 .seat .who { display: grid; min-width: 0; line-height: 1.25; }
 .seat .who b { font-size: .95rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
 .seat .who small { font-size: .75rem; color: var(--g-ink2); white-space: nowrap; }
-.bubble { position: absolute; top: -6px; inset-inline-start: 34px; background: var(--hl); color: #1a1230; font-weight: 800; font-size: .8rem; padding: 3px 10px; border-radius: 12px 12px 12px 4px; white-space: nowrap; box-shadow: 0 6px 14px -6px rgba(0, 0, 0, .6); animation: pop .3s cubic-bezier(.2, .9, .3, 1.4); z-index: 3; }
+.bubble { position: absolute; top: calc(100% + 4px); inset-inline-start: 0; background: var(--hl); color: #1a1230; font-weight: 800; font-size: .8rem; padding: 3px 10px; border-radius: 12px 12px 12px 4px; white-space: nowrap; box-shadow: 0 6px 14px -6px rgba(0, 0, 0, .6); animation: pop .3s cubic-bezier(.2, .9, .3, 1.4); z-index: 3; }
 [dir="rtl"] .bubble { border-radius: 12px 12px 4px 12px; }
 .bubble.soft { background: var(--g-chip); color: var(--g-ink); font-weight: 600; }
 @keyframes pop { from { transform: scale(.4); opacity: 0; } to { transform: none; opacity: 1; } }
@@ -295,7 +295,7 @@ html.in-game .amb { display: none; }
 .dm .seats { display: flex; justify-content: space-around; gap: 6px; padding: 4px 10px 8px; flex-wrap: wrap; }
 .dm .seats .seat { flex: 1 1 0; max-width: 33%; justify-content: center; flex-direction: column; gap: 3px; text-align: center; }
 .dm .seats .seat .who { justify-items: center; }
-.dm .seats .seat .bubble { top: -4px; inset-inline-start: calc(50% + 10px); }
+.dm .seats .seat .bubble { top: calc(100% + 2px); inset-inline-start: 50%; transform: translateX(-50%); }
 .minis { display: flex; gap: 2px; justify-content: center; height: 14px; align-items: center; }
 .minis i { width: 7px; height: 13px; border-radius: 2px; background: var(--tile-back); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .25); }
 .minis b { font-size: .72rem; margin-inline-start: 4px; color: var(--g-ink2); }
@@ -619,6 +619,19 @@ html.in-game .amb { display: none; }
 .gc-msgs { overflow-y: auto; padding: 12px 14px; display: flex; flex-direction: column; gap: 7px; }
 .gc-msgs .cmsg small { display: block; font-size: .72rem; opacity: .75; margin-bottom: 2px; }
 .inv-timer { display: block; font-style: normal; font-size: .85rem; opacity: .85; margin-top: 2px; }
+
+.dot { background: #e0544a; }
+.dot.recent { background: #f2c12e; }
+.dot.on { background: #35c26b; }
+
+.cmsg .tick { font-style: normal; font-size: .7rem; margin-inline-start: 6px; opacity: .75; }
+.cmsg .tick.seen { color: #1f8fff; opacity: 1; }
+.float-msg { position: fixed; top: calc(env(safe-area-inset-top, 0px) + 70px); inset-inline: 12px; z-index: 45; background: var(--g-chip-solid, #2b2350); color: var(--g-ink, #fff); padding: 10px 14px; border-radius: 16px; box-shadow: 0 12px 30px -12px rgba(0, 0, 0, .8); opacity: 0; transform: translateY(-10px); transition: .25s ease-out; cursor: pointer; }
+.float-msg.in { opacity: 1; transform: none; }
+.float-msg b { margin-inline-end: 6px; }
+
+.away-bar { position: fixed; inset-inline: 10px; bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); z-index: 44; display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 16px; background: #3b1f2b; color: #ffd9d6; box-shadow: 0 12px 30px -12px rgba(0, 0, 0, .8); font-weight: 700; font-size: .9rem; }
+.away-bar span { flex: 1; }
 
 </style>
 </head>
@@ -1917,6 +1930,7 @@ var L = {
     vMahbusaHint: 'كل حجارتك بتبدأ في خانة واحدة، والحجر الفردي بيتحبس بدل ما يتضرب.',
     level: 'المستوى', easy: 'سهل', medium: 'وسط', hard: 'معلّم',
     matchTo: 'الجيم لحد', pointsUnit: 'نقطة', players: 'عدد اللاعيبة', letsPlay: 'يلا نلعب',
+    seenMin: 'كان أونلاين من {n} دقيقة', sent: 'اتبعتت', seen: 'اتشافت', sending: 'بتتبعت', friendAway: '{name} فصل… الجيم هيكمّل أول ما يرجع', exitGame: 'اخرج من الجيم',
     exitQ: 'تخرج من لمّة؟', exitNo: 'لأ، كمّل', exitYes: 'اخرج', gchat: 'الشات', gchatPh: 'اكتب لصحابك...', timerAsk: '{name} عايز يلعب بمؤقت {s} ثانية للدور', coins: 'كوينز', shop: 'المحل', buy: 'اشتري', owned: 'عندك', equipped: 'شغّال', notEnough: 'الكوينز مش مكفية', earned: 'كسبت {n} كوينز',
     settings: 'الإعدادات', language: 'اللغة', music: 'الموسيقى', sounds: 'الأصوات', yourName: 'اسمك', close: 'تمام',
     roll: 'ارمي الزهر', undo: 'تراجع', thinking: 'بيفكّر…',
@@ -1983,6 +1997,7 @@ var L = {
     vMahbusaHint: 'All your checkers start on one point, and a lone checker gets trapped instead of hit.',
     level: 'Level', easy: 'Easy', medium: 'Medium', hard: 'Master',
     matchTo: 'Play to', pointsUnit: 'points', players: 'Players', letsPlay: 'Start game',
+    seenMin: 'Online {n} min ago', sent: 'Sent', seen: 'Seen', sending: 'Sending', friendAway: '{name} disconnected… the game continues when they’re back', exitGame: 'Leave game',
     exitQ: 'Leave لمّة?', exitNo: 'No, keep playing', exitYes: 'Exit', gchat: 'Chat', gchatPh: 'Message your friends...', timerAsk: '{name} wants a {s}s turn timer', coins: 'Coins', shop: 'Shop', buy: 'Buy', owned: 'Owned', equipped: 'Active', notEnough: 'Not enough coins', earned: 'You earned {n} coins',
     settings: 'Settings', language: 'Language', music: 'Music', sounds: 'Sounds', yourName: 'Your name', close: 'Done',
     roll: 'Roll dice', undo: 'Undo', thinking: 'Thinking…',
@@ -2134,12 +2149,19 @@ function skinSwatch(k) {
 }
 function skinsHTML() { return SKINS.map(skinSwatch).join(''); }
 /* ----- صورة اللاعب: صورة من الموبايل أو أول حرف من اسمه ----- */
-function avHTML(name, photo) {
-  if (photo) return '<img class="av-img" src="' + photo + '" alt="">';
+function avMono(name) {
   var nm = String(name || '').trim(), ch = Array.from(nm)[0] || '؟', h = 0;
   for (var i = 0; i < nm.length; i++) h = (h * 31 + nm.charCodeAt(i)) >>> 0;
-  var col = ['#d6453d', '#1f9e8f', '#e39a2d', '#3a6fd8', '#8e2d55', '#5b8c2a'][h % 6];
-  return '<span class="av-mono" style="background:' + col + '">' + esc(ch) + '</span>';
+  return { ch: ch, col: ['#d6453d', '#1f9e8f', '#e39a2d', '#3a6fd8', '#8e2d55', '#5b8c2a'][h % 6] };
+}
+function avHTML(name, photo) {
+  var m = avMono(name);
+  if (photo && /^(data:image\/|https:\/\/)/.test(photo)) {
+    var svg = "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' fill='" + m.col + "'/><text x='50' y='50' dy='.35em' text-anchor='middle' font-size='50' font-family='sans-serif' font-weight='700' fill='white'>" + esc(m.ch) + "</text></svg>";
+    var fb = 'data:image/svg+xml,' + encodeURIComponent(svg).replace(/'/g, '%27');
+    return '<img class="av-img" src="' + String(photo).replace(/"/g, '%22') + '" alt="" referrerpolicy="no-referrer" loading="lazy" onerror="this.onerror=null;this.src=\'' + fb + '\'">';
+  }
+  return '<span class="av-mono" style="background:' + m.col + '">' + esc(m.ch) + '</span>';
 }
 function myAv() { return avHTML(S.name, S.photo); }
 function photoField(name) {
@@ -2166,9 +2188,9 @@ function bindPhoto(root, getName, onChange) {
     if (!inp.closest || !inp.closest('.ph-pick')) return;
     var f = inp.files && inp.files[0];
     if (!f) return;
-    readPhoto(f, function (url) { if (url) { S.photo = url; save(); Snd.play('pop'); } redraw(); });
+    readPhoto(f, function (url) { if (url) { S.photo = url; save(); Snd.play('pop'); pushProfile(); } redraw(); });
   });
-  root.addEventListener('click', function (ev) { if (ev.target.closest('.ph-del')) { S.photo = ''; save(); Snd.play('tap'); redraw(); } });
+  root.addEventListener('click', function (ev) { if (ev.target.closest('.ph-del')) { S.photo = ''; save(); Snd.play('tap'); pushProfile(); redraw(); } });
   return redraw;
 }
 function avatarsHTML() {
@@ -2425,7 +2447,6 @@ function openSettings() {
     field(t('photoLbl'), photoField(S.name)) +
     field(t('language'), segHTML('lang', [['ar', 'عربي'], ['en', 'English']], S.lang)) +
     field(t('pace'), segHTML('pace', [['calm', t('paceCalm')], ['normal', t('paceNormal')], ['fast', t('paceFast')]], S.pace || 'calm')) +
-    '<div class="toggle"><span>' + t('music') + '</span><button type="button" class="sw-btn" role="switch" data-tg="music" aria-checked="' + S.music + '" aria-label="' + t('music') + '"></button></div>' +
     '<div class="toggle"><span>' + t('sounds') + '</span><button type="button" class="sw-btn" role="switch" data-tg="sfx" aria-checked="' + S.sfx + '" aria-label="' + t('sounds') + '"></button></div>' +
     '<div class="field" style="margin-top:16px"><div class="lbl">' + t('boardLook') + '</div><div class="skins">' + skinsHTML() + '</div></div>' +
     '<button class="btn cta" data-close>' + t('close') + '</button>';
@@ -2443,7 +2464,7 @@ function openSettings() {
     if (tg) {
       var key = tg.getAttribute('data-tg'), val = !S[key];
       S[key] = val; save(); tg.setAttribute('aria-checked', String(val));
-      if (key === 'music') { if (val) Snd.unlock(); Snd.setMusic(val); } else Snd.setSfx(val);
+      Snd.setSfx(val);
     }
     if (sk) setSkin(sk.getAttribute('data-pick-skin'));
     if (ev.target.closest('[data-close]')) { closeSheet(w); if (dirty) refreshScreen(); }
@@ -2521,11 +2542,11 @@ function openShop() {
   });
 }
 
-/* ----- الشات جوه اللعبة ----- */
-var gchatUn = null, gchatOpen = false, gchatUnread = 0;
-function gameChatId(g) {
-  if (!g || !g.online) return null;
-  return 'room_' + g.online.link.roomId;
+/* ----- الشات جوه اللعبة (rooms/{id}/chat) ----- */
+var gchatUn = null, gchatOpen = false, gchatErr = false;
+function gameChatRef(g) {
+  if (!g || !g.online || !fbDb) return null;
+  return fbDb.collection('rooms').doc(g.online.link.roomId).collection('chat');
 }
 function gameChatButton() { return '<button class="ib gchat" hidden aria-label="' + t('gchat') + '">' + ICON.chat + '<i class="gc-dot" hidden></i></button>'; }
 function wireGameChat(g, root) {
@@ -2537,53 +2558,70 @@ function wireGameChat(g, root) {
   listenGameChat(g);
 }
 function listenGameChat(g) {
-  var id = gameChatId(g);
-  if (!id || !fbDb) return;
+  var ref = gameChatRef(g);
+  if (!ref) return;
   if (gchatUn) gchatUn();
-  gchatUnread = 0;
-  gchatUn = fbDb.collection('chats').doc(id).collection('messages').orderBy('ts').limitToLast(60).onSnapshot(function (snap) {
+  gchatErr = false;
+  var first = true;
+  gchatUn = ref.orderBy('ts').limitToLast(80).onSnapshot({ includeMetadataChanges: true }, function (snap) {
     var rows = [];
-    snap.forEach(function (d) { rows.push(d.data()); });
+    snap.forEach(function (d) {
+      var m = d.data(); if (!m) return;
+      m.pending = !!(d.metadata && d.metadata.hasPendingWrites);
+      rows.push(m);
+    });
     g.chatRows = rows;
-    snap.docChanges().forEach(function (ch) {
+    if (!first) snap.docChanges().forEach(function (ch) {
       if (ch.type !== 'added') return;
       var m = ch.doc.data();
       if (!m || m.from === myUid) return;
-      if (gchatOpen) return;
-      gchatUnread++;
-      var dot = $('.gc-dot'); if (dot) dot.hidden = false;
       Snd.play('pop');
+      if (gchatOpen) return;
+      var dot = $('.gc-dot'); if (dot) dot.hidden = false;
+      floatMsg(m.name || '', m.text || '');
     });
+    first = false;
     if (gchatOpen) paintGameChat(g);
-  });
+  }, function () { if (!gchatErr) { gchatErr = true; toast(t('netErr')); } });
+}
+// رسالة صغيرة فوق البورد لما صاحبك يكتب والشات مقفول
+function floatMsg(name, text) {
+  var el = document.createElement('div');
+  el.className = 'float-msg';
+  el.innerHTML = '<b>' + esc(name) + '</b> ' + esc(text.length > 40 ? text.slice(0, 40) + '…' : text);
+  document.body.appendChild(el);
+  requestAnimationFrame(function () { el.classList.add('in'); });
+  el.addEventListener('click', function () { el.remove(); if (current) openGameChat(current); });
+  setTimeout(function () { el.classList.remove('in'); setTimeout(function () { el.remove(); }, 300); }, 4000);
 }
 function openGameChat(g) {
-  if (!g || !g.online) return;
-  gchatOpen = true; gchatUnread = 0;
+  if (!g || !g.online || $('.gchat-panel')) return;
+  gchatOpen = true;
   var dot = $('.gc-dot'); if (dot) dot.hidden = true;
   var box = document.createElement('div');
   box.className = 'gchat-panel';
-  box.innerHTML = '<div class="gc-hd"><b>' + t('gchat') + '</b><button class="ib" data-close>' + ICON.back + '</button></div>' +
+  box.innerHTML = '<div class="gc-hd"><b>' + t('gchat') + '</b><button class="ib" data-close aria-label="' + t('close') + '">' + ICON.back + '</button></div>' +
     '<div class="gc-msgs" id="gc-msgs"></div>' +
-    '<div class="chat-emoji">' + CHAT_EMOJI.map(function (e) { return '<button class="em" data-e="' + e + '">' + e + '</button>'; }).join('') + '</div>' +
-    '<div class="chat-bar"><input id="gc-in" class="inp" placeholder="' + t('gchatPh') + '"><button class="btn cta sm" data-send>' + t('send') + '</button></div>';
+    '<div class="chat-emoji">' + CHAT_EMOJI.map(function (e) { return '<button type="button" class="em" data-e="' + e + '">' + e + '</button>'; }).join('') + '</div>' +
+    '<div class="chat-bar"><input id="gc-in" class="inp" maxlength="300" enterkeyhint="send" placeholder="' + t('gchatPh') + '"><button type="button" class="btn cta sm" data-send>' + t('send') + '</button></div>';
   document.body.appendChild(box);
   requestAnimationFrame(function () { box.classList.add('open'); });
-  g.chatBox = box;
   paintGameChat(g);
   function send(txt) {
     txt = (txt || '').trim();
-    if (!txt || !fbDb) return;
-    fbDb.collection('chats').doc(gameChatId(g)).collection('messages')
-      .add({ from: myUid, name: S.name || '', text: txt.slice(0, 300), ts: firebase.firestore.FieldValue.serverTimestamp() }).catch(function () {});
+    var ref = gameChatRef(g);
+    if (!txt || !ref) return;
+    Snd.play('tap');
+    ref.add({ from: myUid, name: S.name || '', text: txt.slice(0, 300), ts: firebase.firestore.FieldValue.serverTimestamp() })
+      .catch(function () { toast(t('netErr')); });
   }
   box.addEventListener('click', function (ev) {
     if (ev.target.closest('[data-close]')) { closeGameChat(); return; }
     var em = ev.target.closest('[data-e]');
     if (em) { send(em.getAttribute('data-e')); return; }
-    if (ev.target.closest('[data-send]')) { var i = $('#gc-in', box); send(i.value); i.value = ''; }
+    if (ev.target.closest('[data-send]')) { var i = $('#gc-in', box); send(i.value); i.value = ''; i.focus(); }
   });
-  $('#gc-in', box).addEventListener('keydown', function (ev) { if (ev.key === 'Enter') send(ev.target.value), (ev.target.value = ''); });
+  $('#gc-in', box).addEventListener('keydown', function (ev) { if (ev.key === 'Enter') { send(ev.target.value); ev.target.value = ''; } });
 }
 function closeGameChat() {
   gchatOpen = false;
@@ -2597,9 +2635,11 @@ function paintGameChat(g) {
   if (!el) return;
   var rows = g.chatRows || [];
   el.innerHTML = rows.length ? rows.map(function (m) {
-    return '<div class="cmsg ' + (m.from === myUid ? 'mine' : 'theirs') + '">' +
-      (m.from === myUid ? '' : '<small>' + esc(m.name || '') + '</small>') + esc(m.text || '') + '</div>';
-  }).join('') : '<p class="hint">' + t('gchatPh') + '</p>';
+    var mine = m.from === myUid;
+    return '<div class="cmsg ' + (mine ? 'mine' : 'theirs') + '">' +
+      (mine ? '' : '<small>' + esc(m.name || '') + '</small>') + esc(m.text || '') +
+      (mine ? '<i class="tick">' + (m.pending ? '🕓' : '✓') + '</i>' : '') + '</div>';
+  }).join('') : '<p class="hint gc-empty">' + t('gchatPh') + '</p>';
   el.scrollTop = el.scrollHeight;
 }
 function stopGameChat() { if (gchatUn) { gchatUn(); gchatUn = null; } closeGameChat(); }
@@ -2657,8 +2697,12 @@ function ensureProfile(user) {
   return ref.get().then(function (snap) {
     var photo = S.photo || user.photoURL || '';
     if (snap.exists) {
-      myCode = snap.data().code || genCode();
-      return ref.set({ name: S.name || user.displayName || '', photo: photo, lastSeen: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
+      var cur = snap.data() || {};
+      myCode = cur.code || genCode();
+      if (!S.photo && cur.photo && /^data:image\//.test(cur.photo)) { S.photo = cur.photo; save(); }
+      var upd = { name: S.name || cur.name || user.displayName || '', lastSeen: firebase.firestore.FieldValue.serverTimestamp() };
+      if (S.photo) upd.photo = S.photo; else if (!cur.photo) upd.photo = photo;
+      return ref.set(upd, { merge: true });
     }
     myCode = genCode();
     return ref.set({ name: S.name || user.displayName || '', photo: photo, code: myCode, lastSeen: firebase.firestore.FieldValue.serverTimestamp(), createdAt: firebase.firestore.FieldValue.serverTimestamp() });
@@ -2697,7 +2741,8 @@ function listenFriends() {
       unsub.presence[uid] = fbDb.collection('users').doc(uid).onSnapshot(function (u) {
         if (!u.exists) return;
         var d = u.data();
-        friendsData[uid] = { name: d.name || friendsData[uid].name, photo: d.photo, online: isOnline(d.lastSeen) };
+        var seen = d.lastSeen && d.lastSeen.toMillis ? d.lastSeen.toMillis() : 0;
+        friendsData[uid] = { name: d.name || friendsData[uid].name, photo: d.photo, online: isOnline(d.lastSeen), seen: seen };
         if (socialRoot && socialRoot.isConnected) paintFriends();
       });
     });
@@ -2770,14 +2815,37 @@ function sendInvite(friendUid) {
   fbDb.collection('invites').doc(friendUid).collection('incoming').doc(myUid).set({ name: S.name || '', ts: firebase.firestore.FieldValue.serverTimestamp() })
     .then(function () { toast(t('inviteSent')); Snd.play('tap'); });
 }
+var chatRows = [], chatSeen = 0, unSeenDoc = null, lastMarked = 0;
 function listenChat(friendUid) {
   if (unsub.chat) unsub.chat();
-  var id = pairId(myUid, friendUid);
-  unsub.chat = fbDb.collection('chats').doc(id).collection('messages').orderBy('ts').limitToLast(50).onSnapshot(function (snap) {
-    var rows = [];
-    snap.forEach(function (d) { rows.push(d.data()); });
+  if (unSeenDoc) { unSeenDoc(); unSeenDoc = null; }
+  var id = pairId(myUid, friendUid), doc = fbDb.collection('chats').doc(id);
+  chatRows = []; chatSeen = 0; lastMarked = 0;
+  // امتى صاحبك شاف الرسايل
+  unSeenDoc = doc.onSnapshot(function (s) {
+    var d = (s && s.data && s.data()) || {}, ts = d['seen_' + friendUid];
+    chatSeen = ts && ts.toMillis ? ts.toMillis() : 0;
+    paintChat(chatRows);
+  }, function () {});
+  var q = doc.collection('messages').orderBy('ts').limitToLast(50);
+  unsub.chat = q.onSnapshot({ includeMetadataChanges: true }, function (snap) {
+    var rows = [], newest = 0;
+    snap.forEach(function (d) {
+      var m = d.data(); if (!m) return;
+      m.pending = !!(d.metadata && d.metadata.hasPendingWrites);
+      m.t = m.ts && m.ts.toMillis ? m.ts.toMillis() : Date.now();
+      if (m.from !== myUid && m.t > newest) newest = m.t;
+      rows.push(m);
+    });
+    chatRows = rows;
     paintChat(rows);
-  });
+    // علّم إنك شفت رسايل صاحبك
+    if (newest > lastMarked && chatWith === friendUid) {
+      lastMarked = newest;
+      var upd = {}; upd['seen_' + myUid] = firebase.firestore.FieldValue.serverTimestamp();
+      doc.set(upd, { merge: true }).catch(function () {});
+    }
+  }, function () { toast(t('netErr')); });
 }
 function sendChat(friendUid, text) {
   text = text.trim();
@@ -2848,7 +2916,7 @@ function paintFriends() {
   var ids = Object.keys(friendsData);
   el.innerHTML = ids.length ? ids.map(function (uid) {
     var f = friendsData[uid];
-    return '<button class="soc-friend" data-uid="' + uid + '"><div class="av">' + avHTML(f.name, f.photo) + '<i class="dot ' + (f.online ? 'on' : '') + '"></i></div><div class="who"><b>' + esc(f.name || '') + '</b><small>' + t(f.online ? 'online' : 'offline') + '</small></div>' + (unread[uid] ? '<span class="badge-n">' + unread[uid] + '</span>' : '') + '</button>';
+    return '<button class="soc-friend" data-uid="' + uid + '"><div class="av">' + avHTML(f.name, f.photo) + '<i class="dot ' + presDot(f) + '"></i></div><div class="who"><b>' + esc(f.name || '') + '</b><small>' + presText(f) + '</small></div>' + (unread[uid] ? '<span class="badge-n">' + unread[uid] + '</span>' : '') + '</button>';
   }).join('') : '<p class="hint">' + t('noFriendsYet') + '</p>';
   tryPendingOpen();
   $$('.soc-friend', el).forEach(function (b) { b.addEventListener('click', function () { openChat(b.getAttribute('data-uid')); }); });
@@ -2863,7 +2931,7 @@ function openChat(uid) {
     '<div class="chat-msgs" id="chat-msgs"></div>' +
     '<div class="chat-emoji">' + CHAT_EMOJI.map(function (e) { return '<button class="em" data-e="' + e + '">' + e + '</button>'; }).join('') + '</div>' +
     '<div class="chat-bar"><input id="chat-in" class="inp" placeholder="' + t('chatPh') + '"><button class="btn cta sm" id="chat-send">' + t('send') + '</button></div>';
-  $('#chat-back', box).addEventListener('click', function () { box.hidden = true; if (unsub.chat) unsub.chat(); chatWith = null; });
+  $('#chat-back', box).addEventListener('click', function () { box.hidden = true; if (unsub.chat) unsub.chat(); if (unSeenDoc) { unSeenDoc(); unSeenDoc = null; } chatWith = null; paintFriends(); });
   $('.chat-invite', box).addEventListener('click', function () { Snd.play('tap'); openGamePicker(uid); });
   $('#chat-send', box).addEventListener('click', function () { var i = $('#chat-in', box); sendChat(uid, i.value); i.value = ''; });
   $('#chat-in', box).addEventListener('keydown', function (ev) { if (ev.key === 'Enter') $('#chat-send', box).click(); });
@@ -2875,10 +2943,32 @@ function paintChat(rows) {
   if (!chatWith) return;
   var el = $('#chat-msgs', socialRoot); if (!el) return;
   el.innerHTML = rows.map(function (m) {
-    return '<div class="cmsg ' + (m.from === myUid ? 'mine' : 'theirs') + '">' + esc(m.text || '') + '</div>';
+    var mine = m.from === myUid, tick = '';
+    if (mine) tick = m.pending ? '<i class="tick">🕓</i>' : chatSeen && m.t <= chatSeen ? '<i class="tick seen">✓✓</i>' : '<i class="tick">✓</i>';
+    return '<div class="cmsg ' + (mine ? 'mine' : 'theirs') + '">' + esc(m.text || '') + tick + '</div>';
   }).join('');
   el.scrollTop = el.scrollHeight;
 }
+
+// لما تغيّر صورتك أو اسمك: تتحدّث عند صحابك على طول
+function pushProfile() {
+  if (!fbDb || !myUid) return;
+  fbDb.collection('users').doc(myUid).set({ name: S.name || '', photo: S.photo || '' }, { merge: true }).catch(function () {});
+}
+
+/* ----- أونلاين: أخضر دلوقتي، أصفر من ساعة، أحمر مش موجود ----- */
+function presAge(f) { return f && f.seen ? Date.now() - f.seen : Infinity; }
+function presDot(f) { var a = presAge(f); return a < 60000 ? 'on' : a < 3600000 ? 'recent' : 'off'; }
+function presText(f) {
+  var a = presAge(f);
+  if (a < 60000) return t('online');
+  if (a < 3600000) return t('seenMin', { n: Math.max(1, Math.round(a / 60000)) });
+  return t('offline');
+}
+setInterval(function () {
+  Object.keys(friendsData).forEach(function (u) { friendsData[u].online = presAge(friendsData[u]) < 60000; });
+  if (socialRoot && socialRoot.isConnected && !chatWith) paintFriends();
+}, 20000);
 
 /* ===== لمّة — الإشعارات =====
  * الموبايل بيسجّل «عنوان إشعارات» (token) في users/{uid}/tokens.
@@ -3035,13 +3125,34 @@ function OnlineLink(roomId, players, infos) {
     });
     self.feed();
   }, function () { toast(t('netErr')); });
+  this.alive = {}; this.away = {}; this.onAway = null; this.onBack = null;
   this.unRoom = this.ref.onSnapshot(function (s) {
     var d = s.data();
+    if (d && d.alive) self.alive = d.alive;
     if (d && d.status === 'left' && d.leftBy !== myUid && !self.closed) {
       self.closed = true;
       if (self.onLeft) self.onLeft(self.uidInfo(d.leftBy).name);
     }
   });
+  // كل واحد بيقول «أنا لسه هنا» كل 20 ثانية، ولو حد اختفى بنقول للباقيين
+  this.ping = function () {
+    if (self.closed) return;
+    var upd = {}; upd['alive.' + myUid] = firebase.firestore.FieldValue.serverTimestamp();
+    self.ref.update(upd).catch(function () {});
+  };
+  this.ping();
+  this.pingT = setInterval(this.ping, 20000);
+  this.onVis = function () { if (document.visibilityState === 'visible') self.ping(); };
+  document.addEventListener('visibilitychange', this.onVis);
+  this.checkT = setInterval(function () {
+    if (self.closed) return;
+    self.players.forEach(function (u) {
+      if (u === myUid) return;
+      var ts = self.alive[u], age = ts && ts.toMillis ? Date.now() - ts.toMillis() : 0;
+      if (age > 75000 && !self.away[u]) { self.away[u] = true; if (self.onAway) self.onAway(self.uidInfo(u).name); }
+      else if (age <= 75000 && self.away[u]) { self.away[u] = false; if (self.onBack) self.onBack(); }
+    });
+  }, 10000);
 }
 OnlineLink.prototype.uidInfo = function (uid) {
   var f = friendsData[uid] || {}, i = this.infos[uid] || {};
@@ -3067,6 +3178,9 @@ OnlineLink.prototype.send = function (kind, data) {
     .catch(function () { toast(t('netErr')); });
 };
 OnlineLink.prototype.stop = function () {
+  clearInterval(this.pingT); clearInterval(this.checkT);
+  if (this.onVis) document.removeEventListener('visibilitychange', this.onVis);
+  awayBanner(null);
   if (this.unActs) { this.unActs(); this.unActs = null; }
   if (this.unRoom) { this.unRoom(); this.unRoom = null; }
   this.waiter = null;
@@ -3232,6 +3346,19 @@ function startOnlineMatch(roomId, d) {
   else if (game === 'chess') current = new ChessMatch({ side: link.seat === 0 ? cfg.side : (cfg.side === 'w' ? 'b' : 'w'), level: 'medium', timer: timer, online: online });
   else current = new BasraMatch({ level: 'medium', target: cfg.target, timer: timer, online: online });
   link.onLeft = function (name) { if (current && current.online && current.online.link === link) friendLeft(name); };
+  link.onAway = function (name) { if (current && current.online && current.online.link === link) awayBanner(name); };
+  link.onBack = function () { awayBanner(null); };
+}
+// شريط فوق: صاحبك فصل، والجيم مستنيه
+function awayBanner(name) {
+  var el = $('.away-bar');
+  if (!name) { if (el) el.remove(); return; }
+  if (!el) {
+    el = document.createElement('div'); el.className = 'away-bar';
+    document.body.appendChild(el);
+    el.addEventListener('click', function (ev) { if (ev.target.closest('[data-exit]')) confirmLeave(); });
+  }
+  el.innerHTML = '<span>' + esc(t('friendAway', { name: name })) + '</span><button class="btn plain sm" data-exit>' + t('exitGame') + '</button>';
 }
 function friendLeft(name) {
   if (current && current.tt) current.tt.stop();
@@ -3263,7 +3390,7 @@ function friendPickHTML(sel, game) {
   var many = maxPlayers(game) > 2;
   return '<div class="frpick">' + ids.map(function (uid) {
     var f = friendsData[uid];
-    return '<button type="button" class="fr' + (sel.indexOf(uid) >= 0 ? ' on' : '') + '" data-fr="' + uid + '"><span class="av">' + avHTML(f.name, f.photo) + '<i class="dot ' + (f.online ? 'on' : '') + '"></i></span><b>' + esc(f.name || '') + '</b><small>' + t(f.online ? 'online' : 'offline') + '</small></button>';
+    return '<button type="button" class="fr' + (sel.indexOf(uid) >= 0 ? ' on' : '') + '" data-fr="' + uid + '"><span class="av">' + avHTML(f.name, f.photo) + '<i class="dot ' + presDot(f) + '"></i></span><b>' + esc(f.name || '') + '</b><small>' + presText(f) + '</small></button>';
   }).join('') + '</div><p class="hint">' + t(many ? 'pickUpTo3' : 'online2p') + '</p>';
 }
 function closeAllSheets() { $$('.sheet-wrap', sheetRoot).forEach(function (w) { closeSheet(w); }); }
@@ -3718,7 +3845,6 @@ TP.botTurn = async function () {
   this.sel = null; this.hl(null); this.markSources();
   var a, b, moves;
   if (this.online) {
-    this.status(t('friendTurn', { name: this.botName() }));
     var act = await this.link.next();
     if (!this.alive || !act) return;
     var guest = this.online.role === 'guest';
@@ -4821,12 +4947,11 @@ BP.remoteTurn = async function () {
 
 /* ===== تشغيل ===== */
 readOpenParam();
-startWatchdog();
 fbInit();
 applyLang();
 document.documentElement.setAttribute('data-skin', S.skin);
 Snd.setSfx(S.sfx);
-Snd.setMusic(S.music);
+S.music = false; Snd.setMusic(false);
 document.addEventListener('pointerdown', function () { Snd.unlock(); }, { once: true });
 renderWelcome();
 // زرار الرجوع في موبايل الأندرويد (جوه الأبلكيشن)
@@ -4835,7 +4960,8 @@ window.LammaBack = function () {
   var open = $$('.sheet-wrap', sheetRoot).filter(function (w) { return !w.closing; }), top = open[open.length - 1];
   if (top && !top.getAttribute('data-locked')) { closeSheet(top); return true; }
   if (top) return true;
-  if (chatWith) { closeGameChat(); return true; }
+  if ($('.gchat-panel')) { closeGameChat(); return true; }
+  var cb = $('#chat-back'); if (chatWith && cb) { cb.click(); return true; }
   if (current) { confirmLeave(); return true; }
   if (socialRoot) { closeSocial(); return true; }
   if (!$('.home') && S.name) { renderHome(); return true; }

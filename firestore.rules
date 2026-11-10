@@ -44,6 +44,15 @@ service cloud.firestore {
           get(/databases/$(database)/documents/rooms/$(roomId)).data.host == request.auth.uid ||
           request.auth.uid in get(/databases/$(database)/documents/rooms/$(roomId)).data.guests);
       }
+      match /chat/{msg} {
+        allow read, create: if request.auth != null && (
+          get(/databases/$(database)/documents/rooms/$(roomId)).data.host == request.auth.uid ||
+          request.auth.uid in get(/databases/$(database)/documents/rooms/$(roomId)).data.guests);
+      }
+    }
+
+    match /chats/{pairId} {
+      allow read, write: if request.auth != null && pairId.matches('.*' + request.auth.uid + '.*');
     }
 
     match /chats/{pairId}/messages/{msg} {
