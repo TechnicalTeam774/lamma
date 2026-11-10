@@ -630,7 +630,7 @@ html.in-game .amb { display: none; }
 .float-msg.in { opacity: 1; transform: none; }
 .float-msg b { margin-inline-end: 6px; }
 
-.away-bar { position: fixed; inset-inline: 10px; bottom: calc(env(safe-area-inset-bottom, 0px) + 12px); z-index: 44; display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 16px; background: #3b1f2b; color: #ffd9d6; box-shadow: 0 12px 30px -12px rgba(0, 0, 0, .8); font-weight: 700; font-size: .9rem; }
+.away-bar { position: fixed; inset-inline: 10px; top: calc(env(safe-area-inset-top, 0px) + 64px); z-index: 20; display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 16px; background: #3b1f2b; color: #ffd9d6; box-shadow: 0 12px 30px -12px rgba(0, 0, 0, .8); font-weight: 700; font-size: .9rem; }
 .away-bar span { flex: 1; }
 
 /* ===== المستوى والتحديات والإحصائيات والإطارات ===== */
@@ -685,6 +685,35 @@ html.in-game .amb { display: none; }
 .lb-row small { margin-inline-start: auto; color: var(--ink-2); font-size: .78rem; }
 .lb-n { width: 26px; text-align: center; font-weight: 800; }
 .so-btn { width: 100%; margin-bottom: 8px; }
+
+/* ===== الكلام ميركبش على بعضه ===== */
+.soc-friend .who { display: grid; gap: 2px; min-width: 0; text-align: start; line-height: 1.25; }
+.soc-friend .who b, .frpick .fr b, .lb-row b, .lob-row b, .soc-req b, .chat-hd b { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.soc-friend .who small { font-size: .8rem; }
+.soc-friend .av, .frpick .fr .av { overflow: visible; }
+.soc-friend .av > .av-img, .soc-friend .av > .av-mono, .soc-friend .av > .frm, .frpick .fr .av > .av-img, .frpick .fr .av > .av-mono, .frpick .fr .av > .frm { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: grid; place-items: center; object-fit: cover; }
+.dot { position: absolute; bottom: 0; inset-inline-end: 0; width: 13px; height: 13px; border-radius: 50%; border: 2px solid var(--surface-2); z-index: 2; }
+.lb-row { flex-wrap: nowrap; }
+.lb-row b { flex: 1; }
+.lb-row small { flex: none; white-space: nowrap; }
+.gtitle b, .gtitle small { max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.seat .who b, .seat .who small { max-width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.res-sub, .res-title { overflow-wrap: anywhere; }
+/* زرار الخروج والإيموجيز */
+.ib.exitb { color: #ff8a80; }
+.ib.react .re-ic { font-size: 1.2rem; line-height: 1; }
+.react-bar { position: fixed; top: calc(env(safe-area-inset-top, 0px) + 62px); inset-inline: 10px; z-index: 46; display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; padding: 8px; border-radius: 18px; background: var(--g-chip-solid, #2b2350); box-shadow: 0 14px 30px -12px rgba(0, 0, 0, .8); animation: slidein .2s ease-out; }
+.react-bar button { all: unset; font-size: 1.7rem; padding: 4px 6px; cursor: pointer; border-radius: 10px; }
+.react-bar button:active { transform: scale(1.2); }
+.react-pop { position: fixed; left: 50%; top: 38%; z-index: 47; display: grid; justify-items: center; gap: 2px; pointer-events: none; transform: translate(-50%, 0); animation: reactfly 2.2s ease-out forwards; }
+.react-pop .re { font-size: 4rem; line-height: 1; filter: drop-shadow(0 8px 14px rgba(0, 0, 0, .5)); }
+.react-pop b { font-size: .85rem; padding: 2px 10px; border-radius: 999px; background: rgba(0, 0, 0, .55); color: #fff; white-space: nowrap; }
+.react-pop.mine { top: 55%; }
+@keyframes reactfly { 0% { opacity: 0; transform: translate(-50%, 20px) scale(.5); } 15% { opacity: 1; transform: translate(-50%, 0) scale(1.15); } 30% { transform: translate(-50%, 0) scale(1); } 80% { opacity: 1; } 100% { opacity: 0; transform: translate(-50%, -60px) scale(1); } }
+.qrow { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.qbtn span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 100%; }
+.pcard .avatar { overflow: visible !important; }
+.pcard .avatar > .av-img, .pcard .avatar > .av-mono, .pcard .avatar > .frm { overflow: hidden; display: grid; place-items: center; object-fit: cover; }
 
 </style>
 </head>
@@ -1988,7 +2017,7 @@ var L = {
     loginTitle: 'مكافأة النهارده', dayN: 'يوم {n}', takeN: 'خد {n}', statsT: 'إحصائياتي', played: 'جيمات', winRate: 'نسبة الفوز', bestStreak: 'أطول سلسلة', board: 'ترتيب الصحاب', frames: 'الإطارات',
     fr_none: 'من غير', fr_gold: 'دهب', fr_neon: 'نيون', fr_fire: 'نار', fr_royal: 'ملكي',
     seenMin: 'كان أونلاين من {n} دقيقة', sent: 'اتبعتت', seen: 'اتشافت', sending: 'بتتبعت', friendAway: '{name} فصل… الجيم هيكمّل أول ما يرجع', exitGame: 'اخرج من الجيم',
-    exitQ: 'تخرج من لمّة؟', exitNo: 'لأ، كمّل', exitYes: 'اخرج', gchat: 'الشات', gchatPh: 'اكتب لصحابك...', timerAsk: '{name} عايز يلعب بمؤقت {s} ثانية للدور', coins: 'كوينز', shop: 'المحل', buy: 'اشتري', owned: 'عندك', equipped: 'شغّال', notEnough: 'الكوينز مش مكفية', earned: 'كسبت {n} كوينز',
+    reactL: 'إيموجي', exitQ: 'تخرج من لمّة؟', exitNo: 'لأ، كمّل', exitYes: 'اخرج', gchat: 'الشات', gchatPh: 'اكتب لصحابك...', timerAsk: '{name} عايز يلعب بمؤقت {s} ثانية للدور', coins: 'كوينز', shop: 'المحل', buy: 'اشتري', owned: 'عندك', equipped: 'شغّال', notEnough: 'الكوينز مش مكفية', earned: 'كسبت {n} كوينز',
     settings: 'الإعدادات', language: 'اللغة', music: 'الموسيقى', sounds: 'الأصوات', yourName: 'اسمك', close: 'تمام',
     roll: 'ارمي الزهر', undo: 'تراجع', thinking: 'بيفكّر…',
     whoStarts: 'مين يبدأ؟', youStart: 'إنت اللي هتبدأ', botStarts: '{name} هيبدأ', tie: 'تعادل، نرمي تاني',
@@ -2059,7 +2088,7 @@ var L = {
     loginTitle: 'Today’s reward', dayN: 'Day {n}', takeN: 'Take {n}', statsT: 'My stats', played: 'Games', winRate: 'Win rate', bestStreak: 'Best streak', board: 'Friends ranking', frames: 'Frames',
     fr_none: 'None', fr_gold: 'Gold', fr_neon: 'Neon', fr_fire: 'Fire', fr_royal: 'Royal',
     seenMin: 'Online {n} min ago', sent: 'Sent', seen: 'Seen', sending: 'Sending', friendAway: '{name} disconnected… the game continues when they’re back', exitGame: 'Leave game',
-    exitQ: 'Leave لمّة?', exitNo: 'No, keep playing', exitYes: 'Exit', gchat: 'Chat', gchatPh: 'Message your friends...', timerAsk: '{name} wants a {s}s turn timer', coins: 'Coins', shop: 'Shop', buy: 'Buy', owned: 'Owned', equipped: 'Active', notEnough: 'Not enough coins', earned: 'You earned {n} coins',
+    reactL: 'Emoji', exitQ: 'Leave لمّة?', exitNo: 'No, keep playing', exitYes: 'Exit', gchat: 'Chat', gchatPh: 'Message your friends...', timerAsk: '{name} wants a {s}s turn timer', coins: 'Coins', shop: 'Shop', buy: 'Buy', owned: 'Owned', equipped: 'Active', notEnough: 'Not enough coins', earned: 'You earned {n} coins',
     settings: 'Settings', language: 'Language', music: 'Music', sounds: 'Sounds', yourName: 'Your name', close: 'Done',
     roll: 'Roll dice', undo: 'Undo', thinking: 'Thinking…',
     whoStarts: 'Who starts?', youStart: 'You start', botStarts: '{name} starts', tie: 'Tie, rolling again',
@@ -2138,6 +2167,7 @@ var ICON = {
   users: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M16 4.8a3.5 3.5 0 0 1 0 6.4M18.5 14.9c1.6.8 2.6 2.4 3 5.1"/></svg>',
   coin: '<svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="#F2A93B"/><circle cx="12" cy="12" r="6.4" fill="none" stroke="#8a5a12" stroke-width="1.4"/><path d="M12 8v8M9.8 10h3.4a1.6 1.6 0 0 1 0 3.2h-2.6a1.6 1.6 0 0 0 0 3.2h3.6" fill="none" stroke="#8a5a12" stroke-width="1.5" stroke-linecap="round"/></svg>',
   chat: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 11.5a8.4 8.4 0 0 1-9 8.4 9.8 9.8 0 0 1-2.8-.4L3 21l1.6-4.6A8.3 8.3 0 0 1 3.6 11 8.4 8.4 0 0 1 12 3a8.4 8.4 0 0 1 9 8.5z"/></svg>',
+  x: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
   bell: '<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 8a6 6 0 1 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>',
   copy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>',
   google: '<svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path fill="#4285F4" d="M23.5 12.3c0-.8-.1-1.6-.2-2.4H12v4.5h6.5c-.3 1.5-1.2 2.8-2.5 3.6v3h4C22.2 19 23.5 16 23.5 12.3z"/><path fill="#34A853" d="M12 24c3.2 0 6-1 8-2.9l-4-3c-1.1.7-2.5 1.2-4 1.2-3.1 0-5.7-2.1-6.6-4.9h-4.1v3.1C3.4 21.4 7.4 24 12 24z"/><path fill="#FBBC05" d="M5.4 14.3c-.2-.7-.4-1.5-.4-2.3s.1-1.6.4-2.3V6.6H1.3C.5 8.2 0 10.1 0 12s.5 3.8 1.3 5.4l4.1-3.1z"/><path fill="#EA4335" d="M12 4.8c1.7 0 3.3.6 4.5 1.7l3.4-3.4C17.9 1.2 15.1 0 12 0 7.4 0 3.4 2.6 1.3 6.6l4.1 3.1C6.3 6.9 8.9 4.8 12 4.8z"/></svg>',
@@ -2392,7 +2422,6 @@ function renderHome() {
     '<div class="games">' + poster('tawla') + poster('domino') + '</div>' +
     '<div class="mgames">' + mini('ludo', LUDO_ART) + mini('chess', CHESS_ART) + mini('basra', BASRA_ART) + '</div>' +
     '<div><h3 class="sec-h">' + t('boardLook') + '</h3><div class="skins">' + skinsHTML() + '</div></div>' +
-    '<button class="note" id="h-social">' + ICON.users + '<span>' + socialNoteText() + '</span></button>' +
     '</div></div>';
   var root = app.firstChild;
   root.addEventListener('click', function (ev) {
@@ -2641,6 +2670,7 @@ function listenGameChat(g) {
       if (ch.type !== 'added') return;
       var m = ch.doc.data();
       if (!m || m.from === myUid) return;
+      if (m.emo) { showReact(m.name || '', m.emo, false); return; }
       Snd.play('pop');
       if (gchatOpen) return;
       var dot = $('.gc-dot'); if (dot) dot.hidden = false;
@@ -2727,6 +2757,44 @@ function watchTick() {
   if (typeof g.botTurn === 'function') { g.phase = 'idle'; g.botTurn(); }
 }
 function startWatchdog() { clearInterval(wdTimer); wdTimer = setInterval(watchTick, 4000); }
+
+/* ----- إيموجيز سريعة تطير فوق اللعبة (لكل اللاعيبة) ----- */
+var REACTS = ['😂', '😍', '🔥', '👏', '😭', '😡', '🤝', '🎲', '😎', '🙏'];
+function reactButton() { return '<button class="ib react" aria-label="' + t('reactL') + '"><span class="re-ic">😊</span></button>'; }
+function wireReact(g, root) {
+  var b = $('.react', root); if (!b) return;
+  b.addEventListener('click', function () { Snd.play('tap'); toggleReactBar(g); });
+}
+function toggleReactBar(g) {
+  var bar = $('.react-bar');
+  if (bar) { bar.remove(); return; }
+  bar = document.createElement('div'); bar.className = 'react-bar';
+  bar.innerHTML = REACTS.map(function (e) { return '<button type="button" data-r="' + e + '">' + e + '</button>'; }).join('');
+  document.body.appendChild(bar);
+  bar.addEventListener('click', function (ev) {
+    var x = ev.target.closest('[data-r]'); if (!x) return;
+    bar.remove(); sendReact(g, x.getAttribute('data-r'));
+  });
+  setTimeout(function () { document.addEventListener('click', function off(ev) { if (!ev.target.closest('.react-bar, .react')) { var bb = $('.react-bar'); if (bb) bb.remove(); document.removeEventListener('click', off); } }); }, 0);
+}
+function sendReact(g, e) {
+  showReact(S.name || t('you'), e, true);
+  if (g.online) {
+    var ref = gameChatRef(g);
+    if (ref) ref.add({ from: myUid, name: S.name || '', emo: e, text: e, ts: firebase.firestore.FieldValue.serverTimestamp() }).catch(function () {});
+  } else if (Math.random() < 0.6) {
+    var nm = g.botName ? g.botName() : g.pname ? g.pname(1) : '';
+    setTimeout(function () { if (current === g && g.alive) showReact(nm, REACTS[Math.floor(Math.random() * REACTS.length)], false); }, 1300);
+  }
+}
+function showReact(name, e, mine) {
+  var el = document.createElement('div');
+  el.className = 'react-pop' + (mine ? ' mine' : '');
+  el.innerHTML = '<span class="re">' + e + '</span><b>' + esc(name) + '</b>';
+  document.body.appendChild(el);
+  Snd.play('pop');
+  setTimeout(function () { el.remove(); }, 2300);
+}
 
 /* ===== لمّة — المستوى والتحديات والإطارات والترتيب ===== */
 var XP_WIN = 30, XP_LOSE = 10, XP_ONLINE = 10;
@@ -2898,11 +2966,19 @@ function profileCardHTML() {
   var pr = lvlProgress(), ready = dailyReady();
   return '<div class="pcard"><div class="avatar">' + framedAv(S.name, S.photo, S.frame) + '<span class="lvl-badge">' + pr.lvl + '</span></div>' +
     '<div class="pc-mid"><h1>' + t('hi', { name: esc(S.name) }) + '</h1><div class="bar xp"><i style="width:' + pr.pct + '%"></i></div><small>' + t('xpLeft', { n: pr.left }) + '</small></div></div>' +
-    '<div class="qrow"><button class="qbtn" id="h-daily">🎯<span>' + t('daily') + '</span>' + (ready ? '<i class="qdot">' + ready + '</i>' : '') + '</button>' +
+    '<div class="qrow"><button class="qbtn" id="h-social">👥<span>' + t('friends') + '</span>' + (socialCount() ? '<i class="qdot">' + socialCount() + '</i>' : '') + '</button>' +
+    '<button class="qbtn" id="h-daily">🎯<span>' + t('daily') + '</span>' + (ready ? '<i class="qdot">' + ready + '</i>' : '') + '</button>' +
     '<button class="qbtn" id="h-stats">📊<span>' + t('statsT') + '</span></button>' +
     '<button class="qbtn" id="h-shop2">' + ICON.coin + '<span><b data-coins>' + coins() + '</b></span></button></div>';
 }
 function refreshHomeBadges() { var b = $('#h-daily'); if (!b) return; var r = dailyReady(), d = $('.qdot', b); if (r && !d) b.insertAdjacentHTML('beforeend', '<i class="qdot">' + r + '</i>'); else if (d) { if (r) d.textContent = r; else d.remove(); } }
+
+// رقم أحمر على زرار الصحاب: رسايل جديدة + طلبات صداقة
+function socialCount() {
+  var n = 0;
+  try { n = unreadTotal() + Object.keys(requestsData || {}).length; } catch (e) { n = 0; }
+  return n;
+}
 
 /* ===== لمّة — الأصحاب والدخول بجوجل ===== */
 var fbApp = null, fbAuth = null, fbDb = null, myUid = null, myCode = '';
@@ -2998,6 +3074,7 @@ function listenRequests() {
     requestsData = {};
     snap.forEach(function (d) { requestsData[d.id] = d.data(); });
     if (socialRoot && socialRoot.isConnected) paintRequests();
+    refreshHomeNote();
   });
 }
 function listenInvites() {
@@ -3305,7 +3382,11 @@ function clearInbox(from) {
   refreshHomeNote();
 }
 function unreadTotal() { return Object.keys(unread).reduce(function (a, k) { return a + (unread[k] || 0); }, 0); }
-function refreshHomeNote() { var el = $('#h-social span'); if (el) el.textContent = socialNoteText(); }
+function refreshHomeNote() {
+  var b = $('#h-social'); if (!b) return;
+  var n = socialCount(), d = $('.qdot', b);
+  if (n && !d) b.insertAdjacentHTML('beforeend', '<i class="qdot">' + n + '</i>'); else if (d) { if (n) d.textContent = n; else d.remove(); }
+}
 function showMsgToast(from, name, text) {
   var box = document.createElement('div');
   box.className = 'toast invite-toast msg-toast in';
@@ -3760,9 +3841,9 @@ TP.render = function () {
   setInGame(true);
   var self = this, vt = t(this.variant === 'mahbusa' ? 'vMahbusa' : this.variant === 't31' ? 'v31' : 'vAada');
   app.innerHTML = '<div class="game tw">' +
-    '<div class="gbar"><button class="ib back" aria-label="' + t('toHome') + '">' + ICON.back + '</button>' +
+    '<div class="gbar"><button class="ib back exitb" aria-label="' + t('exitGame') + '">' + ICON.x + '</button>' +
     '<div class="gtitle"><b>' + t('tawla') + ' ' + vt + '</b><small class="g-score"></small></div>' +
-    gameChatButton() + '<button class="ib gear" aria-label="' + t('settings') + '">' + ICON.gear + '</button></div>' +
+    gameChatButton() + reactButton() + '<button class="ib gear" aria-label="' + t('settings') + '">' + ICON.gear + '</button></div>' +
     '<div class="tw-main">' +
     '<div class="seat op"><div class="av">' + this.opAv() + '</div><div class="who"><b>' + esc(this.botName()) + (this.online ? '' : ' <small>(' + t(this.level) + ')</small>') + '</b><small class="meta"></small></div></div>' +
     '<div class="board-wrap">' + boardSVG() + '<div class="bmsg" aria-live="polite"></div></div>' +
@@ -3772,6 +3853,7 @@ TP.render = function () {
   var root = app.firstChild;
   this.root = root;
   wireGameChat(this, root);
+  wireReact(this, root);
   this.svg = $('svg.tboard', root); this.rot = $('.rot', this.svg);
   this.lHl = $('.l-hl', this.svg); this.lCk = $('.l-ck', this.svg); this.lLbl = $('.l-lbl', this.svg); this.lHit = $('.l-hit', this.svg);
   this.wrap = $('.board-wrap', root); this.msgEl = $('.bmsg', root); this.diceBox = $('.dice', root);
@@ -4255,9 +4337,9 @@ DP.render = function () {
     seats += '<div class="seat" data-p="' + p + '"><div class="av">' + this.pav(p) + '</div><div class="who"><b>' + esc(this.pname(p)) + '</b><small class="pts"></small></div><div class="minis"></div></div>';
   }
   app.innerHTML = '<div class="game dm">' +
-    '<div class="gbar"><button class="ib back" aria-label="' + t('toHome') + '">' + ICON.back + '</button>' +
+    '<div class="gbar"><button class="ib back exitb" aria-label="' + t('exitGame') + '">' + ICON.x + '</button>' +
     '<div class="gtitle"><b>' + t('domino') + '</b><small class="g-score"></small></div>' +
-    gameChatButton() + '<button class="ib gear" aria-label="' + t('settings') + '">' + ICON.gear + '</button></div>' +
+    gameChatButton() + reactButton() + '<button class="ib gear" aria-label="' + t('settings') + '">' + ICON.gear + '</button></div>' +
     '<div class="seats">' + seats + '</div>' +
     '<div class="table-wrap"><svg class="tbl" viewBox="0 0 300 300" aria-hidden="true"><g class="chain"></g></svg><div class="bone-chip" hidden></div><div class="tmsg"></div></div>' +
     '<div class="me-bar"><div class="seat me" data-p="0"><div class="av">' + myAv() + '</div><div class="who"><b>' + esc(this.pname(0)) + '</b><small class="pts"></small></div></div><div class="status" aria-live="polite"></div></div>' +
@@ -4265,6 +4347,7 @@ DP.render = function () {
   var root = app.firstChild;
   this.root = root;
   wireGameChat(this, root);
+  wireReact(this, root);
   this.tableWrap = $('.table-wrap', root); this.svg = $('.tbl', root); this.chainG = $('.chain', root);
   this.bone = $('.bone-chip', root); this.tmsgEl = $('.tmsg', root); this.handEl = $('.hand', root);
   this.statusEl = $('.status', root); this.scoreEl = $('.g-score', root);
@@ -4626,9 +4709,9 @@ LP.render = function () {
     seats += '<div class="seat" data-p="' + i + '"><div class="av" style="border-color:' + LU_HEX[this.cols[i]] + '">' + this.pav(i) + '</div><div class="who"><b>' + esc(this.pname(i)) + '</b><small class="meta"></small></div></div>';
   }
   app.innerHTML = '<div class="game lu">' +
-    '<div class="gbar"><button class="ib back" aria-label="' + t('toHome') + '">' + ICON.back + '</button>' +
+    '<div class="gbar"><button class="ib back exitb" aria-label="' + t('exitGame') + '">' + ICON.x + '</button>' +
     '<div class="gtitle"><b>' + t('ludo') + '</b><small>' + t('luFirst') + '</small></div>' +
-    gameChatButton() + '<button class="ib gear" aria-label="' + t('settings') + '">' + ICON.gear + '</button></div>' +
+    gameChatButton() + reactButton() + '<button class="ib gear" aria-label="' + t('settings') + '">' + ICON.gear + '</button></div>' +
     '<div class="seats lu-seats">' + seats + '</div>' +
     '<div class="lu-wrap">' + luBoardSVG() + '<div class="bmsg" aria-live="polite"></div></div>' +
     '<div class="me-bar"><div class="seat me" data-p="0"><div class="av" style="border-color:' + LU_HEX[this.cols[0]] + '">' + myAv() + '</div><div class="who"><b>' + esc(this.pname(0)) + '</b><small class="meta"></small></div></div>' +
@@ -4637,6 +4720,7 @@ LP.render = function () {
   var root = app.firstChild;
   this.root = root; this.svg = $('.lboard', root); this.tokG = $('.lu-toks', root); this.msgEl = $('.bmsg', root);
   wireGameChat(this, root);
+  wireReact(this, root);
   this.diceBox = $('.dice', root); this.rollBtn = $('.roll', root);
   if (this.tt) this.tt.stop();
   this.tt = new TurnTimer($('.seat.me', root));
@@ -4842,9 +4926,9 @@ CP.render = function () {
   var self = this, sq = '', r, f;
   for (r = 0; r < 8; r++) for (f = 0; f < 8; f++) sq += '<rect class="cq ' + ((r + f) % 2 ? 'dk' : 'lt') + '" data-r="' + r + '" data-f="' + f + '" width="10" height="10"/>';
   app.innerHTML = '<div class="game ch">' +
-    '<div class="gbar"><button class="ib back" aria-label="' + t('toHome') + '">' + ICON.back + '</button>' +
+    '<div class="gbar"><button class="ib back exitb" aria-label="' + t('exitGame') + '">' + ICON.x + '</button>' +
     '<div class="gtitle"><b>' + t('chess') + '</b><small>' + (this.online ? '' : t(this.level)) + '</small></div>' +
-    gameChatButton() + '<button class="ib gear" aria-label="' + t('settings') + '">' + ICON.gear + '</button></div>' +
+    gameChatButton() + reactButton() + '<button class="ib gear" aria-label="' + t('settings') + '">' + ICON.gear + '</button></div>' +
     '<div class="ch-main">' +
     '<div class="seat op"><div class="av">' + (this.online ? framedAv(this.online.friend.name, this.online.friend.photo, this.online.friend.frame) : this.bot.av) + '</div><div class="who"><b>' + esc(this.botName()) + '</b><small class="caps" data-for="op"></small></div></div>' +
     '<div class="ch-wrap"><svg class="cboard" viewBox="-1 -1 82 82" aria-hidden="true"><rect class="cb-frame" x="-1" y="-1" width="82" height="82" rx="2"/><g class="cb-sq">' + sq + '</g><g class="cb-hl"></g><g class="cb-pc"></g><g class="cb-crd"></g></svg><div class="bmsg" aria-live="polite"></div></div>' +
@@ -4853,6 +4937,7 @@ CP.render = function () {
   var root = app.firstChild;
   this.root = root; this.svg = $('.cboard', root); this.hlG = $('.cb-hl', root); this.pcG = $('.cb-pc', root); this.msgEl = $('.bmsg', root);
   wireGameChat(this, root);
+  wireReact(this, root);
   this.stEl = $('.ch-st', root); this.seatMe = $('.seat.me', root); this.seatOp = $('.seat.op', root);
   if (this.tt) this.tt.stop();
   this.tt = new TurnTimer(this.seatMe);
@@ -5053,9 +5138,9 @@ BP.render = function () {
   setInGame(true);
   var self = this;
   app.innerHTML = '<div class="game bs">' +
-    '<div class="gbar"><button class="ib back" aria-label="' + t('toHome') + '">' + ICON.back + '</button>' +
+    '<div class="gbar"><button class="ib back exitb" aria-label="' + t('exitGame') + '">' + ICON.x + '</button>' +
     '<div class="gtitle"><b>' + t('basra') + '</b><small class="g-score"></small></div>' +
-    gameChatButton() + '<button class="ib gear" aria-label="' + t('settings') + '">' + ICON.gear + '</button></div>' +
+    gameChatButton() + reactButton() + '<button class="ib gear" aria-label="' + t('settings') + '">' + ICON.gear + '</button></div>' +
     '<div class="bs-top"><div class="seat op"><div class="av">' + (this.online ? framedAv(this.online.friend.name, this.online.friend.photo, this.online.friend.frame) : this.bot.av) + '</div><div class="who"><b>' + esc(this.botName()) + '</b><small class="meta" data-for="1"></small></div></div><div class="bs-ophand"></div></div>' +
     '<div class="table-wrap bs-table"><div class="bs-ground"></div><div class="bone-chip bs-deck"></div><div class="tmsg"></div></div>' +
     '<div class="me-bar"><div class="seat me"><div class="av">' + myAv() + '</div><div class="who"><b>' + esc(S.name || t('you')) + '</b><small class="meta" data-for="0"></small></div></div><div class="status" aria-live="polite"></div></div>' +
@@ -5063,6 +5148,7 @@ BP.render = function () {
   var root = app.firstChild;
   this.root = root; this.ground = $('.bs-ground', root); this.handEl = $('.bs-hand', root); this.opHand = $('.bs-ophand', root);
   wireGameChat(this, root);
+  wireReact(this, root);
   this.deckEl = $('.bs-deck', root); this.tmsgEl = $('.tmsg', root); this.statusEl = $('.status', root); this.scoreEl = $('.g-score', root);
   this.seatMe = $('.seat.me', root); this.seatOp = $('.seat.op', root);
   if (this.tt) this.tt.stop();
