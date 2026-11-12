@@ -727,6 +727,23 @@ html.in-game .amb { display: none; }
 .sw-lock { display: inline-flex; align-items: center; gap: 3px; font-style: normal; font-size: .72rem; font-weight: 800; color: var(--hl); }
 .sw-lock svg { width: 12px; height: 12px; }
 
+/* ===== العجلة والأوسمة والتحديثات ===== */
+.qrow { grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.qbtn { padding: 9px 4px; font-size: 1.2rem; }
+.qbtn span { font-size: .74rem; }
+.wheel-box { position: relative; width: min(280px, 76vw); aspect-ratio: 1; margin: 6px auto 16px; }
+.wheel { width: 100%; height: 100%; filter: drop-shadow(0 12px 24px rgba(0, 0, 0, .5)); }
+.wheel-pin { position: absolute; top: -6px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-inline: 13px solid transparent; border-top: 24px solid #f2c12e; filter: drop-shadow(0 3px 4px rgba(0, 0, 0, .5)); }
+.bdg-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-top: 6px; }
+.bdg { display: grid; justify-items: center; gap: 3px; padding: 8px 2px; border-radius: 14px; background: var(--surface-2); filter: grayscale(1); opacity: .45; }
+.bdg.on { filter: none; opacity: 1; box-shadow: inset 0 0 0 2px var(--hl); }
+.bdg span { font-size: 1.5rem; }
+.bdg small { font-size: .64rem; text-align: center; line-height: 1.2; }
+.sec-h small { color: var(--ink-2); font-weight: 600; font-size: .8rem; }
+.upd-ic { font-size: 2.6rem; text-align: center; }
+.upd-notes { text-align: start; margin: 6px 0 14px; padding-inline-start: 20px; display: grid; gap: 6px; color: var(--ink); }
+.upd-notes li { line-height: 1.4; }
+
 </style>
 </head>
 <body>
@@ -2029,6 +2046,9 @@ var L = {
     loginTitle: 'مكافأة النهارده', dayN: 'يوم {n}', takeN: 'خد {n}', statsT: 'إحصائياتي', played: 'جيمات', winRate: 'نسبة الفوز', bestStreak: 'أطول سلسلة', board: 'ترتيب الصحاب', frames: 'الإطارات',
     fr_none: 'من غير', fr_gold: 'دهب', fr_neon: 'نيون', fr_fire: 'نار', fr_royal: 'ملكي',
     seenMin: 'كان أونلاين من {n} دقيقة', sent: 'اتبعتت', seen: 'اتشافت', sending: 'بتتبعت', friendAway: '{name} انقطع اتصاله… في انتظار رجوعه', exitGame: 'خروج',
+    updTitle: 'في تحديث جديد', updVer: 'لمّة {v}', updNow: 'حدّث دلوقتي', updGetApk: 'نزّل التحديث', updApkHint: 'هيفتحلك صفحة التحميل، نزّل الملف وثبّته فوق القديم', upToDate: 'عندك آخر إصدار', updCheck: 'تحقق', newIn: 'الجديد في لمّة {v}',
+    wheel: 'عجلة الحظ', wheelS: 'العجلة', wheelSub: 'لفّة مجانية كل يوم', wheelDone: 'لفّيت النهارده، ارجع بكرة', spin: 'لِف', spinTomorrow: 'ارجع بكرة', wonCoins: 'كسبت {n} كوينز!', wonXp: 'كسبت 50 نقطة خبرة!',
+    badges: 'الأوسمة', badgeNew: 'وسام جديد: {name} (+{n})', bd_first_win: 'أول فوز', bd_wins_10: '10 انتصارات', bd_wins_50: '50 انتصار', bd_online_1: 'أول جيم أونلاين', bd_online_10: '10 جيمات أونلاين', bd_streak_5: '5 ورا بعض', bd_all_games: 'لعبت الخمسة', bd_level_5: 'مستوى 5', bd_level_10: 'مستوى 10', bd_rich: '1000 كوينز',
     secProfile: 'الملف الشخصي', secAccount: 'الحساب', accGoogle: 'حساب جوجل', accNone: 'غير مسجّل', accWhy: 'سجّل الدخول عشان تلعب مع أصحابك', signInShort: 'تسجيل الدخول',
     secNotif: 'الإشعارات', notifDevice: 'إشعارات الجهاز ده', pst_on: 'مفعّلة', pst_off: 'متوقفة', pst_blocked: 'مقفولة من إعدادات الجهاز', pst_na: 'غير متاحة على هذا المتصفح',
     nfChat: 'رسائل الدردشة', nfInvite: 'دعوات اللعب', nfFriend: 'طلبات الصداقة', pushTest: 'إرسال إشعار تجريبي',
@@ -2107,6 +2127,9 @@ var L = {
     loginTitle: 'Today’s reward', dayN: 'Day {n}', takeN: 'Take {n}', statsT: 'My stats', played: 'Games', winRate: 'Win rate', bestStreak: 'Best streak', board: 'Friends ranking', frames: 'Frames',
     fr_none: 'None', fr_gold: 'Gold', fr_neon: 'Neon', fr_fire: 'Fire', fr_royal: 'Royal',
     seenMin: 'Online {n} min ago', sent: 'Sent', seen: 'Seen', sending: 'Sending', friendAway: '{name} disconnected… the game continues when they’re back', exitGame: 'Leave game',
+    updTitle: 'A new update is here', updVer: 'لمّة {v}', updNow: 'Update now', updGetApk: 'Download update', updApkHint: 'The download page will open; install the file over the current app', upToDate: 'You have the latest version', updCheck: 'Check', newIn: 'What’s new in {v}',
+    wheel: 'Lucky wheel', wheelS: 'Wheel', wheelSub: 'One free spin every day', wheelDone: 'You spun today, come back tomorrow', spin: 'Spin', spinTomorrow: 'Come back tomorrow', wonCoins: 'You won {n} coins!', wonXp: 'You won 50 XP!',
+    badges: 'Badges', badgeNew: 'New badge: {name} (+{n})', bd_first_win: 'First win', bd_wins_10: '10 wins', bd_wins_50: '50 wins', bd_online_1: 'First online game', bd_online_10: '10 online games', bd_streak_5: '5 in a row', bd_all_games: 'Played all five', bd_level_5: 'Level 5', bd_level_10: 'Level 10', bd_rich: '1000 coins',
     secProfile: 'Profile', secAccount: 'Account', accGoogle: 'Google account', accNone: 'Not signed in', accWhy: 'Sign in to play with friends', signInShort: 'Sign in',
     secNotif: 'Notifications', notifDevice: 'Notifications on this device', pst_on: 'On', pst_off: 'Off', pst_blocked: 'Blocked in device settings', pst_na: 'Not available in this browser',
     nfChat: 'Chat messages', nfInvite: 'Game invites', nfFriend: 'Friend requests', pushTest: 'Send a test notification',
@@ -2179,7 +2202,7 @@ function applyLang() {
 
 var AVATARS = ['😎', '🧔🏽', '👩🏽', '🧕🏽', '👨🏽‍🦱', '🦁', '🐪', '🦅'];
 var SKINS = ['sadaf', 'khayamiya', 'neon', 'marble', 'pharaoh'];
-var APP_VER = '1.0.7';
+var APP_VER = '1.0.8';
 var BOTS = [{ k: 0, av: '🧑🏽' }, { k: 1, av: '👴🏽' }, { k: 2, av: '🧔🏽' }, { k: 3, av: '👵🏽' }];
 function botsFor(level, count) {
   var first = { easy: 0, medium: 1, hard: 2 }[level] || 0;
@@ -2458,10 +2481,11 @@ function renderHome() {
     if (ev.target.closest('#h-shop2')) { Snd.play('tap'); openShop(); return; }
     if (ev.target.closest('#h-daily')) { Snd.play('tap'); openDaily(); return; }
     if (ev.target.closest('#h-stats')) { Snd.play('tap'); openStats(); return; }
+    if (ev.target.closest('#h-wheel')) { Snd.play('tap'); openWheel(); return; }
     if (sk) { Snd.play('tap'); var kk = sk.getAttribute('data-pick-skin'); if (ownsSkin(kk)) setSkin(kk); else openShop(); return; }
     if (ev.target.closest('#h-set')) { Snd.play('tap'); openSettings(); }
   });
-  if (S.name) setTimeout(maybeLoginReward, 500);
+  if (S.name) setTimeout(function () { showWhatsNew(); maybeLoginReward(); checkUpdate(false); }, 500);
 }
 
 /* ----- اختيار اللعبة ----- */
@@ -2591,7 +2615,7 @@ function openSettings() {
     '<div class="field"><div class="lbl">' + t('boardLook') + '</div><div class="skins">' + skinsHTML() + '</div></div>' +
     '<h3 class="sset">' + t('secAbout') + '</h3>' +
     setRow(t('shareGame'), t('shareSub'), '<button class="btn plain sm" data-share>' + t('share') + '</button>') +
-    setRow(t('version'), 'لمّة ' + APP_VER, '') +
+    setRow(t('version'), 'لمّة ' + APP_VER, '<button class="btn plain sm" data-upd-check>' + t('updCheck') + '</button>') +
     '<button class="btn cta" data-close>' + t('close') + '</button>';
   var w = openSheet(html), nameInp = $('#s-name', w), dirty = false;
   bindPhoto(w, function () { return S.name; }, function () { dirty = true; });
@@ -2617,6 +2641,7 @@ function openSettings() {
     if (sk) { var kk = sk.getAttribute('data-pick-skin'); if (ownsSkin(kk)) setSkin(kk); else { closeSheet(w); setTimeout(openShop, 280); } return; }
     if (ev.target.closest('[data-ptest]')) { runPushTest($('#ptest-res', w)); return; }
     if (ev.target.closest('[data-share]')) { shareGame(); return; }
+    if (ev.target.closest('[data-upd-check]')) { checkUpdate(true); return; }
     if (ev.target.closest('[data-signin]')) { closeSheet(w); openSocial(); return; }
     if (ev.target.closest('[data-signout]')) { closeSheet(w); signOutGoogle(); return; }
     if (ev.target.closest('[data-close]')) { closeSheet(w); if (dirty) { refreshScreen(); pushProfile(); } }
@@ -2884,12 +2909,14 @@ function recordGame(game, won, online) {
   var st = S.streak || (S.streak = { cur: 0, best: 0 });
   if (won) { st.cur++; if (st.cur > st.best) st.best = st.cur; } else st.cur = 0;
   dailyBump(game, won, online);
+  if (online) S.onlineGames = (S.onlineGames || 0) + 1;
   save();
   var c = (won ? WIN_COINS : PLAY_COINS) + (won && st.cur >= 3 ? 10 : 0);
   addCoins(c);
   var after = levelOf(xpOf());
   if (after > before) setTimeout(function () { levelUp(after); }, 900);
   pushStats();
+  checkBadges();
 }
 function levelUp(l) {
   var bonus = 50 + 10 * l;
@@ -2979,7 +3006,7 @@ function openStats() {
     '<div class="st-rows">' + GAMES5.map(function (g) {
       var s = S.stats[g], r = s.p ? Math.round(100 * s.w / s.p) : 0;
       return '<div class="st-row"><b>' + t(g) + '</b><div class="bar"><i style="width:' + r + '%"></i></div><small>' + s.w + ' / ' + s.p + '</small></div>';
-    }).join('') + '</div>');
+    }).join('') + '</div>' + badgesHTML());
 }
 
 /* ----- الإطارات ----- */
@@ -3033,10 +3060,11 @@ function profileCardHTML() {
     '<div class="pc-mid"><h1>' + t('hi', { name: esc(S.name) }) + '</h1><div class="bar xp"><i style="width:' + pr.pct + '%"></i></div><small>' + t('xpLeft', { n: pr.left }) + '</small></div></div>' +
     '<div class="qrow"><button class="qbtn" id="h-social">👥<span>' + t('friends') + '</span>' + (socialCount() ? '<i class="qdot">' + socialCount() + '</i>' : '') + '</button>' +
     '<button class="qbtn" id="h-daily">🎯<span>' + t('daily') + '</span>' + (ready ? '<i class="qdot">' + ready + '</i>' : '') + '</button>' +
+    '<button class="qbtn" id="h-wheel">🎡<span>' + t('wheelS') + '</span>' + (wheelReady() ? '<i class="qdot">1</i>' : '') + '</button>' +
     '<button class="qbtn" id="h-stats">📊<span>' + t('statsT') + '</span></button>' +
     '<button class="qbtn" id="h-shop2">' + ICON.coin + '<span><b data-coins>' + coins() + '</b></span></button></div>';
 }
-function refreshHomeBadges() { var b = $('#h-daily'); if (!b) return; var r = dailyReady(), d = $('.qdot', b); if (r && !d) b.insertAdjacentHTML('beforeend', '<i class="qdot">' + r + '</i>'); else if (d) { if (r) d.textContent = r; else d.remove(); } }
+function refreshHomeBadges() { var wd = $('#h-wheel .qdot'); if (wd && !wheelReady()) wd.remove(); var b = $('#h-daily'); if (!b) return; var r = dailyReady(), d = $('.qdot', b); if (r && !d) b.insertAdjacentHTML('beforeend', '<i class="qdot">' + r + '</i>'); else if (d) { if (r) d.textContent = r; else d.remove(); } }
 
 // رقم أحمر على زرار الصحاب: رسايل جديدة + طلبات صداقة
 function socialCount() {
@@ -3044,6 +3072,119 @@ function socialCount() {
   try { n = unreadTotal() + Object.keys(requestsData || {}).length; } catch (e) { n = 0; }
   return n;
 }
+
+/* ===== عجلة الحظ اليومية ===== */
+var WHEEL = [20, 50, 30, 100, 20, 200, 40, 'xp'];
+function wheelReady() { return (S.wheelDay || '') !== todayKey(); }
+function openWheel() {
+  var seg = 360 / WHEEL.length, cols = ['#d6453d', '#f2a93b', '#1f9e8f', '#3a6fd8', '#8e2d55', '#e39a2d', '#5b8c2a', '#7a52c7'];
+  var paths = WHEEL.map(function (v, i) {
+    var a0 = (i * seg - 90) * Math.PI / 180, a1 = ((i + 1) * seg - 90) * Math.PI / 180, mid = ((i + .5) * seg - 90) * Math.PI / 180;
+    var x0 = 100 + 92 * Math.cos(a0), y0 = 100 + 92 * Math.sin(a0), x1 = 100 + 92 * Math.cos(a1), y1 = 100 + 92 * Math.sin(a1);
+    var tx = 100 + 62 * Math.cos(mid), ty = 100 + 62 * Math.sin(mid);
+    return '<path d="M100 100L' + x0.toFixed(1) + ' ' + y0.toFixed(1) + 'A92 92 0 0 1 ' + x1.toFixed(1) + ' ' + y1.toFixed(1) + 'Z" fill="' + cols[i] + '"/>' +
+      '<text x="' + tx.toFixed(1) + '" y="' + ty.toFixed(1) + '" transform="rotate(' + ((i + .5) * seg) + ' ' + tx.toFixed(1) + ' ' + ty.toFixed(1) + ')" text-anchor="middle" dominant-baseline="middle" font-size="15" font-weight="800" fill="#fff">' + (v === 'xp' ? 'XP' : v) + '</text>';
+  }).join('');
+  var ready = wheelReady();
+  var sh = openSheet('<h2>' + t('wheel') + '</h2><p class="res-sub">' + t(ready ? 'wheelSub' : 'wheelDone') + '</p>' +
+    '<div class="wheel-box"><svg class="wheel" viewBox="0 0 200 200"><circle cx="100" cy="100" r="97" fill="#1a1230"/>' + paths + '<circle cx="100" cy="100" r="16" fill="#1a1230" stroke="#f2c12e" stroke-width="3"/></svg><i class="wheel-pin"></i></div>' +
+    '<button class="btn cta" data-spin' + (ready ? '' : ' disabled') + '>' + t(ready ? 'spin' : 'spinTomorrow') + '</button>');
+  $('[data-spin]', sh).addEventListener('click', function () {
+    if (!wheelReady()) return;
+    var b = this; b.disabled = true;
+    var weights = [22, 14, 20, 8, 22, 3, 18, 10], tot = weights.reduce(function (a, c) { return a + c; }, 0), r = Math.random() * tot, idx = 0;
+    while (r > weights[idx]) { r -= weights[idx]; idx++; }
+    var turn = 360 * 6 + (360 - (idx + .5) * seg);
+    S.wheelDay = todayKey(); save();
+    var wh = $('.wheel', sh); wh.style.transition = 'transform 4.2s cubic-bezier(.17,.67,.2,1)'; wh.style.transform = 'rotate(' + turn + 'deg)';
+    Snd.play('dice');
+    setTimeout(function () {
+      var v = WHEEL[idx];
+      if (v === 'xp') { S.xp = xpOf() + 50; save(); toast(t('wonXp'), 2200); }
+      else { S.coins = coins() + v; save(); paintCoins(); toast(t('wonCoins', { n: v }), 2200); }
+      Snd.play('win'); buzz([30, 50, 30]); refreshHomeBadges(); checkBadges();
+      b.textContent = t('spinTomorrow');
+    }, 4300);
+  });
+}
+
+/* ===== الأوسمة (إنجازات) ===== */
+var BADGES = [
+  { id: 'first_win', ic: '🏅', c: 50, ok: function () { return totalWins() >= 1; } },
+  { id: 'wins_10', ic: '🎖️', c: 100, ok: function () { return totalWins() >= 10; } },
+  { id: 'wins_50', ic: '🏆', c: 250, ok: function () { return totalWins() >= 50; } },
+  { id: 'online_1', ic: '🤝', c: 50, ok: function () { return (S.onlineGames || 0) >= 1; } },
+  { id: 'online_10', ic: '🌍', c: 150, ok: function () { return (S.onlineGames || 0) >= 10; } },
+  { id: 'streak_5', ic: '🔥', c: 150, ok: function () { return ((S.streak || {}).best || 0) >= 5; } },
+  { id: 'all_games', ic: '🎲', c: 100, ok: function () { return GAMES5.every(function (g) { return S.stats[g].p > 0; }); } },
+  { id: 'level_5', ic: '⭐', c: 150, ok: function () { return levelOf(xpOf()) >= 5; } },
+  { id: 'level_10', ic: '🌟', c: 300, ok: function () { return levelOf(xpOf()) >= 10; } },
+  { id: 'rich', ic: '💰', c: 100, ok: function () { return coins() >= 1000; } }
+];
+function totalWins() { var w = 0; GAMES5.forEach(function (g) { w += S.stats[g].w; }); return w; }
+function checkBadges() {
+  var got = S.badges || (S.badges = []), fresh = [];
+  BADGES.forEach(function (b) { if (got.indexOf(b.id) < 0 && b.ok()) { got.push(b.id); fresh.push(b); } });
+  if (!fresh.length) return;
+  fresh.forEach(function (b) { S.coins = coins() + b.c; });
+  save(); paintCoins();
+  fresh.forEach(function (b, i) { setTimeout(function () { toast(b.ic + ' ' + t('badgeNew', { name: t('bd_' + b.id), n: b.c }), 2600); Snd.play('pop'); }, 1800 + i * 2700); });
+}
+function badgesHTML() {
+  var got = S.badges || [];
+  return '<h3 class="sec-h">' + t('badges') + ' <small>' + got.length + ' / ' + BADGES.length + '</small></h3><div class="bdg-grid">' + BADGES.map(function (b) {
+    var on = got.indexOf(b.id) >= 0;
+    return '<div class="bdg' + (on ? ' on' : '') + '"><span>' + b.ic + '</span><small>' + t('bd_' + b.id) + '</small></div>';
+  }).join('') + '</div>';
+}
+
+/* ===== لمّة — التحديثات =====
+ * الموقع فيه version.json بآخر إصدار. اللعبة بتقارن رقمها بيه:
+ * الأبلكيشن القديم بيظهرله «في تحديث جديد» وزرار ينزّل الأبلكيشن، والموقع بيتحدّث لوحده.
+ * وبعد أي تحديث بيظهر «الجديد في الإصدار» مرة واحدة. */
+var UPD_URL = 'https://technicalteam774.github.io/lamma/version.json';
+var APK_PAGE = 'https://github.com/TechnicalTeam774/lamma/releases/latest';
+var CHANGES = {"1.0.8": ["عجلة الحظ: لفّة مجانية كل يوم وجوايز كوينز ونقط", "الأوسمة: 10 أوسمة تكسبها وكل واحد بجايزة", "تنبيه بالتحديثات: اللعبة بتقولك لما ينزل إصدار جديد", "إعدادات أكمل: الإشعارات والخصوصية والاهتزاز"]};
+function verNum(v) { var p = String(v || '0').split('.'); return (+p[0] || 0) * 1e6 + (+p[1] || 0) * 1e3 + (+p[2] || 0); }
+var updLast = 0;
+function checkUpdate(manual) {
+  if (typeof fetch !== 'function' || location.protocol === 'file:' || location.hostname.indexOf('claude') >= 0) { if (manual) toast(t('upToDate')); return; }
+  updLast = Date.now();
+  fetch(UPD_URL + '?t=' + Date.now(), { cache: 'no-store' }).then(function (r) { return r.json(); }).then(function (j) {
+    if (!j || !j.version) return;
+    if (verNum(j.version) > verNum(APP_VER)) {
+      if (!manual && S.updLater === j.version && Date.now() - (S.updLaterAt || 0) < 12 * 3600000) return;
+      showUpdate(j);
+    } else if (manual) toast(t('upToDate'));
+  }).catch(function () { if (manual) toast(t('netErr')); });
+}
+function notesHTML(list) { return list && list.length ? '<ul class="upd-notes">' + list.map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('') + '</ul>' : ''; }
+function showUpdate(j) {
+  if ($('.upd-sheet')) return;
+  var native = isNativeApp();
+  var sh = openSheet('<div class="upd-sheet"><div class="upd-ic">🎉</div><p class="res-title">' + t('updTitle') + '</p><p class="res-sub">' + t('updVer', { v: j.version }) + '</p>' + notesHTML(j.notes) +
+    '<div class="row-btns"><button class="btn plain" data-later>' + t('later') + '</button><button class="btn cta" data-upd>' + t(native ? 'updGetApk' : 'updNow') + '</button></div>' +
+    (native ? '<p class="hint">' + t('updApkHint') + '</p>' : '') + '</div>');
+  $('[data-later]', sh).addEventListener('click', function () { S.updLater = j.version; S.updLaterAt = Date.now(); save(); closeSheet(sh); });
+  $('[data-upd]', sh).addEventListener('click', function () {
+    closeSheet(sh);
+    if (native) window.open(j.apk || APK_PAGE, '_system');
+    else location.reload();
+  });
+}
+// مرة واحدة بعد كل تحديث: إيه الجديد
+function showWhatsNew() {
+  if (!S.seenVer) { S.seenVer = APP_VER; save(); return; }
+  if (S.seenVer === APP_VER) return;
+  S.seenVer = APP_VER; save();
+  var notes = CHANGES[APP_VER];
+  if (!notes || !notes.length) return;
+  var sh = openSheet('<div class="upd-ic">✨</div><p class="res-title">' + t('newIn', { v: APP_VER }) + '</p>' + notesHTML(notes) + '<button class="btn cta" data-ok>' + t('letsGo') + '</button>');
+  $('[data-ok]', sh).addEventListener('click', function () { closeSheet(sh); });
+}
+document.addEventListener('visibilitychange', function () {
+  if (document.visibilityState === 'visible' && Date.now() - updLast > 6 * 3600000) checkUpdate(false);
+});
 
 /* ===== لمّة — الأصحاب والدخول بجوجل ===== */
 var fbApp = null, fbAuth = null, fbDb = null, myUid = null, myCode = '';
