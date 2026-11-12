@@ -62,6 +62,10 @@ edit(path.join(APP, 'src/main/AndroidManifest.xml'), (s) => (s.includes('default
   : s.replace('</application>', '    <meta-data android:name="com.google.firebase.messaging.default_notification_icon" android:resource="@drawable/ic_stat_lamma" />\n'
     + '        <meta-data android:name="com.google.firebase.messaging.default_notification_color" android:resource="@color/lamma_accent" />\n'
     + '        <meta-data android:name="com.google.firebase.messaging.default_notification_channel_id" android:value="lamma" />\n    </application>')));
+// 5c) الاهتزاز
+edit(path.join(APP, 'src/main/AndroidManifest.xml'), (s) => (s.includes('android.permission.VIBRATE')
+  ? s
+  : s.replace('<application', '<uses-permission android:name="android.permission.VIBRATE" />\n    <application')));
 // 6) دخول جوجل من الموبايل
 edit('android/variables.gradle', (s) => (s.includes('rgcfaIncludeGoogle') ? s : s.replace(/ext \{\n/, 'ext {\n    rgcfaIncludeGoogle = true\n')));
 // 7) رقم النسخة والتوقيع

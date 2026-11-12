@@ -715,6 +715,18 @@ html.in-game .amb { display: none; }
 .pcard .avatar { overflow: visible !important; }
 .pcard .avatar > .av-img, .pcard .avatar > .av-mono, .pcard .avatar > .frm { overflow: hidden; display: grid; place-items: center; object-fit: cover; }
 
+/* ===== الإعدادات ===== */
+.sset { margin: 18px 0 6px; font-size: .82rem; letter-spacing: .02em; color: var(--ink-2); text-align: start; font-weight: 800; }
+.srow { display: flex; align-items: center; gap: 12px; padding: 11px 14px; margin-bottom: 6px; border-radius: 14px; background: var(--surface-2); }
+.srow-t { flex: 1; min-width: 0; display: grid; gap: 2px; text-align: start; }
+.srow-t b { font-size: .95rem; }
+.srow-t small { color: var(--ink-2); font-size: .78rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.srow .sw-btn { flex: none; }
+.btn.wide { width: 100%; margin-top: 4px; }
+.ptest-res { min-height: 1.2em; margin: 6px 2px 0; text-align: start; }
+.sw-lock { display: inline-flex; align-items: center; gap: 3px; font-style: normal; font-size: .72rem; font-weight: 800; color: var(--hl); }
+.sw-lock svg { width: 12px; height: 12px; }
+
 </style>
 </head>
 <body>
@@ -2012,11 +2024,18 @@ var L = {
     vMahbusaHint: 'كل حجارتك بتبدأ في خانة واحدة، والحجر الفردي بيتحبس بدل ما يتضرب.',
     level: 'المستوى', easy: 'سهل', medium: 'وسط', hard: 'معلّم',
     matchTo: 'الجيم لحد', pointsUnit: 'نقطة', players: 'عدد اللاعيبة', letsPlay: 'يلا نلعب',
-    signOut: 'تسجيل الخروج من جوجل (عشان تغيّر الحساب)', signedOut: 'خرجت من حسابك، تقدر تدخل بحساب تاني', lvlUp: 'مبروك! وصلت المستوى {n}', lvlBonus: 'هدية: {n} كوينز', level: 'المستوى', lvlShort: 'مستوى {n}', winsN: '{n} فوز', xpLeft: 'فاضل {n} نقطة للمستوى الجاي',
+    signOut: 'تسجيل الخروج', signedOut: 'تم تسجيل الخروج', lvlUp: 'مبروك! وصلت المستوى {n}', lvlBonus: 'هدية: {n} كوينز', level: 'المستوى', lvlShort: 'مستوى {n}', winsN: '{n} فوز', xpLeft: 'فاضل {n} نقطة للمستوى الجاي',
     daily: 'التحديات', dailySub: 'بتتجدد كل يوم', chDone: 'خلصت تحدي! خد جايزتك من التحديات', chPlay3: 'العب {n} جيمات', chWin1: 'اكسب جيم', chWin2: 'اكسب {n} جيمات', chOnline1: 'العب جيم مع صاحبك', chVariety: 'العب لعبتين مختلفين', chWinG: 'اكسب جيم {game}',
     loginTitle: 'مكافأة النهارده', dayN: 'يوم {n}', takeN: 'خد {n}', statsT: 'إحصائياتي', played: 'جيمات', winRate: 'نسبة الفوز', bestStreak: 'أطول سلسلة', board: 'ترتيب الصحاب', frames: 'الإطارات',
     fr_none: 'من غير', fr_gold: 'دهب', fr_neon: 'نيون', fr_fire: 'نار', fr_royal: 'ملكي',
-    seenMin: 'كان أونلاين من {n} دقيقة', sent: 'اتبعتت', seen: 'اتشافت', sending: 'بتتبعت', friendAway: '{name} فصل… الجيم هيكمّل أول ما يرجع', exitGame: 'اخرج من الجيم',
+    seenMin: 'كان أونلاين من {n} دقيقة', sent: 'اتبعتت', seen: 'اتشافت', sending: 'بتتبعت', friendAway: '{name} انقطع اتصاله… في انتظار رجوعه', exitGame: 'خروج',
+    secProfile: 'الملف الشخصي', secAccount: 'الحساب', accGoogle: 'حساب جوجل', accNone: 'غير مسجّل', accWhy: 'سجّل الدخول عشان تلعب مع أصحابك', signInShort: 'تسجيل الدخول',
+    secNotif: 'الإشعارات', notifDevice: 'إشعارات الجهاز ده', pst_on: 'مفعّلة', pst_off: 'متوقفة', pst_blocked: 'مقفولة من إعدادات الجهاز', pst_na: 'غير متاحة على هذا المتصفح',
+    nfChat: 'رسائل الدردشة', nfInvite: 'دعوات اللعب', nfFriend: 'طلبات الصداقة', pushTest: 'إرسال إشعار تجريبي',
+    ptOk: 'تم الإرسال ✓ الإشعار هيوصلك خلال ثواني', ptNoDev: 'مفيش جهاز مسجّل. اقفل الإشعارات وشغّلها تاني', ptNoUrl: 'سيرفر الإشعارات غير مربوط (config/push)', ptOld: 'سيرفر الإشعارات محتاج يتحدّث بالكود الجديد', ptKey: 'مفتاح فايربيس في السيرفر غير صحيح (SA_JSON)', ptErr: 'تعذّر الإرسال: {e}', ptNet: 'تعذّر الوصول لسيرفر الإشعارات', ptWait: 'جاري الإرسال…',
+    secSound: 'الصوت والاهتزاز', vibe: 'الاهتزاز', vibeSub: 'مع رمي الزهر والفوز',
+    secPlay: 'اللعب', secPrivacy: 'الخصوصية', showOnline: 'إظهار حالة الاتصال', showOnlineSub: 'أصحابك يشوفوا إنك أونلاين',
+    secLook: 'المظهر', secAbout: 'عن لمّة', shareGame: 'شارك اللعبة', shareSub: 'ادعي أصحابك يلعبوا معاك', share: 'مشاركة', version: 'الإصدار', shareText: 'تعالى نلعب طاولة ودومنة ولودو على لمّة',
     reactL: 'إيموجي', exitQ: 'تخرج من لمّة؟', exitNo: 'لأ، كمّل', exitYes: 'اخرج', gchat: 'الشات', gchatPh: 'اكتب لصحابك...', timerAsk: '{name} عايز يلعب بمؤقت {s} ثانية للدور', coins: 'كوينز', shop: 'المحل', buy: 'اشتري', owned: 'عندك', equipped: 'شغّال', notEnough: 'الكوينز مش مكفية', earned: 'كسبت {n} كوينز',
     settings: 'الإعدادات', language: 'اللغة', music: 'الموسيقى', sounds: 'الأصوات', yourName: 'اسمك', close: 'تمام',
     roll: 'ارمي الزهر', undo: 'تراجع', thinking: 'بيفكّر…',
@@ -2056,7 +2075,7 @@ var L = {
     requestSent: 'اتبعت! هيشوفه لما يفتح', accept: 'قبول', decline: 'رفض', friendsList: 'صحابك', noFriendsYet: 'لسه مفيش صحاب، ضيف حد بكوده',
     online: 'أونلاين', offline: 'مش أونلاين', playInvite: 'العب معايا', inviteSent: 'اتبعتله طلب اللعب!', invitedYou: '{name} عايز يلعب معاك',
     later: 'بعدين', openChat: 'فتح الشات', chatPh: 'اكتب حاجة...', send: 'ابعت',
-    pushTitle: ' الإشعارات', pushEnable: 'فعّلها', pushOn: 'شغّالة', pushBlocked: 'الإشعارات مقفولة من إعدادات الموبايل', pushNA: 'الإشعارات مش متاحة هنا لسه', unreadN: 'عندك {n} رسالة جديدة',
+    pushTitle: ' الإشعارات', pushEnable: 'فعّلها', pushOn: 'شغّالة', pushBlocked: 'الإشعارات مقفولة من إعدادات الجهاز', pushNA: 'الإشعارات غير متاحة على هذا الجهاز', unreadN: 'عندك {n} رسالة جديدة',
     lobbyTitle: 'الدعوات اتبعتت', startNow: 'ابدأ باللي قبلوا', lobOk: 'قبل', lobNo: 'مش فاضي', lobWait: 'لسه', allDeclined: 'محدش فاضي دلوقتي', pickUpTo3: 'تقدر تختار لحد 3 صحاب',
     sendInvite: 'ابعت الدعوة', pickFriend: 'اختار صاحبك الأول', waitingFor: 'مستني {name} يقبل', declinedBy: '{name} مش فاضي دلوقتي', noAnswer: '{name} مردّش على الدعوة',
     inviteExpired: 'الدعوة دي خلصت', gameInvite: '{name} عايز يلعب {game} معاك', notNow: 'مش دلوقتي', letsGo: 'يلا بينا', friendLeft: '{name} خرج من الجيم',
@@ -2083,11 +2102,18 @@ var L = {
     vMahbusaHint: 'All your checkers start on one point, and a lone checker gets trapped instead of hit.',
     level: 'Level', easy: 'Easy', medium: 'Medium', hard: 'Master',
     matchTo: 'Play to', pointsUnit: 'points', players: 'Players', letsPlay: 'Start game',
-    signOut: 'Sign out of Google (switch account)', signedOut: 'Signed out, you can sign in with another account', lvlUp: 'Level {n} reached!', lvlBonus: 'Gift: {n} coins', level: 'Level', lvlShort: 'Lv {n}', winsN: '{n} wins', xpLeft: '{n} XP to next level',
+    signOut: 'Sign out', signedOut: 'Signed out', lvlUp: 'Level {n} reached!', lvlBonus: 'Gift: {n} coins', level: 'Level', lvlShort: 'Lv {n}', winsN: '{n} wins', xpLeft: '{n} XP to next level',
     daily: 'Challenges', dailySub: 'New ones every day', chDone: 'Challenge done! Claim it in Challenges', chPlay3: 'Play {n} games', chWin1: 'Win a game', chWin2: 'Win {n} games', chOnline1: 'Play a game with a friend', chVariety: 'Play two different games', chWinG: 'Win a {game} game',
     loginTitle: 'Today’s reward', dayN: 'Day {n}', takeN: 'Take {n}', statsT: 'My stats', played: 'Games', winRate: 'Win rate', bestStreak: 'Best streak', board: 'Friends ranking', frames: 'Frames',
     fr_none: 'None', fr_gold: 'Gold', fr_neon: 'Neon', fr_fire: 'Fire', fr_royal: 'Royal',
     seenMin: 'Online {n} min ago', sent: 'Sent', seen: 'Seen', sending: 'Sending', friendAway: '{name} disconnected… the game continues when they’re back', exitGame: 'Leave game',
+    secProfile: 'Profile', secAccount: 'Account', accGoogle: 'Google account', accNone: 'Not signed in', accWhy: 'Sign in to play with friends', signInShort: 'Sign in',
+    secNotif: 'Notifications', notifDevice: 'Notifications on this device', pst_on: 'On', pst_off: 'Off', pst_blocked: 'Blocked in device settings', pst_na: 'Not available in this browser',
+    nfChat: 'Chat messages', nfInvite: 'Game invites', nfFriend: 'Friend requests', pushTest: 'Send a test notification',
+    ptOk: 'Sent ✓ it should arrive in a few seconds', ptNoDev: 'No device registered. Turn notifications off and on again', ptNoUrl: 'Notification server not connected (config/push)', ptOld: 'The notification server needs the new code', ptKey: 'The Firebase key on the server is invalid (SA_JSON)', ptErr: 'Could not send: {e}', ptNet: 'Could not reach the notification server', ptWait: 'Sending…',
+    secSound: 'Sound & vibration', vibe: 'Vibration', vibeSub: 'On dice rolls and wins',
+    secPlay: 'Gameplay', secPrivacy: 'Privacy', showOnline: 'Show online status', showOnlineSub: 'Friends can see when you’re online',
+    secLook: 'Appearance', secAbout: 'About لمّة', shareGame: 'Share the game', shareSub: 'Invite friends to play', share: 'Share', version: 'Version', shareText: 'Come play backgammon, dominoes and Ludo with me on لمّة',
     reactL: 'Emoji', exitQ: 'Leave لمّة?', exitNo: 'No, keep playing', exitYes: 'Exit', gchat: 'Chat', gchatPh: 'Message your friends...', timerAsk: '{name} wants a {s}s turn timer', coins: 'Coins', shop: 'Shop', buy: 'Buy', owned: 'Owned', equipped: 'Active', notEnough: 'Not enough coins', earned: 'You earned {n} coins',
     settings: 'Settings', language: 'Language', music: 'Music', sounds: 'Sounds', yourName: 'Your name', close: 'Done',
     roll: 'Roll dice', undo: 'Undo', thinking: 'Thinking…',
@@ -2153,6 +2179,7 @@ function applyLang() {
 
 var AVATARS = ['😎', '🧔🏽', '👩🏽', '🧕🏽', '👨🏽‍🦱', '🦁', '🐪', '🦅'];
 var SKINS = ['sadaf', 'khayamiya', 'neon', 'marble', 'pharaoh'];
+var APP_VER = '1.0.7';
 var BOTS = [{ k: 0, av: '🧑🏽' }, { k: 1, av: '👴🏽' }, { k: 2, av: '🧔🏽' }, { k: 3, av: '👵🏽' }];
 function botsFor(level, count) {
   var first = { easy: 0, medium: 1, hard: 2 }[level] || 0;
@@ -2236,7 +2263,7 @@ function skinSwatch(k) {
     '<rect x="37" y="5" width="6" height="42" style="fill:var(--bar)"/>' +
     '<circle cx="11" cy="41" r="5.5" style="fill:var(--ck1-b);stroke:var(--ck1-edge);stroke-width:1.5"/><circle cx="23" cy="41" r="5.5" style="fill:var(--ck1-b);stroke:var(--ck1-edge);stroke-width:1.5"/>' +
     '<circle cx="57" cy="11" r="5.5" style="fill:var(--ck2-b);stroke:var(--ck2-edge);stroke-width:1.5"/></svg>' +
-    '<span>' + t('skinNames')[k] + '</span></button>';
+    '<span>' + t('skinNames')[k] + '</span>' + (typeof ownsSkin === 'function' && !ownsSkin(k) ? '<em class="sw-lock">' + ICON.lock + ' ' + SKIN_PRICE[k] + '</em>' : '') + '</button>';
 }
 function skinsHTML() { return SKINS.map(skinSwatch).join(''); }
 /* ----- صورة اللاعب: صورة من الموبايل أو أول حرف من اسمه ----- */
@@ -2533,15 +2560,38 @@ function openSetup(game, opt) {
 }
 
 /* ----- الإعدادات ----- */
+function setRow(label, sub, ctl) {
+  return '<div class="srow"><div class="srow-t"><b>' + label + '</b>' + (sub ? '<small>' + sub + '</small>' : '') + '</div>' + ctl + '</div>';
+}
+function swBtn(key, on) { return '<button type="button" class="sw-btn" role="switch" data-tg="' + key + '" aria-checked="' + !!on + '"></button>'; }
 function openSettings() {
+  var signed = typeof myUid !== 'undefined' && !!myUid, ready = typeof fbReady === 'function' && fbReady();
+  var email = signed && fbAuth && fbAuth.currentUser && fbAuth.currentUser.email ? fbAuth.currentUser.email : '';
+  var nf = S.notif || { chat: true, invite: true, friend: true };
+  var ps = typeof pushState === 'function' ? pushState() : 'na';
   var html = '<h2>' + t('settings') + '</h2>' +
+    '<h3 class="sset">' + t('secProfile') + '</h3>' +
     '<div class="field"><label for="s-name">' + t('yourName') + '</label><input id="s-name" class="inp" maxlength="16" value="' + esc(S.name) + '"></div>' +
     field(t('photoLbl'), photoField(S.name)) +
-    field(t('language'), segHTML('lang', [['ar', 'عربي'], ['en', 'English']], S.lang)) +
+    (ready ? '<h3 class="sset">' + t('secAccount') + '</h3>' + (signed
+      ? setRow(t('accGoogle'), esc(email), '<button class="btn plain sm" data-signout>' + t('signOut') + '</button>')
+      : setRow(t('accNone'), t('accWhy'), '<button class="btn cta sm" data-signin>' + t('signInShort') + '</button>')) : '') +
+    (ready && signed ? '<h3 class="sset">' + t('secNotif') + '</h3>' +
+      setRow(t('notifDevice'), t('pst_' + ps), ps === 'on' ? swBtn('push', true) : ps === 'off' ? swBtn('push', false) : '') +
+      (ps === 'on' ? setRow(t('nfChat'), '', swBtn('nf_chat', nf.chat !== false)) + setRow(t('nfInvite'), '', swBtn('nf_invite', nf.invite !== false)) + setRow(t('nfFriend'), '', swBtn('nf_friend', nf.friend !== false)) +
+        '<button class="btn plain sm wide" data-ptest>' + t('pushTest') + '</button><p class="hint ptest-res" id="ptest-res"></p>' : '') : '') +
+    '<h3 class="sset">' + t('secSound') + '</h3>' +
+    setRow(t('sounds'), '', swBtn('sfx', S.sfx)) +
+    ('vibrate' in navigator ? setRow(t('vibe'), t('vibeSub'), swBtn('vibe', S.vibe !== false)) : '') +
+    '<h3 class="sset">' + t('secPlay') + '</h3>' +
     field(t('pace'), segHTML('pace', [['calm', t('paceCalm')], ['normal', t('paceNormal')], ['fast', t('paceFast')]], S.pace || 'calm')) +
-    '<div class="toggle"><span>' + t('sounds') + '</span><button type="button" class="sw-btn" role="switch" data-tg="sfx" aria-checked="' + S.sfx + '" aria-label="' + t('sounds') + '"></button></div>' +
-    '<div class="field" style="margin-top:16px"><div class="lbl">' + t('boardLook') + '</div><div class="skins">' + skinsHTML() + '</div></div>' +
-    (typeof myUid !== 'undefined' && myUid ? '<button class="btn plain so-btn" data-signout>' + t('signOut') + '</button>' : '') +
+    (ready && signed ? '<h3 class="sset">' + t('secPrivacy') + '</h3>' + setRow(t('showOnline'), t('showOnlineSub'), swBtn('showOnline', S.showOnline !== false)) : '') +
+    '<h3 class="sset">' + t('secLook') + '</h3>' +
+    field(t('language'), segHTML('lang', [['ar', 'عربي'], ['en', 'English']], S.lang)) +
+    '<div class="field"><div class="lbl">' + t('boardLook') + '</div><div class="skins">' + skinsHTML() + '</div></div>' +
+    '<h3 class="sset">' + t('secAbout') + '</h3>' +
+    setRow(t('shareGame'), t('shareSub'), '<button class="btn plain sm" data-share>' + t('share') + '</button>') +
+    setRow(t('version'), 'لمّة ' + APP_VER, '') +
     '<button class="btn cta" data-close>' + t('close') + '</button>';
   var w = openSheet(html), nameInp = $('#s-name', w), dirty = false;
   bindPhoto(w, function () { return S.name; }, function () { dirty = true; });
@@ -2551,18 +2601,33 @@ function openSettings() {
     S.lang = v; save(); applyLang(); closeSheet(w); refreshScreen(); setTimeout(openSettings, 300);
   });
   nameInp.addEventListener('input', function () { var v = nameInp.value.trim(); if (v) { S.name = v.slice(0, 16); save(); dirty = true; } });
+  function reopen() { closeSheet(w); setTimeout(openSettings, 300); }
   w.addEventListener('click', function (ev) {
-    var a = ev.target.closest('.av-opt'), tg = ev.target.closest('[data-tg]'), sk = ev.target.closest('[data-pick-skin]');
-    if (a) { S.avatar = a.getAttribute('data-av'); save(); dirty = true; $$('.av-opt', w).forEach(function (x) { x.setAttribute('aria-pressed', String(x === a)); }); }
+    var tg = ev.target.closest('[data-tg]'), sk = ev.target.closest('[data-pick-skin]');
     if (tg) {
-      var key = tg.getAttribute('data-tg'), val = !S[key];
-      S[key] = val; save(); tg.setAttribute('aria-checked', String(val));
-      Snd.setSfx(val);
+      var key = tg.getAttribute('data-tg'), cur = tg.getAttribute('aria-checked') === 'true', val = !cur;
+      tg.setAttribute('aria-checked', String(val)); Snd.play('tap');
+      if (key === 'sfx') { S.sfx = val; Snd.setSfx(val); }
+      else if (key === 'vibe') { S.vibe = val; if (val) buzz(30); }
+      else if (key === 'showOnline') { S.showOnline = val; setPresenceVisible(val); }
+      else if (key === 'push') { if (val) enablePush(true).then(reopen); else disablePush().then(reopen); }
+      else if (key.indexOf('nf_') === 0) { S.notif = S.notif || { chat: true, invite: true, friend: true }; S.notif[key.slice(3)] = val; pushNotifPrefs(); }
+      save(); return;
     }
-    if (sk) setSkin(sk.getAttribute('data-pick-skin'));
+    if (sk) { var kk = sk.getAttribute('data-pick-skin'); if (ownsSkin(kk)) setSkin(kk); else { closeSheet(w); setTimeout(openShop, 280); } return; }
+    if (ev.target.closest('[data-ptest]')) { runPushTest($('#ptest-res', w)); return; }
+    if (ev.target.closest('[data-share]')) { shareGame(); return; }
+    if (ev.target.closest('[data-signin]')) { closeSheet(w); openSocial(); return; }
     if (ev.target.closest('[data-signout]')) { closeSheet(w); signOutGoogle(); return; }
     if (ev.target.closest('[data-close]')) { closeSheet(w); if (dirty) { refreshScreen(); pushProfile(); } }
   });
+}
+// اهتزاز خفيف (أندرويد)
+function buzz(ms) { if (S.vibe !== false && navigator.vibrate) { try { navigator.vibrate(ms || 25); } catch (e) { /* مش مدعوم */ } } }
+function shareGame() {
+  var url = 'https://technicalteam774.github.io/lamma/', txt = t('shareText');
+  if (navigator.share) navigator.share({ title: 'لمّة', text: txt, url: url }).catch(function () {});
+  else if (navigator.clipboard) navigator.clipboard.writeText(txt + ' ' + url).then(function () { toast(t('copied')); });
 }
 function refreshScreen() {
   if (current) current.refresh();
@@ -3028,7 +3093,7 @@ function ensureProfile(user) {
 }
 function startPresence() {
   stopPresence();
-  var beat = function () { if (myUid && fbDb) fbDb.collection('users').doc(myUid).set({ lastSeen: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true }).catch(function () {}); };
+  var beat = function () { if (myUid && fbDb && S.showOnline !== false) fbDb.collection('users').doc(myUid).set({ lastSeen: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true }).catch(function () {}); };
   beat(); hbTimer = setInterval(beat, 25000);
   document.addEventListener('visibilitychange', beat);
 }
@@ -3203,7 +3268,6 @@ function renderSocial() {
   socialRoot.innerHTML = socialHeader() +
     '<div class="soc-me"><div class="av">' + avHTML(S.name, S.photo) + '</div><div class="who"><b>' + esc(S.name) + '</b>' +
     '<div class="code-row"><span>' + t('yourCode') + '</span><b class="code">' + myCode + '</b><button class="icb copy" id="soc-copy" aria-label="' + t('copy') + '">' + ICON.copy + '</button></div></div></div>' +
-    pushRowHTML() +
     '<div class="soc-add"><input id="soc-codein" class="inp" maxlength="6" placeholder="' + t('enterCode') + '" autocapitalize="characters"><button class="btn cta" id="soc-addbtn">' + t('addFriend') + '</button></div>' +
     '<div class="soc-reqs" id="soc-reqs"></div>' +
     '<h3 class="sec-h">' + t('friendsList') + '</h3>' +
@@ -3303,6 +3367,13 @@ function signOutGoogle() {
   p.then(done).catch(done);
 }
 
+// إخفاء حالة الاتصال: آخر ظهور يرجع لزمان
+function setPresenceVisible(on) {
+  if (!fbDb || !myUid) return;
+  var v = on ? firebase.firestore.FieldValue.serverTimestamp() : (firebase.firestore.Timestamp && firebase.firestore.Timestamp.fromMillis ? firebase.firestore.Timestamp.fromMillis(0) : null);
+  fbDb.collection('users').doc(myUid).set({ lastSeen: v }, { merge: true }).catch(function () {});
+}
+
 /* ===== لمّة — الإشعارات =====
  * الموبايل بيسجّل «عنوان إشعارات» (token) في users/{uid}/tokens.
  * لما حد يبعتلك رسالة أو دعوة، اللعبة بتكلّم سيرفر الإشعارات (Google Apps Script) وهو يبعتلك إشعار حتى لو اللعبة مقفولة.
@@ -3327,6 +3398,7 @@ function pushState() {
 function tokenId(tok) { var h = 5381; for (var i = 0; i < tok.length; i++) h = ((h * 33) ^ tok.charCodeAt(i)) >>> 0; return 't' + h.toString(16) + '_' + tok.length; }
 function saveToken(tok, platform) {
   if (!tok || !myUid) return;
+  S.pushTokId = tokenId(tok); save();
   fbDb.collection('users').doc(myUid).collection('tokens').doc(tokenId(tok))
     .set({ token: tok, platform: platform, ts: firebase.firestore.FieldValue.serverTimestamp() }).catch(function () {});
 }
@@ -3432,6 +3504,33 @@ function pushRowHTML() {
     : st === 'na' ? '<small class="hint">' + t('pushNA') + '</small>'
     : '<button class="btn cta sm" id="push-on">' + t('pushEnable') + '</button>';
   return '<div class="push-row"><span>' + ICON.bell + t('pushTitle') + '</span>' + right + '</div>';
+}
+
+function disablePush() {
+  S.pushOn = false; save();
+  if (!fbDb || !myUid || !S.pushTokId) return Promise.resolve();
+  return fbDb.collection('users').doc(myUid).collection('tokens').doc(S.pushTokId).delete().catch(function () {});
+}
+function pushNotifPrefs() {
+  if (!fbDb || !myUid) return;
+  fbDb.collection('users').doc(myUid).set({ notif: S.notif }, { merge: true }).catch(function () {});
+}
+// إشعار تجريبي لنفسك، وبيقولك لو فيه مشكلة فين
+function runPushTest(out) {
+  var say = function (k, v) { if (out) out.textContent = t(k, { e: v || '' }); };
+  say('ptWait');
+  loadPushCfg().then(function () {
+    if (!pushCfg.url) { say('ptNoUrl'); return; }
+    return fbAuth.currentUser.getIdToken().then(function (idt) {
+      return fetch(pushCfg.url, { method: 'POST', body: JSON.stringify({ idToken: idt, to: myUid, type: 'test', name: S.name || '' }) });
+    }).then(function (r) { return r.json(); }).then(function (j) {
+      if (j.ok && j.sent > 0) say('ptOk');
+      else if (j.ok) say('ptNoDev');
+      else if (j.err === 'auth') say('ptOld');
+      else if (/SA_JSON|token:/.test(j.err || '')) say('ptKey');
+      else say('ptErr', String(j.err || j.last || '').slice(0, 80));
+    }).catch(function () { say('ptNet'); });
+  });
 }
 
 /* ===== لمّة — اللعب أونلاين مع صحابك (من 2 لحد 4) =====
@@ -5288,6 +5387,7 @@ BP.remoteTurn = async function () {
 };
 
 /* ===== تشغيل ===== */
+(function () { var sp = Snd.play; Snd.play = function (k) { if (k === 'dice') buzz(20); else if (k === 'win') buzz([40, 60, 40]); return sp.apply(Snd, arguments); }; })();
 readOpenParam();
 fbInit();
 applyLang();
