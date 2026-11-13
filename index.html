@@ -824,6 +824,26 @@ html.in-game .amb { display: none; }
 .bone-chip.tap small { font-size: .68rem; opacity: .8; }
 @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.06); } }
 
+/* ===== أشكال الكوتشينة اللي بتتشترى ===== */
+:root[data-cards="royal"] .card { background: linear-gradient(160deg, #fff8e8, #f1dfb4); border-color: #c9a24a; box-shadow: inset 0 0 0 2px #c9a24a, 0 6px 14px -6px rgba(0, 0, 0, .55); }
+:root[data-cards="royal"] .card.back { background: repeating-linear-gradient(45deg, #6b2d2d 0 6px, #8c3a3a 6px 12px); box-shadow: inset 0 0 0 2px #c9a24a; }
+:root[data-cards="neon"] .card { background: #11112a; color: #d8f6ff; border-color: #3cf0ff; box-shadow: inset 0 0 0 1.5px #3cf0ff, 0 0 12px rgba(60, 240, 255, .35); }
+:root[data-cards="neon"] .card.red { color: #ff67a8; }
+:root[data-cards="neon"] .card.back { background: radial-gradient(circle at 50% 50%, #1b1b3e, #0a0a18); box-shadow: inset 0 0 0 2px #3cf0ff; }
+:root[data-cards="xmas"] .card { background: #fffaf2; border-color: #e23b3b; box-shadow: inset 0 0 0 2px #e23b3b, 0 6px 14px -6px rgba(0, 0, 0, .5); }
+:root[data-cards="xmas"] .card.back { background: repeating-linear-gradient(45deg, #e23b3b 0 7px, #14532b 7px 14px); }
+/* ===== أشكال الدومنة اللي بتتشترى ===== */
+:root[data-tiles="wood"] { --tile-face: #c89a5b; --tile-edge: #6d4821; --tile-line: #6d4821; --tile-pip: #3a2512; }
+:root[data-tiles="onyx"] { --tile-face: #262633; --tile-edge: #5a5a70; --tile-line: #7a7a95; --tile-pip: #e8e8f2; }
+:root[data-tiles="candy"] { --tile-face: #ffe9f4; --tile-edge: #ff8fc5; --tile-line: #ff8fc5; --tile-pip: #b03a76; }
+.m-soon { opacity: .9; }
+.m-soon .rec.soon { background: var(--hl); color: #1a1230; font-weight: 800; }
+.soon-ic { font-size: 2.6rem; text-align: center; }
+/* الرئيسية ما تهتزش */
+.screen { overscroll-behavior-y: contain; -webkit-overflow-scrolling: touch; }
+html, body { overscroll-behavior: none; }
+.home { contain: layout paint; }
+
 </style>
 </head>
 <body>
@@ -1903,6 +1923,27 @@ var FIREBASE_CONFIG = {
   var BPM = 84, E = 60 / BPM / 2;
   // مقام حجاز على ري: ري، مي بيمول، فا دييز، صول، لا، سي بيمول، دو، ري
   var HIJAZ = [293.66, 311.13, 369.99, 392.0, 440.0, 466.16, 523.25, 587.33];
+  // سلّم كبير هادي للكريسماس + نغمة جرس
+  var XMAS = [261.63, 293.66, 329.63, 349.23, 392.0, 440.0, 493.88, 523.25];
+  var XMEL = [4, 4, 4, 4, 4, 4, 4, 6, 2, 3, 4, -1, 5, 5, 5, 5, 5, 4, 4, 4, 4, 3, 3, 4, 3, -1, 6, -1];
+  var xi = 0;
+  function isXmas() { try { return document.documentElement.getAttribute('data-theme') === 'xmas'; } catch (e) { return false; } }
+  function bell(f, t, g) {
+    var o = ctx.createOscillator(), gg = ctx.createGain();
+    o.type = 'sine'; o.frequency.setValueAtTime(f, t);
+    gg.gain.setValueAtTime(0, t); gg.gain.linearRampToValueAtTime(g, t + 0.02); gg.gain.exponentialRampToValueAtTime(0.0001, t + 1.1);
+    var o2 = ctx.createOscillator(), g2 = ctx.createGain();
+    o2.type = 'sine'; o2.frequency.setValueAtTime(f * 2.76, t);
+    g2.gain.setValueAtTime(0, t); g2.gain.linearRampToValueAtTime(g * 0.3, t + 0.02); g2.gain.exponentialRampToValueAtTime(0.0001, t + 0.5);
+    o.connect(gg); gg.connect(music); o2.connect(g2); g2.connect(music);
+    o.start(t); o.stop(t + 1.2); o2.start(t); o2.stop(t + 0.6);
+  }
+  function xmasTick(s, t) {
+    var pos = s % 4;
+    if (pos === 0) { var n = XMEL[xi % XMEL.length]; xi++; if (n >= 0) bell(XMAS[n], t, 0.075); }
+    if (pos === 2 && Math.random() < 0.5) bell(XMAS[0] * 2, t, 0.018);
+    if (s % 16 === 0) { bell(XMAS[0] / 2, t, 0.05); bell(XMAS[4] / 2, t, 0.035); }
+  }
   var mel = 3;
 
   function ensure() {
@@ -1991,6 +2032,7 @@ var FIREBASE_CONFIG = {
 
   // إيقاع المقسوم: دُم تَك - تَك دُم - تَك -
   function tick(s, t) {
+    if (isXmas()) return xmasTick(s, t);
     var pos = s % 8, bar = Math.floor(s / 8), phraseBar = bar % 4, busy = Math.floor(bar / 8) % 2 === 1;
     if (pos === 0 || pos === 4) dum(t, pos === 0 ? 0.3 : 0.22);
     if (pos === 0 && bar % 2 === 0) pluck(146.83, t, 0.05, music, 2.4);
@@ -2011,10 +2053,10 @@ var FIREBASE_CONFIG = {
 
   function startMusic() {
     if (!ensure() || running || !on.music) return;
-    running = true; step = 0; nextT = ctx.currentTime + 0.12; mel = 3;
+    running = true; step = 0; nextT = ctx.currentTime + 0.12; mel = 3; xi = 0;
     var t = ctx.currentTime;
     music.gain.cancelScheduledValues(t); music.gain.setValueAtTime(music.gain.value, t); music.gain.linearRampToValueAtTime(0.28, t + 3.5);
-    startDrone();
+    if (!isXmas()) startDrone();
     timer = setInterval(schedule, 40);
   }
   function stopMusic() {
@@ -2133,7 +2175,7 @@ var L = {
     cd_classic: 'كلاسيك', cd_royal: 'ملكي', cd_neon: 'نيون', cd_xmas: 'كريسماس',
     tl_ivory: 'عاج', tl_wood: 'خشب', tl_onyx: 'أسود', tl_candy: 'حلويات',
     ep_basic: 'الأساسية', ep_fun: 'هزار', ep_hype: 'حماس', ep_xmas: 'كريسماس', youW: 'كسبت', themW: 'كسب',
-    qFriends: 'أصحابك', qDaily: 'تحديات', qWheel: 'عجلة', qStats: 'إحصائيات', qShop: 'المحل', myProfile: 'ملفي', gameSet: 'إعدادات اللعبة', vsRecord: 'بينك وبينه', vsLine: 'كسبته {w} ومكسبك {l}', noVs: 'لسه مالعبتوش مع بعض', theirStats: 'مستوى {lv} · {w} فوز من {p}',
+    qFriends: 'أصحابك', qDaily: 'تحديات', qWheel: 'عجلة', qStats: 'نتايجي', qShop: 'المحل', myProfile: 'ملفي', gameSet: 'إعدادات اللعبة', vsRecord: 'بينك وبينه', vsLine: 'كسبته {w} ومكسبك {l}', noVs: 'لسه مالعبتوش مع بعض', theirStats: 'مستوى {lv} · {w} فوز من {p}',
     wheel: 'عجلة الحظ', wheelS: 'العجلة', wheelSub: 'لفّة مجانية كل يوم', wheelDone: 'لفّيت النهارده، ارجع بكرة', spin: 'لِف', spinTomorrow: 'ارجع بكرة', wonCoins: 'كسبت {n} كوينز!', wonXp: 'كسبت 50 نقطة خبرة!',
     badges: 'الأوسمة', badgeNew: 'وسام جديد: {name} (+{n})', bd_first_win: 'أول فوز', bd_wins_10: '10 انتصارات', bd_wins_50: '50 انتصار', bd_online_1: 'أول جيم أونلاين', bd_online_10: '10 جيمات أونلاين', bd_streak_5: '5 ورا بعض', bd_all_games: 'لعبت الخمسة', bd_level_5: 'مستوى 5', bd_level_10: 'مستوى 10', bd_rich: '1000 كوينز',
     secProfile: 'الملف الشخصي', secAccount: 'الحساب', accGoogle: 'حساب جوجل', accNone: 'غير مسجّل', accWhy: 'سجّل الدخول عشان تلعب مع أصحابك', signInShort: 'تسجيل الدخول',
@@ -2150,6 +2192,7 @@ var L = {
     how_chess: [['♟️', 'كل قطعة ليها حركة: البيدق قدام، والحصان على شكل L.'], ['👆', 'دوس على قطعتك وهتشوف كل حركاتها.'], ['🏰', 'الرخية: الملك بيتحرك خانتين ناحية القلعة.'], ['👑', 'البيدق لما يوصل آخر الدور بيبقى وزير.'], ['♚', 'لما الملك يتحاصر ومفيش حركة، الجيم خلص.']],
     how_basra_s: 'لمّ أكبر عدد ورق من الأرض بورق إيدك.',
     how_basra: [['🃏', 'كل واحد بياخد 4 ورق، وفيه 4 على الأرض.'], ['🎯', 'نزّل ورقة تساوي ورقة على الأرض وخدهم.'], ['➕', 'الشايب والبنت والولد بياخدوا اللي زيهم بس.'], ['💥', 'بصرة: تاخد آخر ورقة على الأرض لوحدها = 10 نقط.'], ['🏅', 'الكومي (7 ديناري) والولد ليهم نقط، وأكتر ورق بياخد 30.']],
+    estimation: 'استيمشن', estSub: 'كوتشينة بالمناقصة', comingSoon: 'قريب', soonTitle: 'استيمشن… قريب', soonBody: 'بنجهّز استيمشن بأربع لاعيبة ومناقصة ودور كامل، وهتنزل قبل آخر السنة إن شاء الله.', soonHow: 'بتتلعب إزاي؟', soonS1: 'كل واحد بياخد 13 ورقة، وبتقول هتاخد كام أكلة.', soonS2: 'اللي يقول أكبر رقم بيختار الحكم (نوع الورق الأقوى).', soonS3: 'كل أكلة بتاخدها بتتحسب، ولو جبت اللي قلته بالظبط بتاخد بونس.', soonS4: 'الدور 13 أكلة، واللي يجمع نقط أكتر في آخر الجيم يكسب.', notifyMe: 'تمام، استناها',
     mustDraw: 'مفيش عندك حجر يلعب، اسحب', drawBtn: 'اسحب حجر',
     musicL: 'الموسيقى', musicSub: 'موسيقى هادية في الخلفية', themeL: 'ثيم اللعبة', themeSub: 'غيّر شكل اللعبة كلها', change: 'تغيير', howTo: 'إزاي تلعب؟', howToSub: 'شرح سريع لكل لعبة', open: 'افتح',
     secSound: 'الصوت والاهتزاز', vibe: 'الاهتزاز', vibeSub: 'مع رمي الزهر والفوز',
@@ -2249,6 +2292,7 @@ var L = {
     how_chess: [['♟️', 'Each piece moves differently; knights move in an L.'], ['👆', 'Tap your piece to see every legal move.'], ['🏰', 'Castling moves the king two squares toward a rook.'], ['👑', 'A pawn reaching the far rank becomes a queen.'], ['♚', 'When the king is trapped, the game is over.']],
     how_basra_s: 'Capture as many cards from the table as you can.',
     how_basra: [['🃏', 'Each player gets 4 cards, with 4 on the table.'], ['🎯', 'Play a card matching one on the table and take both.'], ['➕', 'Face cards only capture matching face cards.'], ['💥', 'Basra: take the last single card for 10 points.'], ['🏅', 'The 7 of diamonds and the jack score, and most cards gets 30.']],
+    estimation: 'Estimation', estSub: 'The Egyptian bidding card game', comingSoon: 'Soon', soonTitle: 'Estimation… coming soon', soonBody: 'We are building Estimation with four players, bidding and full rounds. It lands before the end of the year.', soonHow: 'How it works', soonS1: 'Each player gets 13 cards and calls how many tricks they will take.', soonS2: 'The highest bidder picks the trump suit.', soonS3: 'Every trick counts, and hitting your exact call earns a bonus.', soonS4: 'A round is 13 tricks; most points at the end wins.', notifyMe: 'Can’t wait',
     mustDraw: 'Nothing to play, draw a tile', drawBtn: 'Draw',
     musicL: 'Music', musicSub: 'Calm background music', themeL: 'Game theme', themeSub: 'Change the whole look', change: 'Change', howTo: 'How to play', howToSub: 'A quick guide for each game', open: 'Open',
     secSound: 'Sound & vibration', vibe: 'Vibration', vibeSub: 'On dice rolls and wins',
@@ -2319,7 +2363,7 @@ function applyLang() {
 
 var AVATARS = ['😎', '🧔🏽', '👩🏽', '🧕🏽', '👨🏽‍🦱', '🦁', '🐪', '🦅'];
 var SKINS = ['sadaf', 'khayamiya', 'neon', 'marble', 'pharaoh'];
-var APP_VER = '1.0.9';
+var APP_VER = '1.0.10';
 var BOTS = [{ k: 0, av: '🧑🏽' }, { k: 1, av: '👴🏽' }, { k: 2, av: '🧔🏽' }, { k: 3, av: '👵🏽' }];
 function botsFor(level, count) {
   var first = { easy: 0, medium: 1, hard: 2 }[level] || 0;
@@ -2431,10 +2475,10 @@ function readPhoto(file, cb) {
   var img = new Image(), url = URL.createObjectURL(file);
   img.onload = function () {
     var s = Math.min(img.naturalWidth, img.naturalHeight), c = document.createElement('canvas');
-    c.width = c.height = 192;
+    c.width = c.height = 128;
     c.getContext('2d').drawImage(img, (img.naturalWidth - s) / 2, (img.naturalHeight - s) / 2, s, s, 0, 0, 192, 192);
     URL.revokeObjectURL(url);
-    try { cb(c.toDataURL('image/jpeg', 0.84)); } catch (e) { cb(null); }
+    try { cb(c.toDataURL('image/jpeg', 0.7)); } catch (e) { cb(null); }
   };
   img.onerror = function () { URL.revokeObjectURL(url); toast(t('photoErr')); cb(null); };
   img.src = url;
@@ -2464,7 +2508,7 @@ function field(label, inner, extra) { return '<div class="field"><div class="lbl
 /* ----- رسائل وشيتات ----- */
 var app = document.getElementById('app'), sheetRoot = document.getElementById('sheets'), toastRoot = document.getElementById('toasts');
 var current = null;
-function setInGame(on) { document.documentElement.classList.toggle('in-game', !!on); }
+function setInGame(on) { document.documentElement.classList.toggle('in-game', !!on); if (typeof snowPause === 'function') snowPause(!!on); }
 function setSkin(k) { S.skin = k; document.documentElement.setAttribute('data-skin', k); save(); $$('[data-pick-skin]').forEach(function (b) { b.setAttribute('aria-pressed', String(b.getAttribute('data-pick-skin') === k)); }); }
 function toast(msg, ms) {
   var el = document.createElement('div');
@@ -2591,6 +2635,13 @@ function poster(g) {
   return '<button class="poster ' + g + '" data-game="' + g + '"><div class="art">' + (g === 'tawla' ? TAWLA_ART : DOMINO_ART) + '</div>' +
     '<h2>' + t(g) + '</h2><p>' + t(g + 'Sub') + '</p><span class="rec">' + rec + '</span></button>';
 }
+function soonCard() {
+  return '<button class="mg m-soon" id="h-soon"><span class="m-art">' + EST_ART + '</span><b>' + t('estimation') + '</b><small>' + t('estSub') + '</small><span class="rec soon">' + t('comingSoon') + '</span></button>';
+}
+var EST_ART = '<svg viewBox="0 0 60 44" aria-hidden="true">' +
+  '<g transform="rotate(-14 18 24)"><rect x="8" y="8" width="20" height="28" rx="3" fill="#fffaf0" stroke="#1a1230" stroke-width="1.4"/><text x="18" y="27" text-anchor="middle" font-size="14" font-weight="800" fill="#c8382f" font-family="sans-serif">A</text></g>' +
+  '<g transform="rotate(6 32 23)"><rect x="22" y="7" width="20" height="28" rx="3" fill="#fffaf0" stroke="#1a1230" stroke-width="1.4"/><text x="32" y="26" text-anchor="middle" font-size="13" font-weight="800" fill="#1a1230" font-family="sans-serif">K</text></g>' +
+  '<g transform="rotate(20 46 24)"><rect x="36" y="9" width="20" height="28" rx="3" fill="#fffaf0" stroke="#1a1230" stroke-width="1.4"/><text x="46" y="28" text-anchor="middle" font-size="13" font-weight="800" fill="#c8382f" font-family="sans-serif">Q</text></g></svg>';
 function mini(g, art) {
   var st = S.stats[g], rec = st.p ? t('record', { w: st.w, p: st.p }) : t('noRecord');
   return '<button class="mg m-' + g + '" data-game="' + g + '"><span class="m-art">' + art + '</span><b>' + t(g) + '</b><small>' + t(g + 'Sub') + '</small><span class="rec">' + rec + '</span></button>';
@@ -2618,11 +2669,12 @@ function renderHome() {
     '<button class="ib" id="h-set" aria-label="' + t('settings') + '">' + ICON.gear + '</button></div>' +
     profileCardHTML() +
     '<div class="games">' + poster('tawla') + poster('domino') + '</div>' +
-    '<div class="mgames">' + mini('ludo', LUDO_ART) + mini('chess', CHESS_ART) + mini('basra', BASRA_ART) + '</div>' +
+    '<div class="mgames">' + mini('ludo', LUDO_ART) + mini('chess', CHESS_ART) + mini('basra', BASRA_ART) + soonCard() + '</div>' +
     '</div></div>';
   var root = app.firstChild;
   root.addEventListener('click', function (ev) {
     var p = ev.target.closest('.poster, .mg'), sk = ev.target.closest('[data-pick-skin]');
+    if (p && p.id === 'h-soon') { Snd.play('tap'); openSoon(); return; }
     if (p) { Snd.play('tap'); openSetup(p.getAttribute('data-game')); return; }
     if (ev.target.closest('#h-social')) { Snd.play('tap'); openSocial(); return; }
     if (ev.target.closest('#h-shop2')) { Snd.play('tap'); openShop(); return; }
@@ -3303,14 +3355,18 @@ function applyTheme() {
   document.documentElement.setAttribute('data-tiles', S.tileSkin || 'ivory');
   snow(k === 'xmas');
 }
-function setTheme(k) { S.theme = k; save(); applyTheme(); }
+function setTheme(k) {
+  var was = themeOf();
+  S.theme = k; save(); applyTheme();
+  if (S.music && (k === 'xmas') !== (was === 'xmas')) { Snd.setMusic(false); Snd.setMusic(true); }
+}
 // تلج خفيف للكريسماس
 function snow(on) {
   var el = $('#snow');
   if (!on) { if (el) el.remove(); return; }
   if (el) return;
   el = document.createElement('div'); el.id = 'snow'; el.setAttribute('aria-hidden', 'true');
-  var n = 26, h = '';
+  var n = 14, h = '';
   for (var i = 0; i < n; i++) {
     var L = Math.random() * 100, d = 7 + Math.random() * 9, delay = -Math.random() * 16, sc = .5 + Math.random();
     h += '<i style="left:' + L.toFixed(1) + '%;animation-duration:' + d.toFixed(1) + 's;animation-delay:' + delay.toFixed(1) + 's;transform:scale(' + sc.toFixed(2) + ')">❄</i>';
@@ -3318,6 +3374,9 @@ function snow(on) {
   el.innerHTML = h;
   document.body.appendChild(el);
 }
+// التلج يقف وانت بتلعب أو اللعبة في الخلفية
+function snowPause(p) { var el = $('#snow'); if (el) el.style.animationPlayState = el.style.display = p ? 'none' : ''; }
+document.addEventListener('visibilitychange', function () { snowPause(document.visibilityState !== 'visible'); });
 function emojiList() {
   var out = EMOJI_PACKS.basic.list.slice();
   (S.packs || []).forEach(function (k) { if (EMOJI_PACKS[k]) out = out.concat(EMOJI_PACKS[k].list); });
@@ -3444,13 +3503,23 @@ function howBody(g) {
     steps.map(function (x) { return '<li><span class="how-ic">' + x[0] + '</span><span>' + esc(x[1]) + '</span></li>'; }).join('') + '</ol></div>';
 }
 
+// استيمشن قريب
+function openSoon() {
+  var sh = openSheet('<div class="soon-ic">🃏</div><p class="res-title">' + t('soonTitle') + '</p><p class="res-sub">' + t('soonBody') + '</p>' +
+    '<h3 class="sec-h">' + t('soonHow') + '</h3><ol class="how-list">' +
+    [['🂠', t('soonS1')], ['👑', t('soonS2')], ['🎯', t('soonS3')], ['🏆', t('soonS4')]].map(function (x) {
+      return '<li><span class="how-ic">' + x[0] + '</span><span>' + esc(x[1]) + '</span></li>';
+    }).join('') + '</ol><button class="btn cta" data-ok>' + t('notifyMe') + '</button>');
+  $('[data-ok]', sh).addEventListener('click', function () { closeSheet(sh); });
+}
+
 /* ===== لمّة — التحديثات =====
  * الموقع فيه version.json بآخر إصدار. اللعبة بتقارن رقمها بيه:
  * الأبلكيشن القديم بيظهرله «في تحديث جديد» وزرار ينزّل الأبلكيشن، والموقع بيتحدّث لوحده.
  * وبعد أي تحديث بيظهر «الجديد في الإصدار» مرة واحدة. */
 var UPD_URL = 'https://technicalteam774.github.io/lamma/version.json';
 var APK_PAGE = 'https://github.com/TechnicalTeam774/lamma/releases/latest';
-var CHANGES = {"1.0.9": ["ثيمات جديدة للعبة كلها، منها ثيم الكريسماس بالتلج", "المحل اتوسّع: أشكال كوتشينة ودومنة وباقات إيموجي وإطارات", "صورتك فوق بتفتح ملفك الشخصي، وإعدادات اللعبة لوحدها", "في الدومنة بقيت تسحب الحجر بإيدك", "شرح لكل لعبة: إزاي تلعبها", "ملف صاحبك: كسبته كام ومكسبك كام", "تصليح الكلام اللي كان راكب على بعضه، واسحب الشاشة لتحت تقفل"]};
+var CHANGES = {"1.0.10": ["اللي بتشتريه من المحل بقى يبان في اللعب فعلاً: الكوتشينة والدومنة", "موسيقى كريسماس هادية بالأجراس مع ثيم الكريسماس", "استيمشن جاية قريب، وفيها شرح إزاي بتتلعب", "اللعبة بقت أسرع: صور أخف وتلج أخف ويقف وانت بتلعب", "الشاشة الرئيسية مبقتش بتهتز"]};
 function verNum(v) { var p = String(v || '0').split('.'); return (+p[0] || 0) * 1e6 + (+p[1] || 0) * 1e3 + (+p[2] || 0); }
 var updLast = 0;
 function checkUpdate(manual) {
