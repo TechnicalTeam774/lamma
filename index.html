@@ -15,11 +15,9 @@
 <meta name="apple-mobile-web-app-title" content="لمّة">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;800&family=Lalezar&display=swap" rel="stylesheet">
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-firestore-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.14.1/firebase-messaging-compat.js"></script>
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;800&family=Lalezar&display=swap" onload="this.rel='stylesheet'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alexandria:wght@400;600;700;800&family=Lalezar&display=swap"></noscript>
+<!-- فايربيز بتتحمّل بعد ما اللعبة تظهر (شوف loadFirebase تحت)، مش قبلها -->
 <style>
 /* ===== الألوان: نهار = حيطة قهوة تركواز، ليل = سما وسط البلد ===== */
 :root {
@@ -2346,7 +2344,7 @@ var L = {
     musicL: 'الموسيقى', musicSub: 'موسيقى هادية في الخلفية', themeL: 'ثيم اللعبة', themeSub: 'غيّر شكل اللعبة كلها', change: 'تغيير', howTo: 'إزاي تلعب؟', howToSub: 'شرح سريع لكل لعبة', open: 'افتح',
     secSound: 'الصوت والاهتزاز', vibe: 'الاهتزاز', vibeSub: 'مع رمي الزهر والفوز',
     secPlay: 'اللعب', secPrivacy: 'الخصوصية', showOnline: 'إظهار حالة الاتصال', showOnlineSub: 'أصحابك يشوفوا إنك أونلاين',
-    secLook: 'المظهر', secAbout: 'عن لمّة', shareGame: 'شارك اللعبة', shareSub: 'ادعي أصحابك يلعبوا معاك', share: 'مشاركة', version: 'الإصدار', shareText: 'تعالى نلعب طاولة ودومنة ولودو على لمّة',
+    secLook: 'المظهر', secAbout: 'عن لمّة', shareGame: 'شارك اللعبة', shareSub: 'ادعي أصحابك يلعبوا معاك', share: 'مشاركة', version: 'الإصدار', myId: 'رقم حسابك', copy: 'نسخ', copied: 'اتنسخ ✓', shareText: 'تعالى نلعب طاولة ودومنة ولودو على لمّة',
     reactL: 'إيموجي', exitQ: 'تخرج من لمّة؟', exitNo: 'لأ، كمّل', exitYes: 'اخرج', gchat: 'الشات', gchatPh: 'اكتب لصحابك...', timerAsk: '{name} عايز يلعب بمؤقت {s} ثانية للدور', coins: 'كوينز', shop: 'المحل', buy: 'اشتري', owned: 'عندك', equipped: 'شغّال', notEnough: 'الكوينز مش مكفية', earned: 'كسبت {n} كوينز',
     settings: 'الإعدادات', language: 'اللغة', music: 'الموسيقى', sounds: 'الأصوات', yourName: 'اسمك', close: 'تمام',
     roll: 'ارمي الزهر', undo: 'تراجع', thinking: 'بيفكّر…',
@@ -2461,7 +2459,7 @@ var L = {
     musicL: 'Music', musicSub: 'Calm background music', themeL: 'Game theme', themeSub: 'Change the whole look', change: 'Change', howTo: 'How to play', howToSub: 'A quick guide for each game', open: 'Open',
     secSound: 'Sound & vibration', vibe: 'Vibration', vibeSub: 'On dice rolls and wins',
     secPlay: 'Gameplay', secPrivacy: 'Privacy', showOnline: 'Show online status', showOnlineSub: 'Friends can see when you’re online',
-    secLook: 'Appearance', secAbout: 'About لمّة', shareGame: 'Share the game', shareSub: 'Invite friends to play', share: 'Share', version: 'Version', shareText: 'Come play backgammon, dominoes and Ludo with me on لمّة',
+    secLook: 'Appearance', secAbout: 'About لمّة', shareGame: 'Share the game', shareSub: 'Invite friends to play', share: 'Share', version: 'Version', myId: 'Your account id', copy: 'Copy', copied: 'Copied ✓', shareText: 'Come play backgammon, dominoes and Ludo with me on لمّة',
     reactL: 'Emoji', exitQ: 'Leave لمّة?', exitNo: 'No, keep playing', exitYes: 'Exit', gchat: 'Chat', gchatPh: 'Message your friends...', timerAsk: '{name} wants a {s}s turn timer', coins: 'Coins', shop: 'Shop', buy: 'Buy', owned: 'Owned', equipped: 'Active', notEnough: 'Not enough coins', earned: 'You earned {n} coins',
     settings: 'Settings', language: 'Language', music: 'Music', sounds: 'Sounds', yourName: 'Your name', close: 'Done',
     roll: 'Roll dice', undo: 'Undo', thinking: 'Thinking…',
@@ -3029,6 +3027,7 @@ function openSettings() {
     setRow(t('howTo'), t('howToSub'), '<button class="btn plain sm" data-howto>' + t('open') + '</button>') +
     setRow(t('shareGame'), t('shareSub'), '<button class="btn plain sm" data-share>' + t('share') + '</button>') +
     setRow(t('version'), 'لمّة ' + APP_VER, '<button class="btn plain sm" data-upd-check>' + t('updCheck') + '</button>') +
+    (myUid ? setRow(t('myId'), myUid, '<button class="btn plain sm" data-copy-uid>' + t('copy') + '</button>') : '') +
     '<button class="btn cta" data-close>' + t('close') + '</button>';
   var w = openSheet(html);
   bindSeg(w, function (k, v) {
@@ -3042,6 +3041,15 @@ function openSettings() {
     if (ev.target.closest('[data-howto]')) { closeSheet(w); setTimeout(openHowTo, 280); return; }
     if (ev.target.closest('[data-share]')) { shareGame(); return; }
     if (ev.target.closest('[data-upd-check]')) { checkUpdate(true); return; }
+    if (ev.target.closest('[data-copy-uid]')) {
+      Snd.play('tap');
+      try {
+        if (navigator.clipboard) navigator.clipboard.writeText(myUid);
+        else { var ta = document.createElement('textarea'); ta.value = myUid; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); }
+        toast(t('copied'));
+      } catch (e) { toast(myUid); }
+      return;
+    }
     if (ev.target.closest('[data-close]')) closeSheet(w);
   });
 }
@@ -3698,7 +3706,7 @@ function openSoon() {
  * وبعد أي تحديث بيظهر «الجديد في الإصدار» مرة واحدة. */
 var UPD_URL = 'https://technicalteam774.github.io/lamma/version.json';
 var APK_PAGE = 'https://github.com/TechnicalTeam774/lamma/releases/latest';
-var CHANGES = {"1.1.0": ["رقم الإصدار بقى واحد في كل مكان — في الأبلكيشن وفي صفحة التنزيل", "استيمشن بقت تتلعب مع صحابك — أربعة أونلاين، بالمناقصة والحكم والتوقّع", "لوحة المزايدة اتحركت فوق، مابقتش مغطّية الورق اللي في إيدك", "شكل الكوتشينة اتعمل من أول وجديد: ورق زي الحقيقي، والورق في إيدك بيتفرد مروحة", "الأكلة بقت تفضل على الترابيزة لحد ما تشوف الورقة الرابعة ومين كسبها", "بورد لودو اتعمل من جديد بشكل أحلى", "موسيقى جديدة هادية، والقديمة اللي فيها خرشة اتشالت", "زرار الرجوع بقى يشتغل صح ويسألك قبل ما تخرج", "المحل كبر: 11 ثيم و7 ورق و7 أحجار و7 إيموجي و7 إطارات، وكل تبويب بيقولك الحاجة بتبان فين", "الإشعارات: القناة بقت تتعمل مع فتح الأبلكيشن، والإشعار بيبان جوه اللعبة، وتجربة الإشعار بقت تقولك وقفت فين بالظبط"], "1.0.12": ["لعبة جديدة: استيمشن بأربع لاعيبة، بالمناقصة والحكم والتوقّع", "شرح كامل لاستيمشن جوه اللعبة: إزاي تزايد وتحسب نقطك", "تصليح الإشعارات: الجهاز بقى يتسجّل صح أول ما يفتح الأبلكيشن"]};
+var CHANGES = {"1.1.0": ["اللعبة بقت تفتح أسرع بكتير — فايربيز مابقتش توقف ظهور اللعبة، والملفات بتتخزّن من أول مرة", "رقم الإصدار بقى واحد في كل مكان — في الأبلكيشن وفي صفحة التنزيل", "استيمشن بقت تتلعب مع صحابك — أربعة أونلاين، بالمناقصة والحكم والتوقّع", "لوحة المزايدة اتحركت فوق، مابقتش مغطّية الورق اللي في إيدك", "شكل الكوتشينة اتعمل من أول وجديد: ورق زي الحقيقي، والورق في إيدك بيتفرد مروحة", "الأكلة بقت تفضل على الترابيزة لحد ما تشوف الورقة الرابعة ومين كسبها", "بورد لودو اتعمل من جديد بشكل أحلى", "موسيقى جديدة هادية، والقديمة اللي فيها خرشة اتشالت", "زرار الرجوع بقى يشتغل صح ويسألك قبل ما تخرج", "المحل كبر: 11 ثيم و7 ورق و7 أحجار و7 إيموجي و7 إطارات، وكل تبويب بيقولك الحاجة بتبان فين", "الإشعارات: القناة بقت تتعمل مع فتح الأبلكيشن، والإشعار بيبان جوه اللعبة، وتجربة الإشعار بقت تقولك وقفت فين بالظبط", "رقم حسابك بقى يبان في الإعدادات عشان نقدر نفحص الإشعارات"], "1.0.12": ["لعبة جديدة: استيمشن بأربع لاعيبة، بالمناقصة والحكم والتوقّع", "شرح كامل لاستيمشن جوه اللعبة: إزاي تزايد وتحسب نقطك", "تصليح الإشعارات: الجهاز بقى يتسجّل صح أول ما يفتح الأبلكيشن"]};
 function verNum(v) { var p = String(v || '0').split('.'); return (+p[0] || 0) * 1e6 + (+p[1] || 0) * 1e3 + (+p[2] || 0); }
 var updLast = 0;
 function checkUpdate(manual) {
@@ -3750,6 +3758,34 @@ function fbReady() { return typeof firebase !== 'undefined' && fbConfigured(); }
 function genCode() { var s = ''; for (var i = 0; i < 6; i++) s += CODE_ABC[Math.floor(Math.random() * CODE_ABC.length)]; return s; }
 function pairId(a, b) { return [a, b].sort().join('_'); }
 
+// فايربيز ٦٥٠ كيلوبايت. لو حمّلناها قبل اللعبة، الشاشة بتفضل فاضية لحد ما تخلص.
+// فاللعبة بتفتح الأول، وبعدين دي بتيجي ورا وتفتح الأونلاين والصحاب لما توصل.
+var fbLoading = false;
+function loadFirebase() {
+  if (fbLoading || typeof firebase !== 'undefined') { fbInit(); return; }
+  if (!fbConfigured()) return;
+  fbLoading = true;
+  var base = 'https://www.gstatic.com/firebasejs/10.14.1/';
+  var add = function (file, done) {
+    var s = document.createElement('script');
+    s.src = base + file; s.async = false;
+    s.onload = done; s.onerror = done;
+    document.head.appendChild(s);
+  };
+  var rest = ['firebase-auth-compat.js', 'firebase-firestore-compat.js', 'firebase-messaging-compat.js'];
+  var left = rest.length;
+  add('firebase-app-compat.js', function () {
+    if (typeof firebase === 'undefined') { fbLoading = false; return; }
+    rest.forEach(function (f) {
+      add(f, function () {
+        if (--left) return;
+        fbLoading = false;
+        fbInit();
+        if (socialRoot && socialRoot.isConnected) renderSocial();
+      });
+    });
+  });
+}
 function fbInit() {
   if (!fbReady() || fbApp) return;
   try {
@@ -6879,7 +6915,6 @@ EP.roundOver = function () {
 /* ===== تشغيل ===== */
 (function () { var sp = Snd.play; Snd.play = function (k) { if (k === 'dice') buzz(20); else if (k === 'win') buzz([40, 60, 40]); return sp.apply(Snd, arguments); }; })();
 readOpenParam();
-fbInit();
 applyLang();
 document.documentElement.setAttribute('data-skin', S.skin);
 applyTheme();
@@ -6887,6 +6922,7 @@ Snd.setSfx(S.sfx);
 Snd.setMusic(!!S.music);
 document.addEventListener('pointerdown', function () { Snd.unlock(); }, { once: true });
 renderWelcome();
+requestAnimationFrame(function () { setTimeout(loadFirebase, 0); });
 // زرار الرجوع في موبايل الأندرويد (جوه الأبلكيشن)
 // بيرجّع خطوة واحدة بس، ومن غير ما يخرج من اللعبة
 var lastBackAt = 0;
