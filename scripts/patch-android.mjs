@@ -72,7 +72,8 @@ edit('android/variables.gradle', (s) => (s.includes('rgcfaIncludeGoogle') ? s : 
 edit(path.join(APP, 'build.gradle'), (s) => {
   if (s.includes('LAMMA_KEYSTORE')) return s;
   s = s.replace(/versionCode \d+/, 'versionCode((System.getenv("GITHUB_RUN_NUMBER") ?: "1").toInteger())')
-    .replace(/versionName "[^"]*"/, 'versionName "1.0.${System.getenv("GITHUB_RUN_NUMBER") ?: "0"}"');
+    // الاسم اللي بيبان للناس بيجي من إصدار اللعبة نفسها، مش من عدّاد التشغيل
+    .replace(/versionName "[^"]*"/, 'versionName((System.getenv("LAMMA_VERSION") ?: "1.0.0"))');
   return s.replace(
     /buildTypes \{\s*release \{/,
     `lint {
