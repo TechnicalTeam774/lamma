@@ -5,6 +5,15 @@ import { FirebaseAuthentication } from '@capacitor-firebase/authentication';
 import { PushNotifications } from '@capacitor/push-notifications';
 
 let pushToken = null;
+const waiters = [];
+// المستمعين بيتسجّلوا مرة واحدة مع فتح الأبلكيشن، فالعنوان بيتمسك حتى لو وصل بدري
+PushNotifications.addListener('registration', (t) => {
+  pushToken = t && t.value;
+  if (window.LammaSaveToken && pushToken) window.LammaSaveToken(pushToken);
+  while (waiters.length) waiters.shift()(pushToken);
+});
+PushNotifications.addListener('registrationError', () => { while (waiters.length) waiters.shift()(null); });
+PushNotifications.checkPermissions().then((p) => { if (p.receive === 'granted') PushNotifications.register(); }).catch(() => {});
 window.LammaNative = {
   isNative: () => Capacitor.isNativePlatform(),
   googleIdToken: async () => {
@@ -18,13 +27,15 @@ window.LammaNative = {
     if (p.receive !== 'granted') return null;
     try { await PushNotifications.createChannel({ id: 'lamma', name: 'لمّة', importance: 4, sound: 'default', vibration: true }); } catch (e) { /* أندرويد قديم */ }
     if (pushToken) return pushToken;
+    await PushNotifications.register();
+    // لو الحدث فات، بنستنى اللي اتسجّل عند فتح الأبلكيشن
     return new Promise((resolve) => {
-      const timer = setTimeout(() => resolve(null), 15000);
-      PushNotifications.addListener('registration', (t) => { clearTimeout(timer); pushToken = t.value; resolve(t.value); });
-      PushNotifications.addListener('registrationError', () => { clearTimeout(timer); resolve(null); });
-      PushNotifications.register();
+      if (pushToken) return resolve(pushToken);
+      waiters.push(resolve);
+      setTimeout(() => resolve(pushToken), 20000);
     });
   },
+  lastToken: () => pushToken,
   signOut: () => FirebaseAuthentication.signOut(),
   exitApp: () => App.exitApp(),
 };

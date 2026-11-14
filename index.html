@@ -844,6 +844,72 @@ html.in-game .amb { display: none; }
 html, body { overscroll-behavior: none; }
 .home { contain: layout paint; }
 
+
+/* ===== استيمشن ===== */
+.game.es { display: grid; grid-template-rows: auto auto 1fr auto auto; height: 100%; overflow: hidden; }
+.es-seats { display: flex; gap: 6px; padding: 6px 10px 0; }
+.es-seat { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; align-items: center; gap: 3px; text-align: center; position: relative; padding: 6px 4px; border-radius: 14px; transition: background .2s; }
+.es-seat .av { width: 38px; height: 38px; border-radius: 50%; overflow: visible; flex: none; }
+.es-seat .av > .av-img, .es-seat .av > .av-mono, .es-seat .av > .frm { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: grid; place-items: center; object-fit: cover; }
+.es-seat .who { display: grid; gap: 1px; min-width: 0; max-width: 100%; }
+.es-seat .who b { font-size: .78rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.es-seat .meta { font-size: .68rem; color: var(--ink-2); white-space: nowrap; }
+.es-seat.turn { background: color-mix(in srgb, var(--hl) 20%, transparent); }
+.es-seat.turn .av { box-shadow: 0 0 0 2px var(--hl); border-radius: 50%; }
+.es-seat.out { opacity: .45; }
+.es-seat.dealer .who b::after, .es .seat.me.dealer .who b::after { content: ' ★'; color: var(--hl); }
+.es-seat.took .av { animation: pop .45s ease-out; }
+.es-seat .bubble { position: absolute; top: calc(100% - 4px); inset-inline-start: 50%; transform: translateX(-50%); z-index: 3; }
+.es .me-bar .meta { font-size: .72rem; color: var(--ink-2); }
+.es .seat.me.dealer .av { box-shadow: 0 0 0 2px var(--hl); border-radius: 50%; }
+
+.es-table { position: relative; display: grid; place-items: center; min-height: 0; padding: 34px 6px 6px; align-content: center; }
+.es-count { position: absolute; top: 8px; inset-inline-end: 14px; max-width: 45%; white-space: nowrap; font-size: .74rem; color: var(--ink-2); font-weight: 700; }
+.es-empty { grid-area: 1 / 1 / 3 / 4; align-self: center; color: var(--ink-2); font-size: .85rem; opacity: .6; }
+.es-trump { position: absolute; top: 4px; inset-inline-start: 12px; }
+.tr-chip { display: inline-flex; align-items: center; gap: 5px; padding: 4px 11px; border-radius: 999px; background: var(--surface-2); font-size: .8rem; font-weight: 700; }
+.tr-chip b { font-size: 1rem; }
+.tr-chip.red b { color: #e0544a; }
+.tr-chip.muted { opacity: .7; }
+.es-trick { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 1fr 1fr; gap: 4px; place-items: center; width: 100%; max-width: 300px; height: 100%; max-height: 300px; min-height: 190px; padding: 12px 10px; border-radius: 26px; background: radial-gradient(ellipse at 50% 42%, rgba(255,255,255,.055), transparent 70%), color-mix(in srgb, var(--surface-2) 34%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--line) 65%, transparent); }
+.es-slot { display: grid; justify-items: center; gap: 2px; animation: cardin .25s ease-out; }
+.es-slot.s1 { grid-area: 1 / 1; } .es-slot.s2 { grid-area: 1 / 2; } .es-slot.s3 { grid-area: 1 / 3; } .es-slot.s0 { grid-area: 2 / 2; }
+.es-trick .card { width: 56px; height: 78px; font-size: .92rem; }
+.es-slot > i { font-style: normal; font-size: .66rem; color: var(--ink-2); max-width: 70px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.es-slot.win .card { box-shadow: 0 0 0 3px var(--hl), 0 10px 22px -10px rgba(0, 0, 0, .7); transform: translateY(-4px); }
+.es-slot .card { transition: transform .2s, box-shadow .2s; }
+@keyframes cardin { from { opacity: 0; transform: scale(.8) translateY(10px); } to { opacity: 1; transform: none; } }
+
+.es-hand { display: flex; justify-content: center; flex-wrap: wrap; gap: 4px; padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0px)); overflow: hidden; }
+.es-hand .card { width: 41px; height: 59px; font-size: .76rem; flex: none; transition: transform .16s; }
+.es-hand .card.off { opacity: .4; filter: grayscale(.75); }
+.es-hand .card.idle { opacity: .85; }
+.es-hand .card:not(.off):not(.idle) { box-shadow: 0 0 0 2px var(--hl), 0 6px 14px -8px rgba(0, 0, 0, .6); }
+.es-hand .card:not(.off):not(.idle):active { transform: translateY(-7px); }
+
+.es-panel { position: absolute; inset-inline: 10px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); z-index: 22; padding: 12px 14px; border-radius: 20px; background: var(--surface); box-shadow: 0 -14px 40px -16px rgba(0, 0, 0, .75), inset 0 0 0 1px var(--line); animation: slideup .22s ease-out; }
+@keyframes slideup { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.pn-h { display: grid; gap: 2px; margin-bottom: 8px; text-align: center; }
+.pn-h small { color: var(--ink-2); font-size: .78rem; }
+.pn-nums { display: flex; gap: 5px; overflow-x: auto; padding-bottom: 4px; }
+.pn-nums.wide { flex-wrap: wrap; justify-content: center; overflow: visible; }
+.pn-n { all: unset; flex: none; min-width: 38px; padding: 9px 0; text-align: center; border-radius: 12px; background: var(--surface-2); font-weight: 800; cursor: pointer; }
+.pn-n.on { background: var(--hl); color: #1a1230; }
+.pn-n.bad, .pn-n[disabled] { opacity: .3; cursor: not-allowed; text-decoration: line-through; }
+.pn-suits { display: flex; gap: 6px; justify-content: center; margin: 8px 0; }
+.pn-s { all: unset; min-width: 46px; padding: 8px 0; text-align: center; border-radius: 12px; background: var(--surface-2); font-size: 1.15rem; font-weight: 800; cursor: pointer; }
+.pn-s.red { color: #e0544a; }
+.pn-s.on { background: var(--hl); color: #1a1230; }
+.pn-s[disabled] { opacity: .28; cursor: not-allowed; }
+.pn-act { display: flex; gap: 8px; }
+.pn-act .btn { flex: 1; }
+.es-tbl td.plus { color: #35c26b; font-weight: 800; }
+.es-tbl td.minus { color: #e0544a; font-weight: 800; }
+.es-tbl tr.me { background: color-mix(in srgb, var(--hl) 14%, transparent); }
+.es-tbl th { font-size: .74rem; color: var(--ink-2); font-weight: 700; }
+.es-tbl td, .es-tbl th { padding: 7px 4px; text-align: center; }
+.es-tbl td:first-child, .es-tbl th:first-child { text-align: start; }
+
 </style>
 </head>
 <body>
@@ -2127,8 +2193,8 @@ var KEY = 'lamma.v1';
 var S = {
   name: '', avatar: '😎', photo: '', pace: 'calm', lang: 'ar', music: false, sfx: true, skin: 'sadaf', coins: 100, owned: [],
   setup: { tawla: { variant: 'aada', level: 'medium', target: 3, timer: 0 }, domino: { players: 2, level: 'medium', target: 101, timer: 0 },
-    ludo: { players: 4, level: 'medium', timer: 0 }, chess: { side: 'w', level: 'medium', timer: 0 }, basra: { level: 'medium', target: 101, timer: 0 } },
-  stats: { tawla: { w: 0, p: 0 }, domino: { w: 0, p: 0 }, ludo: { w: 0, p: 0 }, chess: { w: 0, p: 0 }, basra: { w: 0, p: 0 } }
+    ludo: { players: 4, level: 'medium', timer: 0 }, chess: { side: 'w', level: 'medium', timer: 0 }, basra: { level: 'medium', target: 101, timer: 0 }, estimation: { level: 'medium', target: 4, timer: 0 } },
+  stats: { estimation: { w: 0, p: 0 }, tawla: { w: 0, p: 0 }, domino: { w: 0, p: 0 }, ludo: { w: 0, p: 0 }, chess: { w: 0, p: 0 }, basra: { w: 0, p: 0 } }
 };
 function deepMerge(a, b) {
   Object.keys(b).forEach(function (k) {
@@ -2181,7 +2247,7 @@ var L = {
     secProfile: 'الملف الشخصي', secAccount: 'الحساب', accGoogle: 'حساب جوجل', accNone: 'غير مسجّل', accWhy: 'سجّل الدخول عشان تلعب مع أصحابك', signInShort: 'تسجيل الدخول',
     secNotif: 'الإشعارات', notifDevice: 'إشعارات الجهاز ده', pst_on: 'مفعّلة', pst_off: 'متوقفة', pst_blocked: 'مقفولة من إعدادات الجهاز', pst_na: 'غير متاحة على هذا المتصفح',
     nfChat: 'رسائل الدردشة', nfInvite: 'دعوات اللعب', nfFriend: 'طلبات الصداقة', pushTest: 'إرسال إشعار تجريبي',
-    ptOk: 'تم الإرسال ✓ الإشعار هيوصلك خلال ثواني', ptNoDev: 'مفيش جهاز مسجّل. اقفل الإشعارات وشغّلها تاني', ptNoUrl: 'سيرفر الإشعارات غير مربوط (config/push)', ptOld: 'سيرفر الإشعارات محتاج يتحدّث بالكود الجديد', ptKey: 'مفتاح فايربيس في السيرفر غير صحيح (SA_JSON)', ptErr: 'تعذّر الإرسال: {e}', ptNet: 'تعذّر الوصول لسيرفر الإشعارات', ptWait: 'جاري الإرسال…',
+    ptRetry: 'سجّلنا الجهاز دلوقتي… بنجرب تاني', ptOk: 'تم الإرسال ✓ الإشعار هيوصلك خلال ثواني', ptNoDev: 'مفيش جهاز مسجّل. اقفل الإشعارات وشغّلها تاني', ptNoUrl: 'سيرفر الإشعارات غير مربوط (config/push)', ptOld: 'سيرفر الإشعارات محتاج يتحدّث بالكود الجديد', ptKey: 'مفتاح فايربيس في السيرفر غير صحيح (SA_JSON)', ptErr: 'تعذّر الإرسال: {e}', ptNet: 'تعذّر الوصول لسيرفر الإشعارات', ptWait: 'جاري الإرسال…',
     how_tawla_s: 'بتجيب حجارتك الـ15 لبيتك وتطلّعها قبل خصمك.',
     how_tawla: [['🎲', 'ارمي الزهر، وحرّك حجرين بالرقمين اللي طلعوا.'], ['➡️', 'حجارتك بتمشي ناحية بيتك على الشمال تحت.'], ['🛡️', 'حجرين فوق بعض في خانة = الخانة محجوزة لك.'], ['⚔️', 'في العادة: حجر لوحده بيتضرب ويرجع من الأول.'], ['🏁', 'لمّا كل حجارتك تدخل بيتك، ابدأ تطلّعها. اللي يخلّص الأول يكسب.']],
     how_domino_s: 'تخلّص حجارتك الأول، أو تبقى الأقل لما الجيم يتقفل.',
@@ -2192,6 +2258,17 @@ var L = {
     how_chess: [['♟️', 'كل قطعة ليها حركة: البيدق قدام، والحصان على شكل L.'], ['👆', 'دوس على قطعتك وهتشوف كل حركاتها.'], ['🏰', 'الرخية: الملك بيتحرك خانتين ناحية القلعة.'], ['👑', 'البيدق لما يوصل آخر الدور بيبقى وزير.'], ['♚', 'لما الملك يتحاصر ومفيش حركة، الجيم خلص.']],
     how_basra_s: 'لمّ أكبر عدد ورق من الأرض بورق إيدك.',
     how_basra: [['🃏', 'كل واحد بياخد 4 ورق، وفيه 4 على الأرض.'], ['🎯', 'نزّل ورقة تساوي ورقة على الأرض وخدهم.'], ['➕', 'الشايب والبنت والولد بياخدوا اللي زيهم بس.'], ['💥', 'بصرة: تاخد آخر ورقة على الأرض لوحدها = 10 نقط.'], ['🏅', 'الكومي (7 ديناري) والولد ليهم نقط، وأكتر ورق بياخد 30.']],
+    esWaitLead: 'في انتظار أول ورقة', esTrickN: 'أكلة {n} من 13',
+    esNT: 'بلا حكم', esPass: 'باس', esBidding: 'المناقصة', esTrump: 'الحكم', esRoundN: 'دور {n}',
+    esTook: 'خد {w} من {e}', esYourBid: 'دورك تزايد', esBidTitle: 'تزايد بكام؟', esBidHint: 'أقل مزايدة 4. اختار الرقم والحكم.',
+    esTopBid: 'أعلى مزايدة {b} لـ {name}', esSayIt: 'قول', esDeclarer: '{name} خد المناقصة بـ {b}', esAllPass: 'الكل باس… ورق جديد',
+    esYourEst: 'دورك تقول توقعك', esEstTitle: 'هتاخد كام أكلة؟', esEstHint: 'الحكم {s}', esNotN: 'ممنوع {n}', esSaid: 'قال {n}',
+    esGo: 'يلا نلعب، الحكم {s}', esFollow: 'لازم تلعب من نفس النوع', esRoundDone: 'خلص دور {n}',
+    esWho: 'اللاعب', esCalled: 'قال', esGot: 'خد', esPts: 'الدور', esTotal: 'المجموع',
+    esYouWin: 'كسبت استيمشن!', esWinner: '{name} كسب استيمشن', esRounds: 'عدد الأدوار',
+    esSetupHint: 'أربع لاعيبة، 13 ورقة لكل واحد، واللي يجمع أكتر نقط في الآخر يكسب.', esHowBtn: 'إزاي بتتلعب؟',
+    how_estimation_s: 'أربع لاعيبة. كل واحد بيقول هياخد كام أكلة، واللي يجيب كلامه بالظبط بياخد نقط.',
+    how_estimation: [['🂠', 'كل واحد بياخد 13 ورقة، والدور 13 أكلة.'], ['📣', 'المناقصة: تقول رقم من 4 لفوق ومعاه الحكم، أو تقول باس وتخرج.'], ['👑', 'آخر واحد فاضل في المناقصة بيبقى الأكّال، والحكم اللي قاله هو اللي بياكل الدور كله.'], ['🔢', 'بعدين كل واحد يقول هياخد كام أكلة. آخر واحد ممنوع يخلّي المجموع 13، عشان يفضل في كسبان وخسران.'], ['🃏', 'في اللعب لازم تنزل من نوع الأكلة لو معاك. الحكم بياكل أي نوع تاني، ولو مفيش حكم فأعلى ورقة من نوع الأكلة بتاخدها.'], ['🎯', 'جبت رقمك بالظبط؟ تاخد رقمك في 10 وزيادة 10. قلت صفر وجبته؟ 30 نقطة. غلطت؟ بتخسر الفرق في 10.']],
     estimation: 'استيمشن', estSub: 'كوتشينة بالمناقصة', comingSoon: 'قريب', soonTitle: 'استيمشن… قريب', soonBody: 'بنجهّز استيمشن بأربع لاعيبة ومناقصة ودور كامل، وهتنزل قبل آخر السنة إن شاء الله.', soonHow: 'بتتلعب إزاي؟', soonS1: 'كل واحد بياخد 13 ورقة، وبتقول هتاخد كام أكلة.', soonS2: 'اللي يقول أكبر رقم بيختار الحكم (نوع الورق الأقوى).', soonS3: 'كل أكلة بتاخدها بتتحسب، ولو جبت اللي قلته بالظبط بتاخد بونس.', soonS4: 'الدور 13 أكلة، واللي يجمع نقط أكتر في آخر الجيم يكسب.', notifyMe: 'تمام، استناها',
     mustDraw: 'مفيش عندك حجر يلعب، اسحب', drawBtn: 'اسحب حجر',
     musicL: 'الموسيقى', musicSub: 'موسيقى هادية في الخلفية', themeL: 'ثيم اللعبة', themeSub: 'غيّر شكل اللعبة كلها', change: 'تغيير', howTo: 'إزاي تلعب؟', howToSub: 'شرح سريع لكل لعبة', open: 'افتح',
@@ -2281,7 +2358,7 @@ var L = {
     secProfile: 'Profile', secAccount: 'Account', accGoogle: 'Google account', accNone: 'Not signed in', accWhy: 'Sign in to play with friends', signInShort: 'Sign in',
     secNotif: 'Notifications', notifDevice: 'Notifications on this device', pst_on: 'On', pst_off: 'Off', pst_blocked: 'Blocked in device settings', pst_na: 'Not available in this browser',
     nfChat: 'Chat messages', nfInvite: 'Game invites', nfFriend: 'Friend requests', pushTest: 'Send a test notification',
-    ptOk: 'Sent ✓ it should arrive in a few seconds', ptNoDev: 'No device registered. Turn notifications off and on again', ptNoUrl: 'Notification server not connected (config/push)', ptOld: 'The notification server needs the new code', ptKey: 'The Firebase key on the server is invalid (SA_JSON)', ptErr: 'Could not send: {e}', ptNet: 'Could not reach the notification server', ptWait: 'Sending…',
+    ptRetry: 'Device registered… retrying', ptOk: 'Sent ✓ it should arrive in a few seconds', ptNoDev: 'No device registered. Turn notifications off and on again', ptNoUrl: 'Notification server not connected (config/push)', ptOld: 'The notification server needs the new code', ptKey: 'The Firebase key on the server is invalid (SA_JSON)', ptErr: 'Could not send: {e}', ptNet: 'Could not reach the notification server', ptWait: 'Sending…',
     how_tawla_s: 'Bring your 15 checkers home and bear them off first.',
     how_tawla: [['🎲', 'Roll the dice and move with the two numbers.'], ['➡️', 'Your checkers move toward your home board.'], ['🛡️', 'Two checkers on a point make it yours.'], ['⚔️', 'In the classic game a lone checker gets hit and restarts.'], ['🏁', 'Once all your checkers are home, bear them off. First one out wins.']],
     how_domino_s: 'Play all your tiles, or hold the lowest count when the game blocks.',
@@ -2292,6 +2369,17 @@ var L = {
     how_chess: [['♟️', 'Each piece moves differently; knights move in an L.'], ['👆', 'Tap your piece to see every legal move.'], ['🏰', 'Castling moves the king two squares toward a rook.'], ['👑', 'A pawn reaching the far rank becomes a queen.'], ['♚', 'When the king is trapped, the game is over.']],
     how_basra_s: 'Capture as many cards from the table as you can.',
     how_basra: [['🃏', 'Each player gets 4 cards, with 4 on the table.'], ['🎯', 'Play a card matching one on the table and take both.'], ['➕', 'Face cards only capture matching face cards.'], ['💥', 'Basra: take the last single card for 10 points.'], ['🏅', 'The 7 of diamonds and the jack score, and most cards gets 30.']],
+    esWaitLead: 'Waiting for the lead', esTrickN: 'Trick {n} of 13',
+    esNT: 'No trump', esPass: 'Pass', esBidding: 'Bidding', esTrump: 'Trump', esRoundN: 'Round {n}',
+    esTook: '{w} of {e}', esYourBid: 'Your bid', esBidTitle: 'What do you bid?', esBidHint: 'Minimum is 4. Pick a number and a trump.',
+    esTopBid: 'Top bid {b} by {name}', esSayIt: 'Bid', esDeclarer: '{name} won the bidding with {b}', esAllPass: 'Everyone passed… new deal',
+    esYourEst: 'Your call', esEstTitle: 'How many tricks?', esEstHint: 'Trump is {s}', esNotN: '{n} not allowed', esSaid: 'called {n}',
+    esGo: 'Here we go, trump is {s}', esFollow: 'You must follow suit', esRoundDone: 'Round {n} done',
+    esWho: 'Player', esCalled: 'Called', esGot: 'Took', esPts: 'Round', esTotal: 'Total',
+    esYouWin: 'You won Estimation!', esWinner: '{name} wins Estimation', esRounds: 'Rounds',
+    esSetupHint: 'Four players, 13 cards each. Most points at the end wins.', esHowBtn: 'How do I play?',
+    how_estimation_s: 'Four players. Each one calls how many tricks they will take, and hitting it exactly scores.',
+    how_estimation: [['🂠', 'Everyone gets 13 cards; a round is 13 tricks.'], ['📣', 'Bidding: say a number from 4 up with a trump suit, or pass and drop out.'], ['👑', 'The last bidder standing is the declarer, and their suit is trump for the whole round.'], ['🔢', 'Then everyone calls their own number. The last player may not make the total 13, so someone always misses.'], ['🃏', 'You must follow the led suit if you can. Trump beats any other suit; otherwise the highest card of the led suit wins.'], ['🎯', 'Exact call: your number × 10 plus 10. Called zero and got it: 30. Missed: lose the difference × 10.']],
     estimation: 'Estimation', estSub: 'The Egyptian bidding card game', comingSoon: 'Soon', soonTitle: 'Estimation… coming soon', soonBody: 'We are building Estimation with four players, bidding and full rounds. It lands before the end of the year.', soonHow: 'How it works', soonS1: 'Each player gets 13 cards and calls how many tricks they will take.', soonS2: 'The highest bidder picks the trump suit.', soonS3: 'Every trick counts, and hitting your exact call earns a bonus.', soonS4: 'A round is 13 tricks; most points at the end wins.', notifyMe: 'Can’t wait',
     mustDraw: 'Nothing to play, draw a tile', drawBtn: 'Draw',
     musicL: 'Music', musicSub: 'Calm background music', themeL: 'Game theme', themeSub: 'Change the whole look', change: 'Change', howTo: 'How to play', howToSub: 'A quick guide for each game', open: 'Open',
@@ -2363,7 +2451,7 @@ function applyLang() {
 
 var AVATARS = ['😎', '🧔🏽', '👩🏽', '🧕🏽', '👨🏽‍🦱', '🦁', '🐪', '🦅'];
 var SKINS = ['sadaf', 'khayamiya', 'neon', 'marble', 'pharaoh'];
-var APP_VER = '1.0.10';
+var APP_VER = '1.0.12';
 var BOTS = [{ k: 0, av: '🧑🏽' }, { k: 1, av: '👴🏽' }, { k: 2, av: '🧔🏽' }, { k: 3, av: '👵🏽' }];
 function botsFor(level, count) {
   var first = { easy: 0, medium: 1, hard: 2 }[level] || 0;
@@ -2636,7 +2724,9 @@ function poster(g) {
     '<h2>' + t(g) + '</h2><p>' + t(g + 'Sub') + '</p><span class="rec">' + rec + '</span></button>';
 }
 function soonCard() {
-  return '<button class="mg m-soon" id="h-soon"><span class="m-art">' + EST_ART + '</span><b>' + t('estimation') + '</b><small>' + t('estSub') + '</small><span class="rec soon">' + t('comingSoon') + '</span></button>';
+  var st = S.stats.estimation || { w: 0, p: 0 };
+  var rec = st.p ? t('record', { w: st.w, p: st.p }) : t('noRecord');
+  return '<button class="mg m-est" data-game="estimation"><span class="m-art">' + EST_ART + '</span><b>' + t('estimation') + '</b><small>' + t('estSub') + '</small><span class="rec">' + rec + '</span></button>';
 }
 var EST_ART = '<svg viewBox="0 0 60 44" aria-hidden="true">' +
   '<g transform="rotate(-14 18 24)"><rect x="8" y="8" width="20" height="28" rx="3" fill="#fffaf0" stroke="#1a1230" stroke-width="1.4"/><text x="18" y="27" text-anchor="middle" font-size="14" font-weight="800" fill="#c8382f" font-family="sans-serif">A</text></g>' +
@@ -2674,7 +2764,6 @@ function renderHome() {
   var root = app.firstChild;
   root.addEventListener('click', function (ev) {
     var p = ev.target.closest('.poster, .mg'), sk = ev.target.closest('[data-pick-skin]');
-    if (p && p.id === 'h-soon') { Snd.play('tap'); openSoon(); return; }
     if (p) { Snd.play('tap'); openSetup(p.getAttribute('data-game')); return; }
     if (ev.target.closest('#h-social')) { Snd.play('tap'); openSocial(); return; }
     if (ev.target.closest('#h-shop2')) { Snd.play('tap'); openShop(); return; }
@@ -2737,6 +2826,14 @@ function openSetup(game, opt) {
       field(t('chSide'), segHTML('side', [['w', t('chWhite')], ['b', t('chBlack')], ['random', t('chRandom')]], cfg.side)) +
       '<div id="lvl-f">' + field(t('level'), segHTML('level', [['easy', t('easy')], ['medium', t('medium')], ['hard', t('hard')]], cfg.level)) + '</div>' + timerField(cfg) +
       '<button class="btn cta" data-go>' + t('letsPlay') + '</button>';
+  } else if (game === 'estimation') {
+    html = '<h2>' + t('estimation') + '</h2>' +
+      field(t('vsWho'), segHTML('vs', [['cpu', t('vsCpu')], ['friends', ICON.lock + ' ' + t('vsFriends') + '<small>' + t('soon') + '</small>', true]], 'cpu')) +
+      field(t('level'), segHTML('level', [['easy', t('easy')], ['medium', t('medium')], ['hard', t('hard')]], cfg.level)) +
+      field(t('esRounds'), segHTML('target', [[2, '2'], [4, '4'], [8, '8']], cfg.target)) + timerField(cfg) +
+      '<p class="hint">' + t('esSetupHint') + '</p>' +
+      '<button class="btn plain sm wide" data-howest>' + t('esHowBtn') + '</button>' +
+      '<button class="btn cta" data-go>' + t('letsPlay') + '</button>';
   } else {
     html = '<h2>' + t('basra') + '</h2>' + vsField(vs) +
       '<div id="lvl-f">' + field(t('level'), segHTML('level', [['easy', t('easy')], ['medium', t('medium')], ['hard', t('hard')]], cfg.level)) + '</div>' +
@@ -2762,6 +2859,7 @@ function openSetup(game, opt) {
       $$('[data-fr]', w).forEach(function (x) { x.classList.toggle('on', picks.indexOf(x.getAttribute('data-fr')) >= 0); });
       return;
     }
+    if (ev.target.closest('[data-howest]')) { closeSheet(w); setTimeout(function () { openHowTo('estimation'); }, 280); return; }
     if (ev.target.closest('[data-social]')) { closeSheet(w); openSocial(); }
   });
   bindSeg(w, function (k, v) {
@@ -2778,7 +2876,7 @@ function openSetup(game, opt) {
       return;
     }
     closeSheet(w); Snd.unlock(); Snd.play('pop');
-    current = game === 'tawla' ? new TawlaMatch({ variant: cfg.variant, level: cfg.level, target: cfg.variant === 't31' ? 31 : cfg.target, timer: cfg.timer || 0 })
+    current = game === 'estimation' ? new EstimationMatch(cfg) : game === 'tawla' ? new TawlaMatch({ variant: cfg.variant, level: cfg.level, target: cfg.variant === 't31' ? 31 : cfg.target, timer: cfg.timer || 0 })
       : game === 'domino' ? new DominoMatch(cfg) : game === 'ludo' ? new LudoMatch(cfg) : game === 'chess' ? new ChessMatch(cfg) : new BasraMatch(cfg);
   });
 }
@@ -3484,7 +3582,7 @@ function openFriendProfile(uid) {
 }
 
 /* ----- إزاي تلعب ----- */
-var HOWTO = ['tawla', 'domino', 'ludo', 'chess', 'basra'];
+var HOWTO = ['tawla', 'domino', 'ludo', 'chess', 'basra', 'estimation'];
 function openHowTo(game) {
   var g = game || 'tawla';
   var sh = openSheet('<h2>' + t('howTo') + '</h2>' +
@@ -3519,7 +3617,7 @@ function openSoon() {
  * وبعد أي تحديث بيظهر «الجديد في الإصدار» مرة واحدة. */
 var UPD_URL = 'https://technicalteam774.github.io/lamma/version.json';
 var APK_PAGE = 'https://github.com/TechnicalTeam774/lamma/releases/latest';
-var CHANGES = {"1.0.10": ["اللي بتشتريه من المحل بقى يبان في اللعب فعلاً: الكوتشينة والدومنة", "موسيقى كريسماس هادية بالأجراس مع ثيم الكريسماس", "استيمشن جاية قريب، وفيها شرح إزاي بتتلعب", "اللعبة بقت أسرع: صور أخف وتلج أخف ويقف وانت بتلعب", "الشاشة الرئيسية مبقتش بتهتز"]};
+var CHANGES = {"1.0.12": ["لعبة جديدة: استيمشن بأربع لاعيبة، بالمناقصة والحكم والتوقّع", "شرح كامل لاستيمشن جوه اللعبة: إزاي تزايد وتحسب نقطك", "تصليح الإشعارات: الجهاز بقى يتسجّل صح أول ما يفتح الأبلكيشن"]};
 function verNum(v) { var p = String(v || '0').split('.'); return (+p[0] || 0) * 1e6 + (+p[1] || 0) * 1e3 + (+p[2] || 0); }
 var updLast = 0;
 function checkUpdate(manual) {
@@ -3584,7 +3682,7 @@ function onAuthChange(user) {
     myUid = user.uid;
     ensureProfile(user).then(function () {
       startPresence(); listenFriends(); listenRequests(); listenInvites(); listenInbox();
-      loadPushCfg().then(function () { if (S.pushOn) enablePush(false); });
+      loadPushCfg().then(function () { if (S.pushOn) enablePush(false).then(function (ok) { if (!ok) ensureToken(); }); });
     });
   } else {
     stopAllListeners(); myUid = null; myCode = ''; friendsData = {}; requestsData = {};
@@ -3913,17 +4011,30 @@ function pushState() {
 }
 function tokenId(tok) { var h = 5381; for (var i = 0; i < tok.length; i++) h = ((h * 33) ^ tok.charCodeAt(i)) >>> 0; return 't' + h.toString(16) + '_' + tok.length; }
 function saveToken(tok, platform) {
-  if (!tok || !myUid) return;
-  S.pushTokId = tokenId(tok); save();
-  fbDb.collection('users').doc(myUid).collection('tokens').doc(tokenId(tok))
-    .set({ token: tok, platform: platform, ts: firebase.firestore.FieldValue.serverTimestamp() }).catch(function () {});
+  if (!tok) return Promise.resolve(false);
+  S.pushTok = tok; S.pushTokId = tokenId(tok); save();
+  if (!fbDb || !myUid) return Promise.resolve(false);
+  return fbDb.collection('users').doc(myUid).collection('tokens').doc(tokenId(tok))
+    .set({ token: tok, platform: platform || (isNativeApp() ? 'android' : 'web'), ts: firebase.firestore.FieldValue.serverTimestamp() })
+    .then(function () { return true; })
+    .catch(function (e) { S.pushErr = String((e && e.code) || e).slice(0, 60); save(); return false; });
+}
+// الأبلكيشن بيبعت العنوان أول ما يوصله
+window.LammaSaveToken = function (tok) { if (S.pushOn !== false) saveToken(tok, 'android'); };
+// لو العنوان متسجّل محليًا بس مش في السيرفر، نحفظه تاني
+function ensureToken() {
+  if (!myUid || !fbDb) return Promise.resolve(false);
+  var local = S.pushTok || (window.LammaNative && window.LammaNative.lastToken && window.LammaNative.lastToken());
+  if (local) return saveToken(local);
+  return Promise.resolve(false);
 }
 function enablePush(fromUser) {
   return loadPushCfg().then(function () {
     if (isNativeApp()) {
       return window.LammaNative.pushRegister().then(function (tok) {
         if (!tok) { if (fromUser) toast(t('pushBlocked')); return false; }
-        saveToken(tok, 'android'); S.pushOn = true; save(); return true;
+        S.pushOn = true; save();
+        return saveToken(tok, 'android');
       });
     }
     if (pushState() === 'na' || typeof firebase === 'undefined' || !firebase.messaging || !pushCfg.vapidKey) { if (fromUser) toast(t('pushNA')); return false; }
@@ -3931,7 +4042,7 @@ function enablePush(fromUser) {
       if (perm !== 'granted') { if (fromUser) toast(t('pushBlocked')); return false; }
       return navigator.serviceWorker.ready.then(function (reg) {
         return firebase.messaging().getToken({ vapidKey: pushCfg.vapidKey, serviceWorkerRegistration: reg });
-      }).then(function (tok) { if (!tok) return false; saveToken(tok, 'web'); S.pushOn = true; save(); return true; });
+      }).then(function (tok) { if (!tok) return false; S.pushOn = true; save(); return saveToken(tok, 'web'); });
     });
   }).catch(function () { if (fromUser) toast(t('pushNA')); return false; });
 }
@@ -4041,7 +4152,13 @@ function runPushTest(out) {
       return fetch(pushCfg.url, { method: 'POST', body: JSON.stringify({ idToken: idt, to: myUid, type: 'test', name: S.name || '' }) });
     }).then(function (r) { return r.json(); }).then(function (j) {
       if (j.ok && j.sent > 0) say('ptOk');
-      else if (j.ok) say('ptNoDev');
+      else if (j.ok) {
+        ensureToken().then(function (saved) {
+          if (!saved) { say(S.pushErr ? 'ptErr' : 'ptNoDev', S.pushErr || ''); return; }
+          say('ptRetry');
+          setTimeout(function () { runPushTest(out); }, 1500);
+        });
+      }
       else if (j.err === 'auth') say('ptOld');
       else if (/SA_JSON|token:/.test(j.err || '')) say('ptKey');
       else say('ptErr', String(j.err || j.last || '').slice(0, 80));
@@ -5912,6 +6029,563 @@ BP.remoteTurn = async function () {
   var id = act.data && act.data.id, i = this.st.hands[1].findIndex(function (c) { return c.id === id; });
   if (i < 0) { toast(t('netErr')); return; }
   this.playCard(1, i);
+};
+
+/* ===== استيمشن — محرك اللعبة =====
+ * 4 لاعيبة، 13 ورقة لكل واحد، 13 أكلة في الدور.
+ * المناقصة: كل واحد يقول رقم وحكم أو «باس». اللي يفضل لوحده بيبقى الأكّال وحكمه هو الحكم.
+ * بعدين الباقيين يقولوا توقعهم، والمجموع ما يساويش 13.
+ * الحساب: جبت بالظبط = رقمك×10 + 10، صفر بالظبط = +30، غلطت = ناقص الفرق×10. */
+var Est = (function () {
+  var SUITS = ['C', 'D', 'H', 'S'];                   // سنارة، ديناري، كبة، بستوني
+  var SUIT_RANK = { C: 0, D: 1, H: 2, S: 3, NT: 4 };  // الترتيب في المزايدة
+  var MIN_BID = 4, CARDS = 13;
+
+  function deck(rnd) {
+    var d = [], s, r;
+    for (s = 0; s < 4; s++) for (r = 2; r <= 14; r++) d.push({ s: SUITS[s], r: r, id: SUITS[s] + r });
+    for (var i = d.length - 1; i > 0; i--) { var j = Math.floor(rnd() * (i + 1)), t = d[i]; d[i] = d[j]; d[j] = t; }
+    return d;
+  }
+  function sortHand(h) {
+    var ord = { S: 0, H: 1, D: 2, C: 3 };
+    return h.slice().sort(function (a, b) { return ord[a.s] - ord[b.s] || b.r - a.r; });
+  }
+  function newRound(first, rnd) {
+    var d = deck(rnd), hands = [[], [], [], []], i;
+    for (i = 0; i < 52; i++) hands[i % 4].push(d[i]);
+    for (i = 0; i < 4; i++) hands[i] = sortHand(hands[i]);
+    return {
+      hands: hands, phase: 'bid', turn: first, first: first,
+      bids: [null, null, null, null],      // آخر مزايدة لكل واحد
+      out: [false, false, false, false],   // اللي قال باس خرج
+      best: null, declarer: -1, trump: null,
+      est: [null, null, null, null],
+      estTurn: -1, estDone: 0,
+      trick: [], lead: -1, won: [0, 0, 0, 0], tricks: 0, winnerOf: [],
+      lastTrick: null, lastWinner: -1
+    };
+  }
+  function higher(a, b) {
+    if (!b) return true;
+    if (a.n !== b.n) return a.n > b.n;
+    return SUIT_RANK[a.suit] > SUIT_RANK[b.suit];
+  }
+  function canBid(st, bid) {
+    if (bid === 'pass') return true;
+    if (!bid || bid.n < MIN_BID || bid.n > CARDS) return false;
+    if (SUIT_RANK[bid.suit] === undefined) return false;
+    return higher(bid, st.best);
+  }
+  function bid(st, p, b) {
+    if (st.phase !== 'bid' || st.turn !== p || st.out[p] || !canBid(st, b)) return st;
+    st.bids[p] = b;
+    if (b === 'pass') st.out[p] = true;
+    else st.best = { n: b.n, suit: b.suit, by: p };
+    var live = [], i;
+    for (i = 0; i < 4; i++) if (!st.out[i]) live.push(i);
+    if (!live.length) { st.phase = 'redeal'; return st; }          // الكل باس
+    if (st.best && live.length === 1) {                            // فاضل مزايد واحد
+      st.declarer = st.best.by; st.trump = st.best.suit;
+      st.est[st.declarer] = st.best.n; st.estDone = 1;
+      st.phase = 'est'; st.estTurn = (st.declarer + 1) % 4;
+      return st;
+    }
+    st.turn = (p + 1) % 4;
+    while (st.out[st.turn]) st.turn = (st.turn + 1) % 4;
+    return st;
+  }
+  // آخر واحد ممنوع يخلّي المجموع 13
+  function forbidden(st, p) {
+    if (st.estDone !== 3) return -1;
+    var sum = 0;
+    for (var i = 0; i < 4; i++) if (st.est[i] !== null) sum += st.est[i];
+    var need = CARDS - sum;
+    return need >= 0 && need <= CARDS ? need : -1;
+  }
+  function estimate(st, p, n) {
+    if (st.phase !== 'est' || st.estTurn !== p) return st;
+    if (n < 0 || n > CARDS || n === forbidden(st, p)) return st;
+    st.est[p] = n; st.estDone++;
+    if (st.estDone === 4) { st.phase = 'play'; st.turn = st.declarer; st.lead = st.declarer; }
+    else { st.estTurn = (p + 1) % 4; while (st.est[st.estTurn] !== null) st.estTurn = (st.estTurn + 1) % 4; }
+    return st;
+  }
+  function legal(st, p) {
+    var h = st.hands[p];
+    if (!st.trick.length) return h.slice();
+    var led = st.trick[0].c.s, same = h.filter(function (c) { return c.s === led; });
+    return same.length ? same : h.slice();
+  }
+  // مين كسب الأكلة: الحكم بياكل، وإلا أعلى ورقة من نوع الأكلة
+  function trickWinner(trick, trump) {
+    var led = trick[0].c.s, best = trick[0];
+    trick.forEach(function (x) {
+      var bt = best.c.s === trump, xt = x.c.s === trump;
+      if (xt && !bt) best = x;
+      else if (xt && bt && x.c.r > best.c.r) best = x;
+      else if (!xt && !bt && x.c.s === led && best.c.s === led && x.c.r > best.c.r) best = x;
+    });
+    return best;
+  }
+  function play(st, p, id) {
+    if (st.phase !== 'play' || st.turn !== p) return st;
+    var ok = legal(st, p), c = ok.filter(function (x) { return x.id === id; })[0];
+    if (!c) return st;
+    st.hands[p] = st.hands[p].filter(function (x) { return x.id !== id; });
+    st.trick.push({ p: p, c: c });
+    if (st.trick.length < 4) { st.turn = (p + 1) % 4; return st; }
+    var best = trickWinner(st.trick, st.trump);
+    st.won[best.p]++; st.tricks++;
+    st.winnerOf.push(best.p);
+    st.lastTrick = st.trick.slice(); st.lastWinner = best.p;
+    st.trick = []; st.turn = best.p; st.lead = best.p;
+    if (st.tricks === CARDS) st.phase = 'over';
+    return st;
+  }
+  function score(st) {
+    var out = [];
+    for (var i = 0; i < 4; i++) {
+      var e = st.est[i], w = st.won[i], d = Math.abs(w - e), pts;
+      if (d === 0) pts = e === 0 ? 30 : e * 10 + 10;
+      else pts = -(d * 10);
+      out.push({ est: e, won: w, pts: pts, exact: d === 0 });
+    }
+    return out;
+  }
+
+  /* ----- الكمبيوتر ----- */
+  function handStrength(h, trump) {
+    var t = 0;
+    SUITS.forEach(function (s) {
+      var cs = h.filter(function (c) { return c.s === s; }).sort(function (a, b) { return b.r - a.r; });
+      var isT = s === trump;
+      cs.forEach(function (c, i) {
+        if (c.r === 14) t += isT ? 1 : 0.9;
+        else if (c.r === 13) t += i === 0 ? (isT ? .85 : .55) : (isT ? .8 : .5);
+        else if (c.r === 12) t += isT ? .6 : .28;
+        else if (isT && c.r >= 10) t += .45;
+        else if (isT) t += .28;
+      });
+      if (isT && cs.length >= 5) t += (cs.length - 4) * .5;
+      if (!isT && cs.length <= 1 && trump && trump !== 'NT') t += .35;
+    });
+    return t;
+  }
+  function bestSuit(h) {
+    var best = 'NT', bv = handStrength(h, 'NT') - .5;
+    SUITS.forEach(function (s) {
+      var v = handStrength(h, s) + h.filter(function (c) { return c.s === s; }).length * .22;
+      if (v > bv) { bv = v; best = s; }
+    });
+    return { suit: best, val: bv };
+  }
+  function aiBid(st, p, level) {
+    var h = st.hands[p], b = bestSuit(h), n = Math.round(b.val);
+    if (level === 'easy') n -= 1;
+    if (level === 'hard' && b.val - Math.floor(b.val) > .55) n += 1;
+    if (n < MIN_BID) return 'pass';
+    var cand = { n: n, suit: b.suit };
+    if (canBid(st, cand)) return cand;
+    var base = st.best ? st.best.n : MIN_BID;
+    var up = [{ n: base, suit: 'NT' }, { n: base + 1, suit: b.suit }];
+    for (var i = 0; i < up.length; i++) if (up[i].n <= n && canBid(st, up[i])) return up[i];
+    return 'pass';
+  }
+  function aiEst(st, p, level) {
+    var n = Math.round(handStrength(st.hands[p], st.trump));
+    if (level === 'easy' && Math.random() < .5) n -= 1;
+    n = Math.max(0, Math.min(CARDS, n));
+    var bad = forbidden(st, p);
+    if (n === bad) n = n > 0 ? n - 1 : n + 1;
+    return n;
+  }
+  function aiPlay(st, p, level) {
+    var ok = legal(st, p), need = st.est[p] - st.won[p], left = st.hands[p].length;
+    if (level === 'easy') return ok[Math.floor(Math.random() * ok.length)];
+    var wantMore = need > 0;
+    var hi = ok.slice().sort(function (a, b) { return b.r - a.r; }), lo = hi.slice().reverse();
+    if (!st.trick.length) {
+      if (wantMore) {
+        var tr = hi.filter(function (c) { return c.s === st.trump; });
+        return tr.length && need >= left / 2 ? tr[0] : hi[0];
+      }
+      return lo[0];
+    }
+    var bestNow = trickWinner(st.trick, st.trump), led = st.trick[0].c.s;
+    var canWin = ok.filter(function (c) {
+      var bt = bestNow.c.s === st.trump;
+      if (c.s === st.trump) return !bt || c.r > bestNow.c.r;
+      return !bt && c.s === led && bestNow.c.s === led && c.r > bestNow.c.r;
+    });
+    if (wantMore && canWin.length) return canWin.sort(function (a, b) { return a.r - b.r; })[0];
+    if (!wantMore) {
+      var safe = ok.filter(function (c) { return canWin.indexOf(c) < 0; });
+      return (safe.length ? safe : ok).sort(function (a, b) { return b.r - a.r; })[0];
+    }
+    return lo[0];
+  }
+  return {
+    SUITS: SUITS, SUIT_RANK: SUIT_RANK, MIN_BID: MIN_BID, CARDS: CARDS,
+    newRound: newRound, canBid: canBid, bid: bid, higher: higher, trickWinner: trickWinner,
+    forbidden: forbidden, estimate: estimate, legal: legal, play: play, score: score,
+    aiBid: aiBid, aiEst: aiEst, aiPlay: aiPlay, handStrength: handStrength, sortHand: sortHand
+  };
+})();
+window.Est = Est;
+
+/* ===== لمّة — شاشة استيمشن ===== */
+var ES = window.Est;
+var ES_SUITS = { S: '♠', H: '♥', D: '♦', C: '♣', NT: '⊘' };
+function esRank(r) { return r === 14 ? 'A' : r === 13 ? 'K' : r === 12 ? 'Q' : r === 11 ? 'J' : String(r); }
+function esCard(c, tag, extra) {
+  tag = tag || 'div';
+  var red = c.s === 'H' || c.s === 'D';
+  return '<' + tag + ' class="card' + (red ? ' red' : '') + (extra || '') + '" data-id="' + c.id + '" aria-label="' + esRank(c.r) + ES_SUITS[c.s] + '">' +
+    '<span class="c-c"><b>' + esRank(c.r) + '</b><i>' + ES_SUITS[c.s] + '</i></span>' +
+    '<span class="c-m"><i>' + ES_SUITS[c.s] + '</i></span></' + tag + '>';
+}
+function esSuitName(s) { return s === 'NT' ? t('esNT') : ES_SUITS[s]; }
+function esBidLabel(b) { return b === 'pass' ? t('esPass') : b ? b.n + ' ' + esSuitName(b.suit) : ''; }
+
+function EstimationMatch(opts) {
+  this.online = opts.online || null; this.link = this.online ? this.online.link : null;
+  this.level = opts.level || 'medium'; this.target = opts.target || 4; this.timerSecs = opts.timer || 0;
+  this.alive = true; this.n = 4;
+  this.bots = botsFor(this.level, 3);
+  this.total = [0, 0, 0, 0]; this.round = 0; this.phase = 'idle';
+  this.render();
+  this.newRound();
+}
+var EP = EstimationMatch.prototype;
+EP.pname = function (p) { return p === 0 ? (S.name || t('you')) : this.online ? this.online.info(p).name : t('bots')[this.bots[p - 1].k]; };
+EP.pav = function (p) { return p === 0 ? myAv() : this.online ? framedAv(this.online.info(p).name, this.online.info(p).photo, this.online.info(p).frame) : this.bots[p - 1].av; };
+
+EP.render = function () {
+  setInGame(true);
+  var self = this;
+  app.innerHTML = '<div class="game es">' +
+    '<div class="gbar"><button class="ib back exitb" aria-label="' + t('exitGame') + '">' + ICON.x + '</button>' +
+    '<div class="gtitle"><b>' + t('estimation') + '</b><small class="g-score"></small></div>' +
+    gameChatButton() + reactButton() + '<button class="ib gear" aria-label="' + t('settings') + '">' + ICON.gear + '</button></div>' +
+    '<div class="es-seats">' + [1, 2, 3].map(function (p) {
+      return '<div class="seat op es-seat" data-seat="' + p + '"><div class="av">' + self.pav(p) + '</div>' +
+        '<div class="who"><b>' + esc(self.pname(p)) + '</b><small class="meta"></small></div></div>';
+    }).join('') + '</div>' +
+    '<div class="es-table"><div class="es-trump"></div><div class="es-trick"></div><div class="tmsg"></div></div>' +
+    '<div class="me-bar"><div class="seat me"><div class="av">' + myAv() + '</div>' +
+    '<div class="who"><b>' + esc(S.name || t('you')) + '</b><small class="meta"></small></div></div>' +
+    '<div class="status" aria-live="polite"></div></div>' +
+    '<div class="es-hand" role="group"></div>' +
+    '<div class="es-panel" hidden></div></div>';
+  var root = app.firstChild;
+  this.root = root;
+  this.seatsEl = $('.es-seats', root); this.trickEl = $('.es-trick', root); this.trumpEl = $('.es-trump', root);
+  this.handEl = $('.es-hand', root); this.panel = $('.es-panel', root);
+  this.statusEl = $('.status', root); this.scoreEl = $('.g-score', root); this.tmsgEl = $('.tmsg', root);
+  this.seatMe = $('.seat.me', root); this.seatOp = $('.es-seat[data-seat="1"]', root);
+  wireGameChat(this, root);
+  wireReact(this, root);
+  if (this.tt) this.tt.stop();
+  this.tt = new TurnTimer(this.seatMe);
+  this.handEl.addEventListener('click', function (ev) {
+    var b = ev.target.closest('.card');
+    if (b && !b.classList.contains('off')) self.onCard(b.getAttribute('data-id'));
+  });
+  $('.back', root).addEventListener('click', function () { Snd.play('tap'); confirmLeave(); });
+  $('.gear', root).addEventListener('click', function () { Snd.play('tap'); openSettings(); });
+};
+EP.destroy = function () { this.alive = false; stopGameChat(); if (this.tt) this.tt.stop(); if (this.link) this.link.leave(); };
+EP.tmsg = function (text) {
+  var el = this.tmsgEl;
+  el.innerHTML = text ? '<div>' + esc(text) + '</div>' : '';
+  if (text) setTimeout(function () { if (el.firstChild && el.firstChild.textContent === text) el.innerHTML = ''; }, 1400);
+};
+
+EP.paint = function () {
+  var st = this.st, self = this;
+  if (!st) return;
+  this.scoreEl.textContent = t('esRoundN', { n: this.round }) + ' · ' + this.total[0];
+  // الحكم
+  this.trumpEl.innerHTML = st.trump
+    ? '<span class="tr-chip' + (st.trump === 'H' || st.trump === 'D' ? ' red' : '') + '">' + (st.trump === 'NT' ? '<b>' + t('esNT') + '</b>' : t('esTrump') + ' <b>' + ES_SUITS[st.trump] + '</b>') + '</span>'
+    : '<span class="tr-chip muted">' + t('esBidding') + '</span>';
+  // الكراسي
+  $$('.es-seat', this.seatsEl).forEach(function (el) {
+    var p = +el.getAttribute('data-seat');
+    var meta = $('.meta', el);
+    if (st.phase === 'bid') meta.textContent = st.bids[p] === null ? '…' : esBidLabel(st.bids[p]);
+    else if (st.est[p] === null) meta.textContent = '…';
+    else meta.textContent = t('esTook', { w: st.won[p], e: st.est[p] });
+    el.classList.toggle('turn', self.phase !== 'over' && (st.phase === 'bid' ? st.turn === p : st.phase === 'est' ? st.estTurn === p : st.turn === p));
+    el.classList.toggle('dealer', st.declarer === p);
+    el.classList.toggle('out', st.phase === 'bid' && st.out[p]);
+  });
+  var m = $('.meta', this.seatMe);
+  if (st.phase === 'bid') m.textContent = st.bids[0] === null ? '…' : esBidLabel(st.bids[0]);
+  else if (st.est[0] === null) m.textContent = '…';
+  else m.textContent = t('esTook', { w: st.won[0], e: st.est[0] });
+  this.seatMe.classList.toggle('turn', this.phase !== 'over' && (st.phase === 'bid' ? st.turn === 0 : st.phase === 'est' ? st.estTurn === 0 : st.turn === 0));
+  this.seatMe.classList.toggle('dealer', st.declarer === 0);
+  // الأكلة على الترابيزة
+  this.trickEl.innerHTML = st.trick.length ? st.trick.map(function (x) {
+    return '<span class="es-slot s' + x.p + '">' + esCard(x.c) + '<i>' + esc(self.pname(x.p)) + '</i></span>';
+  }).join('') : (st.phase === 'play' ? '<span class="es-empty">' + t('esWaitLead') + '</span>' : '');
+  var cnt = $('.es-count', this.root);
+  if (!cnt) { cnt = document.createElement('div'); cnt.className = 'es-count'; $('.es-table', this.root).appendChild(cnt); }
+  cnt.textContent = st.phase === 'play' || st.phase === 'over' ? t('esTrickN', { n: Math.min(st.tricks + 1, 13) }) : '';
+  // إيدي
+  var playable = {};
+  if (st.phase === 'play' && this.phase === 'play') ES.legal(st, 0).forEach(function (c) { playable[c.id] = 1; });
+  this.handEl.innerHTML = st.hands[0].map(function (c) {
+    return esCard(c, 'button', playable[c.id] ? '' : (self.phase === 'play' ? ' off' : ' idle'));
+  }).join('');
+};
+
+EP.newRound = async function () {
+  this.round++;
+  this.phase = 'deal';
+  this.panel.hidden = true;
+  do {
+    this.st = ES.newRound((this.round - 1) % 4, rnd);
+    var g = 0;
+    // لو الكل باس، ورق جديد
+  } while (false);
+  this.paint();
+  Snd.play('tile');
+  await sleep(420 * paceK());
+  if (!this.alive) return;
+  this.statusEl.textContent = '';
+  this.step();
+};
+
+EP.step = async function () {
+  if (!this.alive) return;
+  var st = this.st;
+  if (st.phase === 'redeal') { this.tmsg(t('esAllPass')); await sleep(1200); return this.newRound(); }
+  if (st.phase === 'bid') return st.turn === 0 ? this.askBid() : this.botBid();
+  if (st.phase === 'est') return st.estTurn === 0 ? this.askEst() : this.botEst();
+  if (st.phase === 'play') {
+    if (st.trick.length === 0 && st.tricks > 0) { /* أكلة جديدة */ }
+    return st.turn === 0 ? this.myTurn() : this.botPlay();
+  }
+  if (st.phase === 'over') return this.roundOver();
+};
+
+/* ----- المناقصة ----- */
+EP.askBid = function () {
+  var self = this, st = this.st;
+  this.phase = 'bid'; this.paint();
+  this.statusEl.textContent = t('esYourBid');
+  var min = st.best ? st.best.n : ES.MIN_BID;
+  var nums = [], i;
+  for (i = min; i <= ES.CARDS; i++) nums.push(i);
+  var sel = { n: nums[0], suit: null };
+  function suitsFor(n) {
+    return ['C', 'D', 'H', 'S', 'NT'].filter(function (s) { return ES.canBid(st, { n: n, suit: s }); });
+  }
+  function draw() {
+    var av = suitsFor(sel.n);
+    if (av.indexOf(sel.suit) < 0) sel.suit = av[0] || null;
+    self.panel.hidden = false;
+    self.panel.innerHTML = '<div class="pn-h"><b>' + t('esBidTitle') + '</b>' +
+      (st.best ? '<small>' + t('esTopBid', { b: esBidLabel(st.best), name: self.pname(st.best.by) }) + '</small>' : '<small>' + t('esBidHint') + '</small>') + '</div>' +
+      '<div class="pn-nums">' + nums.map(function (n) { return '<button type="button" class="pn-n' + (n === sel.n ? ' on' : '') + '" data-n="' + n + '">' + n + '</button>'; }).join('') + '</div>' +
+      '<div class="pn-suits">' + ['C', 'D', 'H', 'S', 'NT'].map(function (s) {
+        var okk = av.indexOf(s) >= 0;
+        return '<button type="button" class="pn-s' + (s === sel.suit ? ' on' : '') + (s === 'H' || s === 'D' ? ' red' : '') + '" data-s="' + s + '"' + (okk ? '' : ' disabled') + '>' + esSuitName(s) + '</button>';
+      }).join('') + '</div>' +
+      '<div class="pn-act"><button class="btn plain" data-pass>' + t('esPass') + '</button>' +
+      '<button class="btn cta" data-ok' + (sel.suit ? '' : ' disabled') + '>' + t('esSayIt') + '</button></div>';
+  }
+  draw();
+  this.tt.start(this.timerSecs, function () { self.panel.hidden = true; self.tt.stop(); ES.bid(st, 0, 'pass'); self.paint(); self.step(); });
+  this.panel.onclick = function (ev) {
+    var n = ev.target.closest('[data-n]'), s = ev.target.closest('[data-s]');
+    if (n) { sel.n = +n.getAttribute('data-n'); Snd.play('tap'); draw(); return; }
+    if (s && !s.disabled) { sel.suit = s.getAttribute('data-s'); Snd.play('tap'); draw(); return; }
+    if (ev.target.closest('[data-pass]')) { self.doBid(0, 'pass'); return; }
+    if (ev.target.closest('[data-ok]') && sel.suit) self.doBid(0, { n: sel.n, suit: sel.suit });
+  };
+};
+EP.doBid = async function (p, b) {
+  this.tt.stop();
+  this.panel.hidden = true; this.panel.onclick = null;
+  ES.bid(this.st, p, b);
+  Snd.play(b === 'pass' ? 'tap' : 'pop');
+  this.paint();
+  if (b !== 'pass') this.bubble(p, esBidLabel(b));
+  await sleep(520 * paceK());
+  if (!this.alive) return;
+  if (this.st.phase === 'est' && this.st.declarer >= 0) {
+    this.tmsg(t('esDeclarer', { name: this.pname(this.st.declarer), b: esBidLabel({ n: this.st.best.n, suit: this.st.trump }) }));
+    Snd.play('win');
+    await sleep(1100 * paceK());
+    if (!this.alive) return;
+  }
+  this.step();
+};
+EP.botBid = async function () {
+  var p = this.st.turn;
+  this.phase = 'bot'; this.paint();
+  this.bubble(p, THINK_DOTS, true);
+  await sleep(700 * paceK());
+  if (!this.alive) return;
+  this.bubble(p, '');
+  this.doBid(p, ES.aiBid(this.st, p, this.level));
+};
+
+/* ----- التوقّع ----- */
+EP.askEst = function () {
+  var self = this, st = this.st;
+  this.phase = 'est'; this.paint();
+  this.statusEl.textContent = t('esYourEst');
+  var bad = ES.forbidden(st, 0), nums = [], i;
+  for (i = 0; i <= ES.CARDS; i++) nums.push(i);
+  this.panel.hidden = false;
+  this.panel.innerHTML = '<div class="pn-h"><b>' + t('esEstTitle') + '</b><small>' +
+    (st.trump === 'NT' ? t('esNT') : t('esEstHint', { s: esSuitName(st.trump) })) + (bad >= 0 ? ' · ' + t('esNotN', { n: bad }) : '') + '</small></div>' +
+    '<div class="pn-nums wide">' + nums.map(function (n) {
+      return '<button type="button" class="pn-n' + (n === bad ? ' bad' : '') + '" data-e="' + n + '"' + (n === bad ? ' disabled' : '') + '>' + n + '</button>';
+    }).join('') + '</div>';
+  this.tt.start(this.timerSecs, function () {
+    self.tt.stop();
+    var g = ES.aiEst(st, 0, 'medium');
+    self.doEst(0, g);
+  });
+  this.panel.onclick = function (ev) {
+    var b = ev.target.closest('[data-e]');
+    if (b && !b.disabled) self.doEst(0, +b.getAttribute('data-e'));
+  };
+};
+EP.doEst = async function (p, n) {
+  this.tt.stop();
+  this.panel.hidden = true; this.panel.onclick = null;
+  ES.estimate(this.st, p, n);
+  Snd.play('pop');
+  this.bubble(p, t('esSaid', { n: n }));
+  this.paint();
+  await sleep(560 * paceK());
+  if (!this.alive) return;
+  if (this.st.phase === 'play') {
+    this.tmsg(t('esGo', { s: esSuitName(this.st.trump) }));
+    await sleep(900 * paceK());
+    if (!this.alive) return;
+  }
+  this.step();
+};
+EP.botEst = async function () {
+  var p = this.st.estTurn;
+  this.phase = 'bot'; this.paint();
+  this.bubble(p, THINK_DOTS, true);
+  await sleep(620 * paceK());
+  if (!this.alive) return;
+  this.bubble(p, '');
+  this.doEst(p, ES.aiEst(this.st, p, this.level));
+};
+
+/* ----- اللعب ----- */
+EP.myTurn = function () {
+  var self = this;
+  this.phase = 'play'; this.paint();
+  this.statusEl.textContent = t('yourTurn');
+  this.tt.start(this.timerSecs, function () {
+    self.tt.stop();
+    var ok = ES.legal(self.st, 0);
+    self.playCard(0, ok[Math.floor(rnd() * ok.length)].id);
+  });
+};
+EP.onCard = function (id) {
+  if (this.phase !== 'play' || this.st.turn !== 0) return;
+  if (!ES.legal(this.st, 0).some(function (c) { return c.id === id; })) { this.tmsg(t('esFollow')); return; }
+  this.tt.stop();
+  this.playCard(0, id);
+};
+EP.botPlay = async function () {
+  var p = this.st.turn;
+  this.phase = 'bot'; this.paint();
+  this.statusEl.textContent = '';
+  this.bubble(p, THINK_DOTS, true);
+  await sleep(640 * paceK());
+  if (!this.alive) return;
+  this.bubble(p, '');
+  var c = ES.aiPlay(this.st, p, this.level);
+  this.playCard(p, c.id);
+};
+EP.playCard = async function (p, id) {
+  this.phase = 'anim';
+  var st = this.st;
+  ES.play(st, p, id);
+  Snd.play('tile');
+  this.paint();
+  await sleep(380 * paceK());
+  if (!this.alive) return;
+  // الأكلة كمُلت
+  if (st.lastTrick && st.trick.length === 0 && st.lastWinner >= 0 && this.shown !== st.tricks) {
+    this.shown = st.tricks;
+    var w = st.lastWinner;
+    this.highlightWinner(w);
+    Snd.play(w === 0 ? 'hit' : 'tap');
+    if (w === 0) buzz(18);
+    await sleep(820 * paceK());
+    if (!this.alive) return;
+    this.trickEl.innerHTML = '';
+    this.paint();
+    await sleep(160 * paceK());
+    if (!this.alive) return;
+  }
+  this.step();
+};
+EP.highlightWinner = function (w) {
+  var el = $('.es-slot.s' + w, this.trickEl);
+  if (el) el.classList.add('win');
+  var seat = w === 0 ? this.seatMe : $('.es-seat[data-seat="' + w + '"]', this.seatsEl);
+  if (seat) { seat.classList.add('took'); setTimeout(function () { seat.classList.remove('took'); }, 700); }
+};
+EP.bubble = function (p, text, soft) {
+  var seat = p === 0 ? this.seatMe : $('.es-seat[data-seat="' + p + '"]', this.seatsEl);
+  if (!seat) return;
+  var old = $('.bubble', seat);
+  if (old) old.remove();
+  if (!text) return;
+  var b = document.createElement('div');
+  b.className = 'bubble' + (soft ? ' soft' : '');
+  b[text.indexOf('<i class="think"') === 0 ? 'innerHTML' : 'textContent'] = text;
+  seat.appendChild(b);
+  if (!soft) setTimeout(function () { b.remove(); }, 1500);
+};
+
+/* ----- آخر الدور ----- */
+EP.roundOver = function () {
+  var self = this, sc = ES.score(this.st), i;
+  for (i = 0; i < 4; i++) this.total[i] += sc[i].pts;
+  this.phase = 'over'; this.paint();
+  var best = 0;
+  for (i = 1; i < 4; i++) if (this.total[i] > this.total[best]) best = i;
+  var done = this.round >= this.target;
+  var meWon = done && best === 0;
+  if (done) { S.stats.estimation = S.stats.estimation || { w: 0, p: 0 }; recordGame('estimation', meWon, !!this.online); }
+  if (meWon) confetti();
+  Snd.play(done ? (meWon ? 'win' : 'lose') : 'pop');
+  var rows = [0, 1, 2, 3].map(function (p) {
+    return '<tr' + (p === 0 ? ' class="me"' : '') + '><td>' + esc(self.pname(p)) + '</td><td>' + sc[p].est + '</td><td>' + sc[p].won + '</td>' +
+      '<td class="' + (sc[p].pts >= 0 ? 'plus' : 'minus') + '">' + (sc[p].pts > 0 ? '+' : '') + sc[p].pts + '</td><td><b>' + self.total[p] + '</b></td></tr>';
+  }).join('');
+  var title = done ? (meWon ? t('esYouWin') : t('esWinner', { name: this.pname(best) })) : t('esRoundDone', { n: this.round });
+  var html = '<p class="res-title">' + title + '</p>' +
+    '<table class="rtable es-tbl"><thead><tr><th>' + t('esWho') + '</th><th>' + t('esCalled') + '</th><th>' + t('esGot') + '</th><th>' + t('esPts') + '</th><th>' + t('esTotal') + '</th></tr></thead><tbody>' + rows + '</tbody></table>' +
+    (done
+      ? '<div class="row-btns"><button class="btn plain" data-a="home">' + t('toHome') + '</button><button class="btn cta" data-a="again">' + t('again') + '</button></div>'
+      : '<button class="btn cta" data-a="next">' + t('nextRound') + '</button>');
+  var sh = openSheet(html, { locked: true });
+  sh.addEventListener('click', function (ev) {
+    var b = ev.target.closest('[data-a]');
+    if (!b) return;
+    var a = b.getAttribute('data-a');
+    closeSheet(sh); Snd.play('tap');
+    if (a === 'home') renderHome();
+    else { if (a === 'again') { self.total = [0, 0, 0, 0]; self.round = 0; } self.newRound(); }
+  });
 };
 
 /* ===== تشغيل ===== */
