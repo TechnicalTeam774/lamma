@@ -6,6 +6,21 @@ import { PushNotifications } from '@capacitor/push-notifications';
 
 let pushToken = null;
 const waiters = [];
+
+// قناة الإشعارات لازم تتعمل مع فتح الأبلكيشن، مش وقت التفعيل بس.
+// لو السيرفر بعت على قناة مش موجودة، أندرويد بيرمي الإشعار من غير ما يبان.
+const channelReady = (async () => {
+  if (!Capacitor.isNativePlatform()) return;
+  for (const id of ['lamma', 'default']) {
+    try {
+      await PushNotifications.createChannel({
+        id, name: 'لمّة', description: 'دعوات اللعب والرسايل وطلبات الصداقة',
+        importance: 5, visibility: 1, sound: 'default', vibration: true, lights: true,
+      });
+    } catch (e) { /* أندرويد قديم */ }
+  }
+})();
+
 // المستمعين بيتسجّلوا مرة واحدة مع فتح الأبلكيشن، فالعنوان بيتمسك حتى لو وصل بدري
 PushNotifications.addListener('registration', (t) => {
   pushToken = t && t.value;
@@ -13,7 +28,19 @@ PushNotifications.addListener('registration', (t) => {
   while (waiters.length) waiters.shift()(pushToken);
 });
 PushNotifications.addListener('registrationError', () => { while (waiters.length) waiters.shift()(null); });
-PushNotifications.checkPermissions().then((p) => { if (p.receive === 'granted') PushNotifications.register(); }).catch(() => {});
+channelReady.then(() =>
+  PushNotifications.checkPermissions()
+    .then((p) => { if (p.receive === 'granted') PushNotifications.register(); })
+    .catch(() => {}));
+
+// الإشعار اللي بيوصل والأبلكيشن مفتوح: أندرويد مش بيحطه في الشريط، فبنوريه جوه اللعبة
+PushNotifications.addListener('pushNotificationReceived', (n) => {
+  const d = (n && n.data) || {};
+  const title = (n && n.title) || d.title || 'لمّة';
+  const body = (n && n.body) || d.body || '';
+  if (window.LammaPushShow) window.LammaPushShow(title, body, d);
+});
+
 window.LammaNative = {
   isNative: () => Capacitor.isNativePlatform(),
   googleIdToken: async () => {
@@ -25,7 +52,7 @@ window.LammaNative = {
     let p = await PushNotifications.checkPermissions();
     if (p.receive === 'prompt' || p.receive === 'prompt-with-rationale') p = await PushNotifications.requestPermissions();
     if (p.receive !== 'granted') return null;
-    try { await PushNotifications.createChannel({ id: 'lamma', name: 'لمّة', importance: 4, sound: 'default', vibration: true }); } catch (e) { /* أندرويد قديم */ }
+    await channelReady;
     if (pushToken) return pushToken;
     await PushNotifications.register();
     // لو الحدث فات، بنستنى اللي اتسجّل عند فتح الأبلكيشن
@@ -39,11 +66,21 @@ window.LammaNative = {
   signOut: () => FirebaseAuthentication.signOut(),
   exitApp: () => App.exitApp(),
 };
+
 // لما تدوس على إشعار: افتح الشات أو الطلبات
 PushNotifications.addListener('pushNotificationActionPerformed', (a) => {
   const data = (a && a.notification && a.notification.data) || {};
   if (window.LammaPushOpen) window.LammaPushOpen(data);
 });
+
+// العنوان ممكن يتغيّر، فبنتأكد منه كل ما الأبلكيشن يرجع يشتغل
+App.addListener('appStateChange', (s) => {
+  if (!s || !s.isActive) return;
+  PushNotifications.checkPermissions()
+    .then((p) => { if (p.receive === 'granted') PushNotifications.register(); })
+    .catch(() => {});
+});
+
 App.addListener('backButton', () => {
   if (window.LammaBack) window.LammaBack();
   else App.exitApp();

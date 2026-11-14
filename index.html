@@ -187,6 +187,13 @@ html.in-game .amb { display: none; }
 #toasts { position: fixed; top: 0; left: 0; right: 0; z-index: 40; display: grid; justify-items: center; gap: 6px; padding-top: calc(env(safe-area-inset-top, 0px) + 12px); pointer-events: none; }
 .toast { max-width: min(90vw, 420px); padding: 9px 16px; border-radius: 14px; background: var(--ink); color: var(--bg); font-weight: 700; font-size: .92rem; box-shadow: var(--shadow); opacity: 0; transform: translateY(-10px); transition: opacity .25s, transform .25s; text-align: center; }
 .toast.in { opacity: 1; transform: none; }
+.push-toast { all: unset; box-sizing: border-box; position: fixed; z-index: 90; top: calc(8px + env(safe-area-inset-top, 0px)); inset-inline: 10px; display: flex; align-items: center; gap: 10px; padding: 11px 14px; border-radius: 18px; background: var(--surface); color: var(--ink); box-shadow: 0 18px 44px -18px rgba(0,0,0,.8), inset 0 0 0 1px var(--line); cursor: pointer; opacity: 0; transform: translateY(-14px); transition: opacity .25s, transform .25s; }
+.push-toast.in { opacity: 1; transform: none; }
+.push-toast .pt-ic { flex: none; display: grid; place-items: center; width: 34px; height: 34px; border-radius: 50%; background: var(--hl); color: #1a1230; }
+.push-toast .pt-ic svg { width: 18px; height: 18px; }
+.push-toast .pt-tx { display: grid; gap: 1px; min-width: 0; text-align: start; }
+.push-toast .pt-tx b { font-size: .92rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.push-toast .pt-tx small { font-size: .8rem; color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 /* ===== شاشات اللعب ===== */
 .game { height: 100%; display: flex; flex-direction: column; color: var(--g-ink); background: radial-gradient(120% 80% at 50% 0%, var(--g-bg1), var(--g-bg2)); overflow: hidden; }
@@ -421,16 +428,21 @@ html.in-game .amb { display: none; }
 .lu .lu-seats .seat .av { width: 34px; height: 34px; }
 .lu .lu-seats .seat .who b { font-size: .8rem; }
 .lu .lu-seats .seat .bubble { position: static; margin-top: 2px; }
-.lu-wrap { flex: 1; min-height: 0; position: relative; display: grid; place-items: center; padding: 0 10px; }
+.lu-wrap { flex: 1; min-height: 0; position: relative; display: grid; place-items: center; padding: 0 5px; }
 .lboard { width: 100%; height: 100%; max-width: 640px; display: block; }
-.lu-frame { fill: var(--frame, #3a2414); }
-.lu-base { fill: #fbf7ef; }
-.lu-yard { opacity: .92; transition: opacity .2s; }
-.lu-yard.on { opacity: 1; stroke: #fff8ea; stroke-width: 1.6; }
-.lu-yard-in { fill: #fbf7ef; }
-.lu-spot { fill: #fff; stroke-width: 1.4; opacity: .9; }
-.lu-cell { fill: #fffdf8; stroke: #c9bfae; stroke-width: .35; }
-.lu-star { fill: #b9ad97; }
+.lu-frame { fill: url(#luwood); }
+.lu-frame-in { fill: none; stroke: rgba(255, 248, 234, .22); stroke-width: .8; }
+.lu-base { fill: url(#lufelt); }
+.lu-yard { transition: filter .2s; }
+.lu-yard.on { filter: brightness(1.12) drop-shadow(0 0 2.5px rgba(255, 255, 255, .9)); }
+.lu-yard-in { fill: #fdfaf2; opacity: .96; }
+.lu-spot-sh { fill: rgba(0, 0, 0, .14); }
+.lu-spot { fill: #fff; stroke-width: 1.3; opacity: .95; }
+.lu-cell { fill: #fffdf8; stroke: rgba(80, 66, 44, .22); stroke-width: .3; }
+.lu-cell.col { stroke: rgba(0, 0, 0, .18); }
+.lu-star { fill: #d8a93c; opacity: .75; }
+.lu-arrow { fill: rgba(255, 255, 255, .85); }
+.lu-core-star { fill: rgba(255, 255, 255, .9); filter: drop-shadow(0 .6px .8px rgba(0, 0, 0, .35)); }
 .lt { transition: transform calc(.18s * var(--pace, 1)) ease-out; cursor: pointer; }
 .lt-sh { fill: rgba(0, 0, 0, .3); }
 .lt-b, .lt-h { stroke: rgba(20, 12, 40, .6); stroke-width: .35; }
@@ -491,18 +503,24 @@ html.in-game .amb { display: none; }
 .bs-deck { position: absolute; top: 10px; inset-inline-start: 12px; }
 .bs-hand { display: flex; justify-content: center; gap: 10px; padding: 12px 10px 14px; min-height: 120px; align-items: flex-end; }
 .bs-hand.off .card { filter: saturate(.6); opacity: .75; }
-.card { position: relative; width: clamp(46px, 13vw, 62px); aspect-ratio: 5 / 7; border-radius: 9px; background: #fffdf8; color: #1a1230; border: 1px solid rgba(0, 0, 0, .18); box-shadow: 0 6px 14px -6px rgba(0, 0, 0, .55); padding: 0; display: block; font-family: var(--body); text-align: start; }
-.card.red { color: #c8382f; }
-.card .c-c { position: absolute; top: 4px; inset-inline-start: 5px; display: grid; justify-items: center; line-height: 1; }
-.card .c-c b { font-size: .95rem; font-weight: 800; }
-.card .c-c i { font-style: normal; font-size: .8rem; }
-.card .c-m { position: absolute; inset: 0; display: grid; place-items: center; align-content: center; font-style: normal; line-height: 1; }
-.card .c-m i { font-style: normal; font-size: 1.7rem; }
-.card .c-m b { font-family: var(--display); font-weight: 400; font-size: 1.5rem; margin-bottom: -2px; }
+.card { position: relative; width: clamp(46px, 13vw, 62px); aspect-ratio: 5 / 7; border-radius: 9%/6.4%; background: linear-gradient(160deg, #fffefb, #f4efe4); color: #17121f; border: 0; box-shadow: inset 0 0 0 1px rgba(0,0,0,.22), inset 0 1px 0 rgba(255,255,255,.9), 0 6px 14px -6px rgba(0, 0, 0, .55); padding: 0; display: block; font-family: var(--body); font-size: clamp(7.8px, 2.2vw, 10.5px); text-align: start; overflow: hidden; }
+.card.red { color: #c0392b; }
+.card .c-c { position: absolute; top: 3.5%; inset-inline-start: 6%; display: grid; justify-items: center; line-height: .98; }
+.card .c-c b { font-size: 1em; font-weight: 800; letter-spacing: -.03em; }
+.card .c-c i { font-style: normal; font-size: .76em; margin-top: .05em; }
+.card .c-c2 { top: auto; inset-inline-start: auto; bottom: 3.5%; inset-inline-end: 6%; transform: rotate(180deg); }
+.card .c-a { position: absolute; inset: 0; display: grid; place-items: center; font-style: normal; line-height: 1; font-size: 2.3em; }
+.card .c-p { position: absolute; inset: 7% 26%; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(7, 1fr); }
+.card .c-p i { font-style: normal; display: grid; place-items: center; font-size: .8em; line-height: 1; }
+.card .c-p i.dn { transform: rotate(180deg); }
+.card .c-f { position: absolute; inset: 11% 16%; display: grid; grid-template-rows: auto 1fr auto; place-items: center; border-radius: 8%; box-shadow: inset 0 0 0 1px currentColor; opacity: .95; }
+.card .c-f i { font-style: normal; font-size: .72em; line-height: 1; }
+.card .c-f i.dn { transform: rotate(180deg); }
+.card .c-f svg { width: 62%; max-width: 30px; height: auto; }
 .card.komi { box-shadow: 0 0 0 2px #f2a93b, 0 6px 14px -6px rgba(0, 0, 0, .55); }
 .card .c-k { position: absolute; bottom: 3px; inset-inline-end: 5px; font-size: .7rem; color: #e39a2d; }
 .card.back { background: repeating-linear-gradient(45deg, #8e2d55 0 4px, #6d2142 4px 8px); border: 2px solid #fffdf8; }
-.bs-hand .card { width: clamp(58px, 18vw, 78px); cursor: pointer; transition: transform .18s; }
+.bs-hand .card { width: clamp(58px, 18vw, 78px); font-size: clamp(9.8px, 3vw, 13px); cursor: pointer; transition: transform .18s; }
 .bs-hand .card:active { transform: translateY(-10px); }
 .bs-hand .card.gone { transform: translateY(-60px) scale(.8); opacity: 0; transition: .3s; }
 .bs-ground .card.grab { animation: grab .5s ease forwards; }
@@ -676,7 +694,12 @@ html.in-game .amb { display: none; }
 .frm-gold::after { box-shadow: inset 0 0 0 3px #f2c12e, 0 0 8px rgba(242, 193, 46, .6); }
 .frm-neon::after { box-shadow: inset 0 0 0 3px #3cf0ff, 0 0 10px rgba(60, 240, 255, .8); }
 .frm-fire::after { box-shadow: inset 0 0 0 3px #ff6a2b, 0 0 12px rgba(255, 106, 43, .8); }
+.frm-leaf::after { box-shadow: inset 0 0 0 3px #5ec46b, 0 0 8px rgba(94, 196, 107, .6); }
+.frm-ice::after { box-shadow: inset 0 0 0 3px #8fd9ff, inset 0 0 0 5px #e8f8ff, 0 0 10px rgba(143, 217, 255, .7); }
 .frm-royal::after { box-shadow: inset 0 0 0 3px #b48cff, inset 0 0 0 5px #f2c12e; }
+.tl-jade { background: #06201a; } .tl-jade i { background: linear-gradient(160deg, #2a7f63, #164c3b); }
+.tl-dusk { background: #2a1408; } .tl-dusk i { background: linear-gradient(160deg, #f6b88c, #cf7a44); }
+.tl-crown { background: #140f33; } .tl-crown i { background: linear-gradient(160deg, #3b2d82, #241b52); }
 .fr-prev { width: 54px; height: 54px; border-radius: 50%; overflow: hidden; }
 .lb { display: grid; gap: 8px; padding: 0 14px; }
 .lb-row { display: flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 14px; background: var(--surface-2); }
@@ -750,6 +773,11 @@ html.in-game .amb { display: none; }
 :root[data-theme="emerald"] { --bg: #0c2420; --bg-2: #103029; --surface: #14372f; --surface-2: #1b473c; --ink: #e8f6ef; --ink-2: #a9cfc0; --line: rgba(232, 246, 239, .14); --accent: #37c98f; --on-accent: #06251c; --accent-shadow: #16684a; --hl: #37c98f; color-scheme: dark; }
 :root[data-theme="rose"] { --bg: #2a1020; --bg-2: #3a142c; --surface: #381630; --surface-2: #4a1d3f; --ink: #ffeaf4; --ink-2: #e2b4ce; --line: rgba(255, 234, 244, .14); --accent: #ff6fa5; --on-accent: #2a1020; --accent-shadow: #a33364; --hl: #ff6fa5; color-scheme: dark; }
 :root[data-theme="mid"] { --bg: #070b18; --bg-2: #0c1428; --surface: #101a33; --surface-2: #17233f; --ink: #e9f0ff; --ink-2: #9fb0d4; --line: rgba(233, 240, 255, .14); --accent: #5b8cff; --on-accent: #060a16; --accent-shadow: #2a4aa8; --hl: #5b8cff; color-scheme: dark; }
+:root[data-theme="mocha"] { --bg: #1d1511; --bg-2: #2a1e17; --surface: #2e211a; --surface-2: #3d2c22; --ink: #f6e9da; --ink-2: #c6ac96; --line: rgba(246, 233, 218, .14); --accent: #c98b4b; --on-accent: #1d1511; --accent-shadow: #7d4e1e; --hl: #c98b4b; color-scheme: dark; }
+:root[data-theme="ocean"] { --bg: #06202b; --bg-2: #0a2c3a; --surface: #0d3344; --surface-2: #124455; --ink: #e6f6ff; --ink-2: #9ec5d8; --line: rgba(230, 246, 255, .14); --accent: #2bd4d4; --on-accent: #052029; --accent-shadow: #117a7f; --hl: #2bd4d4; color-scheme: dark; }
+:root[data-theme="sunset"] { --bg: #2b1020; --bg-2: #3b1526; --surface: #3a1626; --surface-2: #4d1e31; --ink: #ffeede; --ink-2: #e2b49c; --line: rgba(255, 238, 222, .15); --accent: #ff8a4c; --on-accent: #2b1020; --accent-shadow: #a7441a; --hl: #ff8a4c; color-scheme: dark; }
+:root[data-theme="violet"] { --bg: #140b24; --bg-2: #1e1036; --surface: #1f1238; --surface-2: #2b1a4c; --ink: #f1e8ff; --ink-2: #b9a8d9; --line: rgba(241, 232, 255, .14); --accent: #a86bff; --on-accent: #140b24; --accent-shadow: #5e2fa8; --hl: #a86bff; color-scheme: dark; }
+:root[data-theme="aurora"] { --bg: #06141a; --bg-2: #0a1f24; --surface: #0c2128; --surface-2: #113039; --ink: #e8fff6; --ink-2: #9ed2c2; --line: rgba(232, 255, 246, .14); --accent: #5ef2b0; --on-accent: #042019; --accent-shadow: #1c8a5e; --hl: #5ef2b0; color-scheme: dark; }
 :root[data-theme="xmas"] { --bg: #0d2219; --bg-2: #123024; --surface: #14362a; --surface-2: #1b4634; --ink: #fff4e8; --ink-2: #cfe3d2; --line: rgba(255, 244, 232, .16); --accent: #e23b3b; --on-accent: #fff4e8; --accent-shadow: #8c1d1d; --hl: #f2c94c; color-scheme: dark; }
 #snow { position: fixed; inset: 0; pointer-events: none; z-index: 1; overflow: hidden; }
 #snow i { position: absolute; top: -8%; font-style: normal; font-size: 14px; color: rgba(255, 255, 255, .85); animation: snowfall linear infinite; filter: drop-shadow(0 0 3px rgba(255, 255, 255, .5)); }
@@ -785,6 +813,7 @@ html.in-game .amb { display: none; }
 .shop-tabs { display: flex; gap: 6px; overflow-x: auto; padding: 2px 0 10px; }
 .stab { all: unset; flex: none; padding: 7px 14px; border-radius: 999px; background: var(--surface-2); font-size: .85rem; font-weight: 700; cursor: pointer; }
 .stab.on { background: var(--hl); color: #1a1230; }
+.shop-where { margin: 2px 0 10px; font-size: .82rem; color: var(--ink-2); text-align: center; }
 .th-prev, .cd-prev, .tl-prev, .ep-prev { display: flex; align-items: center; justify-content: center; gap: 4px; width: 100%; height: 46px; border-radius: 12px; overflow: hidden; }
 .th-prev i { width: 18px; height: 26px; border-radius: 5px; }
 .th-night { background: #161029; } .th-night i:nth-child(1) { background: #241b40; } .th-night i:nth-child(2) { background: #f2a93b; } .th-night i:nth-child(3) { background: #2e2452; }
@@ -793,11 +822,22 @@ html.in-game .amb { display: none; }
 .th-rose { background: #2a1020; } .th-rose i:nth-child(1) { background: #381630; } .th-rose i:nth-child(2) { background: #ff6fa5; } .th-rose i:nth-child(3) { background: #4a1d3f; }
 .th-mid { background: #070b18; } .th-mid i:nth-child(1) { background: #101a33; } .th-mid i:nth-child(2) { background: #5b8cff; } .th-mid i:nth-child(3) { background: #17233f; }
 .th-xmas { background: #0d2219; } .th-xmas i:nth-child(1) { background: #e23b3b; } .th-xmas i:nth-child(2) { background: #fff4e8; } .th-xmas i:nth-child(3) { background: #f2c94c; }
+.th-mocha { background: #1d1511; } .th-mocha i:nth-child(1) { background: #2e211a; } .th-mocha i:nth-child(2) { background: #c98b4b; } .th-mocha i:nth-child(3) { background: #3d2c22; }
+.th-ocean { background: #06202b; } .th-ocean i:nth-child(1) { background: #0d3344; } .th-ocean i:nth-child(2) { background: #2bd4d4; } .th-ocean i:nth-child(3) { background: #124455; }
+.th-sunset { background: #2b1020; } .th-sunset i:nth-child(1) { background: #3a1626; } .th-sunset i:nth-child(2) { background: #ff8a4c; } .th-sunset i:nth-child(3) { background: #4d1e31; }
+.th-violet { background: #140b24; } .th-violet i:nth-child(1) { background: #1f1238; } .th-violet i:nth-child(2) { background: #a86bff; } .th-violet i:nth-child(3) { background: #2b1a4c; }
+.th-aurora { background: #06141a; } .th-aurora i:nth-child(1) { background: #0c2128; } .th-aurora i:nth-child(2) { background: #5ef2b0; } .th-aurora i:nth-child(3) { background: #113039; }
 .cd-prev i { display: grid; place-items: center; width: 30px; height: 42px; border-radius: 6px; font-style: normal; font-size: 1.1rem; }
 .cd-classic { background: #2a2342; } .cd-classic i { background: #fffaf0; color: #1a1230; box-shadow: 0 2px 6px rgba(0,0,0,.4); }
 .cd-royal { background: #1d1733; } .cd-royal i { background: linear-gradient(160deg, #fff6df, #e8d08b); color: #5c3a10; box-shadow: inset 0 0 0 2px #c9a24a; }
 .cd-neon { background: #0a0a18; } .cd-neon i { background: #11112a; color: #3cf0ff; box-shadow: inset 0 0 0 2px #3cf0ff, 0 0 10px rgba(60,240,255,.5); }
 .cd-xmas { background: #123024; } .cd-xmas i { background: #fff4e8; color: #e23b3b; box-shadow: inset 0 0 0 2px #e23b3b; }
+.cd-noir { background: #0b0b10; } .cd-noir i { background: linear-gradient(160deg, #1c1c22, #101014); color: #f4f4f8; box-shadow: inset 0 0 0 1px #4a4a58; }
+.cd-noir i:nth-child(2) { color: #ff7a6e; }
+.cd-sahara { background: #2b1d0c; } .cd-sahara i { background: linear-gradient(160deg, #f9ecd2, #e7d0a4); color: #4a3313; box-shadow: inset 0 0 0 1px #b99553; }
+.cd-sahara i:nth-child(2) { color: #b4442e; }
+.cd-sea { background: #07222e; } .cd-sea i { background: linear-gradient(160deg, #effaff, #cbe6f6); color: #0e3a52; box-shadow: inset 0 0 0 1px #5aa6c9; }
+.cd-sea i:nth-child(2) { color: #d4495c; }
 .tl-prev i { width: 26px; height: 40px; border-radius: 6px; }
 .tl-ivory { background: #2a2342; } .tl-ivory i { background: #f6efe2; box-shadow: inset 0 -2px 0 rgba(0,0,0,.18); }
 .tl-wood { background: #241a12; } .tl-wood i { background: linear-gradient(160deg, #c89a5b, #8a5f2e); }
@@ -830,11 +870,23 @@ html.in-game .amb { display: none; }
 :root[data-cards="neon"] .card { background: #11112a; color: #d8f6ff; border-color: #3cf0ff; box-shadow: inset 0 0 0 1.5px #3cf0ff, 0 0 12px rgba(60, 240, 255, .35); }
 :root[data-cards="neon"] .card.red { color: #ff67a8; }
 :root[data-cards="neon"] .card.back { background: radial-gradient(circle at 50% 50%, #1b1b3e, #0a0a18); box-shadow: inset 0 0 0 2px #3cf0ff; }
+:root[data-cards="noir"] .card { background: linear-gradient(160deg, #1c1c22, #101014); color: #f4f4f8; box-shadow: inset 0 0 0 1px #4a4a58, 0 6px 14px -6px rgba(0, 0, 0, .7); }
+:root[data-cards="noir"] .card.red { color: #ff7a6e; }
+:root[data-cards="noir"] .card.back { background: repeating-linear-gradient(45deg, #26262f 0 5px, #15151b 5px 10px); box-shadow: inset 0 0 0 2px #4a4a58; }
+:root[data-cards="sahara"] .card { background: linear-gradient(160deg, #f9ecd2, #e7d0a4); color: #4a3313; box-shadow: inset 0 0 0 1px #b99553, 0 6px 14px -6px rgba(0, 0, 0, .5); }
+:root[data-cards="sahara"] .card.red { color: #b4442e; }
+:root[data-cards="sahara"] .card.back { background: repeating-linear-gradient(45deg, #b4762a 0 6px, #8a5a1d 6px 12px); box-shadow: inset 0 0 0 2px #e7d0a4; }
+:root[data-cards="sea"] .card { background: linear-gradient(160deg, #effaff, #cbe6f6); color: #0e3a52; box-shadow: inset 0 0 0 1px #5aa6c9, 0 6px 14px -6px rgba(0, 0, 0, .5); }
+:root[data-cards="sea"] .card.red { color: #d4495c; }
+:root[data-cards="sea"] .card.back { background: repeating-linear-gradient(45deg, #11607f 0 6px, #0b3f55 6px 12px); box-shadow: inset 0 0 0 2px #cbe6f6; }
 :root[data-cards="xmas"] .card { background: #fffaf2; border-color: #e23b3b; box-shadow: inset 0 0 0 2px #e23b3b, 0 6px 14px -6px rgba(0, 0, 0, .5); }
 :root[data-cards="xmas"] .card.back { background: repeating-linear-gradient(45deg, #e23b3b 0 7px, #14532b 7px 14px); }
 /* ===== أشكال الدومنة اللي بتتشترى ===== */
 :root[data-tiles="wood"] { --tile-face: #c89a5b; --tile-edge: #6d4821; --tile-line: #6d4821; --tile-pip: #3a2512; }
 :root[data-tiles="onyx"] { --tile-face: #262633; --tile-edge: #5a5a70; --tile-line: #7a7a95; --tile-pip: #e8e8f2; }
+:root[data-tiles="jade"] { --tile-face: #1f6a52; --tile-edge: #0c3528; --tile-line: #8fe0c2; --tile-pip: #eafff7; }
+:root[data-tiles="dusk"] { --tile-face: #f0a373; --tile-edge: #a9501f; --tile-line: #a9501f; --tile-pip: #431d06; }
+:root[data-tiles="crown"] { --tile-face: #2e2268; --tile-edge: #8d7ae0; --tile-line: #8d7ae0; --tile-pip: #efe9ff; }
 :root[data-tiles="candy"] { --tile-face: #ffe9f4; --tile-edge: #ff8fc5; --tile-line: #ff8fc5; --tile-pip: #b03a76; }
 .m-soon { opacity: .9; }
 .m-soon .rec.soon { background: var(--hl); color: #1a1230; font-weight: 800; }
@@ -874,18 +926,18 @@ html, body { overscroll-behavior: none; }
 .es-trick { position: relative; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 1fr 1fr; gap: 4px; place-items: center; width: 100%; max-width: 300px; height: 100%; max-height: 300px; min-height: 190px; padding: 12px 10px; border-radius: 26px; background: radial-gradient(ellipse at 50% 42%, rgba(255,255,255,.055), transparent 70%), color-mix(in srgb, var(--surface-2) 34%, transparent); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--line) 65%, transparent); }
 .es-slot { display: grid; justify-items: center; gap: 2px; animation: cardin .25s ease-out; }
 .es-slot.s1 { grid-area: 1 / 1; } .es-slot.s2 { grid-area: 1 / 2; } .es-slot.s3 { grid-area: 1 / 3; } .es-slot.s0 { grid-area: 2 / 2; }
-.es-trick .card { width: 56px; height: 78px; font-size: .92rem; }
+.es-trick .card { width: 56px; height: 78px; font-size: 9.6px; }
 .es-slot > i { font-style: normal; font-size: .66rem; color: var(--ink-2); max-width: 70px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .es-slot.win .card { box-shadow: 0 0 0 3px var(--hl), 0 10px 22px -10px rgba(0, 0, 0, .7); transform: translateY(-4px); }
 .es-slot .card { transition: transform .2s, box-shadow .2s; }
 @keyframes cardin { from { opacity: 0; transform: scale(.8) translateY(10px); } to { opacity: 1; transform: none; } }
 
-.es-hand { display: flex; justify-content: center; flex-wrap: wrap; gap: 4px; padding: 8px 8px calc(8px + env(safe-area-inset-bottom, 0px)); overflow: hidden; }
-.es-hand .card { width: 41px; height: 59px; font-size: .76rem; flex: none; transition: transform .16s; }
-.es-hand .card.off { opacity: .4; filter: grayscale(.75); }
-.es-hand .card.idle { opacity: .85; }
-.es-hand .card:not(.off):not(.idle) { box-shadow: 0 0 0 2px var(--hl), 0 6px 14px -8px rgba(0, 0, 0, .6); }
-.es-hand .card:not(.off):not(.idle):active { transform: translateY(-7px); }
+.es-hand { position: relative; height: 104px; margin: 6px 10px calc(8px + env(safe-area-inset-bottom, 0px)); }
+.es-hand .card { position: absolute; bottom: 0; width: 62px; height: 87px; font-size: 10.5px; transition: transform .16s, filter .16s; }
+.es-hand .card.off { filter: brightness(.84) saturate(.75); }
+.es-hand .card.idle { filter: brightness(.92); }
+.es-hand .card:not(.off):not(.idle) { box-shadow: inset 0 0 0 1px rgba(0,0,0,.22), 0 0 0 2px var(--hl), 0 8px 18px -8px rgba(0, 0, 0, .7); transform: translateY(-9px); }
+.es-hand .card:not(.off):not(.idle):active { transform: translateY(-16px); }
 
 .es-panel { position: absolute; inset-inline: 10px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); z-index: 22; padding: 12px 14px; border-radius: 20px; background: var(--surface); box-shadow: 0 -14px 40px -16px rgba(0, 0, 0, .75), inset 0 0 0 1px var(--line); animation: slideup .22s ease-out; }
 @keyframes slideup { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
@@ -903,6 +955,8 @@ html, body { overscroll-behavior: none; }
 .pn-s[disabled] { opacity: .28; cursor: not-allowed; }
 .pn-act { display: flex; gap: 8px; }
 .pn-act .btn { flex: 1; }
+.es .tmsg { inset: auto 0 2px; display: block; text-align: center; }
+.es .tmsg > div { display: inline-block; font-family: var(--body); font-size: .92rem; font-weight: 800; padding: 6px 14px; border-radius: 999px; background: var(--hl); color: #1a1230; text-shadow: none; opacity: 1; }
 .es-tbl td.plus { color: #35c26b; font-weight: 800; }
 .es-tbl td.minus { color: #e0544a; font-weight: 800; }
 .es-tbl tr.me { background: color-mix(in srgb, var(--hl) 14%, transparent); }
@@ -2004,11 +2058,32 @@ var FIREBASE_CONFIG = {
     o.connect(gg); gg.connect(music); o2.connect(g2); g2.connect(music);
     o.start(t); o.stop(t + 1.2); o2.start(t); o2.stop(t + 0.6);
   }
+  // وسادة دافية بتفتح وتقفل بالراحة، من غير أي خشونة
+  function pad(f, t, dur, g) {
+    var o = ctx.createOscillator(), o2 = ctx.createOscillator(), gg = ctx.createGain(), lp = ctx.createBiquadFilter();
+    o.type = 'sine'; o.frequency.value = f;
+    o2.type = 'triangle'; o2.frequency.value = f * 2; o2.detune.value = 5;
+    lp.type = 'lowpass'; lp.frequency.value = 900; lp.Q.value = .4;
+    var g2 = ctx.createGain(); g2.gain.value = .25;
+    gg.gain.setValueAtTime(0.0001, t);
+    gg.gain.linearRampToValueAtTime(g || 0.05, t + dur * .35);
+    gg.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+    o.connect(lp); o2.connect(g2); g2.connect(lp); lp.connect(gg); gg.connect(music);
+    var s = ctx.createGain(); s.gain.value = .45; gg.connect(s); s.connect(rev);
+    o.start(t); o.stop(t + dur + .1); o2.start(t); o2.stop(t + dur + .1);
+  }
+  // الكوردات: دو — لا صغير — فا — صول، لفّة هادية بتتكرر
+  var WCH = [[130.81, 196.00, 261.63], [110.00, 164.81, 261.63], [174.61, 261.63, 349.23], [196.00, 246.94, 392.00]];
+  var WTOP = [[523.25, 659.25, 783.99, 987.77], [523.25, 659.25, 880.00, 987.77], [523.25, 698.46, 880.00, 1046.50], [587.33, 739.99, 880.00, 987.77]];
+  // لحن مفتوح: بيتولّد من الكورد نفسه، فمش بيمل ومفيش منه نسختين متطابقتين
   function xmasTick(s, t) {
-    var pos = s % 4;
-    if (pos === 0) { var n = XMEL[xi % XMEL.length]; xi++; if (n >= 0) bell(XMAS[n], t, 0.075); }
-    if (pos === 2 && Math.random() < 0.5) bell(XMAS[0] * 2, t, 0.018);
-    if (s % 16 === 0) { bell(XMAS[0] / 2, t, 0.05); bell(XMAS[4] / 2, t, 0.035); }
+    var bar = Math.floor(s / 8), i = bar % 4, ch = WCH[i], top = WTOP[i], pos = s % 8;
+    if (pos === 0) { pad(ch[0], t, 3.6, 0.055); bell(ch[1], t, 0.045); xi = (xi + 1) % top.length; }
+    if (pos === 2) bell(top[xi % top.length], t, 0.05);
+    if (pos === 3 && Math.random() < .45) bell(top[(xi + 2) % top.length], t, 0.028);
+    if (pos === 5) bell(top[(xi + 1) % top.length], t, 0.042);
+    if (pos === 7 && Math.random() < .35) bell(ch[2], t, 0.03);
+    if (bar % 4 === 3 && pos === 6) bell(top[top.length - 1] * 2, t, 0.012);
   }
   var mel = 3;
 
@@ -2099,21 +2174,17 @@ var FIREBASE_CONFIG = {
   // إيقاع المقسوم: دُم تَك - تَك دُم - تَك -
   function tick(s, t) {
     if (isXmas()) return xmasTick(s, t);
-    var pos = s % 8, bar = Math.floor(s / 8), phraseBar = bar % 4, busy = Math.floor(bar / 8) % 2 === 1;
-    if (pos === 0 || pos === 4) dum(t, pos === 0 ? 0.3 : 0.22);
-    if (pos === 0 && bar % 2 === 0) pluck(146.83, t, 0.05, music, 2.4);
-    if (phraseBar === 3 && pos >= 4) {
-      if (pos === 4) { pluck(HIJAZ[Math.random() < 0.6 ? 0 : 4], t, 0.085, music, 2.4); mel = 3; }
-      return;
-    }
-    var density = busy ? 0.6 : 0.42, strong = pos === 0 || pos === 3 || pos === 4;
-    if (Math.random() < (strong ? density + 0.25 : density * 0.55)) {
-      mel += [-2, -1, -1, 0, 1, 1, 2][Math.floor(Math.random() * 7)];
-      if (mel < 0) mel = 1;
-      if (mel > 7) mel = 6;
-      pluck(HIJAZ[mel], t, 0.065 + Math.random() * 0.03, music, 1.3);
-      if (Math.random() < 0.12) pluck(HIJAZ[mel], t + E / 2, 0.045, music, 0.9);
-    }
+    return calmTick(s, t);
+  }
+  // موسيقى اللعبة العادية: هادية، أوتار بعيدة، من غير طبلة ولا دوشة
+  var CCH = [[146.83, 220.00, 293.66], [155.56, 233.08, 311.13], [174.61, 261.63, 349.23], [146.83, 196.00, 293.66]];
+  function calmTick(s, t) {
+    var bar = Math.floor(s / 8), ch = CCH[bar % 4], pos = s % 8;
+    if (pos === 0) pad(ch[0], t, 3.8, 0.05);
+    if (pos === 1) pluck(ch[1] * 2, t, 0.05, music, 2.2);
+    if (pos === 3 && Math.random() < .5) pluck(HIJAZ[2 + Math.floor(Math.random() * 3)], t, 0.045, music, 2);
+    if (pos === 4) pluck(ch[2] * 2, t, 0.045, music, 2.2);
+    if (pos === 6 && Math.random() < .4) pluck(HIJAZ[Math.floor(Math.random() * 4)], t, 0.035, music, 1.8);
   }
   function schedule() { while (nextT < ctx.currentTime + 0.2) { tick(step, nextT); nextT += E; step++; } }
 
@@ -2121,8 +2192,7 @@ var FIREBASE_CONFIG = {
     if (!ensure() || running || !on.music) return;
     running = true; step = 0; nextT = ctx.currentTime + 0.12; mel = 3; xi = 0;
     var t = ctx.currentTime;
-    music.gain.cancelScheduledValues(t); music.gain.setValueAtTime(music.gain.value, t); music.gain.linearRampToValueAtTime(0.28, t + 3.5);
-    if (!isXmas()) startDrone();
+    music.gain.cancelScheduledValues(t); music.gain.setValueAtTime(music.gain.value, t); music.gain.linearRampToValueAtTime(0.22, t + 4);
     timer = setInterval(schedule, 40);
   }
   function stopMusic() {
@@ -2130,7 +2200,6 @@ var FIREBASE_CONFIG = {
     running = false; clearInterval(timer); timer = null;
     var t = ctx.currentTime;
     music.gain.cancelScheduledValues(t); music.gain.setValueAtTime(music.gain.value, t); music.gain.linearRampToValueAtTime(0, t + 0.8);
-    stopDrone();
   }
 
   var FX = {
@@ -2233,21 +2302,23 @@ var L = {
     signOut: 'تسجيل الخروج', signedOut: 'تم تسجيل الخروج', lvlUp: 'مبروك! وصلت المستوى {n}', lvlBonus: 'هدية: {n} كوينز', level: 'المستوى', lvlShort: 'مستوى {n}', winsN: '{n} فوز', xpLeft: 'فاضل {n} نقطة للمستوى الجاي',
     daily: 'التحديات', dailySub: 'بتتجدد كل يوم', chDone: 'خلصت تحدي! خد جايزتك من التحديات', chPlay3: 'العب {n} جيمات', chWin1: 'اكسب جيم', chWin2: 'اكسب {n} جيمات', chOnline1: 'العب جيم مع صاحبك', chVariety: 'العب لعبتين مختلفين', chWinG: 'اكسب جيم {game}',
     loginTitle: 'مكافأة النهارده', dayN: 'يوم {n}', takeN: 'خد {n}', statsT: 'إحصائياتي', played: 'جيمات', winRate: 'نسبة الفوز', bestStreak: 'أطول سلسلة', board: 'ترتيب الصحاب', frames: 'الإطارات',
-    fr_none: 'من غير', fr_gold: 'دهب', fr_neon: 'نيون', fr_fire: 'نار', fr_royal: 'ملكي',
+    fr_none: 'من غير', fr_gold: 'دهب', fr_neon: 'نيون', fr_fire: 'نار', fr_royal: 'ملكي', fr_leaf: 'ورق شجر', fr_ice: 'تلج',
     seenMin: 'كان أونلاين من {n} دقيقة', sent: 'اتبعتت', seen: 'اتشافت', sending: 'بتتبعت', friendAway: '{name} انقطع اتصاله… في انتظار رجوعه', exitGame: 'خروج',
     updTitle: 'في تحديث جديد', updVer: 'لمّة {v}', updNow: 'حدّث دلوقتي', updGetApk: 'نزّل التحديث', updApkHint: 'هيفتحلك صفحة التحميل، نزّل الملف وثبّته فوق القديم', upToDate: 'عندك آخر إصدار', updCheck: 'تحقق', newIn: 'الجديد في لمّة {v}',
     tabTheme: 'الثيم', tabBoard: 'البورد', tabCards: 'الكوتشينة', tabTiles: 'الدومنة', tabEmoji: 'إيموجي', tabFrame: 'الإطار',
-    th_night: 'ليل', th_sand: 'صحرا', th_emerald: 'زمرد', th_rose: 'وردي', th_xmas: 'كريسماس', th_mid: 'منتصف الليل',
-    cd_classic: 'كلاسيك', cd_royal: 'ملكي', cd_neon: 'نيون', cd_xmas: 'كريسماس',
-    tl_ivory: 'عاج', tl_wood: 'خشب', tl_onyx: 'أسود', tl_candy: 'حلويات',
-    ep_basic: 'الأساسية', ep_fun: 'هزار', ep_hype: 'حماس', ep_xmas: 'كريسماس', youW: 'كسبت', themW: 'كسب',
+    th_night: 'ليل', th_sand: 'صحرا', th_emerald: 'زمرد', th_rose: 'وردي', th_xmas: 'كريسماس', th_mid: 'منتصف الليل', th_mocha: 'بُن', th_ocean: 'بحر', th_sunset: 'غروب', th_violet: 'بنفسج', th_aurora: 'شفق',
+    cd_classic: 'كلاسيك', cd_royal: 'ملكي', cd_neon: 'نيون', cd_xmas: 'كريسماس', cd_noir: 'أسود', cd_sahara: 'صحرا', cd_sea: 'بحري',
+    tl_ivory: 'عاج', tl_wood: 'خشب', tl_onyx: 'أسود', tl_candy: 'حلويات', tl_jade: 'يشب', tl_dusk: 'غروب', tl_crown: 'ملكي',
+    ep_basic: 'الأساسية', ep_fun: 'هزار', ep_hype: 'حماس', ep_xmas: 'كريسماس', ep_food: 'أكل', ep_masr: 'مصري', ep_zoo: 'حيوانات',
+    shopWhereTheme: 'بيغيّر ألوان الأبلكيشن كله', shopWhereBoard: 'بيبان في الطاولة', shopWhereCards: 'بيبان في البصرة واستيمشن', shopWhereTiles: 'بيبان في الدومنة', shopWhereEmoji: 'بتستخدمها جوه أي لعبة', shopWhereFrame: 'بيبان حوالين صورتك عند صحابك',
+    youW: 'كسبت', themW: 'كسب',
     qFriends: 'أصحابك', qDaily: 'تحديات', qWheel: 'عجلة', qStats: 'نتايجي', qShop: 'المحل', myProfile: 'ملفي', gameSet: 'إعدادات اللعبة', vsRecord: 'بينك وبينه', vsLine: 'كسبته {w} ومكسبك {l}', noVs: 'لسه مالعبتوش مع بعض', theirStats: 'مستوى {lv} · {w} فوز من {p}',
     wheel: 'عجلة الحظ', wheelS: 'العجلة', wheelSub: 'لفّة مجانية كل يوم', wheelDone: 'لفّيت النهارده، ارجع بكرة', spin: 'لِف', spinTomorrow: 'ارجع بكرة', wonCoins: 'كسبت {n} كوينز!', wonXp: 'كسبت 50 نقطة خبرة!',
     badges: 'الأوسمة', badgeNew: 'وسام جديد: {name} (+{n})', bd_first_win: 'أول فوز', bd_wins_10: '10 انتصارات', bd_wins_50: '50 انتصار', bd_online_1: 'أول جيم أونلاين', bd_online_10: '10 جيمات أونلاين', bd_streak_5: '5 ورا بعض', bd_all_games: 'لعبت الخمسة', bd_level_5: 'مستوى 5', bd_level_10: 'مستوى 10', bd_rich: '1000 كوينز',
     secProfile: 'الملف الشخصي', secAccount: 'الحساب', accGoogle: 'حساب جوجل', accNone: 'غير مسجّل', accWhy: 'سجّل الدخول عشان تلعب مع أصحابك', signInShort: 'تسجيل الدخول',
     secNotif: 'الإشعارات', notifDevice: 'إشعارات الجهاز ده', pst_on: 'مفعّلة', pst_off: 'متوقفة', pst_blocked: 'مقفولة من إعدادات الجهاز', pst_na: 'غير متاحة على هذا المتصفح',
     nfChat: 'رسائل الدردشة', nfInvite: 'دعوات اللعب', nfFriend: 'طلبات الصداقة', pushTest: 'إرسال إشعار تجريبي',
-    ptRetry: 'سجّلنا الجهاز دلوقتي… بنجرب تاني', ptOk: 'تم الإرسال ✓ الإشعار هيوصلك خلال ثواني', ptNoDev: 'مفيش جهاز مسجّل. اقفل الإشعارات وشغّلها تاني', ptNoUrl: 'سيرفر الإشعارات غير مربوط (config/push)', ptOld: 'سيرفر الإشعارات محتاج يتحدّث بالكود الجديد', ptKey: 'مفتاح فايربيس في السيرفر غير صحيح (SA_JSON)', ptErr: 'تعذّر الإرسال: {e}', ptNet: 'تعذّر الوصول لسيرفر الإشعارات', ptWait: 'جاري الإرسال…',
+    ptRetry: 'سجّلنا الجهاز دلوقتي… بنجرب تاني', ptOk: 'اتبعت ✓ هيبان فوق دلوقتي. وعشان تشوفه في شريط الإشعارات، صغّر الأبلكيشن واضغط الزرار تاني', ptNoDev: 'مفيش جهاز مسجّل. اقفل الإشعارات وشغّلها تاني', ptNoUrl: 'سيرفر الإشعارات غير مربوط (config/push)', ptOld: 'سيرفر الإشعارات محتاج يتحدّث بالكود الجديد', ptKey: 'مفتاح فايربيس في السيرفر غير صحيح (SA_JSON)', ptErr: 'تعذّر الإرسال: {e}', ptNet: 'تعذّر الوصول لسيرفر الإشعارات', ptWait: 'جاري الإرسال…',
     how_tawla_s: 'بتجيب حجارتك الـ15 لبيتك وتطلّعها قبل خصمك.',
     how_tawla: [['🎲', 'ارمي الزهر، وحرّك حجرين بالرقمين اللي طلعوا.'], ['➡️', 'حجارتك بتمشي ناحية بيتك على الشمال تحت.'], ['🛡️', 'حجرين فوق بعض في خانة = الخانة محجوزة لك.'], ['⚔️', 'في العادة: حجر لوحده بيتضرب ويرجع من الأول.'], ['🏁', 'لمّا كل حجارتك تدخل بيتك، ابدأ تطلّعها. اللي يخلّص الأول يكسب.']],
     how_domino_s: 'تخلّص حجارتك الأول، أو تبقى الأقل لما الجيم يتقفل.',
@@ -2258,7 +2329,7 @@ var L = {
     how_chess: [['♟️', 'كل قطعة ليها حركة: البيدق قدام، والحصان على شكل L.'], ['👆', 'دوس على قطعتك وهتشوف كل حركاتها.'], ['🏰', 'الرخية: الملك بيتحرك خانتين ناحية القلعة.'], ['👑', 'البيدق لما يوصل آخر الدور بيبقى وزير.'], ['♚', 'لما الملك يتحاصر ومفيش حركة، الجيم خلص.']],
     how_basra_s: 'لمّ أكبر عدد ورق من الأرض بورق إيدك.',
     how_basra: [['🃏', 'كل واحد بياخد 4 ورق، وفيه 4 على الأرض.'], ['🎯', 'نزّل ورقة تساوي ورقة على الأرض وخدهم.'], ['➕', 'الشايب والبنت والولد بياخدوا اللي زيهم بس.'], ['💥', 'بصرة: تاخد آخر ورقة على الأرض لوحدها = 10 نقط.'], ['🏅', 'الكومي (7 ديناري) والولد ليهم نقط، وأكتر ورق بياخد 30.']],
-    esWaitLead: 'في انتظار أول ورقة', esTrickN: 'أكلة {n} من 13',
+    esWaitLead: 'في انتظار أول ورقة', esWon1: '{n} كسب الأكلة', esTrickN: 'أكلة {n} من 13',
     esNT: 'بلا حكم', esPass: 'باس', esBidding: 'المناقصة', esTrump: 'الحكم', esRoundN: 'دور {n}',
     esTook: 'خد {w} من {e}', esYourBid: 'دورك تزايد', esBidTitle: 'تزايد بكام؟', esBidHint: 'أقل مزايدة 4. اختار الرقم والحكم.',
     esTopBid: 'أعلى مزايدة {b} لـ {name}', esSayIt: 'قول', esDeclarer: '{name} خد المناقصة بـ {b}', esAllPass: 'الكل باس… ورق جديد',
@@ -2311,6 +2382,7 @@ var L = {
     friends: 'الأصحاب', signInLine: 'ادخل بجوجل عشان تحفظ صحابك وتعرف مين أونلاين وتقدر تتكلم معاهم.', signInGoogle: 'ادخل بجوجل', signInErr: 'في مشكلة في الدخول، جرّب تاني',
     onlineNotSetup: 'حتة الأونلاين لسه مش متفعّلة في النسخة دي.', yourCode: 'كودك', copy: 'انسخ', copied: 'اتنسخ!',
     enterCode: 'اكتب كود صاحبك', addFriend: 'ضيفه', friendNotFound: 'الكود ده مش موجود', friendSelf: 'ده كودك إنت!', alreadyFriends: 'هو صاحبك خلاص',
+    needFour: 'استيمشن محتاج أربعة بالظبط', pickThree: 'اختار 3 أصحاب بالظبط — استيمشن بأربعة',
     requestSent: 'اتبعت! هيشوفه لما يفتح', accept: 'قبول', decline: 'رفض', friendsList: 'صحابك', noFriendsYet: 'لسه مفيش صحاب، ضيف حد بكوده',
     online: 'أونلاين', offline: 'مش أونلاين', playInvite: 'العب معايا', inviteSent: 'اتبعتله طلب اللعب!', invitedYou: '{name} عايز يلعب معاك',
     later: 'بعدين', openChat: 'فتح الشات', chatPh: 'اكتب حاجة...', send: 'ابعت',
@@ -2344,14 +2416,16 @@ var L = {
     signOut: 'Sign out', signedOut: 'Signed out', lvlUp: 'Level {n} reached!', lvlBonus: 'Gift: {n} coins', level: 'Level', lvlShort: 'Lv {n}', winsN: '{n} wins', xpLeft: '{n} XP to next level',
     daily: 'Challenges', dailySub: 'New ones every day', chDone: 'Challenge done! Claim it in Challenges', chPlay3: 'Play {n} games', chWin1: 'Win a game', chWin2: 'Win {n} games', chOnline1: 'Play a game with a friend', chVariety: 'Play two different games', chWinG: 'Win a {game} game',
     loginTitle: 'Today’s reward', dayN: 'Day {n}', takeN: 'Take {n}', statsT: 'My stats', played: 'Games', winRate: 'Win rate', bestStreak: 'Best streak', board: 'Friends ranking', frames: 'Frames',
-    fr_none: 'None', fr_gold: 'Gold', fr_neon: 'Neon', fr_fire: 'Fire', fr_royal: 'Royal',
+    fr_none: 'None', fr_gold: 'Gold', fr_neon: 'Neon', fr_fire: 'Fire', fr_royal: 'Royal', fr_leaf: 'Leaf', fr_ice: 'Ice',
     seenMin: 'Online {n} min ago', sent: 'Sent', seen: 'Seen', sending: 'Sending', friendAway: '{name} disconnected… the game continues when they’re back', exitGame: 'Leave game',
     updTitle: 'A new update is here', updVer: 'لمّة {v}', updNow: 'Update now', updGetApk: 'Download update', updApkHint: 'The download page will open; install the file over the current app', upToDate: 'You have the latest version', updCheck: 'Check', newIn: 'What’s new in {v}',
     tabTheme: 'Theme', tabBoard: 'Board', tabCards: 'Cards', tabTiles: 'Dominoes', tabEmoji: 'Emoji', tabFrame: 'Frame',
-    th_night: 'Night', th_sand: 'Sand', th_emerald: 'Emerald', th_rose: 'Rose', th_xmas: 'Christmas', th_mid: 'Midnight',
-    cd_classic: 'Classic', cd_royal: 'Royal', cd_neon: 'Neon', cd_xmas: 'Christmas',
-    tl_ivory: 'Ivory', tl_wood: 'Wood', tl_onyx: 'Onyx', tl_candy: 'Candy',
-    ep_basic: 'Basic', ep_fun: 'Fun', ep_hype: 'Hype', ep_xmas: 'Christmas', youW: 'You won', themW: 'They won',
+    th_night: 'Night', th_sand: 'Sand', th_emerald: 'Emerald', th_rose: 'Rose', th_xmas: 'Christmas', th_mid: 'Midnight', th_mocha: 'Mocha', th_ocean: 'Ocean', th_sunset: 'Sunset', th_violet: 'Violet', th_aurora: 'Aurora',
+    cd_classic: 'Classic', cd_royal: 'Royal', cd_neon: 'Neon', cd_xmas: 'Christmas', cd_noir: 'Noir', cd_sahara: 'Sahara', cd_sea: 'Sea',
+    tl_ivory: 'Ivory', tl_wood: 'Wood', tl_onyx: 'Onyx', tl_candy: 'Candy', tl_jade: 'Jade', tl_dusk: 'Dusk', tl_crown: 'Crown',
+    ep_basic: 'Basic', ep_fun: 'Fun', ep_hype: 'Hype', ep_xmas: 'Christmas', ep_food: 'Food', ep_masr: 'Egypt', ep_zoo: 'Animals',
+    shopWhereTheme: 'Changes the colours across the app', shopWhereBoard: 'Shows on the backgammon board', shopWhereCards: 'Shows in Basra and Estimation', shopWhereTiles: 'Shows on the domino tiles', shopWhereEmoji: 'Use them inside any game', shopWhereFrame: 'Shows around your photo for friends',
+    youW: 'You won', themW: 'They won',
     qFriends: 'Friends', qDaily: 'Quests', qWheel: 'Wheel', qStats: 'Stats', qShop: 'Shop', myProfile: 'My profile', gameSet: 'Game settings', vsRecord: 'Head to head', vsLine: 'You won {w}, they won {l}', noVs: 'You haven’t played yet', theirStats: 'Level {lv} · {w} wins of {p}',
     wheel: 'Lucky wheel', wheelS: 'Wheel', wheelSub: 'One free spin every day', wheelDone: 'You spun today, come back tomorrow', spin: 'Spin', spinTomorrow: 'Come back tomorrow', wonCoins: 'You won {n} coins!', wonXp: 'You won 50 XP!',
     badges: 'Badges', badgeNew: 'New badge: {name} (+{n})', bd_first_win: 'First win', bd_wins_10: '10 wins', bd_wins_50: '50 wins', bd_online_1: 'First online game', bd_online_10: '10 online games', bd_streak_5: '5 in a row', bd_all_games: 'Played all five', bd_level_5: 'Level 5', bd_level_10: 'Level 10', bd_rich: '1000 coins',
@@ -2369,7 +2443,7 @@ var L = {
     how_chess: [['♟️', 'Each piece moves differently; knights move in an L.'], ['👆', 'Tap your piece to see every legal move.'], ['🏰', 'Castling moves the king two squares toward a rook.'], ['👑', 'A pawn reaching the far rank becomes a queen.'], ['♚', 'When the king is trapped, the game is over.']],
     how_basra_s: 'Capture as many cards from the table as you can.',
     how_basra: [['🃏', 'Each player gets 4 cards, with 4 on the table.'], ['🎯', 'Play a card matching one on the table and take both.'], ['➕', 'Face cards only capture matching face cards.'], ['💥', 'Basra: take the last single card for 10 points.'], ['🏅', 'The 7 of diamonds and the jack score, and most cards gets 30.']],
-    esWaitLead: 'Waiting for the lead', esTrickN: 'Trick {n} of 13',
+    esWaitLead: 'Waiting for the lead', esWon1: '{n} takes it', esTrickN: 'Trick {n} of 13',
     esNT: 'No trump', esPass: 'Pass', esBidding: 'Bidding', esTrump: 'Trump', esRoundN: 'Round {n}',
     esTook: '{w} of {e}', esYourBid: 'Your bid', esBidTitle: 'What do you bid?', esBidHint: 'Minimum is 4. Pick a number and a trump.',
     esTopBid: 'Top bid {b} by {name}', esSayIt: 'Bid', esDeclarer: '{name} won the bidding with {b}', esAllPass: 'Everyone passed… new deal',
@@ -2422,6 +2496,7 @@ var L = {
     friends: 'Friends', signInLine: 'Sign in with Google to save your friends, see who’s online, and chat with them.', signInGoogle: 'Sign in with Google', signInErr: 'Something went wrong signing in, try again',
     onlineNotSetup: 'The online part isn’t turned on yet in this build.', yourCode: 'Your code', copy: 'Copy', copied: 'Copied!',
     enterCode: 'Enter your friend’s code', addFriend: 'Add', friendNotFound: 'That code doesn’t exist', friendSelf: 'That’s your own code!', alreadyFriends: 'Already friends',
+    needFour: 'Estimation needs exactly four', pickThree: 'Pick exactly 3 friends — Estimation is four-handed',
     requestSent: 'Sent! They’ll see it next time they open the app', accept: 'Accept', decline: 'Decline', friendsList: 'Your friends', noFriendsYet: 'No friends yet, add one with their code',
     online: 'Online', offline: 'Offline', playInvite: 'Play with me', inviteSent: 'Invite sent!', invitedYou: '{name} wants to play with you',
     later: 'Later', openChat: 'Open chat', chatPh: 'Type something...', send: 'Send',
@@ -2451,7 +2526,7 @@ function applyLang() {
 
 var AVATARS = ['😎', '🧔🏽', '👩🏽', '🧕🏽', '👨🏽‍🦱', '🦁', '🐪', '🦅'];
 var SKINS = ['sadaf', 'khayamiya', 'neon', 'marble', 'pharaoh'];
-var APP_VER = '1.0.12';
+var APP_VER = '1.0.13';
 var BOTS = [{ k: 0, av: '🧑🏽' }, { k: 1, av: '👴🏽' }, { k: 2, av: '🧔🏽' }, { k: 3, av: '👵🏽' }];
 function botsFor(level, count) {
   var first = { easy: 0, medium: 1, hard: 2 }[level] || 0;
@@ -2827,9 +2902,8 @@ function openSetup(game, opt) {
       '<div id="lvl-f">' + field(t('level'), segHTML('level', [['easy', t('easy')], ['medium', t('medium')], ['hard', t('hard')]], cfg.level)) + '</div>' + timerField(cfg) +
       '<button class="btn cta" data-go>' + t('letsPlay') + '</button>';
   } else if (game === 'estimation') {
-    html = '<h2>' + t('estimation') + '</h2>' +
-      field(t('vsWho'), segHTML('vs', [['cpu', t('vsCpu')], ['friends', ICON.lock + ' ' + t('vsFriends') + '<small>' + t('soon') + '</small>', true]], 'cpu')) +
-      field(t('level'), segHTML('level', [['easy', t('easy')], ['medium', t('medium')], ['hard', t('hard')]], cfg.level)) +
+    html = '<h2>' + t('estimation') + '</h2>' + vsField(vs) +
+      '<div id="lvl-f">' + field(t('level'), segHTML('level', [['easy', t('easy')], ['medium', t('medium')], ['hard', t('hard')]], cfg.level)) + '</div>' +
       field(t('esRounds'), segHTML('target', [[2, '2'], [4, '4'], [8, '8']], cfg.target)) + timerField(cfg) +
       '<p class="hint">' + t('esSetupHint') + '</p>' +
       '<button class="btn plain sm wide" data-howest>' + t('esHowBtn') + '</button>' +
@@ -2871,6 +2945,7 @@ function openSetup(game, opt) {
   $('[data-go]', w).addEventListener('click', function () {
     if (vs === 'friends') {
       if (!picks.length) { toast(t('pickFriend')); return; }
+      if (needPlayers(game) === 4 && picks.length !== 3) { toast(t('pickThree')); return; }
       closeSheet(w); Snd.unlock(); Snd.play('pop');
       inviteToGame(game, cfg, picks.slice());
       return;
@@ -3002,7 +3077,7 @@ function confirmLeave() {
 }
 
 /* ===== لمّة — الكوينز والمحل والشات جوه اللعبة ===== */
-var SKIN_PRICE = { sadaf: 0, khayamiya: 150, neon: 300, marble: 500, pharaoh: 800 };
+var SKIN_PRICE = { sadaf: 0, khayamiya: 300, neon: 600, marble: 1000, pharaoh: 1600 };
 var WIN_COINS = 40, ROUND_COINS = 10, PLAY_COINS = 5;
 
 function coins() { return S.coins || 0; }
@@ -3179,7 +3254,7 @@ function showReact(name, e, mine) {
 
 /* ===== لمّة — المستوى والتحديات والإطارات والترتيب ===== */
 var XP_WIN = 30, XP_LOSE = 10, XP_ONLINE = 10;
-var FRAMES = { none: 0, gold: 250, neon: 400, fire: 600, royal: 900 };
+var FRAMES = { none: 0, gold: 500, leaf: 900, ice: 1000, neon: 800, fire: 1200, royal: 1800 };
 var LOGIN_REWARD = [20, 30, 40, 50, 60, 80, 120];
 var GAMES5 = ['tawla', 'domino', 'ludo', 'chess', 'basra'];
 
@@ -3432,13 +3507,16 @@ function badgesHTML() {
 }
 
 /* ===== لمّة — الثيمات والمحل الكبير وملف الصاحب ===== */
-var THEMES = { night: 0, sand: 220, emerald: 300, rose: 300, xmas: 0, mid: 450 };
-var CARDS = { classic: 0, royal: 250, neon: 350, xmas: 0 };
-var TILES = { ivory: 0, wood: 200, onyx: 300, candy: 350 };
+var THEMES = { night: 0, xmas: 0, sand: 400, mocha: 600, emerald: 550, rose: 550, ocean: 650, sunset: 700, mid: 800, violet: 900, aurora: 1200 };
+var CARDS = { classic: 0, xmas: 0, royal: 500, noir: 600, sahara: 650, neon: 700, sea: 800 };
+var TILES = { ivory: 0, wood: 400, jade: 650, onyx: 600, candy: 700, dusk: 750, crown: 900 };
 var EMOJI_PACKS = {
   basic: { price: 0, list: ['😂', '😍', '🔥', '👏', '😭', '😡', '🤝', '🎲', '😎', '🙏'] },
-  fun: { price: 200, list: ['🥚', '🍅', '👟', '🐔', '🤡', '💩', '🫠', '🥱', '🙈', '🤌'] },
-  hype: { price: 300, list: ['💪', '🏆', '👑', '💎', '⚡', '🚀', '🎯', '🧠', '🫡', '🤯'] },
+  fun: { price: 400, list: ['🥚', '🍅', '👟', '🐔', '🤡', '💩', '🫠', '🥱', '🙈', '🤌'] },
+  food: { price: 450, list: ['🍉', '🍿', '🧃', '🍗', '🥤', '🍩', '🌽', '🍫', '🧅', '🥜'] },
+  masr: { price: 500, list: ['🇪🇬', '🫖', '🧿', '🐪', '🏺', '🥙', '☕', '🪬', '🎻', '🧆'] },
+  zoo: { price: 550, list: ['🐔', '🐒', '🦁', '🐢', '🦆', '🐑', '🐓', '🦅', '🐈', '🐕'] },
+  hype: { price: 600, list: ['💪', '🏆', '👑', '💎', '⚡', '🚀', '🎯', '🧠', '🫡', '🤯'] },
   xmas: { price: 0, list: ['🎅', '🎄', '⛄', '🎁', '❄️', '🔔', '🦌', '🍪', '🕯️', '✨'] }
 };
 function themeOf() { return S.theme || 'night'; }
@@ -3555,7 +3633,8 @@ function shopBody() {
       return shopCell('frame', k, FRAMES[k], ownsFrame(k), (S.frame || 'none') === k, '<div class="fr-prev">' + framedAv(S.name, S.photo, k) + '</div>', t('fr_' + k));
     }).join('');
   }
-  return '<div class="shop-grid">' + h + '</div>';
+  var where = { theme: 'shopWhereTheme', board: 'shopWhereBoard', cards: 'shopWhereCards', tiles: 'shopWhereTiles', emoji: 'shopWhereEmoji', frame: 'shopWhereFrame' }[SHOP_TAB];
+  return '<p class="shop-where">' + t(where) + '</p><div class="shop-grid">' + h + '</div>';
 }
 
 /* ----- ملف الصاحب: بينك وبينه ----- */
@@ -3617,7 +3696,7 @@ function openSoon() {
  * وبعد أي تحديث بيظهر «الجديد في الإصدار» مرة واحدة. */
 var UPD_URL = 'https://technicalteam774.github.io/lamma/version.json';
 var APK_PAGE = 'https://github.com/TechnicalTeam774/lamma/releases/latest';
-var CHANGES = {"1.0.12": ["لعبة جديدة: استيمشن بأربع لاعيبة، بالمناقصة والحكم والتوقّع", "شرح كامل لاستيمشن جوه اللعبة: إزاي تزايد وتحسب نقطك", "تصليح الإشعارات: الجهاز بقى يتسجّل صح أول ما يفتح الأبلكيشن"]};
+var CHANGES = {"1.0.13": ["استيمشن بقت تتلعب مع صحابك — أربعة أونلاين، بالمناقصة والحكم والتوقّع", "شكل الكوتشينة اتعمل من أول وجديد: ورق زي الحقيقي، والورق في إيدك بيتفرد مروحة", "الأكلة بقت تفضل على الترابيزة لحد ما تشوف الورقة الرابعة ومين كسبها", "بورد لودو اتعمل من جديد بشكل أحلى", "موسيقى جديدة هادية، والقديمة اللي فيها خرشة اتشالت", "زرار الرجوع بقى يشتغل صح ويسألك قبل ما تخرج", "المحل كبر: 11 ثيم و7 ورق و7 أحجار و7 إيموجي و7 إطارات، وكل تبويب بيقولك الحاجة بتبان فين", "الإشعارات: قناة الإشعارات بقت تتعمل مع فتح الأبلكيشن، والإشعار بيبان جواه كمان"], "1.0.12": ["لعبة جديدة: استيمشن بأربع لاعيبة، بالمناقصة والحكم والتوقّع", "شرح كامل لاستيمشن جوه اللعبة: إزاي تزايد وتحسب نقطك", "تصليح الإشعارات: الجهاز بقى يتسجّل صح أول ما يفتح الأبلكيشن"]};
 function verNum(v) { var p = String(v || '0').split('.'); return (+p[0] || 0) * 1e6 + (+p[1] || 0) * 1e3 + (+p[2] || 0); }
 var updLast = 0;
 function checkUpdate(manual) {
@@ -4123,6 +4202,29 @@ window.LammaPushOpen = function (data) {
   pendingOpen = { type: data.type || 'chat', from: data.from || '' };
   tryPendingOpen();
 };
+// إشعار وصل والأبلكيشن مفتوح: أندرويد مبيحطهوش في الشريط، فبنوريه فوق جوه اللعبة
+var pushBanner = null;
+window.LammaPushShow = function (title, body, data) {
+  Snd.play('pop');
+  if (pushBanner) pushBanner.remove();
+  var b = document.createElement('button');
+  b.className = 'push-toast';
+  b.innerHTML = '<span class="pt-ic">' + ICON.bell + '</span><span class="pt-tx"><b></b><small></small></span>';
+  $('b', b).textContent = title || 'لمّة';
+  $('small', b).textContent = body || '';
+  b.addEventListener('click', function () {
+    b.remove(); pushBanner = null;
+    if (data) window.LammaPushOpen(data);
+  });
+  document.body.appendChild(b);
+  pushBanner = b;
+  requestAnimationFrame(function () { b.classList.add('in'); });
+  setTimeout(function () {
+    if (pushBanner !== b) return;
+    b.classList.remove('in');
+    setTimeout(function () { if (b.parentNode) b.remove(); if (pushBanner === b) pushBanner = null; }, 300);
+  }, 4500);
+};
 // زرار الإشعارات في صفحة الأصحاب
 function pushRowHTML() {
   var st = pushState();
@@ -4171,10 +4273,12 @@ function runPushTest(out) {
  * كل لاعب بيبعت حركته بس، والباقيين بيطبقوها بنفس القواعد، فالبورد بيفضل واحد عند الكل.
  * الكرسي 0 دايمًا صاحب الأوضة، وكل واحد بيشوف نفسه تحت (الكرسي 0 عنده). */
 var INVITE_TTL = 3 * 60 * 1000;
-var MULTI = { domino: 4, ludo: 4 };
+var MULTI = { domino: 4, ludo: 4, estimation: 4 };
 function pad6(n) { var s = String(n); while (s.length < 6) s = '0' + s; return s; }
 function tsMillis(ts) { return ts && ts.toMillis ? ts.toMillis() : Date.now(); }
 function maxPlayers(game) { return MULTI[game] || 2; }
+// استيمشن لازم يكون أربعة بالظبط، مفيش كمبيوتر بيكمّل
+function needPlayers(game) { return game === 'estimation' ? 4 : 2; }
 
 function OnlineLink(roomId, players, infos) {
   var self = this;
@@ -4319,7 +4423,7 @@ function hostLobby(ref, game, uids) {
   function dropInvites() { uids.forEach(function (u) { fbDb.collection('invites').doc(u).collection('incoming').doc(myUid).delete().catch(function () {}); }); }
   function start(d) {
     var players = [myUid].concat(uids.filter(function (u) { return d.accepted && d.accepted[u]; }));
-    if (players.length < 2) return;
+    if (players.length < needPlayers(game)) return;
     finish(); dropInvites();
     ref.update({ status: 'active', players: players }).then(function () {
       d.players = players; d.status = 'active';
@@ -4333,10 +4437,14 @@ function hostLobby(ref, game, uids) {
     var box = $('#lob', sh); if (box) box.innerHTML = lobbyRows(d, uids);
     var ok = uids.filter(function (u) { return d.accepted && d.accepted[u]; }).length;
     var answered = uids.filter(function (u) { return (d.accepted && d.accepted[u]) || (d.declined && d.declined[u]); }).length;
-    var sb = $('[data-start]', sh); if (sb) sb.disabled = !ok;
+    var need = needPlayers(game);
+    var sb = $('[data-start]', sh); if (sb) sb.disabled = ok + 1 < need;
     if (answered === uids.length) {
-      if (ok) start(d);
-      else { finish(); ref.update({ status: 'closed' }).catch(function () {}); toast(uids.length > 1 ? t('allDeclined') : t('declinedBy', { name: (d.names || {})[uids[0]] || '' })); }
+      if (ok + 1 >= need) start(d);
+      else {
+        finish(); ref.update({ status: 'closed' }).catch(function () {});
+        toast(need > 2 ? t('needFour') : uids.length > 1 ? t('allDeclined') : t('declinedBy', { name: (d.names || {})[uids[0]] || '' }));
+      }
     }
   });
   sh.addEventListener('click', function (ev) {
@@ -4345,7 +4453,8 @@ function hostLobby(ref, game, uids) {
   });
   killer = setTimeout(function () {
     if (done) return;
-    if (last && uids.some(function (u) { return last.accepted && last.accepted[u]; })) { start(last); return; }
+    var okN = last ? uids.filter(function (u) { return last.accepted && last.accepted[u]; }).length : 0;
+    if (okN + 1 >= needPlayers(game)) { start(last); return; }
     finish(); ref.update({ status: 'closed' }).catch(function () {}); dropInvites();
     toast(t('noAnswer', { name: (last && last.names && last.names[uids[0]]) || '' }));
   }, INVITE_TTL);
@@ -4412,6 +4521,7 @@ function startOnlineMatch(roomId, d) {
   if (game === 'tawla') current = new TawlaMatch({ variant: cfg.variant, level: 'medium', target: cfg.variant === 't31' ? 31 : cfg.target, timer: timer, online: online });
   else if (game === 'domino') current = new DominoMatch({ players: link.n, level: 'medium', target: cfg.target, timer: timer, online: online });
   else if (game === 'ludo') current = new LudoMatch({ players: link.n, level: 'medium', timer: timer, online: online });
+  else if (game === 'estimation') current = new EstimationMatch({ level: 'medium', target: cfg.target, timer: timer, online: online });
   else if (game === 'chess') current = new ChessMatch({ side: link.seat === 0 ? cfg.side : (cfg.side === 'w' ? 'b' : 'w'), level: 'medium', timer: timer, online: online });
   else current = new BasraMatch({ level: 'medium', target: cfg.target, timer: timer, online: online });
   link.onLeft = function (name) { if (current && current.online && current.online.link === link) friendLeft(name); };
@@ -5401,6 +5511,14 @@ function luDefs() {
     s += '<linearGradient id="lub' + c + '" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="' + LU_LIGHT[c] + '"/><stop offset=".45" stop-color="' + LU_HEX[c] + '"/><stop offset="1" stop-color="' + LU_DARK[c] + '"/></linearGradient>' +
       '<radialGradient id="luh' + c + '" cx=".35" cy=".3" r=".75"><stop offset="0" stop-color="' + LU_LIGHT[c] + '"/><stop offset=".55" stop-color="' + LU_HEX[c] + '"/><stop offset="1" stop-color="' + LU_DARK[c] + '"/></radialGradient>';
   }
+  // تدرّجات البورد نفسه: الأركان، الممرات، والبيت اللي في النص
+  for (c = 0; c < 4; c++) {
+    s += '<radialGradient id="luy' + c + '" cx=".3" cy=".25" r=".95"><stop offset="0" stop-color="' + LU_LIGHT[c] + '"/><stop offset=".6" stop-color="' + LU_HEX[c] + '"/><stop offset="1" stop-color="' + LU_DARK[c] + '"/></radialGradient>' +
+      '<linearGradient id="lup' + c + '" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + LU_LIGHT[c] + '"/><stop offset="1" stop-color="' + LU_HEX[c] + '"/></linearGradient>';
+  }
+  s += '<linearGradient id="luwood" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5b3a1e"/><stop offset=".5" stop-color="#3a2414"/><stop offset="1" stop-color="#23150b"/></linearGradient>' +
+    '<linearGradient id="lufelt" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fffdf7"/><stop offset="1" stop-color="#f1e9da"/></linearGradient>' +
+    '<radialGradient id="lucore" cx=".5" cy=".4" r=".7"><stop offset="0" stop-color="rgba(255,255,255,.35)"/><stop offset="1" stop-color="rgba(255,255,255,0)"/></radialGradient>';
   return s + '</defs>';
 }
 // عسكري واقف: قاعدة وجسم وطوق ورأس
@@ -5416,20 +5534,41 @@ function luPawn(c, pi, k) {
     '</g></g>';
 }
 function luBoardSVG() {
-  var s = '<svg class="lboard" viewBox="-2 -4 154 156" aria-hidden="true">' + luDefs() + '<rect class="lu-frame" x="-2" y="-2" width="154" height="154" rx="9"/><rect class="lu-base" x="0" y="0" width="150" height="150" rx="5"/>';
+  var s = '<svg class="lboard" viewBox="-3 -5 156 158" aria-hidden="true">' + luDefs() +
+    '<rect class="lu-frame" x="-3" y="-3" width="156" height="156" rx="11"/>' +
+    '<rect class="lu-frame-in" x="-1" y="-1" width="152" height="152" rx="7"/>' +
+    '<rect class="lu-base" x="0" y="0" width="150" height="150" rx="5"/>';
+  // الأركان الأربعة
   [[0, 0, 0], [1, 0, 90], [2, 90, 90], [3, 90, 0]].forEach(function (y) {
-    s += '<rect class="lu-yard" data-c="' + y[0] + '" x="' + y[2] + '" y="' + y[1] + '" width="60" height="60" rx="5" fill="' + LU_HEX[y[0]] + '"/>' +
-      '<rect class="lu-yard-in" x="' + (y[2] + 10) + '" y="' + (y[1] + 10) + '" width="40" height="40" rx="6"/>';
-    for (var k = 0; k < 4; k++) { var sp = luSpot(y[0], -1, k); s += '<ellipse class="lu-spot" cx="' + sp[0] + '" cy="' + (sp[1] - 0.6) + '" rx="5.4" ry="4.2" stroke="' + LU_HEX[y[0]] + '"/>'; }
+    s += '<rect class="lu-yard" data-c="' + y[0] + '" x="' + y[2] + '" y="' + y[1] + '" width="60" height="60" rx="6" fill="url(#luy' + y[0] + ')"/>' +
+      '<rect class="lu-yard-in" x="' + (y[2] + 9) + '" y="' + (y[1] + 9) + '" width="42" height="42" rx="8"/>';
+    for (var k = 0; k < 4; k++) {
+      var sp = luSpot(y[0], -1, k);
+      s += '<circle class="lu-spot-sh" cx="' + sp[0] + '" cy="' + (sp[1] + 0.5) + '" r="5.6"/>' +
+        '<circle class="lu-spot" cx="' + sp[0] + '" cy="' + (sp[1] - 0.6) + '" r="5.6" stroke="' + LU_HEX[y[0]] + '"/>';
+    }
   });
+  // خانات الطريق
   LU.TRACK.forEach(function (c, a) {
-    var start = LU.START.indexOf(a);
-    s += '<rect class="lu-cell" x="' + (c[1] * 10) + '" y="' + (c[0] * 10) + '" width="10" height="10"' + (start >= 0 ? ' style="fill:' + LU_HEX[start] + '"' : '') + '/>';
-    if (LU.SAFE.has(a) && start < 0) s += '<path class="lu-star" transform="translate(' + (c[1] * 10 + 5) + ' ' + (c[0] * 10 + 5) + ')" d="M0-3.6L1.06-1.15 3.42-1.11 1.71.65 2.12 3.07 0 1.9-2.12 3.07-1.71.65-3.42-1.11-1.06-1.15Z"/>';
+    var start = LU.START.indexOf(a), x = c[1] * 10, y = c[0] * 10;
+    s += '<rect class="lu-cell' + (start >= 0 ? ' col' : '') + '" x="' + (x + .35) + '" y="' + (y + .35) + '" width="9.3" height="9.3" rx="1.6"' +
+      (start >= 0 ? ' style="fill:url(#lup' + start + ')"' : '') + '/>';
+    if (LU.SAFE.has(a) && start < 0) s += '<path class="lu-star" transform="translate(' + (x + 5) + ' ' + (y + 5) + ')" d="M0-3.6L1.06-1.15 3.42-1.11 1.71.65 2.12 3.07 0 1.9-2.12 3.07-1.71.65-3.42-1.11-1.06-1.15Z"/>';
+    if (start >= 0) s += '<path class="lu-arrow" transform="translate(' + (x + 5) + ' ' + (y + 5) + ')" d="M0-2.4 2.1 1.2H-2.1Z"/>';
   });
-  LU.HOMECOL.forEach(function (col, c) { col.forEach(function (q) { s += '<rect class="lu-cell" x="' + (q[1] * 10) + '" y="' + (q[0] * 10) + '" width="10" height="10" style="fill:' + LU_HEX[c] + '"/>'; }); });
-  s += '<polygon points="60,60 75,75 60,90" fill="' + LU_HEX[0] + '"/><polygon points="60,60 90,60 75,75" fill="' + LU_HEX[1] + '"/>' +
-    '<polygon points="90,60 90,90 75,75" fill="' + LU_HEX[2] + '"/><polygon points="60,90 75,75 90,90" fill="' + LU_HEX[3] + '"/>';
+  // ممرات البيت
+  LU.HOMECOL.forEach(function (col, c) {
+    col.forEach(function (q) {
+      s += '<rect class="lu-cell col" x="' + (q[1] * 10 + .35) + '" y="' + (q[0] * 10 + .35) + '" width="9.3" height="9.3" rx="1.6" style="fill:url(#lup' + c + ')"/>';
+    });
+  });
+  // البيت في النص
+  s += '<g class="lu-core">' +
+    '<polygon points="60,60 75,75 60,90" fill="url(#luy0)"/><polygon points="60,60 90,60 75,75" fill="url(#luy1)"/>' +
+    '<polygon points="90,60 90,90 75,75" fill="url(#luy2)"/><polygon points="60,90 75,75 90,90" fill="url(#luy3)"/>' +
+    '<rect x="60" y="60" width="30" height="30" fill="url(#lucore)"/>' +
+    '<path class="lu-core-star" transform="translate(75 75)" d="M0-5.6L1.65-1.8 5.33-1.73 2.66 1.01 3.3 4.78 0 2.95-3.3 4.78-2.66 1.01-5.33-1.73-1.65-1.8Z"/>' +
+    '</g>';
   return s + '<g class="lu-toks"></g></svg>';
 }
 
@@ -5855,6 +5994,36 @@ CP.remoteTurn = async function () {
   this.next();
 };
 
+/* ===== لمّة — وش الكوتشينة =====
+ * ورقة زي الحقيقية: الرقم والعلامة في الركنين (التحتاني مقلوب)،
+ * وتوزيع العلامات المعروف لكل رقم، ورسمة للولد والبنت والملك. */
+var CARD_PIPS = {
+  2: [[2,1],[2,7]],
+  3: [[2,1],[2,4],[2,7]],
+  4: [[1,1],[3,1],[1,7],[3,7]],
+  5: [[1,1],[3,1],[2,4],[1,7],[3,7]],
+  6: [[1,1],[3,1],[1,4],[3,4],[1,7],[3,7]],
+  7: [[1,1],[3,1],[2,2],[1,4],[3,4],[1,7],[3,7]],
+  8: [[1,1],[3,1],[2,2],[1,4],[3,4],[2,6],[1,7],[3,7]],
+  9: [[1,1],[3,1],[1,3],[3,3],[2,4],[1,5],[3,5],[1,7],[3,7]],
+  10: [[1,1],[3,1],[2,2],[1,3],[3,3],[1,5],[3,5],[2,6],[1,7],[3,7]]
+};
+var COURT = {
+  J: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M12 2.5 19.5 5.6v6.1c0 5-3.2 8.4-7.5 9.8-4.3-1.4-7.5-4.8-7.5-9.8V5.6z"/><path d="M12 8v6.5M9.3 11.2h5.4"/></svg>',
+  Q: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3.4 9.6 6.6 15h10.8l3.2-5.4-4.3 2.4L12 5.4 7.7 12z"/><path d="M6.2 18h11.6"/><circle cx="12" cy="3.4" r="1.5" fill="currentColor" stroke="none"/></svg>',
+  K: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round" aria-hidden="true"><path d="M3 7.6 6.4 15h11.2L21 7.6l-5 3.6L12 4.6 8 11.2z"/><path d="M5.8 18h12.4"/><path d="M12 1.8v1.6M11.2 2.6h1.6"/></svg>'
+};
+// txt: اللي بيتكتب في الركن، suit: العلامة، n: عدد العلامات (0 للصور)، court: A/J/Q/K
+function cardFaceHTML(txt, suit, n, court) {
+  var idx = '<b>' + txt + '</b><i>' + suit + '</i>', mid;
+  if (court === 'A') mid = '<span class="c-a">' + suit + '</span>';
+  else if (court) mid = '<span class="c-f"><i>' + suit + '</i>' + COURT[court] + '<i class="dn">' + suit + '</i></span>';
+  else mid = '<span class="c-p">' + (CARD_PIPS[n] || []).map(function (q) {
+    return '<i class="' + (q[1] >= 5 ? 'dn' : '') + '" style="grid-area:' + q[1] + '/' + q[0] + '">' + suit + '</i>';
+  }).join('') + '</span>';
+  return '<span class="c-c">' + idx + '</span>' + mid + '<span class="c-c c-c2">' + idx + '</span>';
+}
+
 /* ===== لمّة — شاشة البصرة (كوتشينة) ===== */
 var BS = window.Basra;
 var BS_SUIT = ['♠', '♥', '♦', '♣'];
@@ -5863,8 +6032,7 @@ function cardHTML(c, tag, extra) {
   tag = tag || 'div';
   var red = c.s === 1 || c.s === 2, komi = BS.isKomi(c);
   return '<' + tag + ' class="card' + (red ? ' red' : '') + (komi ? ' komi' : '') + (extra || '') + '" data-id="' + c.id + '" aria-label="' + bsRank(c.r) + BS_SUIT[c.s] + '">' +
-    '<span class="c-c"><b>' + bsRank(c.r) + '</b><i>' + BS_SUIT[c.s] + '</i></span>' +
-    '<span class="c-m">' + (c.r > 10 ? '<b>' + bsRank(c.r) + '</b>' : '') + '<i>' + BS_SUIT[c.s] + '</i></span>' +
+    cardFaceHTML(bsRank(c.r), BS_SUIT[c.s], c.r >= 2 && c.r <= 10 ? c.r : 0, c.r === 1 ? 'A' : c.r === 11 ? 'J' : c.r === 12 ? 'Q' : c.r === 13 ? 'K' : '') +
     (komi ? '<span class="c-k">★</span>' : '') + '</' + tag + '>';
 }
 
@@ -6047,14 +6215,18 @@ var Est = (function () {
     for (var i = d.length - 1; i > 0; i--) { var j = Math.floor(rnd() * (i + 1)), t = d[i]; d[i] = d[j]; d[j] = t; }
     return d;
   }
+  // ورقة من اسمها: H14 يعني آس كبة
+  function card(id) { return { s: id.charAt(0), r: +id.slice(1), id: id }; }
   function sortHand(h) {
     var ord = { S: 0, H: 1, D: 2, C: 3 };
     return h.slice().sort(function (a, b) { return ord[a.s] - ord[b.s] || b.r - a.r; });
   }
-  function newRound(first, rnd) {
-    var d = deck(rnd), hands = [[], [], [], []], i;
-    for (i = 0; i < 52; i++) hands[i % 4].push(d[i]);
-    for (i = 0; i < 4; i++) hands[i] = sortHand(hands[i]);
+  function newRound(first, rnd, ready) {
+    var d = deck(rnd), hands = ready || [[], [], [], []], i;
+    if (!ready) {
+      for (i = 0; i < 52; i++) hands[i % 4].push(d[i]);
+      for (i = 0; i < 4; i++) hands[i] = sortHand(hands[i]);
+    }
     return {
       hands: hands, phase: 'bid', turn: first, first: first,
       bids: [null, null, null, null],      // آخر مزايدة لكل واحد
@@ -6229,7 +6401,7 @@ var Est = (function () {
     SUITS: SUITS, SUIT_RANK: SUIT_RANK, MIN_BID: MIN_BID, CARDS: CARDS,
     newRound: newRound, canBid: canBid, bid: bid, higher: higher, trickWinner: trickWinner,
     forbidden: forbidden, estimate: estimate, legal: legal, play: play, score: score,
-    aiBid: aiBid, aiEst: aiEst, aiPlay: aiPlay, handStrength: handStrength, sortHand: sortHand
+    aiBid: aiBid, aiEst: aiEst, aiPlay: aiPlay, handStrength: handStrength, sortHand: sortHand, card: card
   };
 })();
 window.Est = Est;
@@ -6242,10 +6414,16 @@ function esCard(c, tag, extra) {
   tag = tag || 'div';
   var red = c.s === 'H' || c.s === 'D';
   return '<' + tag + ' class="card' + (red ? ' red' : '') + (extra || '') + '" data-id="' + c.id + '" aria-label="' + esRank(c.r) + ES_SUITS[c.s] + '">' +
-    '<span class="c-c"><b>' + esRank(c.r) + '</b><i>' + ES_SUITS[c.s] + '</i></span>' +
-    '<span class="c-m"><i>' + ES_SUITS[c.s] + '</i></span></' + tag + '>';
+    cardFaceHTML(esRank(c.r), ES_SUITS[c.s], c.r <= 10 ? c.r : 0, c.r === 14 ? 'A' : c.r === 13 ? 'K' : c.r === 12 ? 'Q' : c.r === 11 ? 'J' : '') + '</' + tag + '>';
 }
 function esSuitName(s) { return s === 'NT' ? t('esNT') : ES_SUITS[s]; }
+// أونلاين: الهوست بيوزّع وبيبعت الورق بالأسامي، وكل واحد بيلفّ الكراسي عشان يشوف نفسه تحت
+function esPackHands(st) { return st.hands.map(function (hh) { return hh.map(function (c) { return c.id; }).join(','); }); }
+function esFromDeal(packed, first, rot) {
+  var hands = [], i;
+  for (i = 0; i < 4; i++) hands[i] = (packed[(i + rot) % 4] || '').split(',').filter(Boolean).map(ES.card);
+  return ES.newRound((first - rot + 4) % 4, rnd, hands);
+}
 function esBidLabel(b) { return b === 'pass' ? t('esPass') : b ? b.n + ' ' + esSuitName(b.suit) : ''; }
 
 function EstimationMatch(opts) {
@@ -6294,8 +6472,29 @@ EP.render = function () {
   });
   $('.back', root).addEventListener('click', function () { Snd.play('tap'); confirmLeave(); });
   $('.gear', root).addEventListener('click', function () { Snd.play('tap'); openSettings(); });
+  this.onResize = function () { self.fanHand(); };
+  window.addEventListener('resize', this.onResize);
 };
-EP.destroy = function () { this.alive = false; stopGameChat(); if (this.tt) this.tt.stop(); if (this.link) this.link.leave(); };
+EP.destroy = function () {
+  this.alive = false; stopGameChat();
+  if (this.tt) this.tt.stop();
+  if (this.link) this.link.leave();
+  if (this.onResize) window.removeEventListener('resize', this.onResize);
+};
+// الورق بيتفرد مروحة زي ما بتمسكه في إيدك: كل ورقة بتغطي اللي قبلها وسايبة الرقم باين
+EP.fanHand = function () {
+  var el = this.handEl, cards = $$('.card', el), n = cards.length;
+  if (!n) return;
+  var box = el.clientWidth || 340, cw = cards[0].offsetWidth || 62;
+  var step = n > 1 ? Math.min(cw * 0.8, Math.max(14, (box - cw) / (n - 1))) : 0;
+  var off = Math.max(0, (box - (cw + step * (n - 1))) / 2);
+  cards.forEach(function (c, i) {
+    var hot = !c.classList.contains('off') && !c.classList.contains('idle');
+    c.style.insetInlineStart = Math.round(off + i * step) + 'px';
+    // الورق اللي ينفع تلعبه بيبقى فوق، عشان تدوس عليه في أي مكان فيه
+    c.style.zIndex = (hot ? 100 : 0) + i + 1;
+  });
+};
 EP.tmsg = function (text) {
   var el = this.tmsgEl;
   el.innerHTML = text ? '<div>' + esc(text) + '</div>' : '';
@@ -6328,7 +6527,10 @@ EP.paint = function () {
   this.seatMe.classList.toggle('turn', this.phase !== 'over' && (st.phase === 'bid' ? st.turn === 0 : st.phase === 'est' ? st.estTurn === 0 : st.turn === 0));
   this.seatMe.classList.toggle('dealer', st.declarer === 0);
   // الأكلة على الترابيزة
-  this.trickEl.innerHTML = st.trick.length ? st.trick.map(function (x) {
+  // المحرّك بيفضّي الترابيزة أول ما الورقة الرابعة تنزل، فبنمسك نسخة منها
+  // عشان اللاعب يشوف الأكلة كاملة ويعرف مين كسبها
+  var tr = this.showTrick || st.trick;
+  this.trickEl.innerHTML = tr.length ? tr.map(function (x) {
     return '<span class="es-slot s' + x.p + '">' + esCard(x.c) + '<i>' + esc(self.pname(x.p)) + '</i></span>';
   }).join('') : (st.phase === 'play' ? '<span class="es-empty">' + t('esWaitLead') + '</span>' : '');
   var cnt = $('.es-count', this.root);
@@ -6340,17 +6542,33 @@ EP.paint = function () {
   this.handEl.innerHTML = st.hands[0].map(function (c) {
     return esCard(c, 'button', playable[c.id] ? '' : (self.phase === 'play' ? ' off' : ' idle'));
   }).join('');
+  this.fanHand();
 };
 
 EP.newRound = async function () {
   this.round++;
   this.phase = 'deal';
   this.panel.hidden = true;
-  do {
+  this.showTrick = null;
+  this.shown = -1;
+  if (this.online && this.online.role === 'guest') {
+    // الهوست هو اللي بيوزّع، وإحنا بنستنى التوزيعة وبنلفّها على كرسينا
+    this.phase = 'wait';
+    this.statusEl.textContent = t('waitFriend', { name: this.pname(this.online.hostLocal()) });
+    this.paint();
+    var act = await this.link.next();
+    if (!this.alive || !act) return;
+    if (this.pendingSheet) { closeSheet(this.pendingSheet); this.pendingSheet = null; }
+    if (act.data.reset) { this.total = [0, 0, 0, 0]; }
+    this.round = act.data.round;
+    this.st = esFromDeal(act.data.hands, act.data.first, this.online.seat);
+  } else {
     this.st = ES.newRound((this.round - 1) % 4, rnd);
-    var g = 0;
-    // لو الكل باس، ورق جديد
-  } while (false);
+    if (this.online) {
+      this.link.send('deal', { hands: esPackHands(this.st), first: this.st.first, round: this.round, reset: !!this.resetNext });
+      this.resetNext = false;
+    }
+  }
   this.paint();
   Snd.play('tile');
   await sleep(420 * paceK());
@@ -6411,6 +6629,7 @@ EP.askBid = function () {
 EP.doBid = async function (p, b) {
   this.tt.stop();
   this.panel.hidden = true; this.panel.onclick = null;
+  if (p === 0 && this.online) this.link.send('bid', { b: b });
   ES.bid(this.st, p, b);
   Snd.play(b === 'pass' ? 'tap' : 'pop');
   this.paint();
@@ -6429,6 +6648,12 @@ EP.botBid = async function () {
   var p = this.st.turn;
   this.phase = 'bot'; this.paint();
   this.bubble(p, THINK_DOTS, true);
+  if (this.online) {
+    var act = await this.link.next();
+    if (!this.alive || !act) return;
+    this.bubble(p, '');
+    return this.doBid(p, act.data.b);
+  }
   await sleep(700 * paceK());
   if (!this.alive) return;
   this.bubble(p, '');
@@ -6461,6 +6686,7 @@ EP.askEst = function () {
 EP.doEst = async function (p, n) {
   this.tt.stop();
   this.panel.hidden = true; this.panel.onclick = null;
+  if (p === 0 && this.online) this.link.send('est', { n: n });
   ES.estimate(this.st, p, n);
   Snd.play('pop');
   this.bubble(p, t('esSaid', { n: n }));
@@ -6478,6 +6704,12 @@ EP.botEst = async function () {
   var p = this.st.estTurn;
   this.phase = 'bot'; this.paint();
   this.bubble(p, THINK_DOTS, true);
+  if (this.online) {
+    var act = await this.link.next();
+    if (!this.alive || !act) return;
+    this.bubble(p, '');
+    return this.doEst(p, act.data.n);
+  }
   await sleep(620 * paceK());
   if (!this.alive) return;
   this.bubble(p, '');
@@ -6506,6 +6738,12 @@ EP.botPlay = async function () {
   this.phase = 'bot'; this.paint();
   this.statusEl.textContent = '';
   this.bubble(p, THINK_DOTS, true);
+  if (this.online) {
+    var act = await this.link.next();
+    if (!this.alive || !act) return;
+    this.bubble(p, '');
+    return this.playCard(p, act.data.id);
+  }
   await sleep(640 * paceK());
   if (!this.alive) return;
   this.bubble(p, '');
@@ -6514,22 +6752,27 @@ EP.botPlay = async function () {
 };
 EP.playCard = async function (p, id) {
   this.phase = 'anim';
+  if (p === 0 && this.online) this.link.send('play', { id: id });
   var st = this.st;
+  var n = st.trick.length;
   ES.play(st, p, id);
   Snd.play('tile');
+  var full = n === 3 && st.lastTrick && st.lastTrick.length === 4;
+  if (full) this.showTrick = st.lastTrick.slice();
   this.paint();
-  await sleep(380 * paceK());
+  await sleep(420 * paceK());
   if (!this.alive) return;
-  // الأكلة كمُلت
-  if (st.lastTrick && st.trick.length === 0 && st.lastWinner >= 0 && this.shown !== st.tricks) {
+  // الأكلة كمُلت: نسيبها بانة ونعلّم الكسبان قبل ما نفضّي الترابيزة
+  if (full && this.shown !== st.tricks) {
     this.shown = st.tricks;
     var w = st.lastWinner;
     this.highlightWinner(w);
+    this.tmsg(t('esWon1', { n: this.pname(w) }));
     Snd.play(w === 0 ? 'hit' : 'tap');
     if (w === 0) buzz(18);
-    await sleep(820 * paceK());
+    await sleep(1100 * paceK());
     if (!this.alive) return;
-    this.trickEl.innerHTML = '';
+    this.showTrick = null;
     this.paint();
     await sleep(160 * paceK());
     if (!this.alive) return;
@@ -6572,19 +6815,27 @@ EP.roundOver = function () {
       '<td class="' + (sc[p].pts >= 0 ? 'plus' : 'minus') + '">' + (sc[p].pts > 0 ? '+' : '') + sc[p].pts + '</td><td><b>' + self.total[p] + '</b></td></tr>';
   }).join('');
   var title = done ? (meWon ? t('esYouWin') : t('esWinner', { name: this.pname(best) })) : t('esRoundDone', { n: this.round });
+  var guestWait = this.online && this.online.role === 'guest';
   var html = '<p class="res-title">' + title + '</p>' +
     '<table class="rtable es-tbl"><thead><tr><th>' + t('esWho') + '</th><th>' + t('esCalled') + '</th><th>' + t('esGot') + '</th><th>' + t('esPts') + '</th><th>' + t('esTotal') + '</th></tr></thead><tbody>' + rows + '</tbody></table>' +
-    (done
-      ? '<div class="row-btns"><button class="btn plain" data-a="home">' + t('toHome') + '</button><button class="btn cta" data-a="again">' + t('again') + '</button></div>'
-      : '<button class="btn cta" data-a="next">' + t('nextRound') + '</button>');
+    (guestWait
+      ? waitNote(this.pname(this.online.hostLocal())) + '<button class="btn plain" data-a="home">' + t('toHome') + '</button>'
+      : done
+        ? '<div class="row-btns"><button class="btn plain" data-a="home">' + t('toHome') + '</button><button class="btn cta" data-a="again">' + t('again') + '</button></div>'
+        : '<button class="btn cta" data-a="next">' + t('nextRound') + '</button>');
   var sh = openSheet(html, { locked: true });
+  if (guestWait) {
+    // الضيف بيستنى الهوست يوزّع الدور الجاي، والورقة بتتقفل لوحدها
+    this.pendingSheet = sh;
+    this.newRound();
+  }
   sh.addEventListener('click', function (ev) {
     var b = ev.target.closest('[data-a]');
     if (!b) return;
     var a = b.getAttribute('data-a');
     closeSheet(sh); Snd.play('tap');
     if (a === 'home') renderHome();
-    else { if (a === 'again') { self.total = [0, 0, 0, 0]; self.round = 0; } self.newRound(); }
+    else { if (a === 'again') { self.total = [0, 0, 0, 0]; self.round = 0; self.resetNext = true; } self.newRound(); }
   });
 };
 
@@ -6596,12 +6847,18 @@ applyLang();
 document.documentElement.setAttribute('data-skin', S.skin);
 applyTheme();
 Snd.setSfx(S.sfx);
-S.music = false; Snd.setMusic(false);
+Snd.setMusic(!!S.music);
 document.addEventListener('pointerdown', function () { Snd.unlock(); }, { once: true });
 renderWelcome();
 // زرار الرجوع في موبايل الأندرويد (جوه الأبلكيشن)
 // بيرجّع خطوة واحدة بس، ومن غير ما يخرج من اللعبة
+var lastBackAt = 0;
 window.LammaBack = function () {
+  // في الأندرويد الضغطة الواحدة ممكن توصل من مكانين (الكابستور + popstate)،
+  // فالتانية بتتلغي عشان ما تقفلش السؤال اللي لسه فاتح
+  var now = Date.now();
+  if (now - lastBackAt < 450) return true;
+  lastBackAt = now;
   var open = $$('.sheet-wrap', sheetRoot).filter(function (w) { return !w.closing; }), top = open[open.length - 1];
   if (top && !top.getAttribute('data-locked')) { closeSheet(top); return true; }
   if (top) return true;
@@ -6634,7 +6891,7 @@ window.__lamma = {
     addFriendByCode: addFriendByCode, acceptRequest: acceptRequest, sendInvite: sendInvite, sendChat: sendChat,
     inviteToGame: inviteToGame, openSetup: openSetup, openGamePicker: openGamePicker
   },
-  ui: { setSkin: setSkin, setTheme: setTheme, openShop: openShop, openHowTo: openHowTo, openProfile: openProfile, openSettings: openSettings, openFriendProfile: openFriendProfile }
+  ui: { cardFace: cardFaceHTML, setSkin: setSkin, setTheme: setTheme, openShop: openShop, openHowTo: openHowTo, openProfile: openProfile, openSettings: openSettings, openFriendProfile: openFriendProfile }
 };
 
 })();
