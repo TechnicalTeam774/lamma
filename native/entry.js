@@ -82,6 +82,6 @@ App.addListener('appStateChange', (s) => {
 });
 
 App.addListener('backButton', () => {
-  if (window.LammaBack) window.LammaBack();
-  else App.exitApp();
+  // لو اللعبة ما اتصرفتش في الضغطة (أو لسه ما حمّلتش)، نخرج
+  if (!window.LammaBack || !window.LammaBack()) App.exitApp();
 });
