@@ -513,7 +513,7 @@ html.in-game .amb { display: none; }
 .card .c-p { position: absolute; inset: 7% 26%; display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(7, 1fr); }
 .card .c-p i { font-style: normal; display: grid; place-items: center; font-size: .8em; line-height: 1; }
 .card .c-p i.dn { transform: rotate(180deg); }
-.card .c-f { position: absolute; inset: 11% 16%; display: grid; grid-template-rows: auto 1fr auto; place-items: center; border-radius: 8%; box-shadow: inset 0 0 0 1px currentColor; opacity: .95; }
+.card .c-f { position: absolute; inset: 10% 25%; display: grid; grid-template-rows: auto 1fr auto; place-items: center; border-radius: 8%; box-shadow: inset 0 0 0 1px color-mix(in srgb, currentColor 55%, transparent); opacity: .95; }
 .card .c-f i { font-style: normal; font-size: .72em; line-height: 1; }
 .card .c-f i.dn { transform: rotate(180deg); }
 .card .c-f svg { width: 62%; max-width: 30px; height: auto; }
@@ -932,14 +932,14 @@ html, body { overscroll-behavior: none; }
 .es-slot .card { transition: transform .2s, box-shadow .2s; }
 @keyframes cardin { from { opacity: 0; transform: scale(.8) translateY(10px); } to { opacity: 1; transform: none; } }
 
-.es-hand { position: relative; height: 104px; margin: 6px 10px calc(8px + env(safe-area-inset-bottom, 0px)); }
+.es-hand { position: relative; height: 100px; margin: 4px 10px calc(14px + env(safe-area-inset-bottom, 0px)); }
 .es-hand .card { position: absolute; bottom: 0; width: 62px; height: 87px; font-size: 10.5px; transition: transform .16s, filter .16s; }
 .es-hand .card.off { filter: brightness(.84) saturate(.75); }
 .es-hand .card.idle { filter: brightness(.92); }
 .es-hand .card:not(.off):not(.idle) { box-shadow: inset 0 0 0 1px rgba(0,0,0,.22), 0 0 0 2px var(--hl), 0 8px 18px -8px rgba(0, 0, 0, .7); transform: translateY(-9px); }
 .es-hand .card:not(.off):not(.idle):active { transform: translateY(-16px); }
 
-.es-panel { position: absolute; inset-inline: 10px; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); z-index: 22; padding: 12px 14px; border-radius: 20px; background: var(--surface); box-shadow: 0 -14px 40px -16px rgba(0, 0, 0, .75), inset 0 0 0 1px var(--line); animation: slideup .22s ease-out; }
+.es-panel { position: absolute; inset-inline: 2px; bottom: 2px; max-height: 100%; overflow-y: auto; z-index: 22; padding: 12px 14px; border-radius: 20px; background: var(--surface); box-shadow: 0 -14px 40px -16px rgba(0, 0, 0, .75), inset 0 0 0 1px var(--line); animation: slideup .22s ease-out; }
 @keyframes slideup { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 .pn-h { display: grid; gap: 2px; margin-bottom: 8px; text-align: center; }
 .pn-h small { color: var(--ink-2); font-size: .78rem; }
@@ -2318,7 +2318,8 @@ var L = {
     secProfile: 'الملف الشخصي', secAccount: 'الحساب', accGoogle: 'حساب جوجل', accNone: 'غير مسجّل', accWhy: 'سجّل الدخول عشان تلعب مع أصحابك', signInShort: 'تسجيل الدخول',
     secNotif: 'الإشعارات', notifDevice: 'إشعارات الجهاز ده', pst_on: 'مفعّلة', pst_off: 'متوقفة', pst_blocked: 'مقفولة من إعدادات الجهاز', pst_na: 'غير متاحة على هذا المتصفح',
     nfChat: 'رسائل الدردشة', nfInvite: 'دعوات اللعب', nfFriend: 'طلبات الصداقة', pushTest: 'إرسال إشعار تجريبي',
-    ptRetry: 'سجّلنا الجهاز دلوقتي… بنجرب تاني', ptOk: 'اتبعت ✓ هيبان فوق دلوقتي. وعشان تشوفه في شريط الإشعارات، صغّر الأبلكيشن واضغط الزرار تاني', ptNoDev: 'مفيش جهاز مسجّل. اقفل الإشعارات وشغّلها تاني', ptNoUrl: 'سيرفر الإشعارات غير مربوط (config/push)', ptOld: 'سيرفر الإشعارات محتاج يتحدّث بالكود الجديد', ptKey: 'مفتاح فايربيس في السيرفر غير صحيح (SA_JSON)', ptErr: 'تعذّر الإرسال: {e}', ptNet: 'تعذّر الوصول لسيرفر الإشعارات', ptWait: 'جاري الإرسال…',
+    ptRetry: 'سجّلنا الجهاز دلوقتي… بنجرب تاني', ptOk: 'اتبعت ✓ هيبان فوق دلوقتي. وعشان تشوفه في شريط الإشعارات، صغّر الأبلكيشن واضغط الزرار تاني', ptNoDev: 'مفيش جهاز مسجّل. اقفل الإشعارات وشغّلها تاني', ptNoUrl: 'سيرفر الإشعارات غير مربوط (config/push)', ptOld: 'سيرفر الإشعارات محتاج يتحدّث بالكود الجديد', ptKey: 'مفتاح فايربيس في السيرفر غير صحيح (SA_JSON)', ptErr: 'وقف عند: {e}', ptNet: 'تعذّر الوصول لسيرفر الإشعارات', ptWait: 'بنبعت للسيرفر…',
+    ptCfg: 'بنجيب إعدادات السيرفر…', ptNoCfg: 'مش قادرين نقرا إعدادات السيرفر — اتأكد إنك أونلاين', ptSlow: 'السيرفر مردش خلال ٢٠ ثانية', ptNoAuth: 'سجّل دخول بجوجل الأول',
     how_tawla_s: 'بتجيب حجارتك الـ15 لبيتك وتطلّعها قبل خصمك.',
     how_tawla: [['🎲', 'ارمي الزهر، وحرّك حجرين بالرقمين اللي طلعوا.'], ['➡️', 'حجارتك بتمشي ناحية بيتك على الشمال تحت.'], ['🛡️', 'حجرين فوق بعض في خانة = الخانة محجوزة لك.'], ['⚔️', 'في العادة: حجر لوحده بيتضرب ويرجع من الأول.'], ['🏁', 'لمّا كل حجارتك تدخل بيتك، ابدأ تطلّعها. اللي يخلّص الأول يكسب.']],
     how_domino_s: 'تخلّص حجارتك الأول، أو تبقى الأقل لما الجيم يتقفل.',
@@ -2330,7 +2331,7 @@ var L = {
     how_basra_s: 'لمّ أكبر عدد ورق من الأرض بورق إيدك.',
     how_basra: [['🃏', 'كل واحد بياخد 4 ورق، وفيه 4 على الأرض.'], ['🎯', 'نزّل ورقة تساوي ورقة على الأرض وخدهم.'], ['➕', 'الشايب والبنت والولد بياخدوا اللي زيهم بس.'], ['💥', 'بصرة: تاخد آخر ورقة على الأرض لوحدها = 10 نقط.'], ['🏅', 'الكومي (7 ديناري) والولد ليهم نقط، وأكتر ورق بياخد 30.']],
     esWaitLead: 'في انتظار أول ورقة', esWon1: '{n} كسب الأكلة', esTrickN: 'أكلة {n} من 13',
-    esNT: 'بلا حكم', esPass: 'باس', esBidding: 'المناقصة', esTrump: 'الحكم', esRoundN: 'دور {n}',
+    esNT: 'بلا حكم', esPass: 'باس', esBidding: 'المناقصة', esTrump: 'الحكم', esRoundN: 'دور {n}', esMyPts: 'نقطك {n}',
     esTook: 'خد {w} من {e}', esYourBid: 'دورك تزايد', esBidTitle: 'تزايد بكام؟', esBidHint: 'أقل مزايدة 4. اختار الرقم والحكم.',
     esTopBid: 'أعلى مزايدة {b} لـ {name}', esSayIt: 'قول', esDeclarer: '{name} خد المناقصة بـ {b}', esAllPass: 'الكل باس… ورق جديد',
     esYourEst: 'دورك تقول توقعك', esEstTitle: 'هتاخد كام أكلة؟', esEstHint: 'الحكم {s}', esNotN: 'ممنوع {n}', esSaid: 'قال {n}',
@@ -2432,7 +2433,8 @@ var L = {
     secProfile: 'Profile', secAccount: 'Account', accGoogle: 'Google account', accNone: 'Not signed in', accWhy: 'Sign in to play with friends', signInShort: 'Sign in',
     secNotif: 'Notifications', notifDevice: 'Notifications on this device', pst_on: 'On', pst_off: 'Off', pst_blocked: 'Blocked in device settings', pst_na: 'Not available in this browser',
     nfChat: 'Chat messages', nfInvite: 'Game invites', nfFriend: 'Friend requests', pushTest: 'Send a test notification',
-    ptRetry: 'Device registered… retrying', ptOk: 'Sent ✓ it should arrive in a few seconds', ptNoDev: 'No device registered. Turn notifications off and on again', ptNoUrl: 'Notification server not connected (config/push)', ptOld: 'The notification server needs the new code', ptKey: 'The Firebase key on the server is invalid (SA_JSON)', ptErr: 'Could not send: {e}', ptNet: 'Could not reach the notification server', ptWait: 'Sending…',
+    ptRetry: 'Device registered… retrying', ptOk: 'Sent ✓ it should arrive in a few seconds', ptNoDev: 'No device registered. Turn notifications off and on again', ptNoUrl: 'Notification server not connected (config/push)', ptOld: 'The notification server needs the new code', ptKey: 'The Firebase key on the server is invalid (SA_JSON)', ptErr: 'Stopped at: {e}', ptNet: 'Could not reach the notification server', ptWait: 'Sending to the server…',
+    ptCfg: 'Loading server settings…', ptNoCfg: 'Could not read the server settings — check you are online', ptSlow: 'The server did not answer within 20s', ptNoAuth: 'Sign in with Google first',
     how_tawla_s: 'Bring your 15 checkers home and bear them off first.',
     how_tawla: [['🎲', 'Roll the dice and move with the two numbers.'], ['➡️', 'Your checkers move toward your home board.'], ['🛡️', 'Two checkers on a point make it yours.'], ['⚔️', 'In the classic game a lone checker gets hit and restarts.'], ['🏁', 'Once all your checkers are home, bear them off. First one out wins.']],
     how_domino_s: 'Play all your tiles, or hold the lowest count when the game blocks.',
@@ -2444,7 +2446,7 @@ var L = {
     how_basra_s: 'Capture as many cards from the table as you can.',
     how_basra: [['🃏', 'Each player gets 4 cards, with 4 on the table.'], ['🎯', 'Play a card matching one on the table and take both.'], ['➕', 'Face cards only capture matching face cards.'], ['💥', 'Basra: take the last single card for 10 points.'], ['🏅', 'The 7 of diamonds and the jack score, and most cards gets 30.']],
     esWaitLead: 'Waiting for the lead', esWon1: '{n} takes it', esTrickN: 'Trick {n} of 13',
-    esNT: 'No trump', esPass: 'Pass', esBidding: 'Bidding', esTrump: 'Trump', esRoundN: 'Round {n}',
+    esNT: 'No trump', esPass: 'Pass', esBidding: 'Bidding', esTrump: 'Trump', esRoundN: 'Round {n}', esMyPts: '{n} pts',
     esTook: '{w} of {e}', esYourBid: 'Your bid', esBidTitle: 'What do you bid?', esBidHint: 'Minimum is 4. Pick a number and a trump.',
     esTopBid: 'Top bid {b} by {name}', esSayIt: 'Bid', esDeclarer: '{name} won the bidding with {b}', esAllPass: 'Everyone passed… new deal',
     esYourEst: 'Your call', esEstTitle: 'How many tricks?', esEstHint: 'Trump is {s}', esNotN: '{n} not allowed', esSaid: 'called {n}',
@@ -3696,7 +3698,7 @@ function openSoon() {
  * وبعد أي تحديث بيظهر «الجديد في الإصدار» مرة واحدة. */
 var UPD_URL = 'https://technicalteam774.github.io/lamma/version.json';
 var APK_PAGE = 'https://github.com/TechnicalTeam774/lamma/releases/latest';
-var CHANGES = {"1.0.13": ["استيمشن بقت تتلعب مع صحابك — أربعة أونلاين، بالمناقصة والحكم والتوقّع", "شكل الكوتشينة اتعمل من أول وجديد: ورق زي الحقيقي، والورق في إيدك بيتفرد مروحة", "الأكلة بقت تفضل على الترابيزة لحد ما تشوف الورقة الرابعة ومين كسبها", "بورد لودو اتعمل من جديد بشكل أحلى", "موسيقى جديدة هادية، والقديمة اللي فيها خرشة اتشالت", "زرار الرجوع بقى يشتغل صح ويسألك قبل ما تخرج", "المحل كبر: 11 ثيم و7 ورق و7 أحجار و7 إيموجي و7 إطارات، وكل تبويب بيقولك الحاجة بتبان فين", "الإشعارات: قناة الإشعارات بقت تتعمل مع فتح الأبلكيشن، والإشعار بيبان جواه كمان"], "1.0.12": ["لعبة جديدة: استيمشن بأربع لاعيبة، بالمناقصة والحكم والتوقّع", "شرح كامل لاستيمشن جوه اللعبة: إزاي تزايد وتحسب نقطك", "تصليح الإشعارات: الجهاز بقى يتسجّل صح أول ما يفتح الأبلكيشن"]};
+var CHANGES = {"1.0.13": ["استيمشن بقت تتلعب مع صحابك — أربعة أونلاين، بالمناقصة والحكم والتوقّع", "لوحة المزايدة اتحركت فوق، مابقتش مغطّية الورق اللي في إيدك", "شكل الكوتشينة اتعمل من أول وجديد: ورق زي الحقيقي، والورق في إيدك بيتفرد مروحة", "الأكلة بقت تفضل على الترابيزة لحد ما تشوف الورقة الرابعة ومين كسبها", "بورد لودو اتعمل من جديد بشكل أحلى", "موسيقى جديدة هادية، والقديمة اللي فيها خرشة اتشالت", "زرار الرجوع بقى يشتغل صح ويسألك قبل ما تخرج", "المحل كبر: 11 ثيم و7 ورق و7 أحجار و7 إيموجي و7 إطارات، وكل تبويب بيقولك الحاجة بتبان فين", "الإشعارات: القناة بقت تتعمل مع فتح الأبلكيشن، والإشعار بيبان جوه اللعبة، وتجربة الإشعار بقت تقولك وقفت فين بالظبط"], "1.0.12": ["لعبة جديدة: استيمشن بأربع لاعيبة، بالمناقصة والحكم والتوقّع", "شرح كامل لاستيمشن جوه اللعبة: إزاي تزايد وتحسب نقطك", "تصليح الإشعارات: الجهاز بقى يتسجّل صح أول ما يفتح الأبلكيشن"]};
 function verNum(v) { var p = String(v || '0').split('.'); return (+p[0] || 0) * 1e6 + (+p[1] || 0) * 1e3 + (+p[2] || 0); }
 var updLast = 0;
 function checkUpdate(manual) {
@@ -4244,28 +4246,63 @@ function pushNotifPrefs() {
   if (!fbDb || !myUid) return;
   fbDb.collection('users').doc(myUid).set({ notif: S.notif }, { merge: true }).catch(function () {});
 }
-// إشعار تجريبي لنفسك، وبيقولك لو فيه مشكلة فين
-function runPushTest(out) {
-  var say = function (k, v) { if (out) out.textContent = t(k, { e: v || '' }); };
-  say('ptWait');
-  loadPushCfg().then(function () {
-    if (!pushCfg.url) { say('ptNoUrl'); return; }
-    return fbAuth.currentUser.getIdToken().then(function (idt) {
-      return fetch(pushCfg.url, { method: 'POST', body: JSON.stringify({ idToken: idt, to: myUid, type: 'test', name: S.name || '' }) });
-    }).then(function (r) { return r.json(); }).then(function (j) {
-      if (j.ok && j.sent > 0) say('ptOk');
-      else if (j.ok) {
-        ensureToken().then(function (saved) {
+// إشعار تجريبي لنفسك. كل خطوة بتقول إنها بدأت، وفيه مهلة على كل حاجة،
+// عشان لو وقفت تعرف وقفت فين بالظبط بدل ما تفضل مستني.
+function withTimeout(pr, ms, label) {
+  return new Promise(function (res, rej) {
+    var done = false;
+    var k = setTimeout(function () { if (!done) { done = true; rej(new Error('timeout:' + label)); } }, ms);
+    pr.then(function (v) { if (!done) { done = true; clearTimeout(k); res(v); } },
+            function (e) { if (!done) { done = true; clearTimeout(k); rej(e); } });
+  });
+}
+function runPushTest(out, again) {
+  var say = function (k, v) { if (out) out.textContent = t(k, { e: v == null ? '' : String(v).slice(0, 90) }); };
+  if (!fbAuth || !fbAuth.currentUser || !myUid) { say('ptNoAuth'); return; }
+  say('ptCfg');
+  withTimeout(loadPushCfg(), 12000, 'cfg')
+    .then(function () {
+      if (!pushCfg.url) throw new Error('nourl');
+      say('ptWait');
+      return withTimeout(fbAuth.currentUser.getIdToken(), 12000, 'auth');
+    })
+    .then(function (idt) {
+      var ctrl = typeof AbortController === 'function' ? new AbortController() : null;
+      if (ctrl) setTimeout(function () { try { ctrl.abort(); } catch (e) {} }, 20000);
+      return withTimeout(fetch(pushCfg.url, {
+        method: 'POST', signal: ctrl ? ctrl.signal : undefined,
+        body: JSON.stringify({ idToken: idt, to: myUid, type: 'test', name: S.name || '' })
+      }), 22000, 'send');
+    })
+    .then(function (r) {
+      if (!r.ok) throw new Error('http ' + r.status);
+      return r.text();
+    })
+    .then(function (txt) {
+      var j;
+      try { j = JSON.parse(txt); } catch (e) { throw new Error('bad:' + txt.slice(0, 60)); }
+      if (j.ok && j.sent > 0) { say('ptOk'); return; }
+      if (j.ok) {
+        if (again) { say('ptNoDev'); return; }   // جرّبنا مرة وسجّلنا الجهاز وبرضو مفيش
+        return withTimeout(ensureToken(), 25000, 'token').then(function (saved) {
           if (!saved) { say(S.pushErr ? 'ptErr' : 'ptNoDev', S.pushErr || ''); return; }
           say('ptRetry');
-          setTimeout(function () { runPushTest(out); }, 1500);
+          setTimeout(function () { runPushTest(out, true); }, 1500);
         });
       }
-      else if (j.err === 'auth') say('ptOld');
+      if (j.err === 'auth') say('ptOld');
       else if (/SA_JSON|token:/.test(j.err || '')) say('ptKey');
-      else say('ptErr', String(j.err || j.last || '').slice(0, 80));
-    }).catch(function () { say('ptNet'); });
-  });
+      else say('ptErr', j.err || j.last || '?');
+    })
+    .catch(function (e) {
+      var m = String((e && e.message) || e);
+      if (m === 'nourl') say('ptNoUrl');
+      else if (m === 'timeout:cfg') say('ptNoCfg');
+      else if (m === 'timeout:auth') say('ptNoAuth');
+      else if (m === 'timeout:send' || /abort/i.test(m)) say('ptSlow');
+      else if (m === 'timeout:token') say('ptNoDev');
+      else say('ptErr', m);
+    });
 }
 
 /* ===== لمّة — اللعب أونلاين مع صحابك (من 2 لحد 4) =====
@@ -6450,12 +6487,12 @@ EP.render = function () {
       return '<div class="seat op es-seat" data-seat="' + p + '"><div class="av">' + self.pav(p) + '</div>' +
         '<div class="who"><b>' + esc(self.pname(p)) + '</b><small class="meta"></small></div></div>';
     }).join('') + '</div>' +
-    '<div class="es-table"><div class="es-trump"></div><div class="es-trick"></div><div class="tmsg"></div></div>' +
+    '<div class="es-table"><div class="es-trump"></div><div class="es-trick"></div><div class="tmsg"></div>' +
+    '<div class="es-panel" hidden></div></div>' +
     '<div class="me-bar"><div class="seat me"><div class="av">' + myAv() + '</div>' +
     '<div class="who"><b>' + esc(S.name || t('you')) + '</b><small class="meta"></small></div></div>' +
     '<div class="status" aria-live="polite"></div></div>' +
-    '<div class="es-hand" role="group"></div>' +
-    '<div class="es-panel" hidden></div></div>';
+    '<div class="es-hand" role="group"></div></div>';
   var root = app.firstChild;
   this.root = root;
   this.seatsEl = $('.es-seats', root); this.trickEl = $('.es-trick', root); this.trumpEl = $('.es-trump', root);
@@ -6504,7 +6541,7 @@ EP.tmsg = function (text) {
 EP.paint = function () {
   var st = this.st, self = this;
   if (!st) return;
-  this.scoreEl.textContent = t('esRoundN', { n: this.round }) + ' · ' + this.total[0];
+  this.scoreEl.textContent = t('esRoundN', { n: this.round }) + ' · ' + t('esMyPts', { n: this.total[0] });
   // الحكم
   this.trumpEl.innerHTML = st.trump
     ? '<span class="tr-chip' + (st.trump === 'H' || st.trump === 'D' ? ' red' : '') + '">' + (st.trump === 'NT' ? '<b>' + t('esNT') + '</b>' : t('esTrump') + ' <b>' + ES_SUITS[st.trump] + '</b>') + '</span>'
