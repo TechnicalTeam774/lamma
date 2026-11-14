@@ -1,14 +1,12 @@
 # لمّة: بيبني أبلكيشن أندرويد موقّع (APK) ويحطه في Releases.
 # بيشتغل لوحده بعد Apply update، أو من Actions > Build Lamma APK > Run workflow.
+# رقم الإصدار بيتقرا من version.json، فاللي في Releases هو نفسه اللي جوه الأبلكيشن.
 # محتاج مرة واحدة 3 أسرار في Settings > Secrets and variables > Actions:
 #   KEYSTORE_B64 و KEYSTORE_PASSWORD (مفتاح التوقيع)، و GOOGLE_SERVICES_JSON (دخول جوجل).
 name: Build Lamma APK
 
 on:
   workflow_dispatch:
-  push:
-    branches: [main]
-    paths: ['index.html', 'package.json', 'capacitor.config.json', 'scripts/**', 'native/**', 'android-res/**']
 
 concurrency:
   group: apk-${{ github.ref }}
@@ -44,6 +42,30 @@ jobs:
             echo "::error title=App files missing::Upload lamma-repo-vN.zip and run Apply update first."
             exit 1
           fi
+
+      - name: Read the app version
+        id: ver
+        run: |
+          if [ ! -f version.json ]; then
+            echo "::error title=version.json missing::Run Apply update first."
+            exit 1
+          fi
+          V=$(node -e "process.stdout.write(require('./version.json').version)")
+          case "$V" in
+            [0-9]*.[0-9]*.[0-9]*) ;;
+            *) echo "::error title=Bad version::version.json has '$V'"; exit 1 ;;
+          esac
+          echo "v=$V" >> "$GITHUB_OUTPUT"
+          echo "Building لمّة $V (versionCode ${GITHUB_RUN_NUMBER})"
+          node -e "
+            const c=require('./CHANGES.json')['$V']||[];
+            require('fs').writeFileSync('RELEASE_NOTES.md',
+              (c.length?c.map(x=>'- '+x).join('\n')+'\n\n':'')+
+              '**التثبيت على أندرويد:** نزّل الملف \`lamma-$V.apk\` من **Assets** تحت، وافتحه من الموبايل.\n'+
+              '- أول مرة: الموبايل هيطلب إذن «تثبيت تطبيقات غير معروفة» للمتصفح أو مدير الملفات، اسمح بيه.\n'+
+              '- تحديث: ثبّت الملف الجديد فوق القديم من غير ما تمسح الأبلكيشن.\n');
+          "
+
       - uses: actions/setup-node@v6
         with:
           node-version: 22
@@ -58,6 +80,8 @@ jobs:
         run: npm run build
 
       - name: Create the Android project
+        env:
+          LAMMA_VERSION: ${{ steps.ver.outputs.v }}
         run: |
           npx cap add android
           node scripts/patch-android.mjs
@@ -88,20 +112,19 @@ jobs:
 
       - name: Build the signed APK
         working-directory: android
+        env:
+          LAMMA_VERSION: ${{ steps.ver.outputs.v }}
         run: |
           chmod +x gradlew
           ./gradlew assembleRelease --no-daemon --stacktrace
-          cp app/build/outputs/apk/release/app-release.apk "$GITHUB_WORKSPACE/lamma-1.0.${{ github.run_number }}.apk"
+          cp app/build/outputs/apk/release/app-release.apk "$GITHUB_WORKSPACE/lamma-${{ steps.ver.outputs.v }}.apk"
 
       - name: Publish the Release
         uses: softprops/action-gh-release@v3
         with:
-          tag_name: v1.0.${{ github.run_number }}
-          name: لمّة 1.0.${{ github.run_number }}
+          tag_name: v${{ steps.ver.outputs.v }}
+          name: لمّة ${{ steps.ver.outputs.v }}
           make_latest: true
           fail_on_unmatched_files: true
-          files: lamma-1.0.${{ github.run_number }}.apk
-          body: |
-            **التثبيت على أندرويد:** نزّل الملف `lamma-1.0.${{ github.run_number }}.apk` من **Assets** تحت، وافتحه من الموبايل.
-            - أول مرة: الموبايل هيطلب إذن «تثبيت تطبيقات غير معروفة» للمتصفح أو مدير الملفات، اسمح بيه.
-            - تحديث: ثبّت الملف الجديد فوق القديم من غير ما تمسح الأبلكيشن.
+          body_path: RELEASE_NOTES.md
+          files: lamma-${{ steps.ver.outputs.v }}.apk
