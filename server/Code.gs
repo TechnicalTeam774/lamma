@@ -18,6 +18,7 @@ var SERVER_VER = 4; // 4: إشعار لكل اللاعيبة لما نسخة ج�
 var REPO = 'TechnicalTeam774/lamma';
 var SITE = 'https://technicalteam774.github.io/lamma/';
 var REL_BASE = '2.1.2'; // النسخة دي واللي قبلها مبيتبعتلهاش إشعار تحديث
+var QUIET_FROM = 23, QUIET_TO = 9; // مفيش إشعار تحديث بالليل (توقيت القاهرة) — بيستنى لأول حركة الصبح
 var SCOPES = 'https://www.googleapis.com/auth/firebase.messaging https://www.googleapis.com/auth/datastore';
 
 /* ============================ أدوات ============================ */
@@ -212,6 +213,18 @@ function broadcast_(textOf, data) {
   return { devices: toks.length, sent: sent, last: last };
 }
 
+function quietNow_() {
+  var hr = +Utilities.formatDate(new Date(), 'Africa/Cairo', 'H');
+  return hr >= QUIET_FROM || hr < QUIET_TO;
+}
+/** تحديث نزل بالليل ومستني: يتبعت مع أول طلب بعد الساعة 9 الصبح */
+function flushPending_() {
+  try {
+    var pend = PropertiesService.getScriptProperties().getProperty('PENDING_REL');
+    if (pend && !quietNow_()) releaseBroadcast_(pend);
+  } catch (e) { /* ميبوّظش الطلب الأصلي */ }
+}
+
 function verCmp_(a, b) {
   var x = String(a).split('.'), y = String(b).split('.');
   for (var i = 0; i < 3; i++) { var d = (+x[i] || 0) - (+y[i] || 0); if (d) return d; }
@@ -226,11 +239,17 @@ function releaseBroadcast_(ver) {
   var apk = 'https://github.com/' + REPO + '/releases/download/v' + ver + '/lamma-' + ver + '.apk';
   var code = UrlFetchApp.fetch(apk, { followRedirects: false, muteHttpExceptions: true }).getResponseCode();
   if (code !== 302 && code !== 200) return { ok: false, v: SERVER_VER, err: 'apk ' + code };
+  if (quietNow_()) {
+    var pend = P.getProperty('PENDING_REL');
+    if (!pend || verCmp_(ver, pend) > 0) P.setProperty('PENDING_REL', ver);
+    return { ok: true, v: SERVER_VER, ver: ver, deferred: true };
+  }
   var lock = LockService.getScriptLock();
   if (!lock.tryLock(25000)) return { ok: false, v: SERVER_VER, err: 'busy' };
   try {
     if (verCmp_(ver, P.getProperty('REL_VER') || REL_BASE) <= 0) return { ok: true, v: SERVER_VER, already: true, ver: ver };
     P.setProperty('REL_VER', ver); // قبل الإرسال: لو حصلت مشكلة في النص، منبعتش نفس الإشعار مرتين
+    var pd = P.getProperty('PENDING_REL'); if (pd && verCmp_(pd, ver) <= 0) P.deleteProperty('PENDING_REL');
     var note = '';
     try {
       var vj = JSON.parse(UrlFetchApp.fetch(SITE + 'version.json?t=' + Date.now(), { muteHttpExceptions: true }).getContentText());
@@ -280,6 +299,7 @@ function doPost(e) {
     var r = sendToUid_(b.to, title, body, {
       type: String(b.type || ''), sender: String(from), name: String(who)
     });
+    flushPending_();
     return out({ ok: true, v: SERVER_VER, sent: r.sent, devices: r.devices, last: r.last });
   } catch (err) {
     return out({ err: String((err && err.message) || err).slice(0, 200) });
@@ -289,6 +309,7 @@ function doPost(e) {
 /* ======================== صفحة الفحص ======================== */
 
 function doGet(e) {
+  flushPending_();
   // ?release=2.1.3 → نفس إعلان النسخة الجديدة (بيتأكد من الـ APK ومبيكررش)
   if (e && e.parameter && e.parameter.release) {
     var rr = releaseBroadcast_(String(e.parameter.release));
@@ -304,7 +325,9 @@ function doGet(e) {
   var esc = function (s) { return String(s).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); };
 
   line(true, 'نسخة السيرفر ' + SERVER_VER, 'لو مكتوب هنا رقم أقل من 4، يبقى لسه منشرتش النسخة الجديدة');
-  line(true, 'آخر تحديث اتبعت عنه إشعار: ' + (PropertiesService.getScriptProperties().getProperty('REL_VER') || ('محصلش لسه، بعد ' + REL_BASE)), 'بيتبعت لوحده بعد كل بناء على جيت هب');
+  var PP = PropertiesService.getScriptProperties();
+  line(true, 'آخر تحديث اتبعت عنه إشعار: ' + (PP.getProperty('REL_VER') || ('محصلش لسه، بعد ' + REL_BASE)) + (PP.getProperty('PENDING_REL') ? ' — ومستني: ' + PP.getProperty('PENDING_REL') : ''),
+    'بيتبعت لوحده بعد كل بناء على جيت هب، وبالليل (من 11 لـ 9 الصبح) بيستنى لأول حركة الصبح');
 
   // 1) المفتاح
   var saOk = false, j = null;
