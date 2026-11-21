@@ -1166,6 +1166,74 @@ body.in-game .hx-nav { display: none; }
 .sn-tok { transition: transform .12s linear; filter: drop-shadow(0 .6px .6px rgba(0,0,0,.5)); }
 .sn-slide .sn-tok { transition: transform .58s cubic-bezier(.4, 0, .3, 1); }
 
+
+/* ===== 2.2: الأقسام والتناسق ===== */
+.screen { overflow-x: clip; }
+.sh-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin: 0 0 14px; }
+.sh-head h2 { margin: 0; }
+.coin-pill { display: inline-flex; align-items: center; gap: 6px; padding: 7px 13px 7px 11px; border-radius: 999px; background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--line); font-weight: 800; font-size: 1.02rem; }
+.coin-pill svg { width: 19px; height: 19px; }
+.cat-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin: 0 0 12px; }
+.cat-grid.g3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.cat { all: unset; box-sizing: border-box; display: grid; justify-items: center; align-content: center; gap: 6px; min-height: 66px; padding: 10px 4px 9px; border-radius: 16px; background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--line); color: var(--ink-2); cursor: pointer; text-align: center; transition: transform .15s ease, background-color .2s ease, box-shadow .2s ease; -webkit-tap-highlight-color: transparent; }
+.cat svg { width: 24px; height: 24px; }
+.cat span { max-width: 100%; font-size: .74rem; font-weight: 800; line-height: 1.2; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cat:active { transform: scale(.95); }
+.cat:focus-visible { outline: 2px solid var(--hl); outline-offset: 2px; }
+.cat.on { background: var(--hl); color: #1a1230; box-shadow: 0 8px 18px -10px var(--hl); }
+.cat.on span { color: #1a1230; }
+.cat-grid.g3 .cat { min-height: 48px; padding: 8px 6px; }
+.cat-grid.g3 .cat span { font-size: .86rem; white-space: normal; }
+.shop-where { display: flex; align-items: center; justify-content: center; margin: 0 0 12px; padding: 9px 12px; border-radius: 12px; background: var(--surface-2); color: var(--ink-2); font-size: .82rem; line-height: 1.5; text-align: center; }
+.myst { display: grid; justify-items: center; gap: 8px; padding: 22px 18px; border-radius: 20px; text-align: center; background: radial-gradient(120% 90% at 50% 0%, color-mix(in srgb, var(--hl) 26%, transparent), transparent 62%), var(--surface-2); box-shadow: inset 0 0 0 1px var(--line); }
+.myst-ic { font-size: 3.6rem; line-height: 1; filter: drop-shadow(0 10px 18px rgba(0, 0, 0, .35)); animation: mystBob 2.6s ease-in-out infinite; }
+@keyframes mystBob { 50% { transform: translateY(-7px) rotate(-5deg); } }
+.myst > b { font-size: 1.2rem; }
+.myst > p { margin: 0; max-width: 32ch; color: var(--ink-2); font-size: .88rem; line-height: 1.65; }
+.myst .btn { margin-top: 6px; min-width: 160px; }
+.myst-done { font-weight: 800; color: var(--hl) !important; }
+.myst-have { all: unset; box-sizing: border-box; display: flex; align-items: center; gap: 10px; width: 100%; margin-top: 10px; padding: 12px 14px; border-radius: 16px; background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--line); cursor: pointer; }
+.myst-have svg { width: 22px; height: 22px; color: var(--hl); flex: none; }
+.myst-have span { flex: 1; min-width: 0; font-weight: 700; font-size: .9rem; }
+.myst-have em { font-style: normal; font-weight: 800; color: #1a1230; background: var(--hl); padding: 6px 14px; border-radius: 999px; font-size: .85rem; }
+.social { padding-bottom: 28px; }
+.social .sec-h { margin: 22px 16px 10px; }
+.soc-me { margin: 6px 16px 0; }
+.soc-add { padding: 12px 16px 0; }
+.soc-reqs { padding: 0 16px; }
+.soc-friends, .lb { padding: 0 16px; grid-template-columns: minmax(0, 1fr); }
+.soc-friend, .lb-row { min-width: 0; }
+.social .lb-seg { margin: 0 16px 8px; }
+.social .lb-note { margin: 0 16px 10px; }
+.lb-row { padding: 9px 12px; }
+.lb-who { flex: 1; min-width: 0; display: grid; justify-items: start; gap: 3px; }
+.lb-who b { max-width: 100%; }
+.lb-who .ttl { margin: 0; }
+.pf-top { display: flex; align-items: center; gap: 16px; margin: 0 0 16px; padding: 14px; border-radius: 18px; background: var(--surface-2); }
+.pf-av { position: relative; width: 66px; height: 66px; flex: none; border-radius: 50%; }
+.pf-av > .av-img, .pf-av > .av-mono, .pf-av > .frm { width: 100%; height: 100%; border-radius: 50%; overflow: hidden; display: grid; place-items: center; object-fit: cover; }
+.pf-av .lvl-badge { bottom: -4px; inset-inline-end: -4px; }
+.pf-bar { flex: 1; min-width: 0; display: grid; gap: 7px; }
+.pf-bar small { color: var(--ink-2); font-size: .8rem; }
+.st-row { grid-template-columns: 104px minmax(0, 1fr) auto; }
+.st-row > :first-child { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.welcome { position: relative; overflow: hidden; isolation: isolate; }
+.w-float { position: absolute; inset: 0; z-index: -1; pointer-events: none; }
+.w-float i { position: absolute; font-style: normal; line-height: 1; color: var(--ink); opacity: .14; transform: rotate(var(--r, 0deg)); animation: wFloat 9s ease-in-out infinite; }
+.w-float .dm { width: 22px; height: 40px; border-radius: 6px; background: linear-gradient(var(--ink) 0 0) center / 70% 2px no-repeat, var(--ink); opacity: .1; }
+.w-float .ck { width: 30px; height: 30px; border-radius: 50%; background: radial-gradient(circle at 35% 35%, #fff, #b9b2c8); opacity: .12; }
+.w-float .ck.b { background: radial-gradient(circle at 35% 35%, #6a5f7d, #120e19); opacity: .35; }
+@keyframes wFloat { 0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); } 50% { transform: translateY(-16px) rotate(calc(var(--r, 0deg) + 10deg)); } }
+.w-time { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 4px; padding: 7px 16px; border-radius: 999px; background: color-mix(in srgb, var(--ink) 7%, transparent); box-shadow: inset 0 0 0 1px var(--line); font-weight: 800; font-size: .95rem; color: var(--ink); }
+.w-hello { font-size: clamp(4rem, 22vw, 6.8rem); color: transparent; text-shadow: none; background: linear-gradient(180deg, #fff 35%, color-mix(in srgb, var(--hl) 75%, #fff) 100%); -webkit-background-clip: text; background-clip: text; filter: drop-shadow(0 5px 0 rgba(0, 0, 0, .28)) drop-shadow(0 0 28px color-mix(in srgb, var(--hl) 45%, transparent)); padding: 0 .08em; }
+.w-line { color: var(--hl); margin-top: 0; }
+.w-sub { font-size: 1.02rem; margin-top: 10px; }
+.w-stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 18px; }
+.w-chip { display: inline-flex; align-items: center; gap: 6px; padding: 7px 13px; border-radius: 999px; background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--line); font-weight: 800; font-size: .86rem; }
+.w-chip svg { width: 17px; height: 17px; }
+.w-anim .w-time { animation: fadeUp .5s ease both .05s; }
+.w-anim .w-stats { animation: fadeUp .5s ease both .85s; }
+@media (prefers-reduced-motion: reduce) { .w-float i, .myst-ic { animation: none; } }
 </style>
 </head>
 <body>
@@ -2551,7 +2619,7 @@ function save() { try { window.localStorage.setItem(KEY, JSON.stringify(S)); } c
 var L = {
   ar: {
     tagline: 'طاولة ودومنة وصحاب',
-    welcomeBig: 'أهلاً', welcomeLineNew: 'بيك في لمّة', welcomeLineBack: 'يا {name}', welcomeSub: 'القعدة جاهزة، يلا بينا',
+    welcomeBig: 'أهلاً', welcomeLineNew: 'بيك في لمّة', welcomeLineBack: 'يا {name}', gr_morning: 'صباح الفل', gr_noon: 'يومك فل', gr_evening: 'مساء الفل', gr_late: 'سهرانين؟', wHeadBack: 'نوّرت', wHeadNew: 'نوّرتنا', wNewLine: 'القعدة كانت ناقصاك', wName: 'يا {name}', wStreak: '{n} يوم ورا بعض', wStreak2: 'يومين ورا بعض', wStreakFew: '{n} أيام ورا بعض', wPunch: ['الترابيزة مستنياك', 'مين هيكسب النهارده؟', 'الزهر النهارده في صفّك 🎲', 'جاهز تقلب الطاولة؟', 'صحابك مستنيين تحدّي', 'جيم واحد بس… وعد 😉', 'النهارده يومك يا بطل'], welcomeSub: 'القعدة جاهزة، يلا بينا',
     askName: 'نناديك بإيه؟', namePh: 'اكتب اسمك', needName: 'اكتب اسمك الأول', pickAvatar: 'اختار شكلك', start: 'يلا بينا',
     hi: 'أهلاً يا {name}', homeQ: 'هتلعب إيه النهارده؟',
     tawla: 'الطاولة', domino: 'الدومنة', ludo: 'لودو',
@@ -2572,12 +2640,12 @@ var L = {
     fr_none: 'من غير', fr_gold: 'دهب', fr_neon: 'نيون', fr_fire: 'نار', fr_royal: 'ملكي', fr_leaf: 'ورق شجر', fr_ice: 'تلج',
     seenMin: 'كان أونلاين من {n} دقيقة', sent: 'اتبعتت', seen: 'اتشافت', sending: 'بتتبعت', friendAway: '{name} انقطع اتصاله… في انتظار رجوعه', exitGame: 'خروج',
     updTitle: 'في تحديث جديد', updVer: 'لمّة {v}', updNow: 'حدّث دلوقتي', updGetApk: 'نزّل التحديث', updApkHint: 'هيفتحلك صفحة التحميل، نزّل الملف وثبّته فوق القديم', upToDate: 'عندك آخر إصدار', updCheck: 'تحقق', newIn: 'الجديد في لمّة {v}',
-    tabTheme: 'الثيم', tabBoard: 'الطاولة', tabTable: 'الترابيزة', ft_green: 'أخضر', ft_wine: 'نبيتي', ft_navy: 'كحلي', ft_sand: 'رملي', ft_noir: 'أسود', ft_royal: 'ملكي', tabCards: 'الكوتشينة', tabTiles: 'الدومنة', tabEmoji: 'إيموجي', tabFrame: 'الإطار',
+    tabTheme: 'الثيمات', tabBoard: 'الطاولة', tabTable: 'الترابيزة', tabMystery: 'صندوق الحظ', ft_green: 'أخضر', ft_wine: 'نبيتي', ft_navy: 'كحلي', ft_sand: 'رملي', ft_noir: 'أسود', ft_royal: 'ملكي', tabCards: 'الكوتشينة', tabTiles: 'الدومنة', tabEmoji: 'الإيموجي', tabFrame: 'الإطارات',
     th_night: 'ليل', th_sand: 'صحرا', th_emerald: 'زمرد', th_rose: 'وردي', th_xmas: 'كريسماس', th_mid: 'منتصف الليل', th_mocha: 'بُن', th_ocean: 'بحر', th_sunset: 'غروب', th_violet: 'بنفسج', th_aurora: 'شفق',
     cd_classic: 'كلاسيك', cd_royal: 'ملكي', cd_neon: 'نيون', cd_xmas: 'كريسماس', cd_noir: 'أسود', cd_sahara: 'صحرا', cd_sea: 'بحري',
     tl_ivory: 'عاج', tl_wood: 'خشب', tl_onyx: 'أسود', tl_candy: 'حلويات', tl_jade: 'يشب', tl_dusk: 'غروب', tl_crown: 'ملكي',
     ep_basic: 'الأساسية', ep_fun: 'هزار', ep_hype: 'حماس', ep_xmas: 'كريسماس', ep_food: 'أكل', ep_masr: 'مصري', ep_zoo: 'حيوانات',
-    shopWhereTheme: 'بيغيّر ألوان الأبلكيشن كله', shopWhereBoard: 'بيبان في الطاولة', shopWhereCards: 'بيبان في البصرة واستيمشن', shopWhereTiles: 'بيبان في الدومنة', shopWhereEmoji: 'بتستخدمها جوه أي لعبة', shopWhereFrame: 'بيبان حوالين صورتك عند صحابك',
+    shopWhereTheme: 'بيغيّر ألوان اللعبة كلها', shopWhereBoard: 'شكل البورد وانت بتلعب طاولة', shopWhereTable: 'لون الترابيزة في البصرة واستيمشن وطرنيب', shopWhereCards: 'شكل الورق في البصرة واستيمشن وطرنيب', shopWhereTiles: 'شكل أحجار الدومنة', shopWhereEmoji: 'بتبعتها لصحابك جوه أي لعبة', shopWhereFrame: 'بيبان حوالين صورتك عند صحابك', shopWhereMystery: 'جواه حاجة من المحل مش عندك، والحظ هو اللي بيختار', mystT: 'صندوق الحظ', mystS: 'ممكن يطلعلك ثيم أو ورق أو ترابيزة أو أحجار أو إيموجي أو إطار، وأكيد حاجة جديدة مش عندك', mystDone: 'خلّصت المحل كله! 👑', mystHave: 'عندك {n} صندوق هدية. افتحه', mystOpen: 'افتح',
     youW: 'كسبت', themW: 'كسب',
     qFriends: 'أصحابك', qDaily: 'تحديات', qWheel: 'عجلة', qStats: 'نتايجي', qShop: 'المحل', myProfile: 'ملفي', gameSet: 'إعدادات اللعبة', vsRecord: 'بينك وبينه', vsLine: 'كسبته {w} ومكسبك {l}', noVs: 'لسه مالعبتوش مع بعض', theirStats: 'مستوى {lv} · {w} فوز من {p}',
     wheel: 'عجلة الحظ', wheelS: 'العجلة', wheelSub: 'لفّة مجانية كل يوم', wheelDone: 'لفّيت النهارده، ارجع بكرة', spin: 'لِف', spinTomorrow: 'ارجع بكرة', wonCoins: 'كسبت {n} كوينز!', wonXp: 'كسبت 50 نقطة خبرة!',
@@ -2687,7 +2755,7 @@ var L = {
   },
   en: {
     tagline: 'Tawla, domino and friends',
-    welcomeBig: 'Welcome', welcomeLineNew: 'to Lamma', welcomeLineBack: 'back, {name}', welcomeSub: 'The table’s set. Let’s play.',
+    welcomeBig: 'Welcome', welcomeLineNew: 'to Lamma', welcomeLineBack: 'back, {name}', gr_morning: 'Good morning', gr_noon: 'Good afternoon', gr_evening: 'Good evening', gr_late: 'Up late?', wHeadBack: 'Hey', wHeadNew: 'Welcome', wNewLine: 'The table was missing you', wName: '{name}!', wStreak: '{n}-day streak', wPunch: ['The table is waiting', 'Who wins today?', 'The dice are on your side 🎲', 'Ready to turn the tables?', 'Your friends want a rematch', 'Just one game… promise 😉', 'Today is your day, champ'], welcomeSub: 'The table’s set. Let’s play.',
     askName: 'What should we call you?', namePh: 'Your name', needName: 'Type your name first', pickAvatar: 'Pick your look', start: 'Let’s go',
     hi: 'Hi {name}', homeQ: 'What are we playing today?',
     tawla: 'Tawla', domino: 'Domino', ludo: 'Ludo',
@@ -2708,12 +2776,12 @@ var L = {
     fr_none: 'None', fr_gold: 'Gold', fr_neon: 'Neon', fr_fire: 'Fire', fr_royal: 'Royal', fr_leaf: 'Leaf', fr_ice: 'Ice',
     seenMin: 'Online {n} min ago', sent: 'Sent', seen: 'Seen', sending: 'Sending', friendAway: '{name} disconnected… the game continues when they’re back', exitGame: 'Leave game',
     updTitle: 'A new update is here', updVer: 'لمّة {v}', updNow: 'Update now', updGetApk: 'Download update', updApkHint: 'The download page will open; install the file over the current app', upToDate: 'You have the latest version', updCheck: 'Check', newIn: 'What’s new in {v}',
-    tabTheme: 'Theme', tabBoard: 'Backgammon', tabTable: 'Table', ft_green: 'Green', ft_wine: 'Wine', ft_navy: 'Navy', ft_sand: 'Sand', ft_noir: 'Noir', ft_royal: 'Royal', tabCards: 'Cards', tabTiles: 'Dominoes', tabEmoji: 'Emoji', tabFrame: 'Frame',
+    tabTheme: 'Themes', tabBoard: 'Backgammon', tabTable: 'Table', tabMystery: 'Lucky box', ft_green: 'Green', ft_wine: 'Wine', ft_navy: 'Navy', ft_sand: 'Sand', ft_noir: 'Noir', ft_royal: 'Royal', tabCards: 'Cards', tabTiles: 'Dominoes', tabEmoji: 'Emoji', tabFrame: 'Frames',
     th_night: 'Night', th_sand: 'Sand', th_emerald: 'Emerald', th_rose: 'Rose', th_xmas: 'Christmas', th_mid: 'Midnight', th_mocha: 'Mocha', th_ocean: 'Ocean', th_sunset: 'Sunset', th_violet: 'Violet', th_aurora: 'Aurora',
     cd_classic: 'Classic', cd_royal: 'Royal', cd_neon: 'Neon', cd_xmas: 'Christmas', cd_noir: 'Noir', cd_sahara: 'Sahara', cd_sea: 'Sea',
     tl_ivory: 'Ivory', tl_wood: 'Wood', tl_onyx: 'Onyx', tl_candy: 'Candy', tl_jade: 'Jade', tl_dusk: 'Dusk', tl_crown: 'Crown',
     ep_basic: 'Basic', ep_fun: 'Fun', ep_hype: 'Hype', ep_xmas: 'Christmas', ep_food: 'Food', ep_masr: 'Egypt', ep_zoo: 'Animals',
-    shopWhereTheme: 'Changes the colours across the app', shopWhereBoard: 'Shows on the backgammon board', shopWhereCards: 'Shows in Basra and Estimation', shopWhereTiles: 'Shows on the domino tiles', shopWhereEmoji: 'Use them inside any game', shopWhereFrame: 'Shows around your photo for friends',
+    shopWhereTheme: 'Changes the colours across the whole game', shopWhereBoard: 'Your board while playing backgammon', shopWhereTable: 'Table colour in Basra, Estimation and Tarneeb', shopWhereCards: 'Card style in Basra, Estimation and Tarneeb', shopWhereTiles: 'Your domino tiles', shopWhereEmoji: 'Send them to friends inside any game', shopWhereFrame: 'Shows around your photo for friends', shopWhereMystery: 'Something from the shop you don’t own yet, picked by luck', mystT: 'Lucky box', mystS: 'Could be a theme, cards, a table, tiles, emoji or a frame, always something new to you', mystDone: 'You own the whole shop! 👑', mystHave: 'You have {n} gift box(es). Open it', mystOpen: 'Open',
     youW: 'You won', themW: 'They won',
     qFriends: 'Friends', qDaily: 'Quests', qWheel: 'Wheel', qStats: 'Stats', qShop: 'Shop', myProfile: 'My profile', gameSet: 'Game settings', vsRecord: 'Head to head', vsLine: 'You won {w}, they won {l}', noVs: 'You haven’t played yet', theirStats: 'Level {lv} · {w} wins of {p}',
     wheel: 'Lucky wheel', wheelS: 'Wheel', wheelSub: 'One free spin every day', wheelDone: 'You spun today, come back tomorrow', spin: 'Spin', spinTomorrow: 'Come back tomorrow', wonCoins: 'You won {n} coins!', wonXp: 'You won 50 XP!',
@@ -2837,7 +2905,7 @@ function applyLang() {
 
 var AVATARS = ['😎', '🧔🏽', '👩🏽', '🧕🏽', '👨🏽‍🦱', '🦁', '🐪', '🦅'];
 var SKINS = ['sadaf', 'khayamiya', 'neon', 'marble', 'pharaoh'];
-var APP_VER = '2.1.1';
+var APP_VER = '2.1.2';
 var BOTS = [{ k: 0, av: '🧑🏽' }, { k: 1, av: '👴🏽' }, { k: 2, av: '🧔🏽' }, { k: 3, av: '👵🏽' }];
 function botsFor(level, count) {
   var first = { easy: 0, medium: 1, hard: 2 }[level] || 0;
@@ -2847,6 +2915,12 @@ function botsFor(level, count) {
 
 /* ----- أيقونات ورسومات ----- */
 var ICON = {
+  palette: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.2 0 1.8-.8 1.8-1.7 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-.9.8-1.7 1.7-1.7H16a5 5 0 0 0 5-5C21 6.7 17 3 12 3z"/><path d="M7.5 11h.01M10 7.6h.01M14.5 7.6h.01" stroke-width="3"/></svg>',
+  tboard: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2.2"/><path d="M12 4.5v15M5.5 4.5 7 10l1.5-5.5M14.5 4.5 16 10l1.5-5.5M5.5 19.5 7 14l1.5 5.5M14.5 19.5 16 14l1.5 5.5"/></svg>',
+  felt: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="10.5" rx="9" ry="5.5"/><path d="M6.5 15.4V20M17.5 15.4V20M10.6 10.6l1.4-1.8 1.4 1.8-1.4 1.8z"/></svg>',
+  cardsI: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.6" y="6.2" width="10" height="14" rx="2" transform="rotate(-9 8.6 13.2)"/><rect x="10.4" y="3.8" width="10" height="14" rx="2" transform="rotate(9 15.4 10.8)"/></svg>',
+  domino: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="2.8" width="10" height="18.4" rx="2.6"/><path d="M7 12h10"/><path d="M12 7.4h.01M10 15h.01M14 17.6h.01M12 16.3h.01" stroke-width="2.8"/></svg>',
+  frameI: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="10" r="3"/><path d="M6.8 17.8a6.4 6.4 0 0 1 10.4 0"/></svg>',
   box: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9h18v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1zM3 9l2-5h14l2 5M10 13h4"/></svg>',
   smile: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M8 14.2c1 1.5 2.4 2.3 4 2.3s3-.8 4-2.3"/><path d="M9 9.4v.6M15 9.4v.6" stroke-width="2.6"/></svg>',
   home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>',
@@ -3068,18 +3142,36 @@ function confetti() {
 }
 
 /* ----- شاشة الترحيب ----- */
+/* ----- الافتتاحية: تحية حسب الوقت + جملة مختلفة كل مرة ----- */
+function dayPart() { var hr = new Date().getHours(); return hr < 5 ? 'late' : hr < 12 ? 'morning' : hr < 17 ? 'noon' : hr < 24 ? 'evening' : 'late'; }
+function dayPartIcon() { return { morning: '☀️', noon: '🌤️', evening: '🌙', late: '🌌' }[dayPart()]; }
+function pick(a) { return a[Math.floor(Math.random() * a.length)]; }
+function welcomeChips() {
+  var streak = (S.login && S.login.streak) || 0;
+  var sk = S.lang === 'en' ? 'wStreak' : streak === 2 ? 'wStreak2' : streak <= 10 ? 'wStreakFew' : 'wStreak';
+  return '<div class="w-stats">' + (streak > 1 ? '<span class="w-chip">🔥 ' + t(sk, { n: streak }) + '</span>' : '') +
+    '<span class="w-chip">⭐ ' + t('lvlShort', { n: lvlProgress().lvl }) + '</span><span class="w-chip">' + ICON.coin + coins() + '</span></div>';
+}
+function welcomeFloat() {
+  var P = [['♠', 7, 12, 2.6, -14, 0], ['♥', 84, 9, 2.2, 12, -2], ['🎲', 80, 60, 2.6, -8, -4], ['♦', 5, 64, 2.3, 10, -6], ['♣', 72, 86, 2, -20, -1], ['♥', 26, 90, 1.6, 18, -5]];
+  return '<div class="w-float" aria-hidden="true">' + P.map(function (x) {
+    return '<i style="left:' + x[1] + '%;top:' + x[2] + '%;font-size:' + x[3] + 'rem;--r:' + x[4] + 'deg;animation-delay:' + x[5] + 's">' + x[0] + '</i>';
+  }).join('') + '<i class="dm" style="left:16%;top:34%;--r:22deg;animation-delay:-3s"></i><i class="ck" style="left:88%;top:34%;animation-delay:-7s"></i><i class="ck b" style="left:58%;top:6%;animation-delay:-5s"></i></div>';
+}
 function renderWelcome() {
   if (current) { current.destroy(); current = null; }
   setInGame(false);
   var isNew = !S.name;
   app.innerHTML = '<div class="screen welcome w-anim">' +
+    welcomeFloat() +
     '<div class="w-brand">' + markSVG() + '<span class="wordmark">لمّة</span></div>' +
-    '<h1 class="w-hello">' + t('welcomeBig') + '</h1>' +
-    '<p class="w-line">' + (isNew ? t('welcomeLineNew') : t('welcomeLineBack', { name: esc(S.name) })) + '</p>' +
+    '<p class="w-time">' + dayPartIcon() + '<span>' + t('gr_' + dayPart()) + '</span></p>' +
+    '<h1 class="w-hello">' + t(isNew ? 'wHeadNew' : 'wHeadBack') + '</h1>' +
+    '<p class="w-line">' + (isNew ? t('wNewLine') : t('wName', { name: esc(S.name) })) + '</p>' +
     (isNew
       ? '<div class="w-form"><label for="w-name">' + t('askName') + '</label><input id="w-name" class="inp" maxlength="16" autocomplete="nickname" placeholder="' + t('namePh') + '">' +
         '<div class="lbl">' + t('photoLbl') + '</div>' + photoField('') + '<p class="err" id="w-err" aria-live="polite"></p></div>'
-      : '<p class="w-sub">' + t('tagline') + '</p>') +
+      : '<p class="w-sub">' + pick(t('wPunch')) + '</p>' + welcomeChips()) +
     '<div class="w-actions">' + segHTML('lang', [['ar', 'عربي'], ['en', 'English']], S.lang) + '<!--langpick-->' +
     '<button class="btn cta big" id="w-start">' + t('start') + '</button></div></div>';
   var root = app.firstChild, input = $('#w-name', root);
@@ -3826,7 +3918,7 @@ function leaderboardHTML() {
     (week ? '<p class="lb-note">' + t('lbWeekNote', { d: weekDaysLeft(), a: WEEK_PRIZE[0], b: WEEK_PRIZE[1], c: WEEK_PRIZE[2] }) + '</p>' : '') +
     '<div class="lb">' + rows.map(function (r, i) {
     return '<div class="lb-row' + (r.me ? ' me' : '') + '"><span class="lb-n">' + (i < 3 ? ['🥇', '🥈', '🥉'][i] : i + 1) + '</span><span class="av">' + framedAv(r.name, r.photo, r.frame) + '</span>' +
-      '<b>' + esc(r.name || '') + (r.title ? '<i class="ttl">' + esc(r.title) + '</i>' : '') + '</b><small>' + (week ? t('winsN', { n: r.wk }) : t('lvlShort', { n: levelOf(r.xp) }) + ' · ' + t('winsN', { n: r.wins })) + '</small></div>';
+      '<span class="lb-who"><b>' + esc(r.name || '') + '</b>' + (r.title ? '<i class="ttl">' + esc(r.title) + '</i>' : '') + '</span><small>' + (week ? t('winsN', { n: r.wk }) : t('lvlShort', { n: levelOf(r.xp) }) + ' · ' + t('winsN', { n: r.wins })) + '</small></div>';
   }).join('') + '</div>';
 }
 
@@ -4017,17 +4109,53 @@ function emojiList() {
   return out;
 }
 
-/* ----- المحل بتبويبات ----- */
+/* ----- المحل: 8 أقسام في شبكة، كلهم باينين ----- */
 var SHOP_TAB = 'theme';
+var SHOP_CATS = [['theme', 'tabTheme', 'palette'], ['board', 'tabBoard', 'tboard'], ['table', 'tabTable', 'felt'], ['cards', 'tabCards', 'cardsI'],
+  ['tiles', 'tabTiles', 'domino'], ['emoji', 'tabEmoji', 'smile'], ['frame', 'tabFrame', 'frameI'], ['mystery', 'tabMystery', 'box']];
+var MYSTERY_PRICE = 600;
+// كل حاجة في المحل لسه مش عندك: [النوع، المفتاح، الاسم، القسم]
+function mysteryPool() {
+  var pool = [];
+  Object.keys(THEMES).forEach(function (k) { if (!ownsTheme(k)) pool.push(['theme', k, t('th_' + k), t('tabTheme')]); });
+  SKINS.forEach(function (k) { if (!ownsSkin(k)) pool.push(['board', k, t('skinNames')[k], t('tabBoard')]); });
+  Object.keys(FELTS).forEach(function (k) { if (!ownsFelt(k)) pool.push(['table', k, t('ft_' + k), t('tabTable')]); });
+  Object.keys(CARDS).forEach(function (k) { if (!ownsCards(k)) pool.push(['cards', k, t('cd_' + k), t('tabCards')]); });
+  Object.keys(TILES).forEach(function (k) { if (!ownsTiles(k)) pool.push(['tiles', k, t('tl_' + k), t('tabTiles')]); });
+  Object.keys(EMOJI_PACKS).forEach(function (k) { if (!ownsPack(k)) pool.push(['emoji', k, t('ep_' + k), t('tabEmoji')]); });
+  Object.keys(FRAMES).forEach(function (k) { if (!ownsFrame(k)) pool.push(['frame', k, t('fr_' + k), t('tabFrame')]); });
+  return pool;
+}
+function mysteryHTML() {
+  var pool = mysteryPool(), n = S.chests || 0;
+  return '<div class="myst"><div class="myst-ic">🎁</div><b>' + t('mystT') + '</b><p>' + t('mystS') + '</p>' +
+    (pool.length ? '<button class="btn cta" data-myst>' + ICON.coin + ' ' + MYSTERY_PRICE + '</button>' : '<p class="myst-done">' + t('mystDone') + '</p>') + '</div>' +
+    (n ? '<button class="myst-have" data-chest>' + ICON.box + '<span>' + t('mystHave', { n: n }) + '</span><em>' + t('mystOpen') + '</em></button>' : '');
+}
+function buyMystery(sh) {
+  var pool = mysteryPool();
+  if (!pool.length) return;
+  if (coins() < MYSTERY_PRICE) { toast(t('notEnough')); return; }
+  S.coins = coins() - MYSTERY_PRICE; save();
+  var it = pool[Math.floor(Math.random() * pool.length)];
+  applyBuy(it[0] + ':' + it[1]); paintCoins(); Snd.play('win'); buzz(30); confetti();
+  var r = openSheet('<div class="upd-sheet"><div class="chest-ic">🎁</div><p class="res-title">' + esc(it[2]) + '</p><p class="res-sub">' + t('chestItem', { k: it[3] }) + '</p><button class="btn cta" data-close>' + t('close') + '</button></div>');
+  $('[data-close]', r).addEventListener('click', function () { closeSheet(r); });
+  var body = $('#shop-body', sh); if (body) body.innerHTML = shopBody();
+}
 function openShop(tab) {
   SHOP_TAB = tab || SHOP_TAB || 'theme';
-  var tabs = [['theme', t('tabTheme')], ['board', t('tabBoard')], ['table', t('tabTable')], ['cards', t('tabCards')], ['tiles', t('tabTiles')], ['emoji', t('tabEmoji')], ['frame', t('tabFrame')]];
-  var sh = openSheet('<h2>' + t('shop') + ' <span class="coin-chip">' + ICON.coin + '<b data-coins>' + coins() + '</b></span></h2>' +
-    '<div class="shop-tabs">' + tabs.map(function (x) { return '<button type="button" class="stab' + (x[0] === SHOP_TAB ? ' on' : '') + '" data-tab="' + x[0] + '">' + x[1] + '</button>'; }).join('') + '</div>' +
+  var sh = openSheet('<div class="sh-head"><h2>' + t('shop') + '</h2><span class="coin-pill">' + ICON.coin + '<b data-coins>' + coins() + '</b></span></div>' +
+    '<div class="cat-grid" role="tablist">' + SHOP_CATS.map(function (c) {
+      var on = c[0] === SHOP_TAB;
+      return '<button type="button" role="tab" aria-selected="' + on + '" class="cat' + (on ? ' on' : '') + '" data-tab="' + c[0] + '">' + ICON[c[2]] + '<span>' + t(c[1]) + '</span></button>';
+    }).join('') + '</div>' +
     '<div id="shop-body">' + shopBody() + '</div>');
   sh.addEventListener('click', function (ev) {
     var tb = ev.target.closest('[data-tab]'), buy = ev.target.closest('[data-sbuy]'), pick = ev.target.closest('[data-spick]');
-    if (tb) { SHOP_TAB = tb.getAttribute('data-tab'); Snd.play('tap'); $$('.stab', sh).forEach(function (b) { b.classList.toggle('on', b === tb); }); $('#shop-body', sh).innerHTML = shopBody(); return; }
+    if (tb) { SHOP_TAB = tb.getAttribute('data-tab'); Snd.play('tap'); $$('.cat', sh).forEach(function (b) { b.classList.toggle('on', b === tb); b.setAttribute('aria-selected', String(b === tb)); }); $('#shop-body', sh).innerHTML = shopBody(); return; }
+    if (ev.target.closest('[data-myst]')) { buyMystery(sh); return; }
+    if (ev.target.closest('[data-chest]')) { Snd.play('tap'); openChest(); $('#shop-body', sh).innerHTML = shopBody(); return; }
     if (buy) {
       var id = buy.getAttribute('data-sbuy'), price = +buy.getAttribute('data-price');
       if (coins() < price) { toast(t('notEnough')); return; }
@@ -4091,12 +4219,14 @@ function shopBody() {
       var p = EMOJI_PACKS[k];
       return shopCell('emoji', k, p.price, ownsPack(k), false, '<div class="ep-prev">' + p.list.slice(0, 4).join('') + '</div>', t('ep_' + k));
     }).join('');
+  } else if (SHOP_TAB === 'mystery') {
+    return '<p class="shop-where">' + t('shopWhereMystery') + '</p>' + mysteryHTML();
   } else {
     h = Object.keys(FRAMES).map(function (k) {
       return shopCell('frame', k, FRAMES[k], ownsFrame(k), (S.frame || 'none') === k, '<div class="fr-prev">' + framedAv(S.name, S.photo, k) + '</div>', t('fr_' + k));
     }).join('');
   }
-  var where = { theme: 'shopWhereTheme', board: 'shopWhereBoard', cards: 'shopWhereCards', table: 'shopWhereCards', tiles: 'shopWhereTiles', emoji: 'shopWhereEmoji', frame: 'shopWhereFrame' }[SHOP_TAB];
+  var where = { theme: 'shopWhereTheme', board: 'shopWhereBoard', cards: 'shopWhereCards', table: 'shopWhereTable', tiles: 'shopWhereTiles', emoji: 'shopWhereEmoji', frame: 'shopWhereFrame' }[SHOP_TAB];
   return '<p class="shop-where">' + t(where) + '</p><div class="shop-grid">' + h + '</div>';
 }
 
@@ -4129,12 +4259,12 @@ var HOWTO = ['tawla', 'domino', 'estimation', 'tarneeb', 'basra', 'ludo', 'chess
 function openHowTo(game) {
   var g = game || 'tawla';
   var sh = openSheet('<h2>' + t('howTo') + '</h2>' +
-    '<div class="shop-tabs">' + HOWTO.map(function (k) { return '<button type="button" class="stab' + (k === g ? ' on' : '') + '" data-ht="' + k + '">' + t(k) + '</button>'; }).join('') + '</div>' +
+    '<div class="cat-grid g3" role="tablist">' + HOWTO.map(function (k) { return '<button type="button" role="tab" aria-selected="' + (k === g) + '" class="cat' + (k === g ? ' on' : '') + '" data-ht="' + k + '"><span>' + t(k) + '</span></button>'; }).join('') + '</div>' +
     '<div id="ht-body">' + howBody(g) + '</div>');
   sh.addEventListener('click', function (ev) {
     var b = ev.target.closest('[data-ht]'); if (!b) return;
     Snd.play('tap');
-    $$('.stab', sh).forEach(function (x) { x.classList.toggle('on', x === b); });
+    $$('.cat', sh).forEach(function (x) { x.classList.toggle('on', x === b); x.setAttribute('aria-selected', String(x === b)); });
     $('#ht-body', sh).innerHTML = howBody(b.getAttribute('data-ht'));
   });
 }
@@ -4160,7 +4290,7 @@ function openSoon() {
  * وبعد أي تحديث بيظهر «الجديد في الإصدار» مرة واحدة. */
 var UPD_URL = 'https://technicalteam774.github.io/lamma/version.json';
 var APK_PAGE = 'https://github.com/TechnicalTeam774/lamma/releases/latest';
-var CHANGES = {"2.1.1": ["الإشعارات اتصلحت: رسايل الصحاب والدعوات وطلبات الصداقة بقت بتوصل", "لما تدوس على إشعار رسالة، بيفتحلك الشات بتاعها على طول", "زرار «جرّب الإشعارات» بقى يقولك السبب بالظبط لو فيه مشكلة", "نغمة جديدة للعبة 🎵 — شغّلها من الإعدادات ← الموسيقى، وتقدر ترجع للموسيقى الهادية من نفس المكان", "لعبة جديدة: طرنيب — شركا 2 ضد 2 بالمزايدة، ضد الكمبيوتر أو مع 3 من صحابك", "لعبة جديدة: السلّم والثعبان — لحد 4 لاعيبة", "بطولة الأسبوع بين الصحاب: ترتيب بيتصفّر كل جمعة، والتلاتة الأوائل ياخدوا كوينز", "صندوق هدية بعد كل 5 جيمات: كوينز أو شكل جديد من المحل", "لقب تحت اسمك حسب اللعبة اللي بتكسب فيها أكتر، وبيبان لصحابك", "اليوم السابع في مكافأة الدخول بقى فيه صندوق كمان", "الورق بيتوزّع قدامك ورقة ورقة، وصوت جديد للورق", "بورد الطاولة بقى له عمق ولمعة", "نتيجة استيمشن بقت تتسجّل في نتايجك (كانت بتضيع)"], "2.1.0": ["نغمة جديدة للعبة 🎵 — شغّلها من الإعدادات ← الموسيقى، وتقدر ترجع للموسيقى الهادية من نفس المكان", "لعبة جديدة: طرنيب — شركا 2 ضد 2 بالمزايدة، ضد الكمبيوتر أو مع 3 من صحابك", "لعبة جديدة: السلّم والثعبان — لحد 4 لاعيبة", "بطولة الأسبوع بين الصحاب: ترتيب بيتصفّر كل جمعة، والتلاتة الأوائل ياخدوا كوينز", "صندوق هدية بعد كل 5 جيمات: كوينز أو شكل جديد من المحل", "لقب تحت اسمك حسب اللعبة اللي بتكسب فيها أكتر، وبيبان لصحابك", "اليوم السابع في مكافأة الدخول بقى فيه صندوق كمان", "الورق بيتوزّع قدامك ورقة ورقة، وصوت جديد للورق", "بورد الطاولة بقى له عمق ولمعة", "نتيجة استيمشن بقت تتسجّل في نتايجك (كانت بتضيع)"], "2.0.0": ["شكل جديد للعبة كلها: رئيسية مرتبة، شريط تنقّل تحت، وإعدادات ومحل وشرح بتصميم واحد", "ترابيزة كوتشينة حقيقية للبصرة واستيمشن، وتقدر تغيّر لونها من المحل", "استيمشن: اللاعيبة قاعدين حوالين الترابيزة، وكل ورقة بتنزل قدام صاحبها", "لعبة جديدة: أربعة تكسب — ضد الكمبيوتر أو مع صاحبك", "الردود جوه اللعب اتغيّرت: جُمل جاهزة وإيموجي بشكل أهدى", "زرار الرجوع: ضغطتين على الرئيسية يقفلوا الأبلكيشن", "استيمشن وأربعة تكسب بقوا في تحدّي الصحاب وفي نتايجك", "بروفايل الصاحب بشكل جديد"], "1.1.1": ["كل تحديث بقى له رقم جديد، فالأبلكيشن هيبلّغك بيه أول ما ينزل", "زرار «نزّل التحديث» بقى ينزّل ملف الأبلكيشن على طول", "اللعبة بتفتح أسرع بكتير", "رقم حسابك بقى يبان في الإعدادات"], "1.1.0": ["اللعبة بقت تفتح أسرع بكتير — فايربيز مابقتش توقف ظهور اللعبة، والملفات بتتخزّن من أول مرة", "رقم الإصدار بقى واحد في كل مكان — في الأبلكيشن وفي صفحة التنزيل", "استيمشن بقت تتلعب مع صحابك — أربعة أونلاين، بالمناقصة والحكم والتوقّع", "لوحة المزايدة اتحركت فوق، مابقتش مغطّية الورق اللي في إيدك", "شكل الكوتشينة اتعمل من أول وجديد: ورق زي الحقيقي، والورق في إيدك بيتفرد مروحة", "الأكلة بقت تفضل على الترابيزة لحد ما تشوف الورقة الرابعة ومين كسبها", "بورد لودو اتعمل من جديد بشكل أحلى", "موسيقى جديدة هادية، والقديمة اللي فيها خرشة اتشالت", "زرار الرجوع بقى يشتغل صح ويسألك قبل ما تخرج", "المحل كبر: 11 ثيم و7 ورق و7 أحجار و7 إيموجي و7 إطارات، وكل تبويب بيقولك الحاجة بتبان فين", "الإشعارات: القناة بقت تتعمل مع فتح الأبلكيشن، والإشعار بيبان جوه اللعبة، وتجربة الإشعار بقت تقولك وقفت فين بالظبط", "رقم حسابك بقى يبان في الإعدادات عشان نقدر نفحص الإشعارات"], "1.0.12": ["لعبة جديدة: استيمشن بأربع لاعيبة، بالمناقصة والحكم والتوقّع", "شرح كامل لاستيمشن جوه اللعبة: إزاي تزايد وتحسب نقطك", "تصليح الإشعارات: الجهاز بقى يتسجّل صح أول ما يفتح الأبلكيشن"]};
+var CHANGES = {"2.1.2": ["شاشة البداية جديدة: تحية على حسب الوقت وجملة مختلفة كل مرة تفتح", "أقسام المحل بقت 8 مربعات باينين كلهم بأيقونات، من غير سحب لجنب", "قسم جديد في المحل: صندوق الحظ 🎁 — حاجة جديدة مش عندك بـ 600 كوينز", "شاشة الأصحاب وترتيب الصحاب اتظبطوا، ومبقاش فيه حاجة طالعة برّه الشاشة", "«إزاي تلعب» بقت الألعاب كلها قدامك في شبكة", "ملفي والإحصائيات اتظبطوا", "الإشعارات اتصلحت: رسايل الصحاب والدعوات وطلبات الصداقة بقت بتوصل", "لعبة جديدة: طرنيب — شركا 2 ضد 2 بالمزايدة، ضد الكمبيوتر أو مع 3 من صحابك", "لعبة جديدة: السلّم والثعبان — لحد 4 لاعيبة", "بطولة الأسبوع بين الصحاب: ترتيب بيتصفّر كل جمعة، والتلاتة الأوائل ياخدوا كوينز", "صندوق هدية بعد كل 5 جيمات: كوينز أو شكل جديد من المحل"], "2.1.1": ["الإشعارات اتصلحت: رسايل الصحاب والدعوات وطلبات الصداقة بقت بتوصل", "لما تدوس على إشعار رسالة، بيفتحلك الشات بتاعها على طول", "زرار «جرّب الإشعارات» بقى يقولك السبب بالظبط لو فيه مشكلة", "نغمة جديدة للعبة 🎵 — شغّلها من الإعدادات ← الموسيقى، وتقدر ترجع للموسيقى الهادية من نفس المكان", "لعبة جديدة: طرنيب — شركا 2 ضد 2 بالمزايدة، ضد الكمبيوتر أو مع 3 من صحابك", "لعبة جديدة: السلّم والثعبان — لحد 4 لاعيبة", "بطولة الأسبوع بين الصحاب: ترتيب بيتصفّر كل جمعة، والتلاتة الأوائل ياخدوا كوينز", "صندوق هدية بعد كل 5 جيمات: كوينز أو شكل جديد من المحل", "لقب تحت اسمك حسب اللعبة اللي بتكسب فيها أكتر، وبيبان لصحابك", "اليوم السابع في مكافأة الدخول بقى فيه صندوق كمان", "الورق بيتوزّع قدامك ورقة ورقة، وصوت جديد للورق", "بورد الطاولة بقى له عمق ولمعة", "نتيجة استيمشن بقت تتسجّل في نتايجك (كانت بتضيع)"], "2.1.0": ["نغمة جديدة للعبة 🎵 — شغّلها من الإعدادات ← الموسيقى، وتقدر ترجع للموسيقى الهادية من نفس المكان", "لعبة جديدة: طرنيب — شركا 2 ضد 2 بالمزايدة، ضد الكمبيوتر أو مع 3 من صحابك", "لعبة جديدة: السلّم والثعبان — لحد 4 لاعيبة", "بطولة الأسبوع بين الصحاب: ترتيب بيتصفّر كل جمعة، والتلاتة الأوائل ياخدوا كوينز", "صندوق هدية بعد كل 5 جيمات: كوينز أو شكل جديد من المحل", "لقب تحت اسمك حسب اللعبة اللي بتكسب فيها أكتر، وبيبان لصحابك", "اليوم السابع في مكافأة الدخول بقى فيه صندوق كمان", "الورق بيتوزّع قدامك ورقة ورقة، وصوت جديد للورق", "بورد الطاولة بقى له عمق ولمعة", "نتيجة استيمشن بقت تتسجّل في نتايجك (كانت بتضيع)"], "2.0.0": ["شكل جديد للعبة كلها: رئيسية مرتبة، شريط تنقّل تحت، وإعدادات ومحل وشرح بتصميم واحد", "ترابيزة كوتشينة حقيقية للبصرة واستيمشن، وتقدر تغيّر لونها من المحل", "استيمشن: اللاعيبة قاعدين حوالين الترابيزة، وكل ورقة بتنزل قدام صاحبها", "لعبة جديدة: أربعة تكسب — ضد الكمبيوتر أو مع صاحبك", "الردود جوه اللعب اتغيّرت: جُمل جاهزة وإيموجي بشكل أهدى", "زرار الرجوع: ضغطتين على الرئيسية يقفلوا الأبلكيشن", "استيمشن وأربعة تكسب بقوا في تحدّي الصحاب وفي نتايجك", "بروفايل الصاحب بشكل جديد"], "1.1.1": ["كل تحديث بقى له رقم جديد، فالأبلكيشن هيبلّغك بيه أول ما ينزل", "زرار «نزّل التحديث» بقى ينزّل ملف الأبلكيشن على طول", "اللعبة بتفتح أسرع بكتير", "رقم حسابك بقى يبان في الإعدادات"], "1.1.0": ["اللعبة بقت تفتح أسرع بكتير — فايربيز مابقتش توقف ظهور اللعبة، والملفات بتتخزّن من أول مرة", "رقم الإصدار بقى واحد في كل مكان — في الأبلكيشن وفي صفحة التنزيل", "استيمشن بقت تتلعب مع صحابك — أربعة أونلاين، بالمناقصة والحكم والتوقّع", "لوحة المزايدة اتحركت فوق، مابقتش مغطّية الورق اللي في إيدك", "شكل الكوتشينة اتعمل من أول وجديد: ورق زي الحقيقي، والورق في إيدك بيتفرد مروحة", "الأكلة بقت تفضل على الترابيزة لحد ما تشوف الورقة الرابعة ومين كسبها", "بورد لودو اتعمل من جديد بشكل أحلى", "موسيقى جديدة هادية، والقديمة اللي فيها خرشة اتشالت", "زرار الرجوع بقى يشتغل صح ويسألك قبل ما تخرج", "المحل كبر: 11 ثيم و7 ورق و7 أحجار و7 إيموجي و7 إطارات، وكل تبويب بيقولك الحاجة بتبان فين", "الإشعارات: القناة بقت تتعمل مع فتح الأبلكيشن، والإشعار بيبان جوه اللعبة، وتجربة الإشعار بقت تقولك وقفت فين بالظبط", "رقم حسابك بقى يبان في الإعدادات عشان نقدر نفحص الإشعارات"], "1.0.12": ["لعبة جديدة: استيمشن بأربع لاعيبة، بالمناقصة والحكم والتوقّع", "شرح كامل لاستيمشن جوه اللعبة: إزاي تزايد وتحسب نقطك", "تصليح الإشعارات: الجهاز بقى يتسجّل صح أول ما يفتح الأبلكيشن"]};
 function verNum(v) { var p = String(v || '0').split('.'); return (+p[0] || 0) * 1e6 + (+p[1] || 0) * 1e3 + (+p[2] || 0); }
 var updLast = 0;
 function checkUpdate(manual) {
@@ -4216,7 +4346,8 @@ var hbTimer = null, unsub = { friends: null, requests: null, invites: null, pres
 var friendsData = {}, requestsData = {}, socialRoot = null, chatWith = null;
 var CODE_ABC = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
 function fbConfigured() { return typeof FIREBASE_CONFIG !== 'undefined' && FIREBASE_CONFIG.apiKey && FIREBASE_CONFIG.apiKey.indexOf('REPLACE') < 0; }
-function fbReady() { return typeof firebase !== 'undefined' && fbConfigured(); }
+var devFb = false; // معاينة شاشة الأصحاب في الاختبارات بس
+function fbReady() { return devFb || (typeof firebase !== 'undefined' && fbConfigured()); }
 function genCode() { var s = ''; for (var i = 0; i < 6; i++) s += CODE_ABC[Math.floor(Math.random() * CODE_ABC.length)]; return s; }
 function pairId(a, b) { return [a, b].sort().join('_'); }
 
@@ -8286,7 +8417,9 @@ window.__lamma = {
     addFriendByCode: addFriendByCode, acceptRequest: acceptRequest, sendInvite: sendInvite, sendChat: sendChat,
     inviteToGame: inviteToGame, openSetup: openSetup, openGamePicker: openGamePicker
   },
-  ui: { cardFace: cardFaceHTML, setSkin: setSkin, setTheme: setTheme, openShop: openShop, openHowTo: openHowTo, openProfile: openProfile, openSettings: openSettings, openFriendProfile: openFriendProfile }
+  // للاختبارات: يفتح شاشة الأصحاب ببيانات تجريبية من غير فايربيز
+  dev: { social: function (m) { devFb = true; myUid = m.uid || 'dev'; myCode = m.code || 'DEV123'; friendsData = m.friends || {}; requestsData = m.requests || {}; if (current) { current.destroy(); current = null; } openSocial(); } },
+  ui: { cardFace: cardFaceHTML, setSkin: setSkin, setTheme: setTheme, openShop: openShop, openHowTo: openHowTo, openProfile: openProfile, openSettings: openSettings, openFriendProfile: openFriendProfile, openStats: openStats, openDaily: openDaily, openWheel: openWheel, openSetup: openSetup }
 };
 
 })();
