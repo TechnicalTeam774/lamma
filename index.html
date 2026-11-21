@@ -965,7 +965,15 @@ html, body { overscroll-behavior: none; }
 /* ===== الرئيسية — تصميم ٢ ===== */
 .home { gap: 14px; padding: 10px 16px calc(96px + env(safe-area-inset-bottom, 0px)); }
 .hx-h { margin: 6px 2px -4px; font-size: .86rem; font-weight: 800; color: var(--ink-2); letter-spacing: .02em; }
-.hx-quick { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.hx-quick { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.hq { flex-direction: column; gap: 4px !important; padding: 10px 4px !important; font-size: .8rem !important; }
+.hq em { font-style: normal; font-size: .64rem; color: var(--ink-2); font-weight: 700; margin-top: -3px; }
+.ttl { display: inline-block; font-style: normal; font: 800 .62rem var(--body); margin-inline-start: 6px; padding: 1px 7px; border-radius: 99px; background: color-mix(in srgb, var(--hl) 20%, transparent); color: var(--hl); vertical-align: middle; }
+.fp-ttl { margin: -2px 0 2px; font: 800 .78rem var(--body); color: var(--hl); }
+.lb-seg { margin: 4px 0 8px; }
+.lb-note { margin: 0 2px 8px; font-size: .78rem; color: var(--ink-2); text-align: center; }
+.chest-ic { font-size: 4.2rem; line-height: 1; animation: chestpop .6s cubic-bezier(.2,1.5,.5,1); }
+@keyframes chestpop { from { transform: scale(.3) rotate(-12deg); opacity: 0; } to { transform: none; opacity: 1; } }
 .hq { all: unset; box-sizing: border-box; position: relative; display: flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 10px; border-radius: 16px; background: var(--surface); box-shadow: inset 0 0 0 1px var(--line); font-weight: 800; font-size: .9rem; cursor: pointer; }
 .hq svg { width: 20px; height: 20px; color: var(--hl); flex: none; }
 .hq:active, .gt:active { transform: scale(.97); }
@@ -1117,6 +1125,46 @@ body.in-game .hx-nav { display: none; }
 .c4-dot { display: inline-block; width: 14px; height: 14px; border-radius: 50%; vertical-align: middle; }
 @keyframes c4drop { 0% { transform: translateY(calc(var(--from) * -114%)); } 70% { transform: translateY(0); } 85% { transform: translateY(-9%); } 100% { transform: none; } }
 @keyframes c4win { from { box-shadow: 0 0 0 0 #fff, inset 0 -4px 0 rgba(0,0,0,.22); } to { box-shadow: 0 0 0 4px #fff, 0 0 18px #fff, inset 0 -4px 0 rgba(0,0,0,.22); } }
+
+/* التوزيع */
+.es-hand.dealing .card, .bs-hand.dealing .card { animation: dealin .34s cubic-bezier(.2,.8,.3,1) backwards; }
+.es-hand.dealing .card:nth-child(1) { animation-delay: 0s } .es-hand.dealing .card:nth-child(2) { animation-delay: .035s } .es-hand.dealing .card:nth-child(3) { animation-delay: .07s }
+.es-hand.dealing .card:nth-child(4) { animation-delay: .105s } .es-hand.dealing .card:nth-child(5) { animation-delay: .14s } .es-hand.dealing .card:nth-child(6) { animation-delay: .175s }
+.es-hand.dealing .card:nth-child(7) { animation-delay: .21s } .es-hand.dealing .card:nth-child(8) { animation-delay: .245s } .es-hand.dealing .card:nth-child(9) { animation-delay: .28s }
+.es-hand.dealing .card:nth-child(10) { animation-delay: .315s } .es-hand.dealing .card:nth-child(11) { animation-delay: .35s } .es-hand.dealing .card:nth-child(12) { animation-delay: .385s } .es-hand.dealing .card:nth-child(13) { animation-delay: .42s }
+.bs-hand.dealing .card:nth-child(2) { animation-delay: .08s } .bs-hand.dealing .card:nth-child(3) { animation-delay: .16s } .bs-hand.dealing .card:nth-child(4) { animation-delay: .24s }
+@keyframes dealin { from { opacity: 0; transform: translateY(-160px) scale(.6) rotate(-14deg); } to { opacity: 1; } }
+
+/* الطاولة: عمق أكتر */
+.b-gloss, .b-bevel, .b-shade, .b-inset { pointer-events: none; }
+.b-gloss { mix-blend-mode: soft-light; }
+.b-bevel { fill: none; stroke: rgba(255, 255, 255, .2); stroke-width: 2; }
+.b-inset { fill: none; stroke: rgba(0, 0, 0, .55); stroke-width: 3; }
+.tboard .tri { stroke: rgba(0, 0, 0, .28); stroke-width: 1; stroke-linejoin: round; }
+.tboard .ck-sh { opacity: .5; }
+.tboard { filter: drop-shadow(0 18px 22px rgba(0, 0, 0, .55)); }
+.hx-nav { background: linear-gradient(var(--surface), var(--surface)), var(--bg); }
+.gt-rec { position: static; align-self: flex-start; margin-top: 3px; }
+
+/* ===== طرنيب ===== */
+.es-seat.mate .av { box-shadow: 0 0 0 2px #35c26b, 0 6px 12px -4px rgba(0,0,0,.7); }
+.es-seat.mate .who b::after { content: " 🤝"; font-size: .7em; }
+.pn-suits.big { gap: 10px; }
+.pn-suits.big .pn-s { flex: 1; padding: 16px 0; font-size: 1.9rem; }
+.g-tarneeb { --g1: #3b4fb8; --g2: #1a2360; } .g-snl { --g1: #7cb342; --g2: #33691e; }
+/* ===== السلّم والثعبان ===== */
+.snboard { width: 100%; height: 100%; max-width: 560px; }
+.sn-frame { fill: #5a3a1c; }
+.sn-c.a { fill: #fbf3dc; } .sn-c.b { fill: #e3efc4; } .sn-c.end { fill: #f6d776; }
+.sn-n { font: 700 2.6px var(--body); fill: rgba(60, 50, 30, .6); direction: ltr; unicode-bidi: isolate; text-anchor: start; }
+.snboard { direction: ltr; }
+.sn-lad path { fill: none; stroke: #8a5a2b; stroke-width: 1.1; stroke-linecap: round; }
+.sn-lad .rung { stroke-width: .9; }
+.sn-snake .body { fill: none; stroke-width: 3; stroke-linecap: round; opacity: .92; }
+.sn-snake .belly { fill: none; stroke: rgba(255,255,255,.45); stroke-width: .7; stroke-dasharray: 1.2 2.2; stroke-linecap: round; }
+.sn-snake .eye { fill: #fff; }
+.sn-tok { transition: transform .12s linear; filter: drop-shadow(0 .6px .6px rgba(0,0,0,.5)); }
+.sn-slide .sn-tok { transition: transform .58s cubic-bezier(.4, 0, .3, 1); }
 
 </style>
 </head>
@@ -2342,18 +2390,80 @@ var FIREBASE_CONFIG = {
   }
   function schedule() { while (nextT < ctx.currentTime + 0.2) { tick(step, nextT); nextT += E; step++; } }
 
+  /* ----- نغمة لمّة: ملف موسيقى بيتكرر بانتقال ناعم -----
+   * بيتحمّل بس لما الموسيقى تشتغل، ولو الملف ما وصلش بنرجع للموسيقى الهادية المتولّدة. */
+  var TRACK_URL = 'audio/lamma-tune.mp3', TRACK_VOL = 0.4, TRACK_XF = 3;
+  var style = 'track', trackBuf = null, trackState = 'idle', trackWait = [], trackSrc = [], trackNext = 0, musicGen = 0;
+  function loadTrack(done) {
+    if (trackBuf) return done(true);
+    if (trackState === 'failed') return done(false);
+    trackWait.push(done);
+    if (trackState === 'loading') return;
+    trackState = 'loading';
+    var finish = function (ok) {
+      trackState = ok ? 'ready' : 'failed';
+      var w = trackWait; trackWait = [];
+      w.forEach(function (f) { f(ok); });
+    };
+    fetch(TRACK_URL).then(function (r) { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); }).then(function (ab) {
+      var pr = ctx.decodeAudioData(ab, function (b) { trackBuf = b; finish(true); }, function () { finish(false); });
+      if (pr && pr.catch) pr.catch(function () {});
+    }).catch(function () { finish(false); });
+  }
+  // نسخة من النغمة: بتدخل بهدوء، وبتختفي في آخر 3 ثواني والنسخة اللي بعدها بتبدأ
+  function trackCopy(at) {
+    var s = ctx.createBufferSource(), g = ctx.createGain(), d = trackBuf.duration, x = { s: s, g: g };
+    s.buffer = trackBuf;
+    g.gain.setValueAtTime(0, at);
+    g.gain.linearRampToValueAtTime(1, at + 0.3);
+    g.gain.setValueAtTime(1, at + d - TRACK_XF);
+    g.gain.linearRampToValueAtTime(0, at + d - 0.03);
+    s.connect(g); g.connect(music);
+    s.start(at); s.stop(at + d);
+    trackSrc.push(x);
+    s.onended = function () { var i = trackSrc.indexOf(x); if (i >= 0) trackSrc.splice(i, 1); try { g.disconnect(); } catch (e) {} };
+    trackNext = at + d - TRACK_XF;
+  }
+  function trackTick() {
+    if (running && style === 'track' && trackBuf && trackNext < ctx.currentTime + 1.5) trackCopy(Math.max(trackNext, ctx.currentTime + 0.05));
+  }
+
   function startMusic() {
     if (!ensure() || running || !on.music) return;
-    running = true; step = 0; nextT = ctx.currentTime + 0.12; mel = 3; xi = 0;
+    running = true;
+    var gen = ++musicGen;
+    if (style === 'track' && trackState !== 'failed') {
+      loadTrack(function (ok) {
+        if (!running || gen !== musicGen) return;
+        if (!ok) { running = false; startMusic(); return; }
+        var now = ctx.currentTime;
+        music.gain.cancelScheduledValues(now); music.gain.setValueAtTime(music.gain.value, now); music.gain.linearRampToValueAtTime(TRACK_VOL, now + 2);
+        trackNext = now + 0.08; trackTick();
+        timer = setInterval(trackTick, 500);
+      });
+      return;
+    }
+    step = 0; nextT = ctx.currentTime + 0.12; mel = 3; xi = 0;
     var t = ctx.currentTime;
     music.gain.cancelScheduledValues(t); music.gain.setValueAtTime(music.gain.value, t); music.gain.linearRampToValueAtTime(0.22, t + 4);
     timer = setInterval(schedule, 40);
   }
   function stopMusic() {
     if (!ctx || !running) return;
-    running = false; clearInterval(timer); timer = null;
+    running = false; musicGen++; clearInterval(timer); timer = null;
     var t = ctx.currentTime;
     music.gain.cancelScheduledValues(t); music.gain.setValueAtTime(music.gain.value, t); music.gain.linearRampToValueAtTime(0, t + 0.8);
+    // كل نسخة شغالة بتختفي لوحدها، عشان لو الموسيقى رجعت بسرعة مايحصلش تكة
+    var old = trackSrc; trackSrc = [];
+    old.forEach(function (x) {
+      try { x.g.gain.cancelScheduledValues(t); x.g.gain.setValueAtTime(x.g.gain.value, t); x.g.gain.linearRampToValueAtTime(0, t + 0.6); x.s.stop(t + 0.65); } catch (e) {}
+    });
+  }
+  function setStyle(v) {
+    v = v === 'calm' ? 'calm' : 'track';
+    if (v === style) return;
+    style = v;
+    if (running) { stopMusic(); setTimeout(function () { if (on.music && !running) startMusic(); }, 700); }
   }
 
   var FX = {
@@ -2362,6 +2472,8 @@ var FIREBASE_CONFIG = {
     hit: function (t) { noiseHit(t, 900, 1.5, 0.45, 0.07, sfx); ping(t, 160, 0.3, 0.2); },
     tile: function (t) { noiseHit(t, 2600, 4, 0.4, 0.03, sfx); noiseHit(t + 0.03, 2200, 4, 0.25, 0.03, sfx); ping(t, 1500, 0.05, 0.05, 'square'); },
     tap: function (t) { ping(t, 880, 0.05, 0.05); },
+    card: function (t) { noiseHit(t, 3400, 1.1, 0.2, 0.06, sfx); noiseHit(t + 0.045, 1500, 2, 0.16, 0.03, sfx); },
+    deal: function (t) { for (var i = 0; i < 6; i++) noiseHit(t + i * 0.07, 3000 + Math.random() * 900, 1.2, 0.13, 0.045, sfx); },
     pop: function (t) {
       var o = ctx.createOscillator(), g = ctx.createGain();
       o.frequency.setValueAtTime(500, t); o.frequency.exponentialRampToValueAtTime(1100, t + 0.08);
@@ -2392,7 +2504,8 @@ var FIREBASE_CONFIG = {
     });
   }
 
-  root.Sound = { unlock: unlock, play: play, setMusic: setMusic, setSfx: setSfx };
+  root.Sound = { unlock: unlock, play: play, setMusic: setMusic, setSfx: setSfx, setStyle: setStyle,
+    _debug: function () { return { style: style, track: trackState, playing: trackSrc.length, running: running, gain: music ? music.gain.value : 0 }; } };
 })(typeof window !== 'undefined' ? window : globalThis);
 
 </script>
@@ -2416,8 +2529,8 @@ var KEY = 'lamma.v1';
 var S = {
   name: '', avatar: '😎', photo: '', pace: 'calm', lang: 'ar', music: false, sfx: true, skin: 'sadaf', coins: 100, owned: [],
   setup: { tawla: { variant: 'aada', level: 'medium', target: 3, timer: 0 }, domino: { players: 2, level: 'medium', target: 101, timer: 0 },
-    ludo: { players: 4, level: 'medium', timer: 0 }, chess: { side: 'w', level: 'medium', timer: 0 }, basra: { level: 'medium', target: 101, timer: 0 }, estimation: { level: 'medium', target: 4, timer: 0 }, c4: { level: 'medium', timer: 0 } },
-  stats: { c4: { w: 0, p: 0 }, estimation: { w: 0, p: 0 }, tawla: { w: 0, p: 0 }, domino: { w: 0, p: 0 }, ludo: { w: 0, p: 0 }, chess: { w: 0, p: 0 }, basra: { w: 0, p: 0 } }
+    ludo: { players: 4, level: 'medium', timer: 0 }, chess: { side: 'w', level: 'medium', timer: 0 }, basra: { level: 'medium', target: 101, timer: 0 }, estimation: { level: 'medium', target: 4, timer: 0 }, c4: { level: 'medium', timer: 0 }, tarneeb: { level: 'medium', target: 31, timer: 0 }, snl: { players: 2, timer: 0 } },
+  stats: { tarneeb: { w: 0, p: 0 }, snl: { w: 0, p: 0 }, c4: { w: 0, p: 0 }, estimation: { w: 0, p: 0 }, tawla: { w: 0, p: 0 }, domino: { w: 0, p: 0 }, ludo: { w: 0, p: 0 }, chess: { w: 0, p: 0 }, basra: { w: 0, p: 0 } }
 };
 function deepMerge(a, b) {
   Object.keys(b).forEach(function (k) {
@@ -2472,7 +2585,7 @@ var L = {
     secProfile: 'الملف الشخصي', secAccount: 'الحساب', accGoogle: 'حساب جوجل', accNone: 'غير مسجّل', accWhy: 'سجّل الدخول عشان تلعب مع أصحابك', signInShort: 'تسجيل الدخول',
     secNotif: 'الإشعارات', notifDevice: 'إشعارات الجهاز ده', pst_on: 'مفعّلة', pst_off: 'متوقفة', pst_blocked: 'مقفولة من إعدادات الجهاز', pst_na: 'غير متاحة على هذا المتصفح',
     nfChat: 'رسائل الدردشة', nfInvite: 'دعوات اللعب', nfFriend: 'طلبات الصداقة', pushTest: 'إرسال إشعار تجريبي',
-    ptRetry: 'سجّلنا الجهاز دلوقتي… بنجرب تاني', ptOk: 'اتبعت ✓ هيبان فوق دلوقتي. وعشان تشوفه في شريط الإشعارات، صغّر الأبلكيشن واضغط الزرار تاني', ptNoDev: 'مفيش جهاز مسجّل. اقفل الإشعارات وشغّلها تاني', ptNoUrl: 'سيرفر الإشعارات غير مربوط (config/push)', ptOld: 'سيرفر الإشعارات محتاج يتحدّث بالكود الجديد', ptKey: 'مفتاح فايربيس في السيرفر غير صحيح (SA_JSON)', ptErr: 'وقف عند: {e}', ptNet: 'تعذّر الوصول لسيرفر الإشعارات', ptWait: 'بنبعت للسيرفر…',
+    ptRetry: 'سجّلنا الجهاز دلوقتي… بنجرب تاني', ptOk: 'اتبعت ✓ هيبان فوق دلوقتي. وعشان تشوفه في شريط الإشعارات، صغّر الأبلكيشن واضغط الزرار تاني', ptNoDev: 'مفيش جهاز مسجّل. اقفل الإشعارات وشغّلها تاني', ptNoUrl: 'سيرفر الإشعارات غير مربوط (config/push)', ptOld: 'السيرفر مقدرش يتأكد من حسابك (auth). اخرج من جوجل وادخل تاني', ptFcm: 'السيرفر لقى جهازك بس جوجل رفضت الإرسال: {e}', ptNoSee: 'الجهاز اتسجّل بس السيرفر مش شايفه. ابعت الرسالة دي لجيمي', ptKey: 'مفتاح فايربيس في السيرفر غير صحيح (SA_JSON)', ptErr: 'وقف عند: {e}', ptNet: 'تعذّر الوصول لسيرفر الإشعارات', ptWait: 'بنبعت للسيرفر…',
     ptCfg: 'بنجيب إعدادات السيرفر…', ptNoCfg: 'مش قادرين نقرا إعدادات السيرفر — اتأكد إنك أونلاين', ptSlow: 'السيرفر مردش خلال ٢٠ ثانية', ptNoAuth: 'سجّل دخول بجوجل الأول',
     how_tawla_s: 'بتجيب حجارتك الـ15 لبيتك وتطلّعها قبل خصمك.',
     how_tawla: [['🎲', 'ارمي الزهر، وحرّك حجرين بالرقمين اللي طلعوا.'], ['➡️', 'حجارتك بتمشي ناحية بيتك على الشمال تحت.'], ['🛡️', 'حجرين فوق بعض في خانة = الخانة محجوزة لك.'], ['⚔️', 'في العادة: حجر لوحده بيتضرب ويرجع من الأول.'], ['🏁', 'لمّا كل حجارتك تدخل بيتك، ابدأ تطلّعها. اللي يخلّص الأول يكسب.']],
@@ -2498,7 +2611,7 @@ var L = {
     how_estimation: [['🂠', 'كل واحد بياخد 13 ورقة، والدور 13 أكلة.'], ['📣', 'المناقصة: تقول رقم من 4 لفوق ومعاه الحكم، أو تقول باس وتخرج.'], ['👑', 'آخر واحد فاضل في المناقصة بيبقى الأكّال، والحكم اللي قاله هو اللي بياكل الدور كله.'], ['🔢', 'بعدين كل واحد يقول هياخد كام أكلة. آخر واحد ممنوع يخلّي المجموع 13، عشان يفضل في كسبان وخسران.'], ['🃏', 'في اللعب لازم تنزل من نوع الأكلة لو معاك. الحكم بياكل أي نوع تاني، ولو مفيش حكم فأعلى ورقة من نوع الأكلة بتاخدها.'], ['🎯', 'جبت رقمك بالظبط؟ تاخد رقمك في 10 وزيادة 10. قلت صفر وجبته؟ 30 نقطة. غلطت؟ بتخسر الفرق في 10.']],
     estimation: 'استيمشن', estSub: 'كوتشينة بالمناقصة', comingSoon: 'قريب', soonTitle: 'استيمشن… قريب', soonBody: 'بنجهّز استيمشن بأربع لاعيبة ومناقصة ودور كامل، وهتنزل قبل آخر السنة إن شاء الله.', soonHow: 'بتتلعب إزاي؟', soonS1: 'كل واحد بياخد 13 ورقة، وبتقول هتاخد كام أكلة.', soonS2: 'اللي يقول أكبر رقم بيختار الحكم (نوع الورق الأقوى).', soonS3: 'كل أكلة بتاخدها بتتحسب، ولو جبت اللي قلته بالظبط بتاخد بونس.', soonS4: 'الدور 13 أكلة، واللي يجمع نقط أكتر في آخر الجيم يكسب.', notifyMe: 'تمام، استناها',
     mustDraw: 'مفيش عندك حجر يلعب، اسحب', drawBtn: 'اسحب حجر',
-    musicL: 'الموسيقى', musicSub: 'موسيقى هادية في الخلفية', themeL: 'ثيم اللعبة', themeSub: 'غيّر شكل اللعبة كلها', change: 'تغيير', howTo: 'إزاي تلعب؟', howToSub: 'شرح سريع لكل لعبة', open: 'افتح',
+    musicL: 'الموسيقى', musicSub: 'موسيقى في الخلفية وانت بتلعب', musicPick: 'نوع الموسيقى', mpTrack: 'نغمة لمّة', mpCalm: 'هادية', tryTune: 'اسمع النغمة الجديدة', tuneOn: 'الموسيقى اشتغلت — تقدر تقفلها من الإعدادات', themeL: 'ثيم اللعبة', themeSub: 'غيّر شكل اللعبة كلها', change: 'تغيير', howTo: 'إزاي تلعب؟', howToSub: 'شرح سريع لكل لعبة', open: 'افتح',
     secSound: 'الصوت والاهتزاز', vibe: 'الاهتزاز', vibeSub: 'مع رمي الزهر والفوز',
     secPlay: 'اللعب', secPrivacy: 'الخصوصية', showOnline: 'إظهار حالة الاتصال', showOnlineSub: 'أصحابك يشوفوا إنك أونلاين',
     secLook: 'المظهر', secAbout: 'عن لمّة', shareGame: 'شارك اللعبة', shareSub: 'ادعي أصحابك يلعبوا معاك', share: 'مشاركة', version: 'الإصدار', myId: 'رقم حسابك', copy: 'نسخ', copied: 'اتنسخ ✓', shareText: 'تعالى نلعب طاولة ودومنة ولودو على لمّة',
@@ -2540,6 +2653,20 @@ var L = {
     enterCode: 'اكتب كود صاحبك', addFriend: 'ضيفه', friendNotFound: 'الكود ده مش موجود', friendSelf: 'ده كودك إنت!', alreadyFriends: 'هو صاحبك خلاص',
     backAgain: 'اضغط رجوع تاني للخروج', secGames: 'الألعاب', navHome: 'الرئيسية',
     fpLevel: 'المستوى', fpWins: 'كسب', fpPlayed: 'لعب',
+    qChest: 'صندوق', chestGot: 'جالك صندوق! افتحه من الرئيسية', chestWait: 'فاضل {n} جيمات على الصندوق', chestCoins: '{n} كوينز', chestSub: 'اتضافوا لرصيدك', chestItem: 'شكل جديد في {k} — اتفعّل',
+    lbWeek: 'الأسبوع ده', lbAll: 'كل الوقت', lbWeekNote: 'فاضل {d} يوم. الأول {a} كوينز، التاني {b}، التالت {c}.', wkPrizeT: 'خلّصت الأسبوع رقم {n}', wkPrizeS: 'كسبت {w} جيم الأسبوع اللي فات',
+    titleFan: 'بيحب {g}', titlePro: 'حريف {g}', titleKing: 'ملك {g}',
+    tarneeb: 'طرنيب', tarneebSub: 'شركا 2 ضد 2 بالمزايدة', trSetupHint: 'أنت واللي قدامك فريق. زايدوا على عدد الأكلات، واللي يكسب المزايدة يختار الطرنيب.',
+    trScore: 'إحنا {a} · هما {b} · لحد {n}', trTrump: 'الطرنيب', trGot: '{n} أكلة', trNeed: '{who} قالوا {n} · إحنا {us} · هما {them}', trUs: 'إحنا', trThem: 'هما',
+    trBidTitle: 'هتقول كام أكلة؟', trBidHint: 'أقل حاجة 7. أنت وشريكك لازم تجيبوهم سوا.', trTopBid: 'أعلى مزايدة {n} لـ {name}', trDeclarer: '{name} خدها بـ {n}',
+    trPick: 'اختار الطرنيب', trPickTitle: 'الطرنيب إيه؟', trPickHint: 'النوع ده هيقطع أي نوع تاني. محتاجين {n} أكلة.', trWeTook: 'أكلة لينا', trTheyTook: 'أكلة ليهم',
+    trMadeUs: 'جبنا الـ {n} اللي قلناها', trFailUs: 'ماجبناش الـ {n} — اتخصموا مننا', trMadeThem: 'هما جابوا الـ {n} بتاعتهم', trFailThem: 'هما وقعوا في الـ {n} — النقط لينا', trTricks: 'أكلات', trWin: 'كسبتوا الطرنيب!', trLose: 'الفريق التاني كسب',
+    how_tarneeb_s: 'أنت وشريكك تجيبوا عدد الأكلات اللي زايدتوا عليه.',
+    how_tarneeb: [['🤝', 'أربعة: أنت واللي قاعد قدامك فريق ضد الاتنين التانيين.'], ['🗣️', 'كل واحد يقول هياخد كام أكلة هو وشريكه (من 7 لـ 13) أو يقول باس. الأعلى يكسب المزايدة.'], ['♠️', 'اللي كسب المزايدة يختار الطرنيب: النوع اللي بيقطع أي نوع تاني.'], ['🃏', 'لازم تلعب من نوع أول ورقة لو معاك. لو ممعكش، اقطع بالطرنيب أو ارمي أي ورقة.'], ['✅', 'لو فريق المزايدة جاب اللي قاله: ياخد أكلاته نقط.'], ['❌', 'لو ماجابش: يتخصم منه اللي قاله، والفريق التاني ياخد أكلاته.']],
+    snl: 'السلّم والثعبان', snlSub: 'لحد 4 لاعيبة، حظ في حظ', snlHint: 'ارمي الزهر واطلع. السلّم بيطلّعك، والثعبان بينزّلك. أول واحد يوصل 100 بالظبط يكسب.', snlFirst: 'أول واحد يوصل 100', snlAt: 'خانة {n}', snlStart: 'لسه مبدأش',
+    snlLadder: 'سلّم! اطلع', snlSnake: 'ثعبان! انزل', snlSix: 'ستة! ارمي تاني', snlOver: 'محتاج الرقم بالظبط', snlWin: 'وصلت 100! كسبت', snlLose: '{name} وصل 100',
+    how_snl_s: 'أول واحد يوصل الخانة 100.',
+    how_snl: [['🎲', 'ارمي الزهر وامشي بعدد النقط.'], ['🪜', 'لو وقفت تحت سلّم، بتطلع لآخره.'], ['🐍', 'لو وقفت على راس ثعبان، بتنزل لديله.'], ['6️⃣', 'الستة بتديك رمية كمان.'], ['🏁', 'لازم توصل 100 بالظبط؛ لو الرقم أكبر بتفضل مكانك.']],
     c4: 'أربعة تكسب', c4Sub: 'صفّ أربعة قبل خصمك', c4Hint: 'سقّط قرصك في أي عمود. أول واحد يصفّ أربعة ورا بعض يكسب.', c4Win: 'صفّيت أربعة! كسبت', c4Lose: '{name} صفّ أربعة',
     how_c4_s: 'صفّ أربع أقراص ورا بعض قبل خصمك.',
     how_c4: [['👆', 'دوس على أي عمود، والقرص بينزل لآخر مكان فاضي فيه.'], ['4️⃣', 'أربعة ورا بعض بالعرض أو بالطول أو مايل = كسبت.'], ['🛡️', 'لو خصمك معاه تلاتة ورا بعض، اقفل عليه قبل ما يكمّلهم.'], ['🎯', 'العمود اللي في النص أقوى مكان، ابدأ منه.']],
@@ -2594,7 +2721,7 @@ var L = {
     secProfile: 'Profile', secAccount: 'Account', accGoogle: 'Google account', accNone: 'Not signed in', accWhy: 'Sign in to play with friends', signInShort: 'Sign in',
     secNotif: 'Notifications', notifDevice: 'Notifications on this device', pst_on: 'On', pst_off: 'Off', pst_blocked: 'Blocked in device settings', pst_na: 'Not available in this browser',
     nfChat: 'Chat messages', nfInvite: 'Game invites', nfFriend: 'Friend requests', pushTest: 'Send a test notification',
-    ptRetry: 'Device registered… retrying', ptOk: 'Sent ✓ it should arrive in a few seconds', ptNoDev: 'No device registered. Turn notifications off and on again', ptNoUrl: 'Notification server not connected (config/push)', ptOld: 'The notification server needs the new code', ptKey: 'The Firebase key on the server is invalid (SA_JSON)', ptErr: 'Stopped at: {e}', ptNet: 'Could not reach the notification server', ptWait: 'Sending to the server…',
+    ptRetry: 'Device registered… retrying', ptOk: 'Sent ✓ it should arrive in a few seconds', ptNoDev: 'No device registered. Turn notifications off and on again', ptNoUrl: 'Notification server not connected (config/push)', ptOld: 'The server could not verify your account (auth). Sign out of Google and back in', ptFcm: 'The server found your phone but Google refused the send: {e}', ptNoSee: 'The phone registered but the server cannot see it', ptKey: 'The Firebase key on the server is invalid (SA_JSON)', ptErr: 'Stopped at: {e}', ptNet: 'Could not reach the notification server', ptWait: 'Sending to the server…',
     ptCfg: 'Loading server settings…', ptNoCfg: 'Could not read the server settings — check you are online', ptSlow: 'The server did not answer within 20s', ptNoAuth: 'Sign in with Google first',
     how_tawla_s: 'Bring your 15 checkers home and bear them off first.',
     how_tawla: [['🎲', 'Roll the dice and move with the two numbers.'], ['➡️', 'Your checkers move toward your home board.'], ['🛡️', 'Two checkers on a point make it yours.'], ['⚔️', 'In the classic game a lone checker gets hit and restarts.'], ['🏁', 'Once all your checkers are home, bear them off. First one out wins.']],
@@ -2620,7 +2747,7 @@ var L = {
     how_estimation: [['🂠', 'Everyone gets 13 cards; a round is 13 tricks.'], ['📣', 'Bidding: say a number from 4 up with a trump suit, or pass and drop out.'], ['👑', 'The last bidder standing is the declarer, and their suit is trump for the whole round.'], ['🔢', 'Then everyone calls their own number. The last player may not make the total 13, so someone always misses.'], ['🃏', 'You must follow the led suit if you can. Trump beats any other suit; otherwise the highest card of the led suit wins.'], ['🎯', 'Exact call: your number × 10 plus 10. Called zero and got it: 30. Missed: lose the difference × 10.']],
     estimation: 'Estimation', estSub: 'The Egyptian bidding card game', comingSoon: 'Soon', soonTitle: 'Estimation… coming soon', soonBody: 'We are building Estimation with four players, bidding and full rounds. It lands before the end of the year.', soonHow: 'How it works', soonS1: 'Each player gets 13 cards and calls how many tricks they will take.', soonS2: 'The highest bidder picks the trump suit.', soonS3: 'Every trick counts, and hitting your exact call earns a bonus.', soonS4: 'A round is 13 tricks; most points at the end wins.', notifyMe: 'Can’t wait',
     mustDraw: 'Nothing to play, draw a tile', drawBtn: 'Draw',
-    musicL: 'Music', musicSub: 'Calm background music', themeL: 'Game theme', themeSub: 'Change the whole look', change: 'Change', howTo: 'How to play', howToSub: 'A quick guide for each game', open: 'Open',
+    musicL: 'Music', musicSub: 'Background music while you play', musicPick: 'Music style', mpTrack: 'Lamma tune', mpCalm: 'Calm', tryTune: 'Hear the new tune', tuneOn: 'Music is on — turn it off in Settings', themeL: 'Game theme', themeSub: 'Change the whole look', change: 'Change', howTo: 'How to play', howToSub: 'A quick guide for each game', open: 'Open',
     secSound: 'Sound & vibration', vibe: 'Vibration', vibeSub: 'On dice rolls and wins',
     secPlay: 'Gameplay', secPrivacy: 'Privacy', showOnline: 'Show online status', showOnlineSub: 'Friends can see when you’re online',
     secLook: 'Appearance', secAbout: 'About لمّة', shareGame: 'Share the game', shareSub: 'Invite friends to play', share: 'Share', version: 'Version', myId: 'Your account id', copy: 'Copy', copied: 'Copied ✓', shareText: 'Come play backgammon, dominoes and Ludo with me on لمّة',
@@ -2662,6 +2789,20 @@ var L = {
     enterCode: 'Enter your friend’s code', addFriend: 'Add', friendNotFound: 'That code doesn’t exist', friendSelf: 'That’s your own code!', alreadyFriends: 'Already friends',
     backAgain: 'Press back again to exit', secGames: 'Games', navHome: 'Home',
     fpLevel: 'Level', fpWins: 'Wins', fpPlayed: 'Played',
+    qChest: 'Chest', chestGot: 'You got a chest! Open it on the home screen', chestWait: '{n} more games for a chest', chestCoins: '{n} coins', chestSub: 'Added to your balance', chestItem: 'A new look in {k} — equipped',
+    lbWeek: 'This week', lbAll: 'All time', lbWeekNote: '{d} days left. 1st {a} coins, 2nd {b}, 3rd {c}.', wkPrizeT: 'You finished the week #{n}', wkPrizeS: 'You won {w} games last week',
+    titleFan: '{g} fan', titlePro: '{g} pro', titleKing: 'King of {g}',
+    tarneeb: 'Tarneeb', tarneebSub: 'Partners, 2 vs 2, with bidding', trSetupHint: 'You and the player opposite are a team. Bid on tricks; the winner names trump.',
+    trScore: 'Us {a} · Them {b} · to {n}', trTrump: 'Trump', trGot: '{n} tricks', trNeed: '{who} bid {n} · us {us} them {them}', trUs: 'Us', trThem: 'Them',
+    trBidTitle: 'How many tricks?', trBidHint: 'Minimum 7. You and your partner must take them together.', trTopBid: 'Top bid {n} by {name}', trDeclarer: '{name} took it with {n}',
+    trPick: 'Pick the trump', trPickTitle: 'Which suit is trump?', trPickHint: 'This suit beats every other. You need {n} tricks.', trWeTook: 'Ours', trTheyTook: 'Theirs',
+    trMadeUs: 'We made our {n}', trFailUs: 'We missed our {n} — it is deducted', trMadeThem: 'They made their {n}', trFailThem: 'They missed their {n} — points to us', trTricks: 'Tricks', trWin: 'Your team wins!', trLose: 'The other team wins',
+    how_tarneeb_s: 'You and your partner take the tricks you bid.',
+    how_tarneeb: [['🤝', 'Four players: you and the player opposite versus the other two.'], ['🗣️', 'Each player bids tricks for the team (7 to 13) or passes. Highest bid wins.'], ['♠️', 'The winner names trump: the suit that beats all others.'], ['🃏', 'Follow the led suit if you can. Otherwise trump it or discard.'], ['✅', 'If the bidding team makes it, they score their tricks.'], ['❌', 'If not, the bid is deducted and the other team scores its tricks.']],
+    snl: 'Snakes & Ladders', snlSub: 'Up to 4 players, pure luck', snlHint: 'Roll and climb. Ladders lift you, snakes drop you. First to land exactly on 100 wins.', snlFirst: 'First to 100', snlAt: 'Square {n}', snlStart: 'Not started',
+    snlLadder: 'Ladder! Up you go', snlSnake: 'Snake! Down you go', snlSix: 'Six! Roll again', snlOver: 'You need the exact number', snlWin: 'You reached 100! You win', snlLose: '{name} reached 100',
+    how_snl_s: 'Be the first to reach square 100.',
+    how_snl: [['🎲', 'Roll the die and move that many squares.'], ['🪜', 'Land at the foot of a ladder and climb it.'], ['🐍', 'Land on a snake head and slide to its tail.'], ['6️⃣', 'A six gives you another roll.'], ['🏁', 'You must land exactly on 100.']],
     c4: 'Four in a Row', c4Sub: 'Line up four before they do', c4Hint: 'Drop a disc in any column. First to line up four wins.', c4Win: 'Four in a row! You win', c4Lose: '{name} lined up four',
     how_c4_s: 'Line up four discs before your opponent.',
     how_c4: [['👆', 'Tap a column and your disc falls to the lowest free spot.'], ['4️⃣', 'Four in a line — across, up, or diagonal — wins.'], ['🛡️', 'If they have three in a line, block before they finish.'], ['🎯', 'The middle column is the strongest place to start.']],
@@ -2696,7 +2837,7 @@ function applyLang() {
 
 var AVATARS = ['😎', '🧔🏽', '👩🏽', '🧕🏽', '👨🏽‍🦱', '🦁', '🐪', '🦅'];
 var SKINS = ['sadaf', 'khayamiya', 'neon', 'marble', 'pharaoh'];
-var APP_VER = '2.0.0';
+var APP_VER = '2.1.0';
 var BOTS = [{ k: 0, av: '🧑🏽' }, { k: 1, av: '👴🏽' }, { k: 2, av: '🧔🏽' }, { k: 3, av: '👵🏽' }];
 function botsFor(level, count) {
   var first = { easy: 0, medium: 1, hard: 2 }[level] || 0;
@@ -2706,6 +2847,7 @@ function botsFor(level, count) {
 
 /* ----- أيقونات ورسومات ----- */
 var ICON = {
+  box: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9h18v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1zM3 9l2-5h14l2 5M10 13h4"/></svg>',
   smile: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9.5"/><path d="M8 14.2c1 1.5 2.4 2.3 4 2.3s3-.8 4-2.3"/><path d="M9 9.4v.6M15 9.4v.6" stroke-width="2.6"/></svg>',
   home: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg>',
   bag: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4zM3 6h18M16 10a4 4 0 0 1-8 0"/></svg>',
@@ -3026,6 +3168,7 @@ function homeClick(ev) {
     if (ev.target.closest('#h-daily')) { Snd.play('tap'); openDaily(); return; }
     if (ev.target.closest('#h-stats')) { Snd.play('tap'); openStats(); return; }
     if (ev.target.closest('#h-wheel')) { Snd.play('tap'); openWheel(); return; }
+    if (ev.target.closest('#h-chest')) { Snd.play('tap'); openChest(); return; }
     if (ev.target.closest('#h-me')) { Snd.play('tap'); openProfile(); return; }
     if (sk) { Snd.play('tap'); var kk = sk.getAttribute('data-pick-skin'); if (ownsSkin(kk)) setSkin(kk); else openShop(); return; }
     if (ev.target.closest('#h-set')) { Snd.play('tap'); openSettings(); }
@@ -3081,6 +3224,18 @@ function openSetup(game, opt) {
       field(t('chSide'), segHTML('side', [['w', t('chWhite')], ['b', t('chBlack')], ['random', t('chRandom')]], cfg.side)) +
       '<div id="lvl-f">' + field(t('level'), segHTML('level', [['easy', t('easy')], ['medium', t('medium')], ['hard', t('hard')]], cfg.level)) + '</div>' + timerField(cfg) +
       '<button class="btn cta" data-go>' + t('letsPlay') + '</button>';
+  } else if (game === 'tarneeb') {
+    html = '<h2>' + t('tarneeb') + '</h2>' + vsField(vs) +
+      '<div id="lvl-f">' + field(t('level'), segHTML('level', [['easy', t('easy')], ['medium', t('medium')], ['hard', t('hard')]], cfg.level)) + '</div>' +
+      field(t('matchTo'), segHTML('target', [[31, '31'], [41, '41'], [61, '61']], cfg.target)) + timerField(cfg) +
+      '<p class="hint">' + t('trSetupHint') + '</p>' +
+      '<button class="btn plain sm wide" data-howgame="tarneeb">' + t('esHowBtn') + '</button>' +
+      '<button class="btn cta" data-go>' + t('letsPlay') + '</button>';
+  } else if (game === 'snl') {
+    html = '<h2>' + t('snl') + '</h2>' + vsField(vs) +
+      '<div id="pl-f">' + field(t('players'), segHTML('players', [[2, '2'], [3, '3'], [4, '4']], cfg.players)) + '</div>' + timerField(cfg) +
+      '<p class="hint">' + t('snlHint') + '</p>' +
+      '<button class="btn cta" data-go>' + t('letsPlay') + '</button>';
   } else if (game === 'c4') {
     html = '<h2>' + t('c4') + '</h2>' + vsField(vs) +
       '<div id="lvl-f">' + field(t('level'), segHTML('level', [['easy', t('easy')], ['medium', t('medium')], ['hard', t('hard')]], cfg.level)) + '</div>' + timerField(cfg) +
@@ -3119,6 +3274,7 @@ function openSetup(game, opt) {
       return;
     }
     if (ev.target.closest('[data-howest]')) { closeSheet(w); setTimeout(function () { openHowTo('estimation'); }, 280); return; }
+    var hg = ev.target.closest('[data-howgame]'); if (hg) { var gk = hg.getAttribute('data-howgame'); closeSheet(w); setTimeout(function () { openHowTo(gk); }, 280); return; }
     if (ev.target.closest('[data-social]')) { closeSheet(w); openSocial(); }
   });
   bindSeg(w, function (k, v) {
@@ -3136,7 +3292,7 @@ function openSetup(game, opt) {
       return;
     }
     closeSheet(w); Snd.unlock(); Snd.play('pop');
-    current = game === 'c4' ? new C4Match(cfg) : game === 'estimation' ? new EstimationMatch(cfg) : game === 'tawla' ? new TawlaMatch({ variant: cfg.variant, level: cfg.level, target: cfg.variant === 't31' ? 31 : cfg.target, timer: cfg.timer || 0 })
+    current = game === 'tarneeb' ? new TarneebMatch(cfg) : game === 'snl' ? new SnlMatch(cfg) : game === 'c4' ? new C4Match(cfg) : game === 'estimation' ? new EstimationMatch(cfg) : game === 'tawla' ? new TawlaMatch({ variant: cfg.variant, level: cfg.level, target: cfg.variant === 't31' ? 31 : cfg.target, timer: cfg.timer || 0 })
       : game === 'domino' ? new DominoMatch(cfg) : game === 'ludo' ? new LudoMatch(cfg) : game === 'chess' ? new ChessMatch(cfg) : new BasraMatch(cfg);
   });
 }
@@ -3203,6 +3359,7 @@ function openSettings() {
     grp(t('secSound'),
       setRow(t('sounds'), '', swBtn('sfx', S.sfx)) +
       setRow(t('musicL'), t('musicSub'), swBtn('music', S.music)) +
+      field(t('musicPick'), segHTML('musicPick', [['track', t('mpTrack')], ['calm', t('mpCalm')]], S.musicPick || 'track')) +
       ('vibrate' in navigator ? setRow(t('vibe'), t('vibeSub'), swBtn('vibe', S.vibe !== false)) : '')) +
     grp(t('secPlay'), field(t('pace'), segHTML('pace', [['calm', t('paceCalm')], ['normal', t('paceNormal')], ['fast', t('paceFast')]], S.pace || 'calm'))) +
     grp(t('secLook'),
@@ -3217,6 +3374,12 @@ function openSettings() {
   var w = openSheet(html);
   bindSeg(w, function (k, v) {
     if (k === 'pace') { S.pace = v; save(); applyPace(); return; }
+    if (k === 'musicPick') {
+      S.musicPick = v; Snd.setStyle(v);
+      // اختيار النوع والموسيقى مقفولة = عايز يسمعها
+      if (!S.music) { S.music = true; Snd.setMusic(true); Snd.unlock(); var mt = $('[data-tg="music"]', w); if (mt) mt.setAttribute('aria-checked', 'true'); }
+      save(); return;
+    }
     if (k !== 'lang' || v === S.lang) return;
     S.lang = v; save(); applyLang(); closeSheet(w); refreshScreen(); setTimeout(openSettings, 300);
   });
@@ -3454,7 +3617,7 @@ function showReact(name, e, mine) {
 var XP_WIN = 30, XP_LOSE = 10, XP_ONLINE = 10;
 var FRAMES = { none: 0, gold: 500, leaf: 900, ice: 1000, neon: 800, fire: 1200, royal: 1800 };
 var LOGIN_REWARD = [20, 30, 40, 50, 60, 80, 120];
-var GAMES5 = ['tawla', 'domino', 'estimation', 'basra', 'ludo', 'chess', 'c4'];
+var GAMES5 = ['tawla', 'domino', 'estimation', 'tarneeb', 'basra', 'ludo', 'chess', 'c4', 'snl'];
 
 function xpOf() { return S.xp || 0; }
 function levelOf(xp) { return Math.floor(Math.sqrt((xp || 0) / 50)) + 1; }
@@ -3474,6 +3637,10 @@ function recordGame(game, won, online, vsUid) {
   var st = S.streak || (S.streak = { cur: 0, best: 0 });
   if (won) { st.cur++; if (st.cur > st.best) st.best = st.cur; } else st.cur = 0;
   dailyBump(game, won, online);
+  if ((S.week || {}).id !== weekId()) S.week = { id: weekId(), w: 0 };
+  if (won) S.week.w++;
+  S.chestProg = (S.chestProg || 0) + 1;
+  if (S.chestProg >= 5) { S.chestProg = 0; S.chests = (S.chests || 0) + 1; setTimeout(function () { toast(t('chestGot')); }, 1600); }
   if (online) S.onlineGames = (S.onlineGames || 0) + 1;
   save();
   var c = (won ? WIN_COINS : PLAY_COINS) + (won && st.cur >= 3 ? 10 : 0);
@@ -3552,10 +3719,12 @@ function maybeLoginReward() {
   var gap = L.day ? dayNum(k) - dayNum(L.day) : 99;
   var streak = gap === 1 ? Math.min(L.streak + 1, 7) : 1, amt = LOGIN_REWARD[streak - 1];
   var sh = openSheet('<p class="res-title">' + t('loginTitle') + '</p><div class="login-days">' + LOGIN_REWARD.map(function (v, i) {
-    return '<div class="ld' + (i < streak - 1 ? ' past' : i === streak - 1 ? ' now' : '') + '"><small>' + t('dayN', { n: i + 1 }) + '</small><b>' + v + '</b></div>';
+    return '<div class="ld' + (i < streak - 1 ? ' past' : i === streak - 1 ? ' now' : '') + '"><small>' + t('dayN', { n: i + 1 }) + '</small><b>' + v + (i === 6 ? ' 🎁' : '') + '</b></div>';
   }).join('') + '</div><button class="btn cta" data-take>' + ICON.coin + ' ' + t('takeN', { n: amt }) + '</button>', { locked: true });
   $('[data-take]', sh).addEventListener('click', function () {
-    S.login = { day: k, streak: streak }; S.coins = coins() + amt; save(); paintCoins();
+    S.login = { day: k, streak: streak }; S.coins = coins() + amt;
+    if (streak === 7) { S.chests = (S.chests || 0) + 1; toast(t('chestGot')); }
+    save(); paintCoins(); if ($('.home', app)) renderHome();
     Snd.play('pop'); closeSheet(sh);
   });
 }
@@ -3601,31 +3770,82 @@ function wireFramesShop(sh, reopen) {
 }
 
 /* ----- ترتيب الصحاب ----- */
+// الأسبوع بيبدأ الجمعة. الرقم ده هو عدد الأسابيع من جمعة ثابتة، فكل الأجهزة بتحسبه زي بعض
+function weekId() { return Math.floor((Date.now() / 86400000 - 1) / 7); }
+function weekWins() { var w = S.week || {}; return w.id === weekId() ? (w.w || 0) : 0; }
+function weekDaysLeft() { var d = (Date.now() / 86400000 - 1) / 7; return Math.max(1, Math.ceil((1 - (d - Math.floor(d))) * 7)); }
+// اللقب: من اللعبة اللي كسبت فيها أكتر
+function myTitle() {
+  var best = '', n = 0;
+  GAMES5.forEach(function (g) { var w = (S.stats[g] || {}).w || 0; if (w > n) { n = w; best = g; } });
+  if (n < 3) return '';
+  return t(n >= 25 ? 'titleKing' : n >= 10 ? 'titlePro' : 'titleFan', { g: t(best) });
+}
 function pushStats() {
   if (typeof fbDb === 'undefined' || !fbDb || !myUid) return;
   var w = 0; GAMES5.forEach(function (g) { w += S.stats[g].w; });
-  fbDb.collection('users').doc(myUid).set({ xp: xpOf(), lvl: levelOf(xpOf()), wins: w, frame: S.frame || 'none' }, { merge: true }).catch(function () {});
+  fbDb.collection('users').doc(myUid).set({ xp: xpOf(), lvl: levelOf(xpOf()), wins: w, frame: S.frame || 'none', title: myTitle(), wkId: weekId(), wkW: weekWins() }, { merge: true }).catch(function () {});
 }
+// أول ما أسبوع جديد يبدأ: بنحسب ترتيبك في اللي فات ونديك جايزته
+var WEEK_PRIZE = [300, 150, 75];
+function weekRollover() {
+  var cur = weekId(), w = S.week || { id: cur, w: 0 };
+  if (w.id === cur) { if (!S.week) { S.week = w; save(); } return; }
+  var mine = w.w || 0, rank = 0, rivals = 0;
+  Object.keys(friendsData).forEach(function (u) { var f = friendsData[u]; if (f.wkId === w.id) { rivals++; if ((f.wkW || 0) > mine) rank++; } });
+  S.week = { id: cur, w: 0 }; save();
+  if (mine > 0 && rivals > 0 && rank < 3) {
+    var prize = WEEK_PRIZE[rank];
+    setTimeout(function () {
+      var sh = openSheet('<div class="upd-sheet"><div class="upd-ic">' + ['🥇', '🥈', '🥉'][rank] + '</div><p class="res-title">' + t('wkPrizeT', { n: rank + 1 }) + '</p><p class="res-sub">' + t('wkPrizeS', { w: mine }) + '</p>' +
+        '<button class="btn cta" data-take>' + ICON.coin + ' ' + t('takeN', { n: prize }) + '</button></div>', { locked: true });
+      $('[data-take]', sh).addEventListener('click', function () { addCoins(prize); Snd.play('win'); confetti(); closeSheet(sh); });
+    }, 1200);
+  }
+  pushStats();
+}
+var LB_MODE = 'week';
+document.addEventListener('click', function (ev) {
+  var b = ev.target.closest('[data-lb]'); if (!b) return;
+  LB_MODE = b.getAttribute('data-lb'); Snd.play('tap');
+  if (typeof paintBoard === 'function') paintBoard();
+});
 function leaderboardHTML() {
   var w = 0; GAMES5.forEach(function (g) { w += S.stats[g].w; });
   var rows = [{ me: true, name: S.name, photo: S.photo, frame: S.frame, xp: xpOf(), wins: w }];
   Object.keys(friendsData).forEach(function (u) { var f = friendsData[u]; rows.push({ name: f.name, photo: f.photo, frame: f.frame, xp: f.xp || 0, wins: f.wins || 0 }); });
   if (rows.length < 2) return '';
-  rows.sort(function (a, b) { return b.xp - a.xp || b.wins - a.wins; });
-  return '<h3 class="sec-h">' + t('board') + '</h3><div class="lb">' + rows.map(function (r, i) {
+  var wk = weekId();
+  rows[0].wk = weekWins();
+  Object.keys(friendsData).forEach(function (u, i) { var f = friendsData[u]; rows[i + 1].wk = f.wkId === wk ? (f.wkW || 0) : 0; rows[i + 1].title = f.title || ''; });
+  rows[0].title = myTitle();
+  var week = LB_MODE === 'week';
+  rows.sort(week ? function (a, b) { return b.wk - a.wk || b.xp - a.xp; } : function (a, b) { return b.xp - a.xp || b.wins - a.wins; });
+  return '<h3 class="sec-h">' + t('board') + '</h3>' +
+    '<div class="seg lb-seg"><button type="button" data-lb="week" aria-pressed="' + week + '">' + t('lbWeek') + '</button><button type="button" data-lb="all" aria-pressed="' + !week + '">' + t('lbAll') + '</button></div>' +
+    (week ? '<p class="lb-note">' + t('lbWeekNote', { d: weekDaysLeft(), a: WEEK_PRIZE[0], b: WEEK_PRIZE[1], c: WEEK_PRIZE[2] }) + '</p>' : '') +
+    '<div class="lb">' + rows.map(function (r, i) {
     return '<div class="lb-row' + (r.me ? ' me' : '') + '"><span class="lb-n">' + (i < 3 ? ['🥇', '🥈', '🥉'][i] : i + 1) + '</span><span class="av">' + framedAv(r.name, r.photo, r.frame) + '</span>' +
-      '<b>' + esc(r.name || '') + '</b><small>' + t('lvlShort', { n: levelOf(r.xp) }) + ' · ' + t('winsN', { n: r.wins }) + '</small></div>';
+      '<b>' + esc(r.name || '') + (r.title ? '<i class="ttl">' + esc(r.title) + '</i>' : '') + '</b><small>' + (week ? t('winsN', { n: r.wk }) : t('lvlShort', { n: levelOf(r.xp) }) + ' · ' + t('winsN', { n: r.wins })) + '</small></div>';
   }).join('') + '</div>';
 }
 
 /* ----- الرئيسية: كارت اللاعب وأزرار التحديات ----- */
 // ترتيب الألعاب في الرئيسية، وأول واحدة بتاخد الكارت العريض
-var HOME_GAMES = ['tawla', 'domino', 'estimation', 'basra', 'ludo', 'chess', 'c4'];
+var HOME_GAMES = ['tawla', 'domino', 'estimation', 'tarneeb', 'basra', 'ludo', 'chess', 'c4', 'snl'];
 var C4_ART = '<svg viewBox="0 0 60 44" aria-hidden="true"><rect x="8" y="3" width="44" height="38" rx="6" fill="#2f5fd0" stroke="#152c6b" stroke-width="1.4"/>' +
   [[0,0,0],[1,0,0],[2,0,2],[3,0,0],[0,1,0],[1,1,2],[2,1,1],[3,1,0],[0,2,2],[1,2,1],[2,2,1],[3,2,2]].map(function (d) {
     return '<circle cx="' + (15.5 + d[0] * 9.7) + '" cy="' + (10.5 + d[1] * 11.5) + '" r="3.9" fill="' + ['#16306f', '#e5484d', '#f2c230'][d[2]] + '"/>';
   }).join('') + '</svg>';
-function gameArt(g) { return { tawla: TAWLA_ART, domino: DOMINO_ART, estimation: EST_ART, basra: BASRA_ART, ludo: LUDO_ART, chess: CHESS_ART, c4: C4_ART }[g] || ''; }
+var TARNEEB_ART = '<svg viewBox="0 0 60 44" aria-hidden="true">' + [[-16, 16, '7', '#1a1230'], [0, 30, '\u2660', '#1a1230'], [16, 44, 'A', '#c8382f']].map(function (c, i) {
+  return '<g transform="translate(' + c[1] + ' 41) rotate(' + c[0] + ')"><rect x="-10" y="-35" width="20" height="30" rx="3" fill="' + (i === 1 ? '#f6d776' : '#fffdf8') + '" stroke="#1a1230" stroke-width="1.4"/>' +
+    '<text x="0" y="-14" font-size="' + (i === 1 ? 16 : 13) + '" font-weight="800" text-anchor="middle" fill="' + c[3] + '" font-family="sans-serif">' + c[2] + '</text></g>';
+}).join('') + '</svg>';
+var SNL_ART = '<svg viewBox="0 0 60 44" aria-hidden="true"><rect x="10" y="2" width="40" height="40" rx="5" fill="#f4ecd6" stroke="#1a1230" stroke-width="1.4"/>' +
+  '<path d="M10 12h40M10 22h40M10 32h40M20 2v40M30 2v40M40 2v40" stroke="#c9b98f" stroke-width=".8"/>' +
+  '<path d="M17 37 27 9M21 38 31 10M18.6 32.5l4 1M20.4 27.5l4 1M22.2 22.5l4 1M24 17.5l4 1M25.8 12.5l4 1" stroke="#8a5a2b" stroke-width="1.5" stroke-linecap="round"/>' +
+  '<path d="M44 8c-8 4 4 10-4 15s2 9-5 13" fill="none" stroke="#2a9d5c" stroke-width="3.4" stroke-linecap="round"/><circle cx="44" cy="8" r="2.6" fill="#2a9d5c"/><circle cx="43.2" cy="7.4" r=".6" fill="#fff"/><circle cx="45" cy="7.4" r=".6" fill="#fff"/></svg>';
+function gameArt(g) { return { tawla: TAWLA_ART, domino: DOMINO_ART, estimation: EST_ART, basra: BASRA_ART, ludo: LUDO_ART, chess: CHESS_ART, c4: C4_ART, tarneeb: TARNEEB_ART, snl: SNL_ART }[g] || ''; }
 function gameTile(g, i) {
   var st = S.stats[g] || { w: 0, p: 0 };
   return '<button class="gt g-' + g + (i === 0 ? ' wide' : '') + '" data-game="' + g + '"><span class="gt-art">' + gameArt(g) + '</span>' +
@@ -3639,13 +3859,32 @@ function homeNavHTML() {
     '<button id="h-shop2">' + ICON.bag + '<span>' + t('qShop') + '</span></button>' +
     '<button id="h-stats">' + ICON.chart + '<span>' + t('qStats') + '</span></button></nav>';
 }
+// الصندوق: بييجي بعد كل 5 جيمات، وفيه كوينز أو حاجة من المحل معندكش
+function chestLoot() {
+  var pool = [];
+  Object.keys(FELTS).forEach(function (k) { if (!ownsFelt(k)) pool.push(['table', k, t('ft_' + k), t('tabTable')]); });
+  Object.keys(CARDS).forEach(function (k) { if (!ownsCards(k)) pool.push(['cards', k, t('cd_' + k), t('tabCards')]); });
+  Object.keys(TILES).forEach(function (k) { if (!ownsTiles(k)) pool.push(['tiles', k, t('tl_' + k), t('tabTiles')]); });
+  if (pool.length && Math.random() < 0.25) { var it = pool[Math.floor(Math.random() * pool.length)]; return { item: it }; }
+  return { coins: [40, 60, 80, 100, 150][Math.floor(Math.random() * 5)] };
+}
+function openChest() {
+  if (!(S.chests || 0)) { toast(t('chestWait', { n: 5 - (S.chestProg || 0) })); return; }
+  S.chests--; var loot = chestLoot();
+  if (loot.coins) S.coins = coins() + loot.coins; else applyBuy(loot.item[0] + ':' + loot.item[1]);
+  save(); paintCoins(); Snd.play('win'); confetti();
+  var sh = openSheet('<div class="upd-sheet"><div class="chest-ic">🎁</div><p class="res-title">' + (loot.coins ? t('chestCoins', { n: loot.coins }) : esc(loot.item[2])) + '</p>' +
+    '<p class="res-sub">' + (loot.coins ? t('chestSub') : t('chestItem', { k: loot.item[3] })) + '</p><button class="btn cta" data-close>' + t('close') + '</button></div>');
+  $('[data-close]', sh).addEventListener('click', function () { closeSheet(sh); if ($('.home', app)) renderHome(); });
+}
 function profileCardHTML() {
   var pr = lvlProgress(), ready = dailyReady();
   return '<button class="pcard" id="h-me"><span class="avatar">' + framedAv(S.name, S.photo, S.frame) + '<span class="lvl-badge">' + pr.lvl + '</span></span>' +
-    '<span class="pc-mid"><b>' + esc(S.name) + '</b><span class="bar xp"><i style="width:' + pr.pct + '%"></i></span><small>' + t('xpLeft', { n: pr.left }) + '</small></span>' +
+    '<span class="pc-mid"><b>' + esc(S.name) + (myTitle() ? '<i class="ttl">' + esc(myTitle()) + '</i>' : '') + '</b><span class="bar xp"><i style="width:' + pr.pct + '%"></i></span><small>' + t('xpLeft', { n: pr.left }) + '</small></span>' +
     '<span class="pc-coins">' + ICON.coin + '<b data-coins>' + coins() + '</b></span></button>' +
     '<div class="hx-quick"><button class="hq" id="h-daily">' + ICON.target + '<span>' + t('qDaily') + '</span>' + (ready ? '<i class="qdot">' + ready + '</i>' : '') + '</button>' +
-    '<button class="hq" id="h-wheel">' + ICON.gift + '<span>' + t('qWheel') + '</span>' + (wheelReady() ? '<i class="qdot">1</i>' : '') + '</button></div>';
+    '<button class="hq" id="h-wheel">' + ICON.gift + '<span>' + t('qWheel') + '</span>' + (wheelReady() ? '<i class="qdot">1</i>' : '') + '</button>' +
+    '<button class="hq" id="h-chest">' + ICON.box + '<span>' + t('qChest') + '</span>' + ((S.chests || 0) ? '<i class="qdot">' + S.chests + '</i>' : '<em>' + (S.chestProg || 0) + '/5</em>') + '</button></div>';
 }
 function refreshHomeBadges() { var wd = $('#h-wheel .qdot'); if (wd && !wheelReady()) wd.remove(); var b = $('#h-daily'); if (!b) return; var r = dailyReady(), d = $('.qdot', b); if (r && !d) b.insertAdjacentHTML('beforeend', '<i class="qdot">' + r + '</i>'); else if (d) { if (r) d.textContent = r; else d.remove(); } }
 
@@ -3752,7 +3991,7 @@ function applyTheme() {
 function setTheme(k) {
   var was = themeOf();
   S.theme = k; save(); applyTheme();
-  if (S.music && (k === 'xmas') !== (was === 'xmas')) { Snd.setMusic(false); Snd.setMusic(true); }
+  if (S.music && S.musicPick === 'calm' && (k === 'xmas') !== (was === 'xmas')) { Snd.setMusic(false); Snd.setMusic(true); }
 }
 // تلج خفيف للكريسماس
 function snow(on) {
@@ -3872,7 +4111,7 @@ function bumpVs(uid, won) {
 function openFriendProfile(uid) {
   var f = friendsData[uid] || {}, r = (S.vs || {})[uid] || { w: 0, l: 0 }, lvl = levelOf(f.xp || 0);
   var played = (f.wins || 0) + (f.losses || 0);
-  var sh = openSheet('<div class="fp-top"><div class="fp-av">' + framedAv(f.name, f.photo, f.frame) + '</div><h2>' + esc(f.name || '') + '</h2>' +
+  var sh = openSheet('<div class="fp-top"><div class="fp-av">' + framedAv(f.name, f.photo, f.frame) + '</div><h2>' + esc(f.name || '') + '</h2>' + (f.title ? '<p class="fp-ttl">' + esc(f.title) + '</p>' : '') +
     '<p class="fp-pres' + (f.online ? ' on' : '') + '">' + presText(f) + '</p></div>' +
     '<div class="fp-stats"><div><b>' + lvl + '</b><small>' + t('fpLevel') + '</small></div><div><b>' + (f.wins || 0) + '</b><small>' + t('fpWins') + '</small></div><div><b>' + played + '</b><small>' + t('fpPlayed') + '</small></div></div>' +
     '<h3 class="sec-h">' + t('vsRecord') + '</h3>' +
@@ -3886,7 +4125,7 @@ function openFriendProfile(uid) {
 }
 
 /* ----- إزاي تلعب ----- */
-var HOWTO = ['tawla', 'domino', 'estimation', 'basra', 'ludo', 'chess', 'c4'];
+var HOWTO = ['tawla', 'domino', 'estimation', 'tarneeb', 'basra', 'ludo', 'chess', 'c4', 'snl'];
 function openHowTo(game) {
   var g = game || 'tawla';
   var sh = openSheet('<h2>' + t('howTo') + '</h2>' +
@@ -3921,7 +4160,7 @@ function openSoon() {
  * وبعد أي تحديث بيظهر «الجديد في الإصدار» مرة واحدة. */
 var UPD_URL = 'https://technicalteam774.github.io/lamma/version.json';
 var APK_PAGE = 'https://github.com/TechnicalTeam774/lamma/releases/latest';
-var CHANGES = {"2.0.0": ["شكل جديد للعبة كلها: رئيسية مرتبة، شريط تنقّل تحت، وإعدادات ومحل وشرح بتصميم واحد", "ترابيزة كوتشينة حقيقية للبصرة واستيمشن، وتقدر تغيّر لونها من المحل", "استيمشن: اللاعيبة قاعدين حوالين الترابيزة، وكل ورقة بتنزل قدام صاحبها", "لعبة جديدة: أربعة تكسب — ضد الكمبيوتر أو مع صاحبك", "الردود جوه اللعب اتغيّرت: جُمل جاهزة وإيموجي بشكل أهدى", "زرار الرجوع: ضغطتين على الرئيسية يقفلوا الأبلكيشن", "استيمشن وأربعة تكسب بقوا في تحدّي الصحاب وفي نتايجك", "بروفايل الصاحب بشكل جديد"], "1.1.1": ["كل تحديث بقى له رقم جديد، فالأبلكيشن هيبلّغك بيه أول ما ينزل", "زرار «نزّل التحديث» بقى ينزّل ملف الأبلكيشن على طول", "اللعبة بتفتح أسرع بكتير", "رقم حسابك بقى يبان في الإعدادات"], "1.1.0": ["اللعبة بقت تفتح أسرع بكتير — فايربيز مابقتش توقف ظهور اللعبة، والملفات بتتخزّن من أول مرة", "رقم الإصدار بقى واحد في كل مكان — في الأبلكيشن وفي صفحة التنزيل", "استيمشن بقت تتلعب مع صحابك — أربعة أونلاين، بالمناقصة والحكم والتوقّع", "لوحة المزايدة اتحركت فوق، مابقتش مغطّية الورق اللي في إيدك", "شكل الكوتشينة اتعمل من أول وجديد: ورق زي الحقيقي، والورق في إيدك بيتفرد مروحة", "الأكلة بقت تفضل على الترابيزة لحد ما تشوف الورقة الرابعة ومين كسبها", "بورد لودو اتعمل من جديد بشكل أحلى", "موسيقى جديدة هادية، والقديمة اللي فيها خرشة اتشالت", "زرار الرجوع بقى يشتغل صح ويسألك قبل ما تخرج", "المحل كبر: 11 ثيم و7 ورق و7 أحجار و7 إيموجي و7 إطارات، وكل تبويب بيقولك الحاجة بتبان فين", "الإشعارات: القناة بقت تتعمل مع فتح الأبلكيشن، والإشعار بيبان جوه اللعبة، وتجربة الإشعار بقت تقولك وقفت فين بالظبط", "رقم حسابك بقى يبان في الإعدادات عشان نقدر نفحص الإشعارات"], "1.0.12": ["لعبة جديدة: استيمشن بأربع لاعيبة، بالمناقصة والحكم والتوقّع", "شرح كامل لاستيمشن جوه اللعبة: إزاي تزايد وتحسب نقطك", "تصليح الإشعارات: الجهاز بقى يتسجّل صح أول ما يفتح الأبلكيشن"]};
+var CHANGES = {"2.1.0": ["نغمة جديدة للعبة 🎵 — شغّلها من الإعدادات ← الموسيقى، وتقدر ترجع للموسيقى الهادية من نفس المكان", "لعبة جديدة: طرنيب — شركا 2 ضد 2 بالمزايدة، ضد الكمبيوتر أو مع 3 من صحابك", "لعبة جديدة: السلّم والثعبان — لحد 4 لاعيبة", "بطولة الأسبوع بين الصحاب: ترتيب بيتصفّر كل جمعة، والتلاتة الأوائل ياخدوا كوينز", "صندوق هدية بعد كل 5 جيمات: كوينز أو شكل جديد من المحل", "لقب تحت اسمك حسب اللعبة اللي بتكسب فيها أكتر، وبيبان لصحابك", "اليوم السابع في مكافأة الدخول بقى فيه صندوق كمان", "الورق بيتوزّع قدامك ورقة ورقة، وصوت جديد للورق", "بورد الطاولة بقى له عمق ولمعة", "نتيجة استيمشن بقت تتسجّل في نتايجك (كانت بتضيع)"], "2.0.0": ["شكل جديد للعبة كلها: رئيسية مرتبة، شريط تنقّل تحت، وإعدادات ومحل وشرح بتصميم واحد", "ترابيزة كوتشينة حقيقية للبصرة واستيمشن، وتقدر تغيّر لونها من المحل", "استيمشن: اللاعيبة قاعدين حوالين الترابيزة، وكل ورقة بتنزل قدام صاحبها", "لعبة جديدة: أربعة تكسب — ضد الكمبيوتر أو مع صاحبك", "الردود جوه اللعب اتغيّرت: جُمل جاهزة وإيموجي بشكل أهدى", "زرار الرجوع: ضغطتين على الرئيسية يقفلوا الأبلكيشن", "استيمشن وأربعة تكسب بقوا في تحدّي الصحاب وفي نتايجك", "بروفايل الصاحب بشكل جديد"], "1.1.1": ["كل تحديث بقى له رقم جديد، فالأبلكيشن هيبلّغك بيه أول ما ينزل", "زرار «نزّل التحديث» بقى ينزّل ملف الأبلكيشن على طول", "اللعبة بتفتح أسرع بكتير", "رقم حسابك بقى يبان في الإعدادات"], "1.1.0": ["اللعبة بقت تفتح أسرع بكتير — فايربيز مابقتش توقف ظهور اللعبة، والملفات بتتخزّن من أول مرة", "رقم الإصدار بقى واحد في كل مكان — في الأبلكيشن وفي صفحة التنزيل", "استيمشن بقت تتلعب مع صحابك — أربعة أونلاين، بالمناقصة والحكم والتوقّع", "لوحة المزايدة اتحركت فوق، مابقتش مغطّية الورق اللي في إيدك", "شكل الكوتشينة اتعمل من أول وجديد: ورق زي الحقيقي، والورق في إيدك بيتفرد مروحة", "الأكلة بقت تفضل على الترابيزة لحد ما تشوف الورقة الرابعة ومين كسبها", "بورد لودو اتعمل من جديد بشكل أحلى", "موسيقى جديدة هادية، والقديمة اللي فيها خرشة اتشالت", "زرار الرجوع بقى يشتغل صح ويسألك قبل ما تخرج", "المحل كبر: 11 ثيم و7 ورق و7 أحجار و7 إيموجي و7 إطارات، وكل تبويب بيقولك الحاجة بتبان فين", "الإشعارات: القناة بقت تتعمل مع فتح الأبلكيشن، والإشعار بيبان جوه اللعبة، وتجربة الإشعار بقت تقولك وقفت فين بالظبط", "رقم حسابك بقى يبان في الإعدادات عشان نقدر نفحص الإشعارات"], "1.0.12": ["لعبة جديدة: استيمشن بأربع لاعيبة، بالمناقصة والحكم والتوقّع", "شرح كامل لاستيمشن جوه اللعبة: إزاي تزايد وتحسب نقطك", "تصليح الإشعارات: الجهاز بقى يتسجّل صح أول ما يفتح الأبلكيشن"]};
 function verNum(v) { var p = String(v || '0').split('.'); return (+p[0] || 0) * 1e6 + (+p[1] || 0) * 1e3 + (+p[2] || 0); }
 var updLast = 0;
 function checkUpdate(manual) {
@@ -3956,8 +4195,16 @@ function showWhatsNew() {
   S.seenVer = APP_VER; save();
   var notes = CHANGES[APP_VER];
   if (!notes || !notes.length) return;
-  var sh = openSheet('<div class="upd-ic">✨</div><p class="res-title">' + t('newIn', { v: APP_VER }) + '</p>' + notesHTML(notes) + '<button class="btn cta" data-ok>' + t('letsGo') + '</button>');
+  var sh = openSheet('<div class="upd-ic">✨</div><p class="res-title">' + t('newIn', { v: APP_VER }) + '</p>' + notesHTML(notes) +
+    (S.music && S.musicPick !== 'calm' ? '' : '<button class="btn plain wide" data-tune>🎵 ' + t('tryTune') + '</button>') +
+    '<button class="btn cta" data-ok>' + t('letsGo') + '</button>');
   $('[data-ok]', sh).addEventListener('click', function () { closeSheet(sh); });
+  var tb = $('[data-tune]', sh);
+  if (tb) tb.addEventListener('click', function () {
+    S.music = true; S.musicPick = 'track'; save();
+    Snd.setStyle('track'); Snd.setMusic(true); Snd.unlock();
+    tb.remove(); toast(t('tuneOn'));
+  });
 }
 document.addEventListener('visibilitychange', function () {
   if (document.visibilityState === 'visible' && Date.now() - updLast > 6 * 3600000) checkUpdate(false);
@@ -4071,7 +4318,8 @@ function listenFriends() {
         if (!u.exists) return;
         var d = u.data();
         var seen = d.lastSeen && d.lastSeen.toMillis ? d.lastSeen.toMillis() : 0;
-        friendsData[uid] = { name: d.name || friendsData[uid].name, photo: d.photo, online: isOnline(d.lastSeen), seen: seen, xp: d.xp || 0, wins: d.wins || 0, frame: d.frame || 'none' };
+        friendsData[uid] = { name: d.name || friendsData[uid].name, photo: d.photo, online: isOnline(d.lastSeen), seen: seen, xp: d.xp || 0, wins: d.wins || 0, frame: d.frame || 'none', title: d.title || '', wkId: d.wkId || 0, wkW: d.wkW || 0 };
+        clearTimeout(weekRollover.tm); weekRollover.tm = setTimeout(weekRollover, 2500);
         if (socialRoot && socialRoot.isConnected) paintBoard();
         if (socialRoot && socialRoot.isConnected) paintFriends();
       });
@@ -4533,8 +4781,10 @@ function runPushTest(out, again) {
       var j;
       try { j = JSON.parse(txt); } catch (e) { throw new Error('bad:' + txt.slice(0, 60)); }
       if (j.ok && j.sent > 0) { say('ptOk'); return; }
+      // السيرفر لقى جهازك بس جوجل رفضت توصّله: نوري السبب زي ما جوجل كتبته
+      if (j.ok && j.devices > 0) { say('ptFcm', j.last || '?'); return; }
       if (j.ok) {
-        if (again) { say('ptNoDev'); return; }   // جرّبنا مرة وسجّلنا الجهاز وبرضو مفيش
+        if (again) { say('ptNoSee'); return; }   // سجّلنا الجهاز وبرضو السيرفر مش شايفه
         return withTimeout(ensureToken(), 25000, 'token').then(function (saved) {
           if (!saved) { say(S.pushErr ? 'ptErr' : 'ptNoDev', S.pushErr || ''); return; }
           say('ptRetry');
@@ -4561,12 +4811,12 @@ function runPushTest(out, again) {
  * كل لاعب بيبعت حركته بس، والباقيين بيطبقوها بنفس القواعد، فالبورد بيفضل واحد عند الكل.
  * الكرسي 0 دايمًا صاحب الأوضة، وكل واحد بيشوف نفسه تحت (الكرسي 0 عنده). */
 var INVITE_TTL = 3 * 60 * 1000;
-var MULTI = { domino: 4, ludo: 4, estimation: 4 };
+var MULTI = { domino: 4, ludo: 4, estimation: 4, tarneeb: 4, snl: 4 };
 function pad6(n) { var s = String(n); while (s.length < 6) s = '0' + s; return s; }
 function tsMillis(ts) { return ts && ts.toMillis ? ts.toMillis() : Date.now(); }
 function maxPlayers(game) { return MULTI[game] || 2; }
 // استيمشن لازم يكون أربعة بالظبط، مفيش كمبيوتر بيكمّل
-function needPlayers(game) { return game === 'estimation' ? 4 : 2; }
+function needPlayers(game) { return game === 'estimation' || game === 'tarneeb' ? 4 : 2; }
 
 function OnlineLink(roomId, players, infos) {
   var self = this;
@@ -4811,6 +5061,8 @@ function startOnlineMatch(roomId, d) {
   else if (game === 'ludo') current = new LudoMatch({ players: link.n, level: 'medium', timer: timer, online: online });
   else if (game === 'estimation') current = new EstimationMatch({ level: 'medium', target: cfg.target, timer: timer, online: online });
   else if (game === 'c4') current = new C4Match({ level: 'medium', timer: timer, online: online });
+  else if (game === 'tarneeb') current = new TarneebMatch({ level: 'medium', target: cfg.target, timer: timer, online: online });
+  else if (game === 'snl') current = new SnlMatch({ players: link.n, timer: timer, online: online });
   else if (game === 'chess') current = new ChessMatch({ side: link.seat === 0 ? cfg.side : (cfg.side === 'w' ? 'b' : 'w'), level: 'medium', timer: timer, online: online });
   else current = new BasraMatch({ level: 'medium', target: cfg.target, timer: timer, online: online });
   link.onLeft = function (name) { if (current && current.online && current.online.link === link) friendLeft(name); };
@@ -4839,7 +5091,7 @@ function waitNote(name) { return '<p class="res-sub wait-note">' + esc(t('waitHo
 
 /* ----- اختيار اللعبة من الشات ----- */
 function openGamePicker(friendUid) {
-  var games = ['tawla', 'domino', 'estimation', 'basra', 'ludo', 'chess', 'c4'];
+  var games = ['tawla', 'domino', 'estimation', 'tarneeb', 'basra', 'ludo', 'chess', 'c4', 'snl'];
   var sh = openSheet('<h2>' + t('pickGame') + '</h2><div class="gpick">' +
     games.map(function (g) { return '<button class="btn plain gp" data-g="' + g + '">' + t(g) + '</button>'; }).join('') + '</div>');
   sh.addEventListener('click', function (ev) {
@@ -4904,6 +5156,8 @@ function boardSVG() {
     '<pattern id="p-khay" width="60" height="60" patternUnits="userSpaceOnUse"><rect x="18" y="18" width="24" height="24" fill="none" style="stroke:var(--pt-a)" stroke-opacity=".2" stroke-width="2"/><rect x="18" y="18" width="24" height="24" transform="rotate(45 30 30)" fill="none" style="stroke:var(--frame)" stroke-opacity=".18" stroke-width="2"/><circle cx="30" cy="30" r="3.2" style="fill:var(--bar)" fill-opacity=".45"/></pattern>' +
     '<pattern id="p-marble" width="260" height="200" patternUnits="userSpaceOnUse"><path d="M-10 50C40 20 90 100 150 60S230 30 270 80" fill="none" stroke="#7c818b" stroke-opacity=".22" stroke-width="2"/><path d="M-10 150C60 120 120 190 190 140S250 120 270 160" fill="none" stroke="#7c818b" stroke-opacity=".16" stroke-width="1.5"/></pattern>' +
     '<pattern id="p-grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M40 0H0V40" fill="none" style="stroke:var(--pt-a)" stroke-opacity=".1" stroke-width="1.5"/></pattern>' +
+    '<radialGradient id="gShade" cx="50%" cy="50%" r="72%"><stop offset=".45" stop-color="#000" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".42"/></radialGradient>' +
+    '<linearGradient id="gGloss" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#fff" stop-opacity=".22"/><stop offset=".35" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".28"/></linearGradient>' +
     '</defs><g class="rot">' +
     '<rect class="b-frame" width="' + G.W + '" height="' + G.H + '" rx="26"/>' +
     '<rect class="b-pat b-frame-pat" width="' + G.W + '" height="' + G.H + '" rx="26"/>';
@@ -4914,6 +5168,13 @@ function boardSVG() {
   s += '<rect class="b-bar" x="' + G.x1 + '" y="' + G.F + '" width="' + G.B + '" height="' + (G.H - 2 * G.F) + '"/>' +
     '<rect class="b-tray" x="' + G.tx + '" y="' + G.F + '" width="' + G.tw + '" height="' + (G.H - 2 * G.F) + '" rx="10"/>';
   for (var i = 1; i <= 24; i++) s += '<polygon class="tri ' + (i % 2 ? 'ta' : 'tb') + '" points="' + triPts(i) + '"/>';
+  // عمق: لمعة على الإطار، وضل جوه الملعب
+  s += '<rect class="b-gloss" width="' + G.W + '" height="' + G.H + '" rx="26" fill="url(#gGloss)"/>' +
+    '<rect class="b-bevel" x="4" y="4" width="' + (G.W - 8) + '" height="' + (G.H - 8) + '" rx="23"/>';
+  [G.x0, G.x2].forEach(function (x) {
+    s += '<rect class="b-shade" x="' + x + '" y="' + G.F + '" width="' + (6 * G.PW) + '" height="' + (G.H - 2 * G.F) + '" rx="6" fill="url(#gShade)"/>' +
+      '<rect class="b-inset" x="' + x + '" y="' + G.F + '" width="' + (6 * G.PW) + '" height="' + (G.H - 2 * G.F) + '" rx="6"/>';
+  });
   return s + '<g class="l-hl"></g><g class="l-ck"></g><g class="l-lbl"></g><g class="l-hit"></g></g></svg>';
 }
 function ckSVG(id, col) {
@@ -6388,7 +6649,7 @@ BP.newRound = async function () {
   }
   this.statusEl.textContent = '';
   this.phase = 'deal'; this.paint();
-  Snd.play('tile');
+  Snd.play('card');
   this.turn();
 };
 BP.turn = function () {
@@ -6416,7 +6677,7 @@ BP.playCard = async function (p, i) {
   landing.innerHTML = cardHTML(card, 'div', ' land' + (p === 0 ? ' from-me' : ' from-op'));
   this.ground.appendChild(landing.firstChild);
   if (p === 0) this.handEl.children[i].classList.add('gone'); else if (this.opHand.lastChild) this.opHand.lastChild.remove();
-  Snd.play('tile');
+  Snd.play('card');
   await sleep(pre.take.length ? 520 : 380);
   if (!this.alive) return;
   var r = BS.play(st, p, i);
@@ -6733,7 +6994,7 @@ EP.render = function () {
   var self = this;
   app.innerHTML = '<div class="game es">' +
     '<div class="gbar"><button class="ib back exitb" aria-label="' + t('exitGame') + '">' + ICON.x + '</button>' +
-    '<div class="gtitle"><b>' + t('estimation') + '</b><small class="g-score"></small></div>' +
+    '<div class="gtitle"><b>' + t(this.gameKey || 'estimation') + '</b><small class="g-score"></small></div>' +
     gameChatButton() + reactButton() + '<button class="ib gear" aria-label="' + t('settings') + '">' + ICON.gear + '</button></div>' +
     '<div class="es-table"><div class="es-trump"></div><div class="es-trick"></div>' +
     '<div class="es-seats">' + [1, 2, 3].map(function (p) {
@@ -6861,8 +7122,10 @@ EP.newRound = async function () {
     }
   }
   this.paint();
-  Snd.play('tile');
-  await sleep(420 * paceK());
+  Snd.play('deal');
+  this.handEl.classList.add('dealing');
+  var hEl = this.handEl; setTimeout(function () { hEl.classList.remove('dealing'); }, 900);
+  await sleep(620 * paceK());
   if (!this.alive) return;
   this.statusEl.textContent = '';
   this.step();
@@ -7047,7 +7310,7 @@ EP.playCard = async function (p, id) {
   var st = this.st;
   var n = st.trick.length;
   ES.play(st, p, id);
-  Snd.play('tile');
+  Snd.play('card');
   var full = n === 3 && st.lastTrick && st.lastTrick.length === 4;
   if (full) this.showTrick = st.lastTrick.slice();
   this.paint();
@@ -7099,7 +7362,7 @@ EP.roundOver = function () {
   for (i = 1; i < 4; i++) if (this.total[i] > this.total[best]) best = i;
   var done = this.round >= this.target;
   var meWon = done && best === 0;
-  if (done) { S.stats.estimation = S.stats.estimation || { w: 0, p: 0 }; recordGame('estimation', meWon, !!this.online); }
+  if (done) { S.stats.estimation = S.stats.estimation || { w: 0, p: 0 }; S.stats.estimation.p++; if (meWon) S.stats.estimation.w++; save(); recordGame('estimation', meWon, !!this.online); }
   if (meWon) confetti();
   Snd.play(done ? (meWon ? 'win' : 'lose') : 'pop');
   var rows = [0, 1, 2, 3].map(function (p) {
@@ -7374,6 +7637,595 @@ FP.refresh = function () {
   if (phase === 'move') { var self = this; this.tt.start(this.timerSecs, function () { self.timeUp(); }); }
 };
 
+/* ===== لمّة — طرنيب =====
+ * أربعة، كل اتنين قصاد بعض شركا (أنت واللي قدامك). 13 ورقة لكل واحد.
+ * بتزايدوا على عدد الأكلات (من 7 لـ 13)، واللي يكسب المزايدة يختار الطرنيب.
+ * لو فريقه جاب اللي قاله بياخد أكلاته نقط، ولو ماجابش بيخسر اللي قاله والتانيين ياخدوا أكلاتهم. */
+var Tarn = (function () {
+  var SUITS = ['S', 'H', 'D', 'C'], MIN = 7;
+  function card(id) { return { s: id.charAt(0), r: +id.slice(1), id: id }; }
+  function sortHand(h) { var ord = { S: 0, H: 1, D: 2, C: 3 }; return h.slice().sort(function (a, b) { return ord[a.s] - ord[b.s] || b.r - a.r; }); }
+  function newRound(first, rnd, ready) {
+    var hands = ready || [[], [], [], []], d = [], s, r, i;
+    if (!ready) {
+      for (s = 0; s < 4; s++) for (r = 2; r <= 14; r++) d.push({ s: SUITS[s], r: r, id: SUITS[s] + r });
+      for (i = d.length - 1; i > 0; i--) { var j = Math.floor(rnd() * (i + 1)), x = d[i]; d[i] = d[j]; d[j] = x; }
+      for (i = 0; i < 52; i++) hands[i % 4].push(d[i]);
+      for (i = 0; i < 4; i++) hands[i] = sortHand(hands[i]);
+    }
+    return { hands: hands, first: first, turn: first, phase: 'bid', bids: [null, null, null, null], out: [false, false, false, false],
+      best: null, declarer: -1, trump: null, trick: [], lead: -1, won: [0, 0, 0, 0], tricks: 0, lastTrick: null, lastWinner: -1 };
+  }
+  function canBid(st, n) { return n >= MIN && n <= 13 && (!st.best || n > st.best.n); }
+  function bid(st, p, b) {
+    if (st.phase !== 'bid' || st.turn !== p || st.out[p]) return st;
+    if (b !== 'pass' && !canBid(st, b)) return st;
+    st.bids[p] = b;
+    if (b === 'pass') st.out[p] = true; else st.best = { n: b, by: p };
+    var live = [], i;
+    for (i = 0; i < 4; i++) if (!st.out[i]) live.push(i);
+    if (!live.length) { st.phase = 'redeal'; return st; }
+    if (st.best && (live.length === 1 || st.best.n === 13)) { st.declarer = st.best.by; st.phase = 'trump'; st.turn = st.declarer; return st; }
+    st.turn = (p + 1) % 4;
+    while (st.out[st.turn]) st.turn = (st.turn + 1) % 4;
+    return st;
+  }
+  function setTrump(st, p, suit) {
+    if (st.phase !== 'trump' || p !== st.declarer || SUITS.indexOf(suit) < 0) return st;
+    st.trump = suit; st.phase = 'play'; st.turn = st.declarer; st.lead = st.declarer;
+    return st;
+  }
+  function legal(st, p) {
+    var h = st.hands[p];
+    if (!st.trick.length) return h.slice();
+    var led = st.trick[0].c.s, same = h.filter(function (c) { return c.s === led; });
+    return same.length ? same : h.slice();
+  }
+  function beats(a, b, led, trump) {            // a بتكسب b؟
+    if (a.s === b.s) return a.r > b.r;
+    if (a.s === trump) return true;
+    if (b.s === trump) return false;
+    return b.s !== led && a.s === led;
+  }
+  function trickWinner(trick, trump) {
+    var best = trick[0], led = trick[0].c.s;
+    trick.forEach(function (x) { if (x !== best && beats(x.c, best.c, led, trump)) best = x; });
+    return best;
+  }
+  function play(st, p, id) {
+    if (st.phase !== 'play' || st.turn !== p) return st;
+    var c = legal(st, p).filter(function (x) { return x.id === id; })[0];
+    if (!c) return st;
+    st.hands[p] = st.hands[p].filter(function (x) { return x.id !== id; });
+    st.trick.push({ p: p, c: c });
+    if (st.trick.length < 4) { st.turn = (p + 1) % 4; return st; }
+    var best = trickWinner(st.trick, st.trump);
+    st.won[best.p]++; st.tricks++;
+    st.lastTrick = st.trick.slice(); st.lastWinner = best.p;
+    st.trick = []; st.turn = best.p; st.lead = best.p;
+    if (st.tricks === 13) st.phase = 'over';
+    return st;
+  }
+  // النقط: [فريق 0 (0 و2), فريق 1 (1 و3)]
+  function score(st) {
+    var tk = [st.won[0] + st.won[2], st.won[1] + st.won[3]], t = st.declarer % 2, o = 1 - t, pts = [0, 0];
+    var made = tk[t] >= st.best.n;
+    if (made) pts[t] = tk[t]; else { pts[t] = -st.best.n; pts[o] = tk[o]; }
+    return { tricks: tk, pts: pts, made: made, team: t, bid: st.best.n };
+  }
+  /* ---- الكمبيوتر ---- */
+  function suitPower(h, s) {              // قوة النوع ده لو بقى طرنيب
+    var mine = h.filter(function (c) { return c.s === s; }), v = 0;
+    mine.forEach(function (c) { v += c.r === 14 ? 1.5 : c.r === 13 ? 1.1 : c.r === 12 ? .8 : c.r === 11 ? .5 : .25; });
+    return v + Math.max(0, mine.length - 3) * .9;
+  }
+  function bestSuit(h) { var b = 'S', bv = -1; SUITS.forEach(function (s) { var v = suitPower(h, s); if (v > bv) { bv = v; b = s; } }); return b; }
+  function expect(h) {
+    var tr = bestSuit(h), v = suitPower(h, tr);
+    h.forEach(function (c) { if (c.s !== tr) v += c.r === 14 ? 1 : c.r === 13 ? .6 : c.r === 12 ? .25 : 0; });
+    SUITS.forEach(function (s) { if (s !== tr) { var n = h.filter(function (c) { return c.s === s; }).length; if (n === 0) v += 1.2; else if (n === 1) v += .6; } });
+    return v;
+  }
+  function aiBid(st, p, level) {
+    var v = expect(st.hands[p]) + (level === 'easy' ? 2.2 : level === 'hard' ? 2.9 : 2.6);   // + نصيب الشريك
+    var n = Math.floor(v), min = st.best ? st.best.n + 1 : MIN;
+    if (st.best && st.best.by % 2 === p % 2 && st.best.n >= n - 1) return 'pass';   // شريكي ماسكها
+    return n >= min && min <= 13 ? min : 'pass';
+  }
+  function aiTrump(st, p) { return bestSuit(st.hands[p]); }
+  function aiPlay(st, p, level) {
+    var ok = legal(st, p), trump = st.trump, low = function (a) { return a.slice().sort(function (x, y) { return (x.s === trump) - (y.s === trump) || x.r - y.r; })[0]; };
+    if (level === 'easy' && Math.random() < .25) return ok[Math.floor(Math.random() * ok.length)];
+    if (!st.trick.length) {
+      var mine = p % 2 === st.declarer % 2, tr = ok.filter(function (c) { return c.s === trump; }), non = ok.filter(function (c) { return c.s !== trump; });
+      if (mine && tr.length >= 3 && st.tricks < 4) return tr.sort(function (a, b) { return b.r - a.r; })[0];      // اسحب الطرنيب
+      var aces = non.filter(function (c) { return c.r >= 13; }).sort(function (a, b) { return b.r - a.r; });
+      if (aces.length) return aces[0];
+      return low(non.length ? non : ok);
+    }
+    var led = st.trick[0].c.s, best = trickWinner(st.trick, trump), partnerWins = best.p % 2 === p % 2;
+    if (partnerWins && (st.trick.length === 3 || best.c.r >= 12 || best.c.s === trump)) return low(ok);
+    var win = ok.filter(function (c) { return beats(c, best.c, led, trump); }).sort(function (a, b) { return (a.s === trump) - (b.s === trump) || a.r - b.r; });
+    if (win.length) return st.trick.length === 3 ? win[0] : (win.filter(function (c) { return c.s !== trump; }).pop() || win[0]);
+    return low(ok);
+  }
+  return { MIN: MIN, SUITS: SUITS, card: card, sortHand: sortHand, newRound: newRound, canBid: canBid, bid: bid, setTrump: setTrump,
+    legal: legal, play: play, trickWinner: trickWinner, score: score, aiBid: aiBid, aiTrump: aiTrump, aiPlay: aiPlay };
+})();
+
+/* ===== لمّة — شاشة طرنيب (على نفس ترابيزة استيمشن) ===== */
+function TarneebMatch(opts) {
+  this.online = opts.online || null; this.link = this.online ? this.online.link : null;
+  this.level = opts.level || 'medium'; this.target = opts.target || 31; this.timerSecs = opts.timer || 0;
+  this.alive = true; this.n = 4; this.gameKey = 'tarneeb';
+  this.bots = botsFor(this.level, 3);
+  this.total = [0, 0]; this.round = 0; this.phase = 'idle';
+  this.render();
+  $('.es-seat[data-seat="2"]', this.root).classList.add('mate');
+  this.newRound();
+}
+var TP = TarneebMatch.prototype = Object.create(EP);
+TP.constructor = TarneebMatch;
+function trFromDeal(packed, first, rot) {
+  var hands = [], i;
+  for (i = 0; i < 4; i++) hands[i] = (packed[(i + rot) % 4] || '').split(',').filter(Boolean).map(Tarn.card);
+  return Tarn.newRound((first - rot + 4) % 4, rnd, hands);
+}
+TP.paint = function () {
+  var st = this.st, self = this;
+  if (!st) return;
+  this.scoreEl.textContent = t('trScore', { a: this.total[0], b: this.total[1], n: this.target });
+  var tk = [st.won[0] + st.won[2], st.won[1] + st.won[3]];
+  this.trumpEl.innerHTML = st.trump
+    ? '<span class="tr-chip' + (st.trump === 'H' || st.trump === 'D' ? ' red' : '') + '">' + t('trTrump') + ' <b>' + ES_SUITS[st.trump] + '</b></span>'
+    : '<span class="tr-chip muted">' + t('esBidding') + '</span>';
+  this.trickEl.setAttribute('data-trump', st.trump ? ES_SUITS[st.trump] : '');
+  this.trickEl.classList.toggle('red', st.trump === 'H' || st.trump === 'D');
+  var label = function (p) {
+    if (st.phase === 'bid' || st.phase === 'trump') return st.bids[p] === null ? '…' : st.bids[p] === 'pass' ? t('esPass') : String(st.bids[p]);
+    return t('trGot', { n: st.won[p] });
+  };
+  var turnOf = function (p) { return self.phase !== 'over' && st.phase !== 'over' && st.turn === p; };
+  $$('.es-seat', this.seatsEl).forEach(function (el) {
+    var p = +el.getAttribute('data-seat');
+    $('.meta', el).textContent = label(p);
+    el.classList.toggle('turn', turnOf(p));
+    el.classList.toggle('dealer', st.declarer === p);
+    el.classList.toggle('out', st.phase === 'bid' && st.out[p]);
+  });
+  $('.meta', this.seatMe).textContent = label(0);
+  this.seatMe.classList.toggle('turn', turnOf(0));
+  this.seatMe.classList.toggle('dealer', st.declarer === 0);
+  var tr = this.showTrick || st.trick;
+  this.trickEl.innerHTML = tr.length ? tr.map(function (x) { return '<span class="es-slot s' + x.p + '">' + esCard(x.c) + '</span>'; }).join('')
+    : (st.phase === 'play' ? '<span class="es-empty">' + t('esWaitLead') + '</span>' : '');
+  var cnt = $('.es-count', this.root);
+  if (!cnt) { cnt = document.createElement('div'); cnt.className = 'es-count'; $('.es-table', this.root).appendChild(cnt); }
+  cnt.textContent = st.best && st.phase !== 'bid' ? t('trNeed', { us: tk[0], them: tk[1], n: st.best.n, who: t(st.declarer % 2 ? 'trThem' : 'trUs') }) : '';
+  var playable = {};
+  if (st.phase === 'play' && this.phase === 'play') Tarn.legal(st, 0).forEach(function (c) { playable[c.id] = 1; });
+  this.handEl.innerHTML = st.hands[0].map(function (c) { return esCard(c, 'button', playable[c.id] ? '' : (self.phase === 'play' ? ' off' : ' idle')); }).join('');
+  this.fanHand();
+};
+TP.newRound = async function () {
+  this.round++;
+  this.phase = 'deal'; this.panel.hidden = true; this.showTrick = null; this.shown = -1;
+  if (this.online && this.online.role === 'guest') {
+    this.phase = 'wait';
+    this.statusEl.textContent = t('waitFriend', { name: this.pname(this.online.hostLocal()) });
+    if (this.st) this.paint();
+    var act = await this.link.next();
+    if (!this.alive || !act) return;
+    if (this.pendingSheet) { closeSheet(this.pendingSheet); this.pendingSheet = null; }
+    if (act.data.reset) this.total = [0, 0];
+    this.round = act.data.round;
+    this.st = trFromDeal(act.data.hands, act.data.first, this.online.seat);
+  } else {
+    this.st = Tarn.newRound((this.round - 1) % 4, rnd);
+    if (this.online) { this.link.send('deal', { hands: esPackHands(this.st), first: this.st.first, round: this.round, reset: !!this.resetNext }); this.resetNext = false; }
+  }
+  this.paint();
+  Snd.play('deal');
+  this.handEl.classList.add('dealing');
+  var hEl = this.handEl; setTimeout(function () { hEl.classList.remove('dealing'); }, 900);
+  await sleep(620 * paceK());
+  if (!this.alive) return;
+  this.statusEl.textContent = '';
+  this.step();
+};
+TP.step = function () {
+  if (!this.alive) return;
+  var st = this.st, self = this;
+  if (st.phase === 'redeal') {
+    this.tmsg(t('esAllPass')); this.round--;
+    return void setTimeout(function () { if (self.alive) self.newRound(); }, 1300);
+  }
+  if (st.phase === 'bid') return st.turn === 0 ? this.askBid() : this.botBid();
+  if (st.phase === 'trump') return st.declarer === 0 ? this.askTrump() : this.botTrump();
+  if (st.phase === 'play') return st.turn === 0 ? this.myTurn() : this.botPlay();
+  if (st.phase === 'over') return this.roundOver();
+};
+TP.askBid = function () {
+  var self = this, st = this.st, nums = [], i, min = st.best ? st.best.n + 1 : Tarn.MIN;
+  this.phase = 'bid'; this.paint();
+  this.statusEl.textContent = t('esYourBid');
+  for (i = min; i <= 13; i++) nums.push(i);
+  var sel = nums[0];
+  function draw() {
+    self.panel.hidden = false;
+    self.panel.innerHTML = '<div class="pn-h"><b>' + t('trBidTitle') + '</b><small>' +
+      (st.best ? t('trTopBid', { n: st.best.n, name: self.pname(st.best.by) }) : t('trBidHint')) + '</small></div>' +
+      '<div class="pn-nums wide">' + nums.map(function (n) { return '<button type="button" class="pn-n' + (n === sel ? ' on' : '') + '" data-n="' + n + '">' + n + '</button>'; }).join('') + '</div>' +
+      '<div class="pn-act"><button class="btn plain" data-pass>' + t('esPass') + '</button><button class="btn cta" data-ok' + (nums.length ? '' : ' disabled') + '>' + t('esSayIt') + '</button></div>';
+  }
+  draw();
+  this.tt.start(this.timerSecs, function () { self.doBid(0, 'pass'); });
+  this.panel.onclick = function (ev) {
+    var n = ev.target.closest('[data-n]');
+    if (n) { sel = +n.getAttribute('data-n'); Snd.play('tap'); draw(); return; }
+    if (ev.target.closest('[data-pass]')) { self.doBid(0, 'pass'); return; }
+    if (ev.target.closest('[data-ok]') && nums.length) self.doBid(0, sel);
+  };
+};
+TP.doBid = async function (p, b) {
+  this.tt.stop();
+  this.panel.hidden = true; this.panel.onclick = null;
+  if (p === 0 && this.online) this.link.send('bid', { b: b });
+  Tarn.bid(this.st, p, b);
+  this.phase = 'anim'; this.paint();
+  this.bubble(p, b === 'pass' ? t('esPass') : String(b));
+  Snd.play(b === 'pass' ? 'tap' : 'pop');
+  await sleep(560 * paceK());
+  if (!this.alive) return;
+  if (this.st.phase === 'trump') { this.tmsg(t('trDeclarer', { name: this.pname(this.st.declarer), n: this.st.best.n })); await sleep(900 * paceK()); if (!this.alive) return; }
+  this.step();
+};
+TP.botBid = async function () {
+  var p = this.st.turn;
+  this.phase = 'bot'; this.paint();
+  this.bubble(p, THINK_DOTS, true);
+  if (this.online) {
+    var act = await this.link.next();
+    if (!this.alive || !act) return;
+    this.bubble(p, '');
+    return this.doBid(p, act.data.b);
+  }
+  await sleep(700 * paceK());
+  if (!this.alive) return;
+  this.bubble(p, '');
+  this.doBid(p, Tarn.aiBid(this.st, p, this.level));
+};
+TP.askTrump = function () {
+  var self = this;
+  this.phase = 'trump'; this.paint();
+  this.statusEl.textContent = t('trPick');
+  this.panel.hidden = false;
+  this.panel.innerHTML = '<div class="pn-h"><b>' + t('trPickTitle') + '</b><small>' + t('trPickHint', { n: this.st.best.n }) + '</small></div>' +
+    '<div class="pn-suits big">' + ['S', 'H', 'D', 'C'].map(function (s) { return '<button type="button" class="pn-s' + (s === 'H' || s === 'D' ? ' red' : '') + '" data-s="' + s + '">' + ES_SUITS[s] + '</button>'; }).join('') + '</div>';
+  this.tt.start(this.timerSecs, function () { self.doTrump(0, Tarn.aiTrump(self.st, 0)); });
+  this.panel.onclick = function (ev) { var s = ev.target.closest('[data-s]'); if (s) self.doTrump(0, s.getAttribute('data-s')); };
+};
+TP.doTrump = async function (p, suit) {
+  this.tt.stop();
+  this.panel.hidden = true; this.panel.onclick = null;
+  if (p === 0 && this.online) this.link.send('trump', { s: suit });
+  Tarn.setTrump(this.st, p, suit);
+  this.phase = 'anim'; this.paint();
+  this.bubble(p, t('trTrump') + ' ' + ES_SUITS[suit]);
+  Snd.play('pop');
+  await sleep(800 * paceK());
+  if (!this.alive) return;
+  this.step();
+};
+TP.botTrump = async function () {
+  var p = this.st.declarer;
+  this.phase = 'bot'; this.paint();
+  this.bubble(p, THINK_DOTS, true);
+  if (this.online) {
+    var act = await this.link.next();
+    if (!this.alive || !act) return;
+    this.bubble(p, '');
+    return this.doTrump(p, act.data.s);
+  }
+  await sleep(650 * paceK());
+  if (!this.alive) return;
+  this.bubble(p, '');
+  this.doTrump(p, Tarn.aiTrump(this.st, p));
+};
+TP.myTurn = function () {
+  var self = this;
+  this.phase = 'play'; this.paint();
+  this.statusEl.textContent = t('yourTurn');
+  this.tt.start(this.timerSecs, function () { self.tt.stop(); var ok = Tarn.legal(self.st, 0); self.playCard(0, ok[Math.floor(rnd() * ok.length)].id); });
+};
+TP.onCard = function (id) {
+  if (this.phase !== 'play' || this.st.turn !== 0) return;
+  if (!Tarn.legal(this.st, 0).some(function (c) { return c.id === id; })) { this.tmsg(t('esFollow')); return; }
+  this.tt.stop();
+  this.playCard(0, id);
+};
+TP.botPlay = async function () {
+  var p = this.st.turn;
+  this.phase = 'bot'; this.paint();
+  this.bubble(p, THINK_DOTS, true);
+  if (this.online) {
+    var act = await this.link.next();
+    if (!this.alive || !act) return;
+    this.bubble(p, '');
+    return this.playCard(p, act.data.id);
+  }
+  await sleep(600 * paceK());
+  if (!this.alive) return;
+  this.bubble(p, '');
+  this.playCard(p, Tarn.aiPlay(this.st, p, this.level).id);
+};
+TP.playCard = async function (p, id) {
+  this.phase = 'anim';
+  if (p === 0 && this.online) this.link.send('play', { id: id });
+  var st = this.st, n = st.trick.length;
+  Tarn.play(st, p, id);
+  Snd.play('card');
+  var full = n === 3 && st.lastTrick && st.lastTrick.length === 4;
+  if (full) this.showTrick = st.lastTrick.slice();
+  this.paint();
+  await sleep(420 * paceK());
+  if (!this.alive) return;
+  if (full && this.shown !== st.tricks) {
+    this.shown = st.tricks;
+    var w = st.lastWinner;
+    this.highlightWinner(w);
+    this.tmsg(t(w % 2 ? 'trTheyTook' : 'trWeTook'));
+    Snd.play(w % 2 ? 'tap' : 'hit'); if (w % 2 === 0) buzz(18);
+    await sleep(1000 * paceK());
+    if (!this.alive) return;
+    this.showTrick = null; this.paint();
+    await sleep(140 * paceK());
+    if (!this.alive) return;
+  }
+  this.step();
+};
+TP.roundOver = function () {
+  var self = this, sc = Tarn.score(this.st);
+  this.total[0] += sc.pts[0]; this.total[1] += sc.pts[1];
+  this.phase = 'over'; this.paint();
+  var done = this.total[0] >= this.target || this.total[1] >= this.target;
+  var meWon = done && this.total[0] > this.total[1];
+  if (done) { S.stats.tarneeb.p++; if (meWon) S.stats.tarneeb.w++; save(); recordGame('tarneeb', meWon, !!this.online); }
+  if (meWon) confetti();
+  Snd.play(done ? (meWon ? 'win' : 'lose') : 'pop');
+  var row = function (k, cls) {
+    return '<tr' + cls + '><td>' + t(k ? 'trThem' : 'trUs') + '</td><td>' + sc.tricks[k] + '</td>' +
+      '<td class="' + (sc.pts[k] >= 0 ? 'plus' : 'minus') + '">' + (sc.pts[k] > 0 ? '+' : '') + sc.pts[k] + '</td><td><b>' + self.total[k] + '</b></td></tr>';
+  };
+  var mine = sc.team === 0;
+  var sub = t(sc.made ? (mine ? 'trMadeUs' : 'trMadeThem') : (mine ? 'trFailUs' : 'trFailThem'), { n: sc.bid });
+  var title = done ? t(meWon ? 'trWin' : 'trLose') : t('esRoundDone', { n: this.round });
+  var guestWait = this.online && this.online.role === 'guest';
+  var sh = openSheet('<p class="res-title">' + title + '</p><p class="res-sub">' + sub + '</p>' +
+    '<table class="rtable es-tbl"><thead><tr><th></th><th>' + t('trTricks') + '</th><th>' + t('esPts') + '</th><th>' + t('esTotal') + ' / ' + this.target + '</th></tr></thead><tbody>' + row(0, ' class="me"') + row(1, '') + '</tbody></table>' +
+    (guestWait ? waitNote(this.pname(this.online.hostLocal())) + '<button class="btn plain" data-a="home">' + t('toHome') + '</button>'
+      : done ? '<div class="row-btns"><button class="btn plain" data-a="home">' + t('toHome') + '</button><button class="btn cta" data-a="again">' + t('again') + '</button></div>'
+        : '<button class="btn cta" data-a="next">' + t('nextRound') + '</button>'), { locked: true });
+  if (guestWait) { this.pendingSheet = sh; this.newRound(); }
+  sh.addEventListener('click', function (ev) {
+    var b = ev.target.closest('[data-a]'); if (!b) return;
+    var a = b.getAttribute('data-a');
+    closeSheet(sh); Snd.play('tap');
+    if (a === 'home') renderHome();
+    else { if (a === 'again') { self.total = [0, 0]; self.round = 0; self.resetNext = true; } self.newRound(); }
+  });
+};
+
+/* ===== لمّة — السلّم والثعبان =====
+ * 100 خانة. بترمي الزهر وتمشي؛ السلّم بيطلّعك والثعبان بينزّلك.
+ * الـ 6 بتديك رمية كمان، ولازم توصل 100 بالظبط. */
+var SNL = (function () {
+  var LADDERS = { 4: 14, 9: 31, 20: 38, 28: 84, 40: 59, 51: 67, 63: 81, 71: 91 };
+  var SNAKES = { 17: 7, 54: 34, 62: 19, 64: 60, 87: 24, 93: 73, 95: 75, 99: 78 };
+  function fresh(n, first) { var pos = []; for (var i = 0; i < n; i++) pos.push(0); return { n: n, pos: pos, turn: first || 0, winner: -1 }; }
+  // بيرجّع اللي حصل: منين، وصل فين بالزهر، ولو فيه سلّم أو ثعبان راح فين
+  function move(st, d) {
+    var p = st.turn, from = st.pos[p], land = from + d, to, kind = '';
+    if (land > 100) { land = from; }
+    to = land;
+    if (LADDERS[land]) { to = LADDERS[land]; kind = 'ladder'; }
+    else if (SNAKES[land]) { to = SNAKES[land]; kind = 'snake'; }
+    st.pos[p] = to;
+    if (to === 100) st.winner = p;
+    else if (d !== 6) st.turn = (p + 1) % st.n;
+    return { p: p, from: from, land: land, to: to, kind: kind, again: d === 6 && to !== 100 };
+  }
+  // مكان الخانة على لوحة 10×10 (الصف 0 تحت، وبيتعكس كل صف)
+  function xy(k) {
+    if (k < 1) return [-1, 0];
+    var row = Math.floor((k - 1) / 10), col = (k - 1) % 10;
+    if (row % 2) col = 9 - col;
+    return [col, row];
+  }
+  return { LADDERS: LADDERS, SNAKES: SNAKES, fresh: fresh, move: move, xy: xy };
+})();
+
+/* ===== لمّة — شاشة السلّم والثعبان ===== */
+function snlBoardSVG() {
+  var s = '<svg class="snboard" viewBox="-3 -3 106 118" aria-hidden="true"><rect class="sn-frame" x="-3" y="-3" width="106" height="106" rx="5"/>', k, p, q;
+  for (k = 1; k <= 100; k++) {
+    p = SNL.xy(k);
+    var x = p[0] * 10, y = (9 - p[1]) * 10;
+    s += '<rect class="sn-c ' + ((p[0] + p[1]) % 2 ? 'a' : 'b') + (k === 100 ? ' end' : '') + '" x="' + x + '" y="' + y + '" width="10" height="10"/>' +
+      '<text class="sn-n" x="' + (x + 1.1) + '" y="' + (y + 3) + '">' + k + '</text>';
+  }
+  var c = function (kk) { var a = SNL.xy(kk); return [a[0] * 10 + 5, (9 - a[1]) * 10 + 5]; };
+  // السلالم
+  Object.keys(SNL.LADDERS).forEach(function (f) {
+    p = c(+f); q = c(SNL.LADDERS[f]);
+    var dx = q[0] - p[0], dy = q[1] - p[1], len = Math.sqrt(dx * dx + dy * dy), nx = -dy / len * 1.5, ny = dx / len * 1.5, i, n = Math.max(2, Math.round(len / 5));
+    s += '<g class="sn-lad"><path d="M' + (p[0] + nx) + ' ' + (p[1] + ny) + 'L' + (q[0] + nx) + ' ' + (q[1] + ny) + 'M' + (p[0] - nx) + ' ' + (p[1] - ny) + 'L' + (q[0] - nx) + ' ' + (q[1] - ny) + '"/>';
+    for (i = 1; i < n; i++) { var tx = p[0] + dx * i / n, ty = p[1] + dy * i / n; s += '<path class="rung" d="M' + (tx + nx) + ' ' + (ty + ny) + 'L' + (tx - nx) + ' ' + (ty - ny) + '"/>'; }
+    s += '</g>';
+  });
+  // الثعابين: الراس فوق والديل تحت
+  var SN_COL = ['#e5484d', '#8e4ec6', '#12a594', '#f76808', '#3e63dd', '#d6409f', '#46a758', '#978365'];
+  Object.keys(SNL.SNAKES).forEach(function (f, i) {
+    p = c(+f); q = c(SNL.SNAKES[f]);
+    var mx = (p[0] + q[0]) / 2, my = (p[1] + q[1]) / 2, dx = q[0] - p[0], dy = q[1] - p[1], len = Math.sqrt(dx * dx + dy * dy), nx = -dy / len, ny = dx / len, w = Math.min(9, len / 4);
+    var d = 'M' + p[0] + ' ' + p[1] + 'Q' + ((p[0] + mx) / 2 + nx * w) + ' ' + ((p[1] + my) / 2 + ny * w) + ' ' + mx + ' ' + my + 'T' + q[0] + ' ' + q[1];
+    s += '<g class="sn-snake"><path class="body" d="' + d + '" stroke="' + SN_COL[i % 8] + '"/><path class="belly" d="' + d + '"/>' +
+      '<circle cx="' + p[0] + '" cy="' + p[1] + '" r="2.3" fill="' + SN_COL[i % 8] + '"/><circle class="eye" cx="' + (p[0] - .9) + '" cy="' + (p[1] - .6) + '" r=".55"/><circle class="eye" cx="' + (p[0] + .9) + '" cy="' + (p[1] - .6) + '" r=".55"/></g>';
+  });
+  return s + '<g class="sn-toks"></g></svg>';
+}
+function SnlMatch(opts) {
+  this.online = opts.online || null; this.link = this.online ? this.online.link : null;
+  this.n = this.online ? this.online.n : Math.max(2, Math.min(4, opts.players || 2));
+  this.timerSecs = opts.timer || 0; this.alive = true;
+  this.bots = botsFor('medium', this.n - 1);
+  this.games = 0;
+  this.render();
+  this.newGame();
+}
+var NP = SnlMatch.prototype;
+NP.pname = LP.pname; NP.pav = LP.pav;
+NP.botName = function () { return this.pname(1); };
+NP.render = function () {
+  setInGame(true);
+  var self = this, seats = '', i, toks = '';
+  for (i = 1; i < this.n; i++) seats += '<div class="seat" data-p="' + i + '"><div class="av" style="border-color:' + LU_HEX[i] + '">' + this.pav(i) + '</div><div class="who"><b>' + esc(this.pname(i)) + '</b><small class="meta"></small></div></div>';
+  app.innerHTML = '<div class="game lu snl">' +
+    '<div class="gbar"><button class="ib back exitb" aria-label="' + t('exitGame') + '">' + ICON.x + '</button>' +
+    '<div class="gtitle"><b>' + t('snl') + '</b><small>' + t('snlFirst') + '</small></div>' +
+    gameChatButton() + reactButton() + '<button class="ib gear" aria-label="' + t('settings') + '">' + ICON.gear + '</button></div>' +
+    '<div class="seats lu-seats">' + seats + '</div>' +
+    '<div class="lu-wrap">' + snlBoardSVG() + '<div class="bmsg" aria-live="polite"></div></div>' +
+    '<div class="me-bar"><div class="seat me" data-p="0"><div class="av" style="border-color:' + LU_HEX[0] + '">' + myAv() + '</div><div class="who"><b>' + esc(this.pname(0)) + '</b><small class="meta"></small></div></div>' +
+    '<div class="lu-dz"><div class="dice"></div><button class="btn cta roll" hidden>' + t('roll') + '</button></div></div></div>';
+  var root = app.firstChild;
+  this.root = root; this.msgEl = $('.bmsg', root); this.diceBox = $('.dice', root); this.rollBtn = $('.roll', root);
+  for (i = 0; i < this.n; i++) toks += '<g class="sn-tok" data-p="' + i + '"><circle r="3.4" fill="' + LU_DARK[i] + '"/><circle r="2.6" fill="' + LU_HEX[i] + '"/><circle r="1" cx="-.8" cy="-.9" fill="rgba(255,255,255,.7)"/></g>';
+  $('.sn-toks', root).innerHTML = toks;
+  wireGameChat(this, root);
+  wireReact(this, root);
+  if (this.tt) this.tt.stop();
+  this.tt = new TurnTimer($('.seat.me', root));
+  this.rollBtn.addEventListener('click', function () { if (self.phase === 'roll') self.myRoll(); });
+  $('.back', root).addEventListener('click', function () { Snd.play('tap'); confirmLeave(); });
+  $('.gear', root).addEventListener('click', function () { Snd.play('tap'); openSettings(); });
+};
+NP.destroy = function () { this.alive = false; stopGameChat(); if (this.tt) this.tt.stop(); if (this.link) this.link.leave(); };
+NP.newGame = function () {
+  var first = ((this.online ? this.online.hostLocal() : 0) + this.games) % this.n;
+  this.games++;
+  this.st = SNL.fresh(this.n, first);
+  this.shown = this.st.pos.slice();
+  this.diceBox.innerHTML = '';
+  this.place(); this.updateMeta();
+  this.step();
+};
+// مكان القرص على اللوحة؛ اللي لسه ما بدأش واقف تحت اللوحة
+NP.spot = function (p, k) {
+  if (k < 1) return [12 + p * 9, 108];
+  var a = SNL.xy(k), same = 0, i;
+  for (i = 0; i < p; i++) if (this.shown[i] === k) same++;
+  return [a[0] * 10 + 5 + (same % 2 ? 2.2 : same ? -2.2 : 0), (9 - a[1]) * 10 + 5.4 + (same > 1 ? 2 : 0)];
+};
+NP.place = function () {
+  var self = this;
+  $$('.sn-tok', this.root).forEach(function (g) {
+    var p = +g.getAttribute('data-p'), xy = self.spot(p, self.shown[p]);
+    g.style.transform = 'translate(' + xy[0] + 'px,' + xy[1] + 'px)';
+  });
+};
+NP.updateMeta = function () {
+  var st = this.st, self = this;
+  $$('.seat', this.root).forEach(function (el) {
+    var p = +el.getAttribute('data-p'), m = $('.meta', el);
+    if (m) m.textContent = st.pos[p] ? t('snlAt', { n: st.pos[p] }) : t('snlStart');
+    el.classList.toggle('turn', self.phase !== 'over' && st.turn === p);
+  });
+};
+NP.msg = function (text) { var el = this.msgEl; el.innerHTML = text ? '<div>' + esc(text) + '</div>' : ''; if (text) setTimeout(function () { if (el.firstChild && el.firstChild.textContent === text) el.innerHTML = ''; }, 1300); };
+NP.step = function () {
+  if (!this.alive) return;
+  this.updateMeta();
+  if (this.st.winner >= 0) return this.gameOver(this.st.winner);
+  var self = this;
+  if (this.st.turn === 0) {
+    this.phase = 'roll'; this.rollBtn.hidden = false;
+    this.tt.start(this.timerSecs, function () { if (self.phase === 'roll') { toast(t('timeUp'), 1500); self.myRoll(); } });
+  } else {
+    this.phase = 'wait'; this.rollBtn.hidden = true;
+    if (this.online) this.remoteRoll(); else this.botRoll();
+  }
+};
+NP.myRoll = function () {
+  this.tt.stop(); this.rollBtn.hidden = true;
+  var d = 1 + Math.floor(rnd() * 6);
+  if (this.online) this.link.send('roll', { d: d });
+  this.play(d);
+};
+NP.botRoll = async function () {
+  await sleep(520 * paceK());
+  if (!this.alive) return;
+  this.play(1 + Math.floor(rnd() * 6));
+};
+NP.remoteRoll = async function () {
+  var act = await this.link.next();
+  if (!this.alive || !act) return;
+  var d = act.data && act.data.d;
+  if (!(d >= 1 && d <= 6)) { toast(t('netErr')); return; }
+  this.play(d);
+};
+NP.play = async function (d) {
+  this.phase = 'anim';
+  var p = this.st.turn, self = this, k;
+  Snd.play('dice');
+  this.diceBox.innerHTML = dieHTML(d, true);
+  await sleep(430);
+  if (!this.alive) return;
+  this.diceBox.innerHTML = dieHTML(d, false);
+  var r = SNL.move(this.st, d);
+  if (r.land === r.from) { this.msg(t('snlOver')); await sleep(600 * paceK()); }
+  for (k = r.from + 1; k <= r.land; k++) {
+    this.shown[p] = k; this.place(); Snd.play('tap');
+    await sleep(125);
+    if (!this.alive) return;
+  }
+  if (r.kind) {
+    await sleep(160);
+    this.msg(t(r.kind === 'ladder' ? 'snlLadder' : 'snlSnake'));
+    Snd.play(r.kind === 'ladder' ? 'pop' : 'hit'); if (p === 0) buzz(r.kind === 'ladder' ? 20 : [30, 40, 30]);
+    this.root.classList.add('sn-slide');
+    this.shown[p] = r.to; this.place();
+    await sleep(620);
+    this.root.classList.remove('sn-slide');
+    if (!this.alive) return;
+  }
+  if (r.again) { this.msg(t('snlSix')); await sleep(420 * paceK()); }
+  if (!this.alive) return;
+  this.step();
+};
+NP.gameOver = function (w) {
+  this.phase = 'over'; this.tt.stop(); this.updateMeta(); this.rollBtn.hidden = true;
+  var meWon = w === 0, self = this;
+  S.stats.snl.p++; if (meWon) S.stats.snl.w++; save(); recordGame('snl', meWon, !!this.online, this.online && this.online.n === 2 ? this.online.friend.uid : null);
+  Snd.play(meWon ? 'win' : 'lose'); if (meWon) confetti();
+  var guestWait = this.online && this.online.role === 'guest';
+  var sh = openSheet('<p class="res-title">' + (meWon ? t('snlWin') : esc(t('snlLose', { name: this.pname(w) }))) + '</p>' +
+    (guestWait ? waitNote(this.pname(this.online.hostLocal())) + '<button class="btn plain" data-a="home">' + t('toHome') + '</button>'
+      : '<div class="row-btns"><button class="btn plain" data-a="home">' + t('toHome') + '</button><button class="btn cta" data-a="again">' + t('again') + '</button></div>'), { locked: true });
+  sh.addEventListener('click', function (ev) {
+    var b = ev.target.closest('[data-a]'); if (!b) return;
+    closeSheet(sh); Snd.play('tap');
+    if (b.getAttribute('data-a') === 'home') renderHome();
+    else { if (self.online) self.link.send('again', {}); self.newGame(); }
+  });
+  if (guestWait) this.link.next().then(function (a) { if (!self.alive || !a) return; closeSheet(sh); self.newGame(); });
+};
+NP.refresh = function () {
+  var phase = this.phase;
+  this.render(); this.place(); this.updateMeta();
+  if (phase === 'roll') { this.phase = 'roll'; this.rollBtn.hidden = false; }
+};
+
 /* ===== تشغيل ===== */
 (function () { var sp = Snd.play; Snd.play = function (k) { if (k === 'dice') buzz(20); else if (k === 'win') buzz([40, 60, 40]); return sp.apply(Snd, arguments); }; })();
 readOpenParam();
@@ -7381,6 +8233,7 @@ applyLang();
 document.documentElement.setAttribute('data-skin', S.skin);
 applyTheme();
 Snd.setSfx(S.sfx);
+Snd.setStyle(S.musicPick || 'track');
 Snd.setMusic(!!S.music);
 document.addEventListener('pointerdown', function () { Snd.unlock(); }, { once: true });
 renderWelcome();

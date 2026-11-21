@@ -8,6 +8,8 @@ fs.mkdirSync(OUT, { recursive: true });
 for (const f of fs.readdirSync('.')) {
   if (/\.(png|webmanifest)$/.test(f)) fs.copyFileSync(f, `${OUT}/${f}`);
 }
+// الأصوات (نغمة اللعبة)
+if (fs.existsSync('audio')) fs.cpSync('audio', `${OUT}/audio`, { recursive: true });
 let html = fs.readFileSync('index.html', 'utf8');
 // جوه الأبلكيشن مفيش داعي للـ service worker
 html = html.replace(/<script>if \('serviceWorker'[\s\S]*?<\/script>/, '');
