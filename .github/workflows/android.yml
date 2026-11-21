@@ -128,3 +128,14 @@ jobs:
           fail_on_unmatched_files: true
           body_path: RELEASE_NOTES.md
           files: lamma-${{ steps.ver.outputs.v }}.apk
+
+      - name: Tell the players (push notification)
+        # السيرفر بيتأكد بنفسه إن ملف النسخة اترفع فعلاً، ومبيبعتش لنفس النسخة مرتين
+        continue-on-error: true
+        env:
+          LAMMA_VERSION: ${{ steps.ver.outputs.v }}
+        run: |
+          curl -sS -L --max-time 150 -H 'Content-Type: text/plain' \
+            --data "{\"action\":\"release\",\"ver\":\"$LAMMA_VERSION\"}" \
+            "https://script.google.com/macros/s/AKfycbzxtiCP7jcY5pCjNvc2WEBwN2Q1juxYbk-a9fd2uzyMoctC5HXL6At1NG821cmpraJqiQ/exec" || true
+          echo
