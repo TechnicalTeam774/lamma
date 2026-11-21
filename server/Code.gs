@@ -289,12 +289,15 @@ function doGet(e) {
   }
 
   // آخر إشعار حد بعته من اللعبة
+  var lastTitle = '';
   try {
     var lastRaw = PropertiesService.getScriptProperties().getProperty('LAST');
     if (lastRaw) {
       var lr = JSON.parse(lastRaw);
       var when = Utilities.formatDate(new Date(lr.t), 'Africa/Cairo', 'yyyy-MM-dd HH:mm');
       var okLast = lr.sent > 0;
+      lastTitle = ' · آخر إرسال ' + (okLast ? '✓' : '✗') + ' ' + (lr.type || '?') + ' ' + when.slice(11)
+        + ' (' + lr.sent + '/' + lr.devices + ')' + (okLast ? '' : ' ' + String(lr.last || '').slice(0, 90));
       L.push('<div class="r ' + (okLast ? 'y' : 'n') + '"><b>' + (okLast ? '✓' : '✗') + '</b><div><div class="t">آخر إشعار اتبعت (' + esc(lr.type || '?') + ') — ' + when + '</div>'
         + '<div class="d">' + (okLast ? ('وصل لـ ' + lr.sent + ' من ' + lr.devices + ' جهاز') : ('أجهزة: ' + lr.devices + ' — ' + esc(lr.last || 'مفيش ولا جهاز مسجّل'))) + '</div></div></div>');
     }
@@ -313,5 +316,6 @@ function doGet(e) {
     + 'a.btn{display:inline-block;margin-top:6px;background:#c9a227;color:#1a1230;padding:7px 14px;border-radius:999px;text-decoration:none;font-weight:800}'
     + 'code{background:#2b2338;padding:2px 6px;border-radius:6px}'
     + '</style>' + head + L.join('');
-  return HtmlService.createHtmlOutput(html).setTitle('فحص إشعارات لمّة');
+  return HtmlService.createHtmlOutput(html)
+    .setTitle('فحص إشعارات لمّة · نسخة ' + SERVER_VER + ' · ' + (okAll ? 'كله تمام' : 'فيه مشكلة') + lastTitle);
 }
