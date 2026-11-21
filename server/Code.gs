@@ -14,7 +14,10 @@
 var PROJECT_ID = 'lamma-game-5e684';
 var WEB_API_KEY = 'AIzaSyAvNndToSDPfGr7cGkD8zMZGWEm103k8JE'; // مفتاح الويب العام، مش سري
 var CHANNEL = 'lamma';
-var SERVER_VER = 3; // 3: اسم حقل المرسل بقى sender بدل from (جوجل بترفض from)
+var SERVER_VER = 4; // 4: إشعار لكل اللاعيبة لما نسخة جديدة تنزل — 3: الحقل sender بدل from
+var REPO = 'TechnicalTeam774/lamma';
+var SITE = 'https://technicalteam774.github.io/lamma/';
+var REL_BASE = '2.1.2'; // النسخة دي واللي قبلها مبيتبعتلهاش إشعار تحديث
 var SCOPES = 'https://www.googleapis.com/auth/firebase.messaging https://www.googleapis.com/auth/datastore';
 
 /* ============================ أدوات ============================ */
@@ -114,8 +117,8 @@ function tokensOf_(uid) {
 }
 
 /** بيبعت لجهاز واحد. بيرجّع 'ok' أو سبب الفشل */
-function sendOne_(tok, title, body, data) {
-  var msg = {
+function msgOf_(tok, title, body, data) {
+  return {
     message: {
       token: tok,
       notification: { title: title, body: body },
@@ -132,15 +135,27 @@ function sendOne_(tok, title, body, data) {
       webpush: { headers: { Urgency: 'high' } }
     }
   };
-  var r = UrlFetchApp.fetch(
-    'https://fcm.googleapis.com/v1/projects/' + PROJECT_ID + '/messages:send', {
-      method: 'post', contentType: 'application/json', muteHttpExceptions: true,
-      headers: { Authorization: 'Bearer ' + accessToken_() },
-      payload: JSON.stringify(msg)
-    });
-  var code = r.getResponseCode(), txt = r.getContentText();
-  if (code === 200) return 'ok';
-  return 'http ' + code + ': ' + txt.slice(0, 200);
+}
+function fcmReq_(tok, title, body, data) {
+  return {
+    url: 'https://fcm.googleapis.com/v1/projects/' + PROJECT_ID + '/messages:send',
+    method: 'post', contentType: 'application/json', muteHttpExceptions: true,
+    headers: { Authorization: 'Bearer ' + accessToken_() },
+    payload: JSON.stringify(msgOf_(tok, title, body, data))
+  };
+}
+function fcmResult_(r) {
+  var code = r.getResponseCode();
+  return code === 200 ? 'ok' : 'http ' + code + ': ' + r.getContentText().slice(0, 200);
+}
+// عنوان الجهاز مات فعلاً (الأبلكيشن اتشال أو اتمسح)
+function deadToken_(r) { return /UNREGISTERED|http 404|registration token is not a valid/i.test(r); }
+
+/** بيبعت لجهاز واحد. بيرجّع 'ok' أو سبب الفشل */
+function sendOne_(tok, title, body, data) {
+  var q = fcmReq_(tok, title, body, data), url = q.url;
+  delete q.url;
+  return fcmResult_(UrlFetchApp.fetch(url, q));
 }
 
 function sendToUid_(uid, title, body, data) {
@@ -152,7 +167,7 @@ function sendToUid_(uid, title, body, data) {
       last = r;
       // امسح الجهاز بس لو جوجل قالت صراحة إن عنوانه مات.
       // (زمان كنا بنمسح مع أي INVALID_ARGUMENT، فغلطة في الرسالة نفسها كانت بتمسح كل الأجهزة)
-      if (/UNREGISTERED|http 404|registration token is not a valid/i.test(r)) {
+      if (deadToken_(r)) {
         fsFetch_('https://firestore.googleapis.com/v1/' + x.name, { method: 'delete' });
       }
     }
@@ -160,6 +175,74 @@ function sendToUid_(uid, title, body, data) {
   var res = { devices: toks.length, sent: sent, last: last };
   saveLast_(data && data.type, res);
   return res;
+}
+
+/* ======================= إشعار لكل اللاعيبة ======================= */
+
+/** كل الأجهزة المسجّلة عند كل اللاعيبة (من غير تكرار) */
+function allTokens_() {
+  var j = fsFetch_('https://firestore.googleapis.com/v1/projects/' + PROJECT_ID + '/databases/(default)/documents:runQuery',
+    { method: 'post', payload: { structuredQuery: { from: [{ collectionId: 'tokens', allDescendants: true }] } } });
+  if (j.__code !== 200) throw new Error('runQuery ' + j.__code + ': ' + String(j.raw || JSON.stringify(j.error || '')).slice(0, 160));
+  var rows = Array.isArray(j) ? j : Object.keys(j).filter(function (k) { return /^\d+$/.test(k); }).map(function (k) { return j[k]; });
+  var seen = {}, out = [];
+  rows.forEach(function (r) {
+    var d = r && r.document; if (!d || !d.fields) return;
+    var p = plain_(d.fields);
+    if (!p.token || seen[p.token]) return;
+    seen[p.token] = 1;
+    out.push({ name: d.name, token: p.token, lang: p.lang === 'en' ? 'en' : 'ar' });
+  });
+  return out;
+}
+
+/** بيبعت نفس الإشعار لكل الأجهزة على دفعات متوازية، ويشيل الأجهزة الميتة */
+function broadcast_(textOf, data) {
+  var toks = allTokens_(), sent = 0, last = '';
+  for (var i = 0; i < toks.length; i += 50) {
+    var part = toks.slice(i, i + 50);
+    var res = UrlFetchApp.fetchAll(part.map(function (x) { var m = textOf(x.lang); return fcmReq_(x.token, m[0], m[1], data); }));
+    res.forEach(function (r, k) {
+      var v = fcmResult_(r);
+      if (v === 'ok') { sent++; return; }
+      last = v;
+      if (deadToken_(v)) fsFetch_('https://firestore.googleapis.com/v1/' + part[k].name, { method: 'delete' });
+    });
+  }
+  return { devices: toks.length, sent: sent, last: last };
+}
+
+function verCmp_(a, b) {
+  var x = String(a).split('.'), y = String(b).split('.');
+  for (var i = 0; i < 3; i++) { var d = (+x[i] || 0) - (+y[i] || 0); if (d) return d; }
+  return 0;
+}
+
+/** نسخة جديدة نزلت: بلّغ الكل مرة واحدة بس، وبعد ما نتأكد إن ملف الـ APK اترفع فعلاً */
+function releaseBroadcast_(ver) {
+  if (!/^\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(ver)) return { err: 'ver', v: SERVER_VER };
+  var P = PropertiesService.getScriptProperties();
+  if (verCmp_(ver, P.getProperty('REL_VER') || REL_BASE) <= 0) return { ok: true, v: SERVER_VER, already: true, ver: ver };
+  var apk = 'https://github.com/' + REPO + '/releases/download/v' + ver + '/lamma-' + ver + '.apk';
+  var code = UrlFetchApp.fetch(apk, { followRedirects: false, muteHttpExceptions: true }).getResponseCode();
+  if (code !== 302 && code !== 200) return { ok: false, v: SERVER_VER, err: 'apk ' + code };
+  var lock = LockService.getScriptLock();
+  if (!lock.tryLock(25000)) return { ok: false, v: SERVER_VER, err: 'busy' };
+  try {
+    if (verCmp_(ver, P.getProperty('REL_VER') || REL_BASE) <= 0) return { ok: true, v: SERVER_VER, already: true, ver: ver };
+    P.setProperty('REL_VER', ver); // قبل الإرسال: لو حصلت مشكلة في النص، منبعتش نفس الإشعار مرتين
+    var note = '';
+    try {
+      var vj = JSON.parse(UrlFetchApp.fetch(SITE + 'version.json?t=' + Date.now(), { muteHttpExceptions: true }).getContentText());
+      if (vj.version === ver && vj.notes && vj.notes.length) note = String(vj.notes[0]).slice(0, 140);
+    } catch (e) { /* من غير ملاحظات */ }
+    var r = broadcast_(function (lang) {
+      return lang === 'en' ? ['Lamma ' + ver + ' is out 🎉', 'Open the game to update']
+        : ['لمّة ' + ver + ' نزلت 🎉', note || 'افتح اللعبة ونزّل التحديث'];
+    }, { type: 'update', ver: ver });
+    saveLast_('update ' + ver, r);
+    return { ok: true, v: SERVER_VER, ver: ver, sent: r.sent, devices: r.devices, last: r.last };
+  } finally { lock.releaseLock(); }
 }
 
 /** آخر محاولة إرسال — بتظهر في صفحة الفحص. من غير توكنات ولا أرقام حسابات */
@@ -180,6 +263,8 @@ function doPost(e) {
   };
   try {
     var b = JSON.parse((e && e.postData && e.postData.contents) || '{}');
+    // نسخة جديدة نزلت (من خطوة البناء على جيت هب، أو من الأبلكيشن نفسه)
+    if (b.action === 'release') return out(releaseBroadcast_(String(b.ver || '')));
     var from = uidFromIdToken_(b.idToken);
     if (!from) return out({ err: 'auth', v: SERVER_VER });
     if (!b.to) return out({ err: 'no-to' });
@@ -204,6 +289,11 @@ function doPost(e) {
 /* ======================== صفحة الفحص ======================== */
 
 function doGet(e) {
+  // ?release=2.1.3 → نفس إعلان النسخة الجديدة (بيتأكد من الـ APK ومبيكررش)
+  if (e && e.parameter && e.parameter.release) {
+    var rr = releaseBroadcast_(String(e.parameter.release));
+    return HtmlService.createHtmlOutput('<pre dir="ltr">' + JSON.stringify(rr) + '</pre>').setTitle('release ' + JSON.stringify(rr));
+  }
   var p = (e && e.parameter) || {};
   var L = [], okAll = true;
   var line = function (good, label, detail) {
@@ -213,7 +303,8 @@ function doGet(e) {
   };
   var esc = function (s) { return String(s).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); };
 
-  line(true, 'نسخة السيرفر ' + SERVER_VER, 'لو مكتوب هنا رقم أقل من 3، يبقى لسه منشرتش النسخة الجديدة');
+  line(true, 'نسخة السيرفر ' + SERVER_VER, 'لو مكتوب هنا رقم أقل من 4، يبقى لسه منشرتش النسخة الجديدة');
+  line(true, 'آخر تحديث اتبعت عنه إشعار: ' + (PropertiesService.getScriptProperties().getProperty('REL_VER') || ('محصلش لسه، بعد ' + REL_BASE)), 'بيتبعت لوحده بعد كل بناء على جيت هب');
 
   // 1) المفتاح
   var saOk = false, j = null;
