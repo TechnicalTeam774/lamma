@@ -1234,6 +1234,41 @@ body.in-game .hx-nav { display: none; }
 .w-anim .w-time { animation: fadeUp .5s ease both .05s; }
 .w-anim .w-stats { animation: fadeUp .5s ease both .85s; }
 @media (prefers-reduced-motion: reduce) { .w-float i, .myst-ic { animation: none; } }
+
+/* ===== 2.1.4: مقاس الكلام + الشات + كارت التحديات ===== */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+.ch { align-items: center; }
+.ch-txt b { display: block; font-size: .92rem; line-height: 1.35; margin-bottom: 7px; }
+.ch-txt small { display: block; margin-top: 4px; font-size: .74rem; }
+.ch .btn { width: auto; margin: 0; flex: none; min-width: 76px; justify-content: center; }
+.ch .btn.cta { font-family: var(--body); font-weight: 800; font-size: .86rem; padding: 9px 12px; border-radius: 14px; box-shadow: 0 3px 0 var(--accent-shadow); }
+.pc-mid small { display: block; font-size: .74rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.chat-hd { padding: 10px 12px; gap: 10px; }
+.chat-hd .av { width: 36px; height: 36px; flex: none; }
+.chat-hd b { font-size: .98rem; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.chat-hd .chat-invite { width: auto; margin: 0; margin-inline-start: auto; flex: none; font-family: var(--body); font-weight: 800; font-size: .78rem; padding: 7px 13px; border-radius: 999px; box-shadow: none; }
+.chat-msgs, .gc-msgs { padding: 12px; gap: 6px; }
+.cmsg { max-width: 78%; padding: 7px 12px; border-radius: 18px; font-size: .9rem; line-height: 1.5; overflow-wrap: anywhere; box-shadow: 0 1px 0 rgba(0, 0, 0, .18); }
+.cmsg.mine { background: linear-gradient(160deg, color-mix(in srgb, var(--hl) 88%, #fff), var(--hl)); }
+.cmsg.theirs { box-shadow: inset 0 0 0 1px var(--line); }
+.cmsg.emo { background: none !important; box-shadow: none !important; padding: 0 2px; font-size: 1.9rem; line-height: 1.2; }
+.cmsg.emo .tick { font-size: .62rem; vertical-align: bottom; }
+.gc-msgs .cmsg small { font-size: .66rem; font-weight: 800; opacity: .8; margin-bottom: 1px; }
+.gc-msgs .cmsg.emo small { font-size: .62rem; }
+.cmsg .tick { font-size: .62rem; }
+.chat-emoji { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 2px; padding: 6px 8px; overflow: hidden; border-top: 1px solid var(--line); }
+.chat-emoji .em { all: unset; box-sizing: border-box; display: grid; place-items: center; height: 38px; border-radius: 12px; font-size: 1.22rem; cursor: pointer; transition: transform .12s ease, background-color .15s ease; -webkit-tap-highlight-color: transparent; }
+.chat-emoji .em:active { transform: scale(1.18); background: var(--surface-2); }
+.chat-bar { align-items: center; gap: 8px; padding: 8px 10px calc(10px + env(safe-area-inset-bottom, 0px)); background: var(--surface); border-top: 1px solid var(--line); }
+.chat-bar .inp { height: 42px; padding: 0 16px; border-radius: 999px; font-size: .92rem; margin: 0; }
+.send-ic { all: unset; box-sizing: border-box; flex: none; width: 42px; height: 42px; border-radius: 50%; display: grid; place-items: center; background: var(--accent); color: var(--on-accent); cursor: pointer; box-shadow: 0 3px 0 var(--accent-shadow); transition: transform .1s ease; }
+.send-ic:active { transform: translateY(2px) scale(.96); box-shadow: 0 1px 0 var(--accent-shadow); }
+.send-ic svg { width: 20px; height: 20px; }
+html[dir="rtl"] .send-ic svg { transform: scaleX(-1); }
+.gchat-panel { top: 38%; }
+.gc-hd { padding: 10px 14px; }
+.gc-hd b { font-size: 1rem; }
+.gc-empty { font-size: .85rem; }
 </style>
 </head>
 <body>
@@ -2634,7 +2669,7 @@ var L = {
     vMahbusaHint: 'كل حجارتك بتبدأ في خانة واحدة، والحجر الفردي بيتحبس بدل ما يتضرب.',
     level: 'المستوى', easy: 'سهل', medium: 'وسط', hard: 'معلّم',
     matchTo: 'الجيم لحد', pointsUnit: 'نقطة', players: 'عدد اللاعيبة', letsPlay: 'يلا نلعب',
-    signOut: 'تسجيل الخروج', signedOut: 'تم تسجيل الخروج', lvlUp: 'مبروك! وصلت المستوى {n}', lvlBonus: 'هدية: {n} كوينز', level: 'المستوى', lvlShort: 'مستوى {n}', winsN: '{n} فوز', xpLeft: 'فاضل {n} نقطة للمستوى الجاي',
+    signOut: 'تسجيل الخروج', signedOut: 'تم تسجيل الخروج', lvlUp: 'مبروك! وصلت المستوى {n}', lvlBonus: 'هدية: {n} كوينز', level: 'المستوى', lvlShort: 'مستوى {n}', winsN: '{n} فوز', xpLeft: '{n} نقطة للمستوى الجاي',
     daily: 'التحديات', dailySub: 'بتتجدد كل يوم', chDone: 'خلصت تحدي! خد جايزتك من التحديات', chPlay3: 'العب {n} جيمات', chWin1: 'اكسب جيم', chWin2: 'اكسب {n} جيمات', chOnline1: 'العب جيم مع صاحبك', chVariety: 'العب لعبتين مختلفين', chWinG: 'اكسب جيم {game}',
     loginTitle: 'مكافأة النهارده', dayN: 'يوم {n}', takeN: 'خد {n}', statsT: 'إحصائياتي', played: 'جيمات', winRate: 'نسبة الفوز', bestStreak: 'أطول سلسلة', board: 'ترتيب الصحاب', frames: 'الإطارات',
     fr_none: 'من غير', fr_gold: 'دهب', fr_neon: 'نيون', fr_fire: 'نار', fr_royal: 'ملكي', fr_leaf: 'ورق شجر', fr_ice: 'تلج',
@@ -2905,7 +2940,7 @@ function applyLang() {
 
 var AVATARS = ['😎', '🧔🏽', '👩🏽', '🧕🏽', '👨🏽‍🦱', '🦁', '🐪', '🦅'];
 var SKINS = ['sadaf', 'khayamiya', 'neon', 'marble', 'pharaoh'];
-var APP_VER = '2.1.3';
+var APP_VER = '2.1.4';
 var BOTS = [{ k: 0, av: '🧑🏽' }, { k: 1, av: '👴🏽' }, { k: 2, av: '🧔🏽' }, { k: 3, av: '👵🏽' }];
 function botsFor(level, count) {
   var first = { easy: 0, medium: 1, hard: 2 }[level] || 0;
@@ -2915,6 +2950,7 @@ function botsFor(level, count) {
 
 /* ----- أيقونات ورسومات ----- */
 var ICON = {
+  send: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.5 2.5 10.6 13.4M21.5 2.5l-7 19-3.9-8.1-8.1-3.9z"/></svg>',
   palette: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 1 0 0 18c1.2 0 1.8-.8 1.8-1.7 0-.5-.2-.9-.5-1.2-.3-.3-.5-.7-.5-1.2 0-.9.8-1.7 1.7-1.7H16a5 5 0 0 0 5-5C21 6.7 17 3 12 3z"/><path d="M7.5 11h.01M10 7.6h.01M14.5 7.6h.01" stroke-width="3"/></svg>',
   tboard: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2.2"/><path d="M12 4.5v15M5.5 4.5 7 10l1.5-5.5M14.5 4.5 16 10l1.5-5.5M5.5 19.5 7 14l1.5 5.5M14.5 19.5 16 14l1.5 5.5"/></svg>',
   felt: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="10.5" rx="9" ry="5.5"/><path d="M6.5 15.4V20M17.5 15.4V20M10.6 10.6l1.4-1.8 1.4 1.8-1.4 1.8z"/></svg>',
@@ -3605,7 +3641,7 @@ function openGameChat(g) {
   box.innerHTML = '<div class="gc-hd"><b>' + t('gchat') + '</b><button class="ib" data-close aria-label="' + t('close') + '">' + ICON.back + '</button></div>' +
     '<div class="gc-msgs" id="gc-msgs"></div>' +
     '<div class="chat-emoji">' + CHAT_EMOJI_LIST().map(function (e) { return '<button type="button" class="em" data-e="' + e + '">' + e + '</button>'; }).join('') + '</div>' +
-    '<div class="chat-bar"><input id="gc-in" class="inp" maxlength="300" enterkeyhint="send" placeholder="' + t('gchatPh') + '"><button type="button" class="btn cta sm" data-send>' + t('send') + '</button></div>';
+    '<div class="chat-bar"><input id="gc-in" class="inp" maxlength="300" enterkeyhint="send" placeholder="' + t('gchatPh') + '"><button type="button" class="send-ic" data-send aria-label="' + t('send') + '">' + ICON.send + '</button></div>';
   document.body.appendChild(box);
   requestAnimationFrame(function () { box.classList.add('open'); });
   paintGameChat(g);
@@ -3638,7 +3674,7 @@ function paintGameChat(g) {
   var rows = g.chatRows || [];
   el.innerHTML = rows.length ? rows.map(function (m) {
     var mine = m.from === myUid;
-    return '<div class="cmsg ' + (mine ? 'mine' : 'theirs') + '">' +
+    return '<div class="cmsg ' + (mine ? 'mine' : 'theirs') + emoCls(m.text) + '">' +
       (mine ? '' : '<small>' + esc(m.name || '') + '</small>') + esc(m.text || '') +
       (mine ? '<i class="tick">' + (m.pending ? '🕓' : '✓') + '</i>' : '') + '</div>';
   }).join('') : '<p class="hint gc-empty">' + t('gchatPh') + '</p>';
@@ -4290,7 +4326,7 @@ function openSoon() {
  * وبعد أي تحديث بيظهر «الجديد في الإصدار» مرة واحدة. */
 var UPD_URL = 'https://technicalteam774.github.io/lamma/version.json';
 var APK_PAGE = 'https://github.com/TechnicalTeam774/lamma/releases/latest';
-var CHANGES = {"2.1.3": ["الطاولة بقت أسرع بكتير: الدور بتاع اللي قدامك بقى ياخد نص الوقت", "لما نسخة جديدة تنزل هيجيلك إشعار، ولما تدوس عليه يفتحلك التحديث على طول", "شاشة البداية جديدة: تحية على حسب الوقت وجملة مختلفة كل مرة تفتح", "أقسام المحل بقت 8 مربعات باينين كلهم بأيقونات، من غير سحب لجنب", "قسم جديد في المحل: صندوق الحظ 🎁 — حاجة جديدة مش عندك بـ 600 كوينز", "الإشعارات اتصلحت: رسايل الصحاب والدعوات وطلبات الصداقة بقت بتوصل", "لعبة جديدة: طرنيب — شركا 2 ضد 2 بالمزايدة، ضد الكمبيوتر أو مع 3 من صحابك", "لعبة جديدة: السلّم والثعبان — لحد 4 لاعيبة"], "2.1.2": ["شاشة البداية جديدة: تحية على حسب الوقت وجملة مختلفة كل مرة تفتح", "أقسام المحل بقت 8 مربعات باينين كلهم بأيقونات، من غير سحب لجنب", "قسم جديد في المحل: صندوق الحظ 🎁 — حاجة جديدة مش عندك بـ 600 كوينز", "شاشة الأصحاب وترتيب الصحاب اتظبطوا، ومبقاش فيه حاجة طالعة برّه الشاشة", "«إزاي تلعب» بقت الألعاب كلها قدامك في شبكة", "ملفي والإحصائيات اتظبطوا", "الإشعارات اتصلحت: رسايل الصحاب والدعوات وطلبات الصداقة بقت بتوصل", "لعبة جديدة: طرنيب — شركا 2 ضد 2 بالمزايدة، ضد الكمبيوتر أو مع 3 من صحابك", "لعبة جديدة: السلّم والثعبان — لحد 4 لاعيبة", "بطولة الأسبوع بين الصحاب: ترتيب بيتصفّر كل جمعة، والتلاتة الأوائل ياخدوا كوينز", "صندوق هدية بعد كل 5 جيمات: كوينز أو شكل جديد من المحل"], "2.1.1": ["الإشعارات اتصلحت: رسايل الصحاب والدعوات وطلبات الصداقة بقت بتوصل", "لما تدوس على إشعار رسالة، بيفتحلك الشات بتاعها على طول", "زرار «جرّب الإشعارات» بقى يقولك السبب بالظبط لو فيه مشكلة", "نغمة جديدة للعبة 🎵 — شغّلها من الإعدادات ← الموسيقى، وتقدر ترجع للموسيقى الهادية من نفس المكان", "لعبة جديدة: طرنيب — شركا 2 ضد 2 بالمزايدة، ضد الكمبيوتر أو مع 3 من صحابك", "لعبة جديدة: السلّم والثعبان — لحد 4 لاعيبة", "بطولة الأسبوع بين الصحاب: ترتيب بيتصفّر كل جمعة، والتلاتة الأوائل ياخدوا كوينز", "صندوق هدية بعد كل 5 جيمات: كوينز أو شكل جديد من المحل", "لقب تحت اسمك حسب اللعبة اللي بتكسب فيها أكتر، وبيبان لصحابك", "اليوم السابع في مكافأة الدخول بقى فيه صندوق كمان", "الورق بيتوزّع قدامك ورقة ورقة، وصوت جديد للورق", "بورد الطاولة بقى له عمق ولمعة", "نتيجة استيمشن بقت تتسجّل في نتايجك (كانت بتضيع)"], "2.1.0": ["نغمة جديدة للعبة 🎵 — شغّلها من الإعدادات ← الموسيقى، وتقدر ترجع للموسيقى الهادية من نفس المكان", "لعبة جديدة: طرنيب — شركا 2 ضد 2 بالمزايدة، ضد الكمبيوتر أو مع 3 من صحابك", "لعبة جديدة: السلّم والثعبان — لحد 4 لاعيبة", "بطولة الأسبوع بين الصحاب: ترتيب بيتصفّر كل جمعة، والتلاتة الأوائل ياخدوا كوينز", "صندوق هدية بعد كل 5 جيمات: كوينز أو شكل جديد من المحل", "لقب تحت اسمك حسب اللعبة اللي بتكسب فيها أكتر، وبيبان لصحابك", "اليوم السابع في مكافأة الدخول بقى فيه صندوق كمان", "الورق بيتوزّع قدامك ورقة ورقة، وصوت جديد للورق", "بورد الطاولة بقى له عمق ولمعة", "نتيجة استيمشن بقت تتسجّل في نتايجك (كانت بتضيع)"], "2.0.0": ["شكل جديد للعبة كلها: رئيسية مرتبة، شريط تنقّل تحت، وإعدادات ومحل وشرح بتصميم واحد", "ترابيزة كوتشينة حقيقية للبصرة واستيمشن، وتقدر تغيّر لونها من المحل", "استيمشن: اللاعيبة قاعدين حوالين الترابيزة، وكل ورقة بتنزل قدام صاحبها", "لعبة جديدة: أربعة تكسب — ضد الكمبيوتر أو مع صاحبك", "الردود جوه اللعب اتغيّرت: جُمل جاهزة وإيموجي بشكل أهدى", "زرار الرجوع: ضغطتين على الرئيسية يقفلوا الأبلكيشن", "استيمشن وأربعة تكسب بقوا في تحدّي الصحاب وفي نتايجك", "بروفايل الصاحب بشكل جديد"], "1.1.1": ["كل تحديث بقى له رقم جديد، فالأبلكيشن هيبلّغك بيه أول ما ينزل", "زرار «نزّل التحديث» بقى ينزّل ملف الأبلكيشن على طول", "اللعبة بتفتح أسرع بكتير", "رقم حسابك بقى يبان في الإعدادات"], "1.1.0": ["اللعبة بقت تفتح أسرع بكتير — فايربيز مابقتش توقف ظهور اللعبة، والملفات بتتخزّن من أول مرة", "رقم الإصدار بقى واحد في كل مكان — في الأبلكيشن وفي صفحة التنزيل", "استيمشن بقت تتلعب مع صحابك — أربعة أونلاين، بالمناقصة والحكم والتوقّع", "لوحة المزايدة اتحركت فوق، مابقتش مغطّية الورق اللي في إيدك", "شكل الكوتشينة اتعمل من أول وجديد: ورق زي الحقيقي، والورق في إيدك بيتفرد مروحة", "الأكلة بقت تفضل على الترابيزة لحد ما تشوف الورقة الرابعة ومين كسبها", "بورد لودو اتعمل من جديد بشكل أحلى", "موسيقى جديدة هادية، والقديمة اللي فيها خرشة اتشالت", "زرار الرجوع بقى يشتغل صح ويسألك قبل ما تخرج", "المحل كبر: 11 ثيم و7 ورق و7 أحجار و7 إيموجي و7 إطارات، وكل تبويب بيقولك الحاجة بتبان فين", "الإشعارات: القناة بقت تتعمل مع فتح الأبلكيشن، والإشعار بيبان جوه اللعبة، وتجربة الإشعار بقت تقولك وقفت فين بالظبط", "رقم حسابك بقى يبان في الإعدادات عشان نقدر نفحص الإشعارات"], "1.0.12": ["لعبة جديدة: استيمشن بأربع لاعيبة، بالمناقصة والحكم والتوقّع", "شرح كامل لاستيمشن جوه اللعبة: إزاي تزايد وتحسب نقطك", "تصليح الإشعارات: الجهاز بقى يتسجّل صح أول ما يفتح الأبلكيشن"]};
+var CHANGES = {"2.1.4": ["الكلام بقى بمقاسه الطبيعي حتى لو موبايلك متظبّط على خط كبير — مفيش أسامي بتتقص ولا كروت بتتكسر", "الشات اتجدد: كلام أصغر وفقاعات أشيك، والإيموجي لوحده بيبان كبير، وزرار إرسال جديد", "كارت التحدي اللي خلص بقى مظبوط، وزرار الجايزة جنبه", "الطاولة بقت أسرع بكتير: الدور بتاع اللي قدامك بقى ياخد نص الوقت", "لما نسخة جديدة تنزل هيجيلك إشعار، ولما تدوس عليه يفتحلك التحديث على طول", "شاشة البداية جديدة: تحية على حسب الوقت وجملة مختلفة كل مرة تفتح", "أقسام المحل بقت 8 مربعات باينين كلهم بأيقونات، من غير سحب لجنب", "قسم جديد في المحل: صندوق الحظ 🎁 — حاجة جديدة مش عندك بـ 600 كوينز"], "2.1.3": ["الطاولة بقت أسرع بكتير: الدور بتاع اللي قدامك بقى ياخد نص الوقت", "لما نسخة جديدة تنزل هيجيلك إشعار، ولما تدوس عليه يفتحلك التحديث على طول", "شاشة البداية جديدة: تحية على حسب الوقت وجملة مختلفة كل مرة تفتح", "أقسام المحل بقت 8 مربعات باينين كلهم بأيقونات، من غير سحب لجنب", "قسم جديد في المحل: صندوق الحظ 🎁 — حاجة جديدة مش عندك بـ 600 كوينز", "الإشعارات اتصلحت: رسايل الصحاب والدعوات وطلبات الصداقة بقت بتوصل", "لعبة جديدة: طرنيب — شركا 2 ضد 2 بالمزايدة، ضد الكمبيوتر أو مع 3 من صحابك", "لعبة جديدة: السلّم والثعبان — لحد 4 لاعيبة"], "2.1.2": ["شاشة البداية جديدة: تحية على حسب الوقت وجملة مختلفة كل مرة تفتح", "أقسام المحل بقت 8 مربعات باينين كلهم بأيقونات، من غير سحب لجنب", "قسم جديد في المحل: صندوق الحظ 🎁 — حاجة جديدة مش عندك بـ 600 كوينز", "شاشة الأصحاب وترتيب الصحاب اتظبطوا، ومبقاش فيه حاجة طالعة برّه الشاشة", "«إزاي تلعب» بقت الألعاب كلها قدامك في شبكة", "ملفي والإحصائيات اتظبطوا", "الإشعارات اتصلحت: رسايل الصحاب والدعوات وطلبات الصداقة بقت بتوصل", "لعبة جديدة: طرنيب — شركا 2 ضد 2 بالمزايدة، ضد الكمبيوتر أو مع 3 من صحابك", "لعبة جديدة: السلّم والثعبان — لحد 4 لاعيبة", "بطولة الأسبوع بين الصحاب: ترتيب بيتصفّر كل جمعة، والتلاتة الأوائل ياخدوا كوينز", "صندوق هدية بعد كل 5 جيمات: كوينز أو شكل جديد من المحل"], "2.1.1": ["الإشعارات اتصلحت: رسايل الصحاب والدعوات وطلبات الصداقة بقت بتوصل", "لما تدوس على إشعار رسالة، بيفتحلك الشات بتاعها على طول", "زرار «جرّب الإشعارات» بقى يقولك السبب بالظبط لو فيه مشكلة", "نغمة جديدة للعبة 🎵 — شغّلها من الإعدادات ← الموسيقى، وتقدر ترجع للموسيقى الهادية من نفس المكان", "لعبة جديدة: طرنيب — شركا 2 ضد 2 بالمزايدة، ضد الكمبيوتر أو مع 3 من صحابك", "لعبة جديدة: السلّم والثعبان — لحد 4 لاعيبة", "بطولة الأسبوع بين الصحاب: ترتيب بيتصفّر كل جمعة، والتلاتة الأوائل ياخدوا كوينز", "صندوق هدية بعد كل 5 جيمات: كوينز أو شكل جديد من المحل", "لقب تحت اسمك حسب اللعبة اللي بتكسب فيها أكتر، وبيبان لصحابك", "اليوم السابع في مكافأة الدخول بقى فيه صندوق كمان", "الورق بيتوزّع قدامك ورقة ورقة، وصوت جديد للورق", "بورد الطاولة بقى له عمق ولمعة", "نتيجة استيمشن بقت تتسجّل في نتايجك (كانت بتضيع)"], "2.1.0": ["نغمة جديدة للعبة 🎵 — شغّلها من الإعدادات ← الموسيقى، وتقدر ترجع للموسيقى الهادية من نفس المكان", "لعبة جديدة: طرنيب — شركا 2 ضد 2 بالمزايدة، ضد الكمبيوتر أو مع 3 من صحابك", "لعبة جديدة: السلّم والثعبان — لحد 4 لاعيبة", "بطولة الأسبوع بين الصحاب: ترتيب بيتصفّر كل جمعة، والتلاتة الأوائل ياخدوا كوينز", "صندوق هدية بعد كل 5 جيمات: كوينز أو شكل جديد من المحل", "لقب تحت اسمك حسب اللعبة اللي بتكسب فيها أكتر، وبيبان لصحابك", "اليوم السابع في مكافأة الدخول بقى فيه صندوق كمان", "الورق بيتوزّع قدامك ورقة ورقة، وصوت جديد للورق", "بورد الطاولة بقى له عمق ولمعة", "نتيجة استيمشن بقت تتسجّل في نتايجك (كانت بتضيع)"], "2.0.0": ["شكل جديد للعبة كلها: رئيسية مرتبة، شريط تنقّل تحت، وإعدادات ومحل وشرح بتصميم واحد", "ترابيزة كوتشينة حقيقية للبصرة واستيمشن، وتقدر تغيّر لونها من المحل", "استيمشن: اللاعيبة قاعدين حوالين الترابيزة، وكل ورقة بتنزل قدام صاحبها", "لعبة جديدة: أربعة تكسب — ضد الكمبيوتر أو مع صاحبك", "الردود جوه اللعب اتغيّرت: جُمل جاهزة وإيموجي بشكل أهدى", "زرار الرجوع: ضغطتين على الرئيسية يقفلوا الأبلكيشن", "استيمشن وأربعة تكسب بقوا في تحدّي الصحاب وفي نتايجك", "بروفايل الصاحب بشكل جديد"], "1.1.1": ["كل تحديث بقى له رقم جديد، فالأبلكيشن هيبلّغك بيه أول ما ينزل", "زرار «نزّل التحديث» بقى ينزّل ملف الأبلكيشن على طول", "اللعبة بتفتح أسرع بكتير", "رقم حسابك بقى يبان في الإعدادات"], "1.1.0": ["اللعبة بقت تفتح أسرع بكتير — فايربيز مابقتش توقف ظهور اللعبة، والملفات بتتخزّن من أول مرة", "رقم الإصدار بقى واحد في كل مكان — في الأبلكيشن وفي صفحة التنزيل", "استيمشن بقت تتلعب مع صحابك — أربعة أونلاين، بالمناقصة والحكم والتوقّع", "لوحة المزايدة اتحركت فوق، مابقتش مغطّية الورق اللي في إيدك", "شكل الكوتشينة اتعمل من أول وجديد: ورق زي الحقيقي، والورق في إيدك بيتفرد مروحة", "الأكلة بقت تفضل على الترابيزة لحد ما تشوف الورقة الرابعة ومين كسبها", "بورد لودو اتعمل من جديد بشكل أحلى", "موسيقى جديدة هادية، والقديمة اللي فيها خرشة اتشالت", "زرار الرجوع بقى يشتغل صح ويسألك قبل ما تخرج", "المحل كبر: 11 ثيم و7 ورق و7 أحجار و7 إيموجي و7 إطارات، وكل تبويب بيقولك الحاجة بتبان فين", "الإشعارات: القناة بقت تتعمل مع فتح الأبلكيشن، والإشعار بيبان جوه اللعبة، وتجربة الإشعار بقت تقولك وقفت فين بالظبط", "رقم حسابك بقى يبان في الإعدادات عشان نقدر نفحص الإشعارات"], "1.0.12": ["لعبة جديدة: استيمشن بأربع لاعيبة، بالمناقصة والحكم والتوقّع", "شرح كامل لاستيمشن جوه اللعبة: إزاي تزايد وتحسب نقطك", "تصليح الإشعارات: الجهاز بقى يتسجّل صح أول ما يفتح الأبلكيشن"]};
 function verNum(v) { var p = String(v || '0').split('.'); return (+p[0] || 0) * 1e6 + (+p[1] || 0) * 1e3 + (+p[2] || 0); }
 var updLast = 0;
 function checkUpdate(manual) {
@@ -4573,6 +4609,8 @@ function sendChat(friendUid, text) {
   fbDb.collection('inbox').doc(friendUid).collection('items').add({ from: myUid, name: S.name || '', text: text.slice(0, 120), ts: firebase.firestore.FieldValue.serverTimestamp() }).catch(function () {});
   notifyFriend(friendUid, 'chat', { text: text.slice(0, 120) });
 }
+var EMO_ONLY = /^(?:\p{Extended_Pictographic}|\p{Emoji_Modifier}|\u200d|\ufe0f|\s){1,12}$/u;
+function emoCls(txt) { return txt && EMO_ONLY.test(txt) && /\p{Extended_Pictographic}/u.test(txt) ? ' emo' : ''; }
 function CHAT_EMOJI_LIST() { return emojiList().slice(0, 12); }
 
 /* ----- واجهة شاشة الأصحاب ----- */
@@ -4650,13 +4688,13 @@ function openChat(uid) {
     '<button class="btn cta sm chat-invite">' + t('playInvite') + '</button></div>' +
     '<div class="chat-msgs" id="chat-msgs"></div>' +
     '<div class="chat-emoji">' + CHAT_EMOJI_LIST().map(function (e) { return '<button class="em" data-e="' + e + '">' + e + '</button>'; }).join('') + '</div>' +
-    '<div class="chat-bar"><input id="chat-in" class="inp" placeholder="' + t('chatPh') + '"><button class="btn cta sm" id="chat-send">' + t('send') + '</button></div>';
+    '<div class="chat-bar"><input id="chat-in" class="inp" maxlength="300" enterkeyhint="send" placeholder="' + t('chatPh') + '"><button type="button" class="send-ic" id="chat-send" aria-label="' + t('send') + '">' + ICON.send + '</button></div>';
   $('#chat-back', box).addEventListener('click', function () { box.hidden = true; if (unsub.chat) unsub.chat(); if (unSeenDoc) { unSeenDoc(); unSeenDoc = null; } chatWith = null; paintFriends(); });
   $('.chat-invite', box).addEventListener('click', function () { Snd.play('tap'); openGamePicker(uid); });
   $('#chat-send', box).addEventListener('click', function () { var i = $('#chat-in', box); sendChat(uid, i.value); i.value = ''; });
   $('#chat-in', box).addEventListener('keydown', function (ev) { if (ev.key === 'Enter') $('#chat-send', box).click(); });
   $$('.em', box).forEach(function (b) { b.addEventListener('click', function () { sendChat(uid, b.getAttribute('data-e')); }); });
-  listenChat(uid);
+  if (fbDb) listenChat(uid);
   box.scrollIntoView({ block: 'nearest' });
 }
 function paintChat(rows) {
@@ -4665,7 +4703,7 @@ function paintChat(rows) {
   el.innerHTML = rows.map(function (m) {
     var mine = m.from === myUid, tick = '';
     if (mine) tick = m.pending ? '<i class="tick">🕓</i>' : chatSeen && m.t <= chatSeen ? '<i class="tick seen">✓✓</i>' : '<i class="tick">✓</i>';
-    return '<div class="cmsg ' + (mine ? 'mine' : 'theirs') + '">' + esc(m.text || '') + tick + '</div>';
+    return '<div class="cmsg ' + (mine ? 'mine' : 'theirs') + emoCls(m.text) + '">' + esc(m.text || '') + tick + '</div>';
   }).join('');
   el.scrollTop = el.scrollHeight;
 }
@@ -4793,7 +4831,7 @@ function listenInbox() {
 }
 function clearInbox(from) {
   unread[from] = 0;
-  fbDb.collection('inbox').doc(myUid).collection('items').where('from', '==', from).get()
+  if (fbDb) fbDb.collection('inbox').doc(myUid).collection('items').where('from', '==', from).get()
     .then(function (s) { s.forEach(function (d) { d.ref.delete().catch(function () {}); }); }).catch(function () {});
   refreshHomeNote();
 }
@@ -8426,7 +8464,7 @@ window.__lamma = {
     inviteToGame: inviteToGame, openSetup: openSetup, openGamePicker: openGamePicker
   },
   // للاختبارات: يفتح شاشة الأصحاب ببيانات تجريبية من غير فايربيز
-  dev: { pushUrl: function (u) { pushCfg.url = u; }, social: function (m) { devFb = true; myUid = m.uid || 'dev'; myCode = m.code || 'DEV123'; friendsData = m.friends || {}; requestsData = m.requests || {}; if (current) { current.destroy(); current = null; } openSocial(); } },
+  dev: { pushUrl: function (u) { pushCfg.url = u; }, chat: function (uid, rows) { openChat(uid); paintChat(rows); }, gchat: function (rows) { openGameChat({ online: { friend: { name: 'Amira' } }, chatRows: rows }); }, social: function (m) { devFb = true; myUid = m.uid || 'dev'; myCode = m.code || 'DEV123'; friendsData = m.friends || {}; requestsData = m.requests || {}; if (current) { current.destroy(); current = null; } openSocial(); } },
   ui: { cardFace: cardFaceHTML, setSkin: setSkin, setTheme: setTheme, openShop: openShop, openHowTo: openHowTo, openProfile: openProfile, openSettings: openSettings, openFriendProfile: openFriendProfile, openStats: openStats, openDaily: openDaily, openWheel: openWheel, openSetup: openSetup }
 };
 

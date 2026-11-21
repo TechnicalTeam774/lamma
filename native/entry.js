@@ -3,6 +3,11 @@ import { Capacitor } from '@capacitor/core';
 import { App } from '@capacitor/app';
 import { FirebaseAuthentication } from '@capacitor-firebase/authentication';
 import { PushNotifications } from '@capacitor/push-notifications';
+import { TextZoom } from '@capacitor/text-zoom';
+
+// لو الموبايل متظبّط على خط كبير، أندرويد بيكبّر كل كلام اللعبة (~30%) والتصميم بيبوظ
+// (اسم يتقص، كروت تتكسر، شات ضخم). بنثبّت الكلام على المقاس اللي اللعبة اتصممت عليه.
+if (Capacitor.isNativePlatform()) TextZoom.set({ value: 1 }).catch(() => {});
 
 let pushToken = null;
 const waiters = [];
