@@ -1284,6 +1284,108 @@ html[dir="rtl"] .send-ic svg { transform: scaleX(-1); }
 :root[data-theme="xmas"] .pcard .avatar::before { content: ''; position: absolute; z-index: 3; width: 36px; height: 31px; top: -17px; inset-inline-start: -7px; background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 40 34'><path d='M5 27Q10 6 26 4q10 0 11 11l-7-2q-2-4-5-3-7 3-8 17z' fill='%23d7263d'/><path d='M8 25q8-14 18-15' stroke='%23a51b2d' stroke-width='2' fill='none'/><rect x='2' y='23' width='23' height='8' rx='4' fill='%23fff'/><circle cx='34' cy='17' r='4.4' fill='%23fff'/></svg>") center / contain no-repeat; transform: rotate(-14deg); pointer-events: none; filter: drop-shadow(0 2px 2px rgba(0, 0, 0, .3)); }
 html[dir="ltr"][data-theme="xmas"] .pcard .avatar::before { transform: scaleX(-1) rotate(-14deg); }
 @media (prefers-reduced-motion: reduce) { .santa, .santa svg, .santa .lg, .santa .tw { animation-duration: 0s; } .santa { display: none; } }
+
+/* ===== كورة الأساطير ===== */
+.kora-ban { all: unset; box-sizing: border-box; position: relative; overflow: hidden; display: flex; align-items: center; gap: 12px; width: 100%; min-height: 104px; margin: 0 0 18px; padding: 16px 18px; border-radius: 22px; cursor: pointer;
+  background: radial-gradient(120% 140% at 85% 120%, #2fbf5b 0 34%, transparent 35%), linear-gradient(160deg, #0b1636, #1d2b5a 60%, #13365a); box-shadow: 0 14px 28px -16px rgba(0, 0, 0, .7), inset 0 0 0 1px rgba(255, 255, 255, .12); color: #fff; -webkit-tap-highlight-color: transparent; transition: transform .15s ease; }
+.kora-ban:active { transform: scale(.98); }
+.kb-lights { position: absolute; inset: 0; background: radial-gradient(60px 120px at 12% -10%, rgba(255, 255, 220, .45), transparent 70%), radial-gradient(60px 120px at 60% -14%, rgba(255, 255, 220, .3), transparent 70%); pointer-events: none; }
+.kb-txt { position: relative; display: grid; gap: 4px; flex: 1; min-width: 0; padding-top: 14px; }
+.kb-txt b { font-family: var(--display); font-size: 1.7rem; font-weight: 400; line-height: 1.1; }
+.kb-txt small { font-size: .8rem; opacity: .85; }
+.kb-new { position: absolute; top: 10px; inset-inline-start: 14px; padding: 3px 10px; border-radius: 999px; background: #e23b3b; font-size: .72rem; font-weight: 800; }
+.kb-ball { position: relative; font-size: 3.2rem; filter: drop-shadow(0 8px 10px rgba(0, 0, 0, .45)); animation: kbBounce 1.6s ease-in-out infinite; }
+@keyframes kbBounce { 0%, 100% { transform: translateY(0) rotate(0); } 45% { transform: translateY(-10px) rotate(-20deg); } }
+.kora-hub { padding-bottom: 30px; }
+.kora-hub .gbar { padding: 10px 12px; }
+.kh-title { flex: 1; font-size: 1.15rem; }
+#kh-body { padding: 0 16px; display: grid; gap: 12px; }
+.kh-load { text-align: center; padding: 40px 0; }
+.kh-me { position: relative; display: flex; gap: 12px; align-items: center; padding: 14px; border-radius: 20px; background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--line); }
+.kh-me.t2 { background: linear-gradient(150deg, rgba(242, 201, 76, .22), transparent 60%), var(--surface-2); box-shadow: inset 0 0 0 1.5px rgba(242, 201, 76, .6); }
+.kh-pt { width: 96px; height: 96px; flex: none; border-radius: 18px; background: radial-gradient(circle at 50% 35%, rgba(255, 255, 255, .14), transparent 70%); }
+.kh-mi { flex: 1; min-width: 0; display: grid; gap: 5px; }
+.kh-nm { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.kh-nm b { font-size: 1.1rem; }
+.tier { font-size: .66rem; font-weight: 800; padding: 2px 8px; border-radius: 999px; background: rgba(205, 127, 50, .25); color: #e9a56a; }
+.tier.t1 { background: rgba(192, 192, 210, .22); color: #d6d9e6; } .tier.t2 { background: rgba(242, 201, 76, .25); color: #f2c94c; }
+.rate { margin-inline-start: auto; font-weight: 900; font-size: 1rem; padding: 2px 8px; border-radius: 8px; background: rgba(0, 0, 0, .25); }
+.rate.big { font-size: 1.3rem; display: inline-block; margin-top: 6px; }
+.kst { display: grid; grid-template-columns: 40px minmax(0, 1fr) 20px; align-items: center; gap: 6px; font-size: .7rem; }
+.kst span { color: var(--ink-2); font-weight: 700; } .kst b { font-size: .72rem; text-align: center; }
+.kst i, .kd-row i { position: relative; display: flex; height: 7px; border-radius: 99px; background: rgba(255, 255, 255, .1); overflow: hidden; }
+.kst em, .kd-row em { height: 100%; background: #4fc3f7; } .kst em.up, .kd-row em.up { background: #f2c94c; }
+.kh-sup { font-size: .78rem; font-weight: 800; color: var(--ink-2); }
+.kh-foot { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 2px; }
+.kh-chg { all: unset; flex: none; padding: 6px 12px; border-radius: 999px; font-size: .74rem; font-weight: 800; background: var(--accent); color: var(--on-accent); cursor: pointer; }
+.kh-go { all: unset; box-sizing: border-box; position: relative; display: grid; gap: 4px; padding: 14px 16px; padding-inline-end: 84px; border-radius: 20px; cursor: pointer; color: #1a1230; background: linear-gradient(135deg, #ffe17a, #f2b632); box-shadow: 0 6px 0 #b9831b, 0 14px 26px -12px rgba(242, 182, 50, .7); transition: transform .1s ease, box-shadow .1s ease; }
+.kh-go:active { transform: translateY(4px); box-shadow: 0 2px 0 #b9831b; }
+.kg-top { font-size: .74rem; font-weight: 800; opacity: .8; }
+.kg-mid b { display: block; font-family: var(--display); font-size: 1.6rem; font-weight: 400; line-height: 1.15; }
+.kg-vs { font-size: .8rem; font-weight: 700; }
+.kg-rw { display: inline-flex; align-items: center; gap: 4px; font-weight: 900; font-size: .85rem; } .kg-rw svg { width: 16px; height: 16px; }
+.kg-opp { position: absolute; top: 50%; inset-inline-end: 12px; width: 64px; height: 64px; transform: translateY(-50%); border-radius: 50%; background: rgba(255, 255, 255, .35); }
+.kh-done { padding: 18px; text-align: center; border-radius: 20px; background: var(--surface-2); font-weight: 800; }
+.kh-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.kh-tile { all: unset; box-sizing: border-box; position: relative; display: grid; gap: 3px; padding: 14px; border-radius: 18px; background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--line); cursor: pointer; }
+.kh-tile i { font-style: normal; font-size: 1.6rem; } .kh-tile b { font-size: .95rem; } .kh-tile small { font-size: .72rem; color: var(--ink-2); }
+.kh-tile.wide { grid-template-columns: auto 1fr; grid-template-rows: auto auto; column-gap: 12px; align-items: center; } .kh-tile.wide i { grid-row: span 2; }
+.kh-tile em { position: absolute; top: 10px; inset-inline-end: 12px; font-style: normal; font-size: .66rem; font-weight: 800; padding: 2px 8px; border-radius: 999px; background: rgba(255, 255, 255, .12); }
+.kh-tile.soon { opacity: .75; }
+.kh-h { display: flex; align-items: baseline; justify-content: space-between; margin: 8px 0 0; font-size: 1rem; } .kh-h small { font-size: .72rem; color: var(--ink-2); font-weight: 700; }
+.kh-path { display: grid; gap: 8px; }
+.kp-lg { padding: 10px 12px; border-radius: 16px; background: var(--surface-2); } .kp-lg.lock { opacity: .5; }
+.kp-lg > b { display: block; font-size: .8rem; margin-bottom: 8px; }
+.kp-cells { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 6px; }
+.kp-c { position: relative; display: grid; place-items: center; height: 36px; border-radius: 12px; font-weight: 800; font-size: .85rem; background: rgba(255, 255, 255, .06); }
+.kp-c i { position: absolute; bottom: -7px; font-style: normal; font-size: .58rem; color: #f2c94c; letter-spacing: -1px; }
+.kp-c.done { background: rgba(47, 191, 91, .25); } .kp-c.now { background: #f2c94c; color: #1a1230; box-shadow: 0 0 0 3px rgba(242, 201, 76, .3); } .kp-c.boss { font-size: 1rem; }
+.kh-how { all: unset; justify-self: center; padding: 8px 16px; border-radius: 999px; font-size: .82rem; font-weight: 800; color: var(--ink-2); box-shadow: inset 0 0 0 1px var(--line); cursor: pointer; }
+.kq-h { margin: 14px 0 8px; font-size: .9rem; } .kq-h.t2 { color: #f2c94c; }
+.kq-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
+.kc { all: unset; box-sizing: border-box; position: relative; display: grid; justify-items: center; gap: 2px; padding: 8px 6px 10px; border-radius: 16px; background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--line); cursor: pointer; text-align: center; }
+.kc canvas { width: 70px; height: 70px; } .kc b { font-size: .82rem; } .kc small { display: inline-flex; align-items: center; gap: 3px; font-size: .7rem; color: var(--ink-2); } .kc small svg { width: 13px; height: 13px; }
+.kc-r { position: absolute; top: 6px; inset-inline-start: 8px; font-weight: 900; font-size: .78rem; }
+.kc-crown { position: absolute; top: 4px; inset-inline-end: 6px; font-size: .9rem; }
+.kc.t2 { background: linear-gradient(160deg, rgba(242, 201, 76, .25), transparent 65%), var(--surface-2); box-shadow: inset 0 0 0 1.5px rgba(242, 201, 76, .55); }
+.kc.t1 { box-shadow: inset 0 0 0 1px rgba(200, 205, 225, .35); }
+.kc.sel { box-shadow: inset 0 0 0 2px #2fbf5b; } .kc.locked canvas { filter: saturate(.6) brightness(.85); }
+.kd-top { display: flex; gap: 14px; align-items: center; margin-bottom: 12px; }
+.kd-pt { width: 120px; height: 120px; flex: none; border-radius: 22px; background: radial-gradient(circle at 50% 35%, rgba(255, 255, 255, .16), transparent 70%); }
+.kd.t2 .kd-pt { background: radial-gradient(circle at 50% 35%, rgba(242, 201, 76, .4), transparent 70%); }
+.kd-nm { display: block; font-size: 1.35rem; margin-bottom: 4px; }
+.kd-sup { display: flex; gap: 10px; align-items: center; padding: 10px 12px; margin-bottom: 10px; border-radius: 14px; background: var(--surface-2); } .kd-sup > span { font-size: 1.6rem; }
+.kd-sup b { display: block; font-size: .9rem; } .kd-sup small { font-size: .76rem; color: var(--ink-2); }
+.kd-st { display: grid; gap: 8px; margin-bottom: 12px; }
+.kd-row { display: grid; grid-template-columns: 52px minmax(0, 1fr) 92px; align-items: center; gap: 8px; font-size: .8rem; } .kd-row span { font-weight: 800; color: var(--ink-2); }
+.kd-up { all: unset; box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; gap: 3px; height: 30px; border-radius: 10px; font-weight: 900; font-size: .78rem; background: var(--accent); color: var(--on-accent); cursor: pointer; } .kd-up svg { width: 14px; height: 14px; }
+.kd-max { text-align: center; font-weight: 800; color: #2fbf5b; } .kd-on { text-align: center; font-weight: 800; color: #2fbf5b; } .kd-disc { text-align: center; font-size: .78rem; color: #f2c94c; }
+.kq-diff { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+.kq-d { all: unset; box-sizing: border-box; display: grid; gap: 4px; justify-items: center; padding: 16px 10px; border-radius: 16px; background: var(--surface-2); box-shadow: inset 0 0 0 1px var(--line); cursor: pointer; }
+.kq-d b { font-size: 1rem; } .kq-d small { display: inline-flex; gap: 3px; align-items: center; font-size: .76rem; color: var(--ink-2); } .kq-d small svg { width: 14px; height: 14px; }
+.kq-d.d3 { background: linear-gradient(160deg, rgba(242, 201, 76, .25), transparent 65%), var(--surface-2); }
+.kr { text-align: center; } .kr-score { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; margin: 6px 0; } .kr-score b { font-size: 2.4rem; font-weight: 900; } .kr-score span { font-size: .85rem; font-weight: 800; color: var(--ink-2); }
+.kr-stars { font-size: 2rem; letter-spacing: 6px; } .kr-stars i { font-style: normal; color: rgba(255, 255, 255, .2); } .kr-stars i.on { color: #f2c94c; text-shadow: 0 0 12px rgba(242, 201, 76, .6); }
+.kr-gain { display: inline-flex; align-items: center; gap: 6px; font-weight: 900; font-size: 1.2rem; } .kr-gain svg { width: 22px; height: 22px; } .kr-msg { color: #f2c94c; font-weight: 800; font-size: .9rem; }
+/* الماتش */
+.kora-stage { position: fixed; inset: 0; z-index: 25; background: #05070f; overflow: hidden; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
+.kora-land { position: absolute; left: 0; top: 0; transform-origin: 0 0; }
+.kora-cv { position: absolute; display: block; }
+.kx { all: unset; position: absolute; top: 10px; left: 12px; width: 38px; height: 38px; display: grid; place-items: center; border-radius: 50%; background: rgba(0, 0, 0, .45); color: #fff; font-size: 1rem; cursor: pointer; z-index: 2; }
+.kp { position: absolute; bottom: 0; left: 0; right: 0; display: flex; justify-content: space-between; align-items: flex-end; padding: 0 14px calc(12px + env(safe-area-inset-bottom, 0px)); pointer-events: none; z-index: 2; }
+.kp-move, .kp-act { display: flex; gap: 12px; align-items: flex-end; pointer-events: auto; }
+.kb { all: unset; box-sizing: border-box; position: relative; overflow: hidden; width: 70px; height: 70px; border-radius: 50%; display: grid; place-items: center; font-size: 1.7rem; color: #fff; background: rgba(255, 255, 255, .16); box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .35), 0 6px 14px rgba(0, 0, 0, .35); -webkit-tap-highlight-color: transparent; transition: transform .06s ease, background-color .06s ease; }
+.kb.on { transform: scale(.92); background: rgba(255, 255, 255, .34); }
+.kb-k { width: 80px; height: 80px; background: rgba(226, 59, 59, .55); } .kb-j { background: rgba(45, 125, 210, .5); }
+.kb-sup { width: 58px; height: 58px; margin-bottom: 52px; font-size: 1.4rem; background: rgba(0, 0, 0, .4); }
+.kb-sup i { position: absolute; left: 0; right: 0; bottom: 0; background: rgba(79, 195, 247, .55); }
+.kb-sup span { position: relative; }
+.kb-sup.ready { box-shadow: inset 0 0 0 3px #ffd23f, 0 0 18px #ffd23f; animation: supPulse .8s ease-in-out infinite alternate; } .kb-sup.ready i { background: rgba(255, 210, 63, .6); }
+@keyframes supPulse { to { transform: scale(1.08); } }
+.kpl, .kpr { top: 0; bottom: 0; width: 50%; padding: 60px 10px 10px; flex-direction: column; justify-content: flex-end; }
+.kpl { left: 0; right: auto; align-items: flex-start; } .kpr { right: 0; left: auto; align-items: flex-end; }
+.kpl .kb, .kpr .kb { width: 58px; height: 58px; font-size: 1.4rem; } .kpl .kb-k, .kpr .kb-k { width: 64px; height: 64px; } .kpl .kb-sup, .kpr .kb-sup { width: 50px; height: 50px; margin: 0; }
+.kpl .kp-act, .kpr .kp-act { margin-bottom: 10px; }
 </style>
 </head>
 <body>
@@ -2669,7 +2771,7 @@ function save() { try { window.localStorage.setItem(KEY, JSON.stringify(S)); } c
 var L = {
   ar: {
     tagline: 'طاولة ودومنة وصحاب',
-    welcomeBig: 'أهلاً', welcomeLineNew: 'بيك في لمّة', welcomeLineBack: 'يا {name}', gr_morning: 'صباح الفل', gr_noon: 'يومك فل', gr_evening: 'مساء الفل', gr_late: 'سهرانين؟', wHeadBack: 'نوّرت', wHeadNew: 'نوّرتنا', wNewLine: 'القعدة كانت ناقصاك', wName: 'يا {name}', wStreak: '{n} يوم ورا بعض', wStreak2: 'يومين ورا بعض', wStreakFew: '{n} أيام ورا بعض', wPunchX: ['بابا نويل عدّى من هنا 🎅', 'الهدايا مستنياك تحت الشجرة 🎁', 'كريسماس سعيد 🎄', 'التلج نازل والترابيزة مولّعة ❄️🔥', 'لو شفت بابا نويل طاير… دوس عليه 😉'], santaLbl: 'بابا نويل — دوس عليه عشان الهدية', santaGift: '🎅 بابا نويل سابلك هدية: {n} كوينز', santaTomorrow: '🎅 بابا نويل: هديتك الجاية بكرة!', wPunch: ['الترابيزة مستنياك', 'مين هيكسب النهارده؟', 'الزهر النهارده في صفّك 🎲', 'جاهز تقلب الطاولة؟', 'صحابك مستنيين تحدّي', 'جيم واحد بس… وعد 😉', 'النهارده يومك يا بطل'], welcomeSub: 'القعدة جاهزة، يلا بينا',
+    welcomeBig: 'أهلاً', welcomeLineNew: 'بيك في لمّة', welcomeLineBack: 'يا {name}', koraT: 'كورة الأساطير', koraGotIt: 'تمام', koraSec: 'عالم الكورة ⚽', koraBanSub: '1 ضد 1 · أساطير · قوى خاصة', koraNew: 'جديد', koraLoading: 'بنجهّز الملعب…', koraLoadErr: 'مقدرناش نجهّز الكورة — جرّب تاني', koraCareer: 'كمّل المشوار', koraMatchOf: 'ماتش {k} من 6', koraBoss: 'ماتش الزعيم', koraVs: 'ضد {n}', koraDiff: ['سهل', 'متوسط', 'صعب', 'أسطوري'], koraQuick: 'ماتش سريع', koraQuickSub: 'اختار المستوى', koraLocal: 'اتنين على موبايل', koraLocalSub: 'إنت وصاحبك', koraFriend: 'تحدّي صاحب', koraFriendSub: 'ابعتله تحدّي ويرد عليك', koraSoon: 'قريبًا', koraFriendSoon: 'تحدّي الصحاب جاي في التحديث الجاي 🔥', koraPath: 'المشوار', koraRecord: 'كسب {w} · تعادل {d} · خسارة {l}', koraAllDone: '🏆 خلّصت المشوار كله! إنت أسطورة', koraSquad: 'اللعيبة', koraTier0: 'مبتدئ', koraTier1: 'محترف', koraTier2: 'أسطورة', koraTier0s: 'مبتدئين', koraTier1s: 'محترفين', koraTier2s: 'الأساطير 👑', koraSelected: 'بتلعب بيه', koraOwned: 'معاك', koraSelect: 'العب بيه', koraBuy: 'اشتري', koraMax: 'أقصى حاجة', koraDiscOn: 'خصم 40% عشان كسبته في ماتش الزعيم', st_spd: 'سرعة', st_jmp: 'نطّ', st_sht: 'شوطة', st_hed: 'راس', st_sup: 'القوة', koraPickDiff: 'كل ما يصعب، الكوينز تزيد', koraP2Pick: 'صاحبك يختار لعيبه:', koraWin: 'كسبت! 🎉', koraLose: 'خسرت المرة دي', koraDraw: 'تعادل', koraLocalWin: '{n} كسب!', koraNext: 'الماتش الجاي ▶', koraAgain: 'كمان مرة', koraBack: 'رجوع', koraDisc: '👑 كسبت الزعيم! {n} بقى بخصم 40% في اللعيبة', koraHow: 'إزاي تلعب؟', koraHowSteps: ['◀ ▶ للحركة، ⤒ للنطّ، 👟 للشوطة', 'العدّاد اللي جنب النتيجة بيتملي — أول ما زرار القوة ينوّر دوس عليه', 'الراس بتصد وبتجيب أجوان: نُط للكورة العالية', 'تقدر تخبط اللي قدامك بالشوطة لو جنبك', 'الكوينز من الماتشات بترقّي لعيبك أو تشتري أسطورة', 'لف الموبايل بالعرض… ولو الدوران مقفول اللعبة بتلف لوحدها'], gr_morning: 'صباح الفل', gr_noon: 'يومك فل', gr_evening: 'مساء الفل', gr_late: 'سهرانين؟', wHeadBack: 'نوّرت', wHeadNew: 'نوّرتنا', wNewLine: 'القعدة كانت ناقصاك', wName: 'يا {name}', wStreak: '{n} يوم ورا بعض', wStreak2: 'يومين ورا بعض', wStreakFew: '{n} أيام ورا بعض', wPunchX: ['بابا نويل عدّى من هنا 🎅', 'الهدايا مستنياك تحت الشجرة 🎁', 'كريسماس سعيد 🎄', 'التلج نازل والترابيزة مولّعة ❄️🔥', 'لو شفت بابا نويل طاير… دوس عليه 😉'], santaLbl: 'بابا نويل — دوس عليه عشان الهدية', santaGift: '🎅 بابا نويل سابلك هدية: {n} كوينز', santaTomorrow: '🎅 بابا نويل: هديتك الجاية بكرة!', wPunch: ['الترابيزة مستنياك', 'مين هيكسب النهارده؟', 'الزهر النهارده في صفّك 🎲', 'جاهز تقلب الطاولة؟', 'صحابك مستنيين تحدّي', 'جيم واحد بس… وعد 😉', 'النهارده يومك يا بطل'], welcomeSub: 'القعدة جاهزة، يلا بينا',
     askName: 'نناديك بإيه؟', namePh: 'اكتب اسمك', needName: 'اكتب اسمك الأول', pickAvatar: 'اختار شكلك', start: 'يلا بينا',
     hi: 'أهلاً يا {name}', homeQ: 'هتلعب إيه النهارده؟',
     tawla: 'الطاولة', domino: 'الدومنة', ludo: 'لودو',
@@ -2805,7 +2907,7 @@ var L = {
   },
   en: {
     tagline: 'Tawla, domino and friends',
-    welcomeBig: 'Welcome', welcomeLineNew: 'to Lamma', welcomeLineBack: 'back, {name}', gr_morning: 'Good morning', gr_noon: 'Good afternoon', gr_evening: 'Good evening', gr_late: 'Up late?', wHeadBack: 'Hey', wHeadNew: 'Welcome', wNewLine: 'The table was missing you', wName: '{name}!', wStreak: '{n}-day streak', wPunchX: ['Santa just flew by 🎅', 'Gifts are waiting under the tree 🎁', 'Merry Christmas 🎄', 'Snow outside, fire at the table ❄️🔥', 'Spot Santa flying? Tap him 😉'], santaLbl: 'Santa — tap for a gift', santaGift: '🎅 Santa left you {n} coins!', santaTomorrow: '🎅 Santa: your next gift is tomorrow!', wPunch: ['The table is waiting', 'Who wins today?', 'The dice are on your side 🎲', 'Ready to turn the tables?', 'Your friends want a rematch', 'Just one game… promise 😉', 'Today is your day, champ'], welcomeSub: 'The table’s set. Let’s play.',
+    welcomeBig: 'Welcome', welcomeLineNew: 'to Lamma', welcomeLineBack: 'back, {name}', koraT: 'Legends Football', koraGotIt: 'Got it', koraSec: 'Football world ⚽', koraBanSub: '1v1 · Legends · Super powers', koraNew: 'New', koraLoading: 'Getting the pitch ready…', koraLoadErr: 'Couldn’t load football — try again', koraCareer: 'Continue career', koraMatchOf: 'Match {k} of 6', koraBoss: 'Boss match', koraVs: 'vs {n}', koraDiff: ['Easy', 'Medium', 'Hard', 'Legendary'], koraQuick: 'Quick match', koraQuickSub: 'Pick a level', koraLocal: '2 on 1 phone', koraLocalSub: 'You and a friend', koraFriend: 'Challenge a friend', koraFriendSub: 'Send a challenge, they reply', koraSoon: 'Soon', koraFriendSoon: 'Friend challenges are coming next update 🔥', koraPath: 'Career', koraRecord: 'W {w} · D {d} · L {l}', koraAllDone: '🏆 You finished the career! Legend', koraSquad: 'Players', koraTier0: 'Rookie', koraTier1: 'Pro', koraTier2: 'Legend', koraTier0s: 'Rookies', koraTier1s: 'Pros', koraTier2s: 'Legends 👑', koraSelected: 'Playing', koraOwned: 'Owned', koraSelect: 'Play with him', koraBuy: 'Buy', koraMax: 'Max', koraDiscOn: '40% off for beating him in a boss match', st_spd: 'Speed', st_jmp: 'Jump', st_sht: 'Shot', st_hed: 'Header', st_sup: 'Power', koraPickDiff: 'Harder levels pay more coins', koraP2Pick: 'Your friend picks a player:', koraWin: 'You won! 🎉', koraLose: 'You lost this time', koraDraw: 'Draw', koraLocalWin: '{n} wins!', koraNext: 'Next match ▶', koraAgain: 'Play again', koraBack: 'Back', koraDisc: '👑 Boss beaten! {n} is now 40% off', koraHow: 'How to play?', koraHowSteps: ['◀ ▶ to move, ⤒ to jump, 👟 to shoot', 'The meter by the score fills up — tap the power button when it glows', 'Headers save and score: jump for high balls', 'Your kick can knock the opponent back', 'Coins from matches upgrade your player or buy a legend', 'Turn your phone sideways… if rotation is locked, the game turns itself'], gr_morning: 'Good morning', gr_noon: 'Good afternoon', gr_evening: 'Good evening', gr_late: 'Up late?', wHeadBack: 'Hey', wHeadNew: 'Welcome', wNewLine: 'The table was missing you', wName: '{name}!', wStreak: '{n}-day streak', wPunchX: ['Santa just flew by 🎅', 'Gifts are waiting under the tree 🎁', 'Merry Christmas 🎄', 'Snow outside, fire at the table ❄️🔥', 'Spot Santa flying? Tap him 😉'], santaLbl: 'Santa — tap for a gift', santaGift: '🎅 Santa left you {n} coins!', santaTomorrow: '🎅 Santa: your next gift is tomorrow!', wPunch: ['The table is waiting', 'Who wins today?', 'The dice are on your side 🎲', 'Ready to turn the tables?', 'Your friends want a rematch', 'Just one game… promise 😉', 'Today is your day, champ'], welcomeSub: 'The table’s set. Let’s play.',
     askName: 'What should we call you?', namePh: 'Your name', needName: 'Type your name first', pickAvatar: 'Pick your look', start: 'Let’s go',
     hi: 'Hi {name}', homeQ: 'What are we playing today?',
     tawla: 'Tawla', domino: 'Domino', ludo: 'Ludo',
@@ -2955,7 +3057,7 @@ function applyLang() {
 
 var AVATARS = ['😎', '🧔🏽', '👩🏽', '🧕🏽', '👨🏽‍🦱', '🦁', '🐪', '🦅'];
 var SKINS = ['sadaf', 'khayamiya', 'neon', 'marble', 'pharaoh'];
-var APP_VER = '2.1.5';
+var APP_VER = '2.2.0';
 var BOTS = [{ k: 0, av: '🧑🏽' }, { k: 1, av: '👴🏽' }, { k: 2, av: '🧔🏽' }, { k: 3, av: '👵🏽' }];
 function botsFor(level, count) {
   var first = { easy: 0, medium: 1, hard: 2 }[level] || 0;
@@ -3210,6 +3312,219 @@ function welcomeFloat() {
     return '<i style="left:' + x[1] + '%;top:' + x[2] + '%;font-size:' + x[3] + 'rem;--r:' + x[4] + 'deg;animation-delay:' + x[5] + 's">' + x[0] + '</i>';
   }).join('') + '<i class="dm" style="left:16%;top:34%;--r:22deg;animation-delay:-3s"></i><i class="ck" style="left:88%;top:34%;animation-delay:-7s"></i><i class="ck b" style="left:58%;top:6%;animation-delay:-5s"></i></div>';
 }
+
+/* ===================== كورة الأساطير: القسم بتاعها ===================== */
+var koraLoading = null;
+function loadKora() {
+  if (window.Kora) return Promise.resolve(window.Kora);
+  if (koraLoading) return koraLoading;
+  koraLoading = new Promise(function (res, rej) {
+    var s = document.createElement('script'); s.src = 'kora.js?v=' + APP_VER;
+    s.onload = function () { window.Kora ? res(window.Kora) : rej(new Error('kora')); };
+    s.onerror = function () { koraLoading = null; rej(new Error('kora')); };
+    document.head.appendChild(s);
+  });
+  return koraLoading;
+}
+function KS() {
+  if (!S.kora) S.kora = { owned: ['hamo'], sel: 'hamo', up: {}, lvl: 0, stars: {}, w: 0, d: 0, l: 0, disc: {} };
+  var k = S.kora; k.up = k.up || {}; k.stars = k.stars || {}; k.disc = k.disc || {};
+  return k;
+}
+function kUp(id) { var k = KS(); return k.up[id] || (k.up[id] = { spd: 0, jmp: 0, sht: 0, hed: 0, sup: 0 }); }
+function kName(c) { return S.lang === 'en' ? c.en : c.ar; }
+function kPrice(c) { var d = KS().disc[c.id]; return Math.round(c.price * (d || 1) / 10) * 10; }
+function kUpCost(c, cur) { return Math.round([150, 300, 550, 900, 1400][cur] * [1, 1.4, 2][c.tier] / 10) * 10; }
+var KORA_BOSS = ['bar2', 'madfa3', 'sa7er', 'emperor', 'legend'];
+var KORA_POOL = [['hamo', 'asfour', 'dozer', 'hita', 'asfour'], ['asfour', 'dozer', 'hita', 'bar2', 'hawy'], ['bar2', 'hawy', 'madfa3', 'nesr', 'hita'],
+  ['hawy', 'madfa3', 'nesr', 'maestro', 'bar2'], ['sa7er', 'maestro', 'emperor', 'nesr', 'sa7er']];
+/** مستوى في المشوار: 5 دوريات × 6 ماتشات، والسادس زعيم */
+function koraLevel(n) {
+  var lg = Math.floor(n / 6), k = n % 6, boss = k === 5, u = lg;
+  var opp = boss ? KORA_BOSS[lg] : KORA_POOL[lg][k];
+  if (opp === KS().sel) opp = KORA_POOL[lg][(k + 1) % 5] === opp ? KORA_POOL[lg][(k + 2) % 5] : KORA_POOL[lg][(k + 1) % 5];
+  return { n: n, lg: lg, k: k, boss: boss, opp: opp, arena: lg,
+    ai: [[0, 0, 0, 1, 1, 1], [1, 1, 1, 1, 2, 2], [1, 2, 2, 2, 2, 2], [2, 2, 2, 3, 3, 3], [2, 3, 3, 3, 3, 3]][lg][k],
+    oppUp: { spd: u, jmp: u, sht: u, hed: u, sup: u + (boss ? 1 : 0) }, reward: 50 + n * 10 + (boss ? 150 : 0), time: n < 4 ? 60 : 90 };
+}
+function koraSfx(n) { try { Snd.play({ kick: 'hit', head: 'pop', post: 'tile', whistle: 'card', tackle: 'hit', super: 'dice', goal: 'win' }[n] || 'tap'); } catch (e) { } }
+function koraBannerHTML() {
+  return '<h3 class="hx-h">' + t('koraSec') + '</h3>' +
+    '<button type="button" class="kora-ban" id="h-kora"><span class="kb-lights" aria-hidden="true"></span>' +
+    '<span class="kb-txt"><b>' + t('koraT') + '</b><small>' + t('koraBanSub') + '</small></span>' +
+    '<span class="kb-new">' + t('koraNew') + '</span><span class="kb-ball" aria-hidden="true">⚽</span></button>';
+}
+var koraRoot = null;
+function openKora() {
+  if (current) { current.destroy(); current = null; }
+  setInGame(false);
+  app.innerHTML = '<div class="screen kora-hub"><div class="gbar"><button class="ib" id="kh-back" aria-label="' + t('koraBack') + '">' + ICON.back + '</button>' +
+    '<b class="kh-title">⚽ ' + t('koraT') + '</b><span class="coin-pill">' + ICON.coin + '<b data-coins>' + coins() + '</b></span></div>' +
+    '<div id="kh-body"><p class="hint kh-load">' + t('koraLoading') + '</p></div></div>';
+  koraRoot = app.firstChild;
+  $('#kh-back', koraRoot).addEventListener('click', function () { Snd.play('tap'); renderHome(); });
+  loadKora().then(function () { if (koraRoot && koraRoot.isConnected) paintKora(); })
+    .catch(function () { var b = $('#kh-body', koraRoot); if (b) b.innerHTML = '<p class="hint kh-load">' + t('koraLoadErr') + '</p>'; });
+}
+function statBars(c, up, big) {
+  return ['spd', 'jmp', 'sht', 'hed'].map(function (k) {
+    var base = c.st[k], add = (up && up[k]) || 0;
+    return '<div class="kst' + (big ? ' big' : '') + '"><span>' + t('st_' + k) + '</span><i><em style="width:' + (base * 6.67) + '%"></em><em class="up" style="width:' + (add * 6.67) + '%"></em></i><b>' + (base + add) + '</b></div>';
+  }).join('');
+}
+function paintKora() {
+  var K = window.Kora, ks = KS(), me = K.CHAR[ks.sel] || K.CHAR.hamo, up = kUp(me.id), sp = K.SUPERS[me.sup];
+  var L = koraLevel(Math.min(ks.lvl, 29)), A = K.ARENAS[L.lg], opp = K.CHAR[L.opp], done = ks.lvl >= 30;
+  var body = $('#kh-body', koraRoot); if (!body) return;
+  body.innerHTML =
+    '<div class="kh-me t' + me.tier + '"><canvas class="kh-pt" width="120" height="120"></canvas><div class="kh-mi">' +
+      '<div class="kh-nm"><b>' + kName(me) + '</b><span class="tier t' + me.tier + '">' + t('koraTier' + me.tier) + '</span><span class="rate">' + K.rating(me, up) + '</span></div>' +
+      statBars(me, up) + '<div class="kh-foot"><span class="kh-sup">' + sp.ic + ' ' + (S.lang === 'en' ? sp.en : sp.ar) + (up.sup ? ' <small>+' + up.sup + '</small>' : '') + '</span>' +
+      '<button type="button" class="kh-chg" id="kh-squad">' + t('koraSquad') + ' ‹</button></div></div></div>' +
+    (done ? '<div class="kh-done">' + t('koraAllDone') + '</div>' :
+    '<button type="button" class="kh-go" id="kh-career"><span class="kg-top">' + (L.boss ? '👑 ' + t('koraBoss') : t('koraMatchOf', { k: L.k + 1 })) + ' · ' + (S.lang === 'en' ? A.en : A.ar) + '</span>' +
+      '<span class="kg-mid"><b>▶ ' + t('koraCareer') + '</b><span class="kg-vs">' + t('koraVs', { n: kName(opp) }) + ' · ' + t('koraDiff')[L.ai] + '</span></span>' +
+      '<span class="kg-rw">' + ICON.coin + '+' + L.reward + '</span><canvas class="kg-opp" width="64" height="64"></canvas></button>') +
+    '<div class="kh-row"><button type="button" class="kh-tile" id="kh-quick"><i>⚡</i><b>' + t('koraQuick') + '</b><small>' + t('koraQuickSub') + '</small></button>' +
+      '<button type="button" class="kh-tile" id="kh-local"><i>👥</i><b>' + t('koraLocal') + '</b><small>' + t('koraLocalSub') + '</small></button></div>' +
+    '<button type="button" class="kh-tile wide soon" id="kh-friend"><i>🏆</i><b>' + t('koraFriend') + '</b><small>' + t('koraFriendSub') + '</small><em>' + t('koraSoon') + '</em></button>' +
+    '<h3 class="kh-h">' + t('koraPath') + '<small>' + t('koraRecord', { w: ks.w || 0, d: ks.d || 0, l: ks.l || 0 }) + '</small></h3>' +
+    '<div class="kh-path">' + K.ARENAS.map(function (a, lg) {
+      var cells = ''; for (var k = 0; k < 6; k++) { var n = lg * 6 + k, st = ks.stars[n] || 0, cls = n < ks.lvl ? 'done' : n === ks.lvl ? 'now' : 'lock';
+        cells += '<span class="kp-c ' + cls + (k === 5 ? ' boss' : '') + '">' + (k === 5 ? '👑' : n + 1) + '<i>' + (st ? '★'.repeat(st) : '') + '</i></span>'; }
+      return '<div class="kp-lg' + (lg * 6 > ks.lvl ? ' lock' : '') + '"><b>' + (S.lang === 'en' ? a.en : a.ar) + '</b><div class="kp-cells">' + cells + '</div></div>';
+    }).join('') + '</div>' +
+    '<button type="button" class="kh-how" id="kh-how">' + t('koraHow') + '</button>';
+  K.portrait($('.kh-pt', body), me, { happy: true });
+  var oc = $('.kg-opp', body); if (oc) K.portrait(oc, opp);
+  $('#kh-squad', body).addEventListener('click', function () { Snd.play('tap'); openSquad(); });
+  var cb = $('#kh-career', body); if (cb) cb.addEventListener('click', function () { Snd.play('tap'); koraPlay({ career: L, opp: L.opp, ai: L.ai, oppUp: L.oppUp, arena: L.arena, time: L.time }); });
+  $('#kh-quick', body).addEventListener('click', function () { Snd.play('tap'); openQuickPick(); });
+  $('#kh-local', body).addEventListener('click', function () { Snd.play('tap'); openLocalPick(); });
+  $('#kh-friend', body).addEventListener('click', function () { Snd.play('tap'); toast(t('koraFriendSoon'), 2600); });
+  $('#kh-how', body).addEventListener('click', function () { Snd.play('tap'); openKoraHow(); });
+}
+function openKoraHow() {
+  var w = openSheet('<h2>' + t('koraHow') + '</h2><ol class="how-steps">' + t('koraHowSteps').map(function (s) { return '<li>' + s + '</li>'; }).join('') + '</ol><button class="btn cta" data-close>' + t('koraGotIt') + '</button>');
+  $('[data-close]', w).addEventListener('click', function () { closeSheet(w); });
+}
+function charCard(c) {
+  var ks = KS(), own = ks.owned.indexOf(c.id) >= 0, sel = ks.sel === c.id, K = window.Kora;
+  return '<button type="button" class="kc t' + c.tier + (sel ? ' sel' : '') + (own ? '' : ' locked') + '" data-ch="' + c.id + '">' +
+    '<canvas width="84" height="84"></canvas><b>' + kName(c) + '</b><span class="kc-r">' + K.rating(c, own ? kUp(c.id) : null) + '</span>' +
+    '<small>' + (sel ? '✓ ' + t('koraSelected') : own ? t('koraOwned') : ICON.coin + kPrice(c)) + '</small>' + (c.tier === 2 ? '<span class="kc-crown">👑</span>' : '') + '</button>';
+}
+function openSquad() {
+  var K = window.Kora;
+  var w = openSheet('<div class="sh-head"><h2>' + t('koraSquad') + '</h2><span class="coin-pill">' + ICON.coin + '<b data-coins>' + coins() + '</b></span></div>' +
+    [0, 1, 2].map(function (tier) {
+      return '<h3 class="kq-h t' + tier + '">' + t('koraTier' + tier + 's') + '</h3><div class="kq-grid">' + K.CHARS.filter(function (c) { return c.tier === tier; }).map(charCard).join('') + '</div>';
+    }).join(''));
+  $$('.kc canvas', w).forEach(function (cv) { K.portrait(cv, K.CHAR[cv.parentNode.getAttribute('data-ch')]); });
+  w.addEventListener('click', function (e) { var b = e.target.closest('[data-ch]'); if (b) { Snd.play('tap'); openChar(b.getAttribute('data-ch'), w); } });
+}
+function openChar(id, parent) {
+  var K = window.Kora, c = K.CHAR[id], ks = KS(), sp = K.SUPERS[c.sup];
+  var w = openSheet('<div class="kd t' + c.tier + '" id="kd"></div>');
+  function paint() {
+    var own = ks.owned.indexOf(id) >= 0, up = kUp(id), price = kPrice(c), d = $('#kd', w);
+    d.innerHTML = '<div class="kd-top"><canvas class="kd-pt" width="140" height="140"></canvas><div><b class="kd-nm">' + kName(c) + '</b>' +
+      '<span class="tier t' + c.tier + '">' + t('koraTier' + c.tier) + '</span><span class="rate big">' + K.rating(c, own ? up : null) + '</span></div></div>' +
+      '<div class="kd-sup"><span>' + sp.ic + '</span><div><b>' + (S.lang === 'en' ? sp.en : sp.ar) + (own && up.sup ? ' +' + up.sup : '') + '</b><small>' + (S.lang === 'en' ? sp.dEn : sp.dAr) + '</small></div></div>' +
+      '<div class="kd-st">' + ['spd', 'jmp', 'sht', 'hed', 'sup'].map(function (k) {
+        var cur = up[k] || 0, base = k === 'sup' ? 0 : c.st[k], max = cur >= 5;
+        return '<div class="kd-row"><span>' + t('st_' + k) + '</span><i>' + (k === 'sup' ? '' : '<em style="width:' + base * 6.67 + '%"></em>') + '<em class="up" style="width:' + cur * (k === 'sup' ? 20 : 6.67) + '%"></em></i>' +
+          (own ? (max ? '<small class="kd-max">' + t('koraMax') + '</small>' : '<button type="button" class="kd-up" data-up="' + k + '">+ ' + ICON.coin + kUpCost(c, cur) + '</button>') : '<small>' + (base || '—') + '</small>') + '</div>';
+      }).join('') + '</div>' +
+      (own ? (ks.sel === id ? '<p class="kd-on">✓ ' + t('koraSelected') + '</p>' : '<button type="button" class="btn cta" data-sel>' + t('koraSelect') + '</button>')
+        : '<button type="button" class="btn cta" data-buy>' + t('koraBuy') + ' · ' + ICON.coin + price + '</button>' + (ks.disc[id] ? '<p class="kd-disc">' + t('koraDiscOn') + '</p>' : ''));
+    K.portrait($('.kd-pt', d), c, { happy: true });
+  }
+  paint();
+  w.addEventListener('click', function (e) {
+    var u = e.target.closest('[data-up]');
+    if (u) {
+      var k = u.getAttribute('data-up'), up = kUp(id), cost = kUpCost(c, up[k] || 0);
+      if ((up[k] || 0) >= 5) return;
+      if (coins() < cost) { toast(t('notEnough')); return; }
+      S.coins = coins() - cost; up[k] = (up[k] || 0) + 1; save(); paintCoins(); Snd.play('win'); buzz(20); paint(); return;
+    }
+    if (e.target.closest('[data-buy]')) {
+      var price = kPrice(c);
+      if (coins() < price) { toast(t('notEnough')); return; }
+      S.coins = coins() - price; ks.owned.push(id); ks.sel = id; delete ks.disc[id]; save(); paintCoins(); Snd.play('win'); confetti(); paint(); refreshKora(parent); return;
+    }
+    if (e.target.closest('[data-sel]')) { ks.sel = id; save(); Snd.play('tap'); paint(); refreshKora(parent); }
+  });
+}
+function refreshKora(squadSheet) {
+  if (squadSheet && squadSheet.isConnected) { $$('.kc', squadSheet).forEach(function (b) { var tmp = document.createElement('div'); tmp.innerHTML = charCard(window.Kora.CHAR[b.getAttribute('data-ch')]); var nb = tmp.firstChild; b.replaceWith(nb); window.Kora.portrait($('canvas', nb), window.Kora.CHAR[nb.getAttribute('data-ch')]); }); }
+  if (koraRoot && koraRoot.isConnected) paintKora();
+}
+function openQuickPick() {
+  var w = openSheet('<h2>' + t('koraQuick') + '</h2><p class="hint">' + t('koraPickDiff') + '</p><div class="kq-diff">' + t('koraDiff').map(function (d, i) {
+    return '<button type="button" class="kq-d d' + i + '" data-ai="' + i + '"><b>' + d + '</b><small>' + ICON.coin + '+' + [30, 50, 80, 120][i] + '</small></button>'; }).join('') + '</div>');
+  w.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-ai]'); if (!b) return;
+    var ai = +b.getAttribute('data-ai'), K = window.Kora, pool = K.CHARS.filter(function (c) { return c.tier <= Math.min(2, ai); });
+    pool = pool.filter(function (c) { return c.id !== KS().sel; });
+    var opp = pool[Math.floor(Math.random() * pool.length)].id, u = [0, 1, 2, 4][ai];
+    closeSheet(w); koraPlay({ quick: true, opp: opp, ai: ai, oppUp: { spd: u, jmp: u, sht: u, hed: u, sup: u }, arena: Math.floor(Math.random() * 5), time: 90, reward: [30, 50, 80, 120][ai] });
+  });
+}
+function openLocalPick() {
+  var K = window.Kora, ks = KS();
+  var w = openSheet('<h2>' + t('koraLocal') + '</h2><p class="hint">' + t('koraP2Pick') + '</p><div class="kq-grid">' + K.CHARS.filter(function (c) { return ks.owned.indexOf(c.id) >= 0 || c.tier === 0; }).map(function (c) {
+    return '<button type="button" class="kc t' + c.tier + '" data-ch="' + c.id + '"><canvas width="84" height="84"></canvas><b>' + kName(c) + '</b><span class="kc-r">' + K.rating(c) + '</span></button>'; }).join('') + '</div>');
+  $$('.kc canvas', w).forEach(function (cv) { K.portrait(cv, K.CHAR[cv.parentNode.getAttribute('data-ch')]); });
+  w.addEventListener('click', function (e) { var b = e.target.closest('[data-ch]'); if (!b) return; closeSheet(w); koraPlay({ mode: 'local', opp: b.getAttribute('data-ch'), oppUp: {}, arena: 2, time: 90 }); });
+}
+function koraPlay(cfg) {
+  loadKora().then(function (K) {
+    if (current) { current.destroy(); current = null; }
+    var ks = KS(), me = K.CHAR[ks.sel] || K.CHAR.hamo, m = null;
+    setInGame(true);
+    var done = function () { if (m) m.destroy(); m = null; current = null; setInGame(false); };
+    current = { destroy: done, onLeave: function () { done(); openKora(); } };
+    m = K.start({ mount: document.body, c1: me, u1: kUp(me.id), c2: K.CHAR[cfg.opp], u2: cfg.oppUp || {}, mode: cfg.mode || 'ai', ai: cfg.ai, arena: cfg.arena, time: cfg.time,
+      lang: S.lang, sfx: koraSfx, onExit: function () { confirmLeave(); },
+      onEnd: function (r) { done(); openKora(); koraResult(cfg, r); } });
+  }).catch(function () { toast(t('koraLoadErr')); });
+}
+function koraResult(cfg, r) {
+  var ks = KS(), s0 = r.score[0], s1 = r.score[1], win = s0 > s1, draw = s0 === s1, gain = 0, stars = 0, msg = '', K = window.Kora;
+  if (cfg.mode === 'local') {
+    msg = draw ? t('koraDraw') : t('koraLocalWin', { n: kName(win ? K.CHAR[ks.sel] : K.CHAR[cfg.opp]) });
+  } else {
+    if (win) ks.w = (ks.w || 0) + 1; else if (draw) ks.d = (ks.d || 0) + 1; else ks.l = (ks.l || 0) + 1;
+    S.stats = S.stats || {}; var st = S.stats.kora || (S.stats.kora = { w: 0, l: 0 }); if (win) st.w++; else if (!draw) st.l++;
+    var base = cfg.career ? cfg.career.reward : cfg.reward;
+    if (win) { stars = 1 + (s0 - s1 >= 2 ? 1 : 0) + (s1 === 0 ? 1 : 0); gain = base + (stars - 1) * 20; }
+    else gain = Math.round(base * (draw ? 0.3 : 0.1));
+    if (cfg.career && win) {
+      var n = cfg.career.n; ks.stars[n] = Math.max(ks.stars[n] || 0, stars);
+      if (n === ks.lvl) ks.lvl = n + 1;
+      if (cfg.career.boss && K.CHAR[cfg.opp].tier === 2 && ks.owned.indexOf(cfg.opp) < 0 && !ks.disc[cfg.opp]) { ks.disc[cfg.opp] = 0.6; msg = t('koraDisc', { n: kName(K.CHAR[cfg.opp]) }); }
+    }
+    S.coins = coins() + gain; save(); paintCoins();
+    if (win) { Snd.play('win'); confetti(); }
+  }
+  save();
+  var title = cfg.mode === 'local' ? (draw ? t('koraDraw') : '🏆') : win ? t('koraWin') : draw ? t('koraDraw') : t('koraLose');
+  var nextOk = cfg.career && win && ks.lvl < 30;
+  var w = openSheet('<div class="kr"><p class="res-title">' + title + '</p><div class="kr-score"><span>' + kName(K.CHAR[ks.sel]) + '</span><b>' + s0 + ' - ' + s1 + '</b><span>' + kName(K.CHAR[cfg.opp]) + '</span></div>' +
+    (stars ? '<div class="kr-stars">' + [1, 2, 3].map(function (i) { return '<i class="' + (i <= stars ? 'on' : '') + '">★</i>'; }).join('') + '</div>' : '') +
+    (gain ? '<p class="kr-gain">' + ICON.coin + '+' + gain + '</p>' : '') + (msg ? '<p class="kr-msg">' + msg + '</p>' : '') +
+    '<div class="row-btns"><button class="btn plain" data-back>' + t('koraBack') + '</button>' +
+    '<button class="btn cta" data-again>' + (nextOk ? t('koraNext') : t('koraAgain')) + '</button></div></div>');
+  $('[data-back]', w).addEventListener('click', function () { closeSheet(w); });
+  $('[data-again]', w).addEventListener('click', function () {
+    closeSheet(w);
+    if (nextOk) { var L = koraLevel(ks.lvl); koraPlay({ career: L, opp: L.opp, ai: L.ai, oppUp: L.oppUp, arena: L.arena, time: L.time }); }
+    else koraPlay(cfg);
+  });
+}
+
 /* ----- بابا نويل: بيطير فوق الرئيسية في الكريسماس، ودوسة عليه = هدية مرة في اليوم ----- */
 var SANTA_SVG = '<svg viewBox="0 0 262 112" aria-hidden="true"><defs><g id="lm-deer"><path class="lg" d="M10 4 24 12M6 6l12 10" stroke="#5c3a1e" stroke-width="3.2" stroke-linecap="round"/><path class="lg f" d="M-10 4-22 10M-6 6l-10 9" stroke="#5c3a1e" stroke-width="3.2" stroke-linecap="round"/><ellipse rx="17" ry="8.5" fill="#8a5a33"/><ellipse cx="1" cy="3" rx="11" ry="4" fill="#b07a4c"/><path d="M16-3q7-4 5 3z" fill="#fff"/><path d="M-12-3-19-15l6-2 7 12z" fill="#8a5a33"/><ellipse cx="-20" cy="-18" rx="7" ry="4.6" fill="#8a5a33" transform="rotate(-18 -20 -18)"/><circle cx="-26.5" cy="-16" r="2" fill="#3b2412"/><circle cx="-19" cy="-19.5" r="1" fill="#1a1010"/><path d="m-15-21 5-3-2 5z" fill="#5c3a1e"/><path d="m-18-22-2-9m.8 4.5-4-2M-15-22l3-8m-1.8 4 4-1.5" stroke="#d9b77a" stroke-width="1.8" stroke-linecap="round" fill="none"/><path d="M-10-6q-3 6 0 10" stroke="#d7263d" stroke-width="2.6" fill="none"/><circle cx="-11" cy="0" r="1.6" fill="#f2c14e"/></g></defs><g class="tw" fill="#ffe08a"><circle cx="246" cy="78" r="2"/><circle cx="256" cy="70" r="1.3"/><circle cx="238" cy="86" r="1.5"/><path d="m252 84 1.2 3 3 1.2-3 1.2-1.2 3-1.2-3-3-1.2 3-1.2z"/></g><path d="M152 61q-27 4-62-3M90 58q-30 6-60 2" stroke="#f2c14e" stroke-width="1.3" fill="none"/><use href="#lm-deer" x="40" y="62"/><use href="#lm-deer" x="100" y="58"/><g transform="translate(196 60)"><path d="M38 20h-72q-14 0-12-11 1-6 7-4" stroke="#f2c14e" stroke-width="3.2" fill="none" stroke-linecap="round"/><path d="M-24 20v-9M20 20v-9" stroke="#f2c14e" stroke-width="2.6" stroke-linecap="round"/><path d="M14-4Q8-30 26-31q18 1 12 27z" fill="#7a4a2a"/><path d="M20-27q6 4 12 0" stroke="#5c3a1e" stroke-width="2" fill="none"/><rect x="26" y="-39" width="10" height="9" rx="1.5" fill="#2e9e5b"/><path d="M31-39v9" stroke="#f2c14e" stroke-width="2"/><ellipse cy="-10" rx="12" ry="11" fill="#d7263d"/><path d="M0-20V2" stroke="#fff" stroke-width="2.4"/><rect x="-11.5" y="-8" width="23" height="3.6" fill="#2a1a12"/><rect x="-2.5" y="-8.6" width="5" height="4.8" rx="1" fill="#f2c14e"/><circle cx="-1" cy="-27" r="7" fill="#f6c9a8"/><path d="M-8-27q-1 15 7 14 8-1 7-14-4 5-7 5t-7-5z" fill="#fff"/><path d="M-5-24q2-2 4 0 2-2 4 0" stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"/><circle cx="-5.6" cy="-26.6" r="1.4" fill="#e8907a"/><circle cx="-4" cy="-29.3" r=".95" fill="#2a1a12"/><path d="M-9-31q3-13 15-12 8 1 10 8l-9 4z" fill="#d7263d"/><path d="M-9-31H8" stroke="#fff" stroke-width="3.4" stroke-linecap="round"/><circle cx="16.5" cy="-35" r="2.7" fill="#fff"/><path d="M-7-15q-7-3-9-12" stroke="#d7263d" stroke-width="5" fill="none" stroke-linecap="round"/><circle cx="-16.5" cy="-29" r="3" fill="#fff"/><path d="M-40 11q-4-17 10-19h16q2 10 14 10t14-10h20q8 0 8 10v9z" fill="#d7263d"/><path d="M-38 4q0-8 8-8h16" stroke="#f2c14e" stroke-width="1.6" fill="none"/><path d="M-40 11h82" stroke="#a51b2d" stroke-width="2"/></g></svg>';
 var SANTA_GIFT = 25, santaTimer = null;
@@ -3328,12 +3643,13 @@ function renderHome() {
   app.innerHTML = '<div class="screen"><div class="home">' +
     '<div class="topbar"><div class="brand">' + markSVG() + '<span class="wordmark">لمّة</span></div>' +
     '<button class="ib" id="h-set" aria-label="' + t('settings') + '">' + ICON.gear + '</button></div>' +
-    profileCardHTML() +
+    profileCardHTML() + koraBannerHTML() +
     '<h3 class="hx-h">' + t('secGames') + '</h3>' +
     '<div class="hx-grid">' + HOME_GAMES.map(gameTile).join('') + '</div>' +
     '</div></div>' + homeNavHTML();
   if (S.name) setTimeout(function () { showWhatsNew(); maybeLoginReward(); checkUpdate(false); }, 500);
   santaSchedule(true);
+  var kb = $('#h-kora', app); if (kb) kb.addEventListener('click', function () { Snd.play('tap'); openKora(); });
   var root = app;
   if (!app.hxWired) { app.hxWired = true; app.addEventListener('click', homeClick); }
 }
@@ -3610,7 +3926,7 @@ function confirmLeave() {
   var w = openSheet('<p class="res-title">' + t('leaveQ') + '</p><p class="res-sub">' + t('leaveSub') + '</p>' +
     '<div class="row-btns"><button class="btn plain" data-no>' + t('leaveNo') + '</button><button class="btn cta" data-yes>' + t('leaveYes') + '</button></div>');
   $('[data-no]', w).addEventListener('click', function () { closeSheet(w); });
-  $('[data-yes]', w).addEventListener('click', function () { closeSheet(w); renderHome(); });
+  $('[data-yes]', w).addEventListener('click', function () { closeSheet(w); if (current && current.onLeave) current.onLeave(); else renderHome(); });
 }
 
 /* ===== لمّة — الكوينز والمحل والشات جوه اللعبة ===== */
@@ -4377,7 +4693,7 @@ function openSoon() {
  * وبعد أي تحديث بيظهر «الجديد في الإصدار» مرة واحدة. */
 var UPD_URL = 'https://technicalteam774.github.io/lamma/version.json';
 var APK_PAGE = 'https://github.com/TechnicalTeam774/lamma/releases/latest';
-var CHANGES = {"2.1.5": ["🎅 بابا نويل بيطير بالزلاجة والغزلان فوق الشاشة في الكريسماس — دوس عليه وخد هدية كل يوم", "طاقية بابا نويل على صورتك مع ثيم الكريسماس، وشاشة البداية بقت كريسماس", "الكلام بقى بمقاسه الطبيعي حتى لو موبايلك متظبّط على خط كبير — مفيش أسامي بتتقص ولا كروت بتتكسر", "الشات اتجدد: كلام أصغر وفقاعات أشيك، والإيموجي لوحده بيبان كبير، وزرار إرسال جديد", "كارت التحدي اللي خلص بقى مظبوط، وزرار الجايزة جنبه", "الطاولة بقت أسرع بكتير: الدور بتاع اللي قدامك بقى ياخد نص الوقت", "لما نسخة جديدة تنزل هيجيلك إشعار، ولما تدوس عليه يفتحلك التحديث على طول"], "2.1.4": ["الكلام بقى بمقاسه الطبيعي حتى لو موبايلك متظبّط على خط كبير — مفيش أسامي بتتقص ولا كروت بتتكسر", "الشات اتجدد: كلام أصغر وفقاعات أشيك، والإيموجي لوحده بيبان كبير، وزرار إرسال جديد", "كارت التحدي اللي خلص بقى مظبوط، وزرار الجايزة جنبه", "الطاولة بقت أسرع بكتير: الدور بتاع اللي قدامك بقى ياخد نص الوقت", "لما نسخة جديدة تنزل هيجيلك إشعار، ولما تدوس عليه يفتحلك التحديث على طول", "شاشة البداية جديدة: تحية على حسب الوقت وجملة مختلفة كل مرة تفتح", "أقسام المحل بقت 8 مربعات باينين كلهم بأيقونات، من غير سحب لجنب", "قسم جديد في المحل: صندوق الحظ 🎁 — حاجة جديدة مش عندك بـ 600 كوينز"], "2.1.3": ["الطاولة بقت أسرع بكتير: الدور بتاع اللي قدامك بقى ياخد نص الوقت", "لما نسخة جديدة تنزل هيجيلك إشعار، ولما تدوس عليه يفتحلك التحديث على طول", "شاشة البداية جديدة: تحية على حسب الوقت وجملة مختلفة كل مرة تفتح", "أقسام المحل بقت 8 مربعات باينين كلهم بأيقونات، من غير سحب لجنب", "قسم جديد في المحل: صندوق الحظ 🎁 — حاجة جديدة مش عندك بـ 600 كوينز", "الإشعارات اتصلحت: رسايل الصحاب والدعوات وطلبات الصداقة بقت بتوصل", "لعبة جديدة: طرنيب — شركا 2 ضد 2 بالمزايدة، ضد الكمبيوتر أو مع 3 من صحابك", "لعبة جديدة: السلّم والثعبان — لحد 4 لاعيبة"], "2.1.2": ["شاشة البداية جديدة: تحية على حسب الوقت وجملة مختلفة كل مرة تفتح", "أقسام المحل بقت 8 مربعات باينين كلهم بأيقونات، من غير سحب لجنب", "قسم جديد في المحل: صندوق الحظ 🎁 — حاجة جديدة مش عندك بـ 600 كوينز", "شاشة الأصحاب وترتيب الصحاب اتظبطوا، ومبقاش فيه حاجة طالعة برّه الشاشة", "«إزاي تلعب» بقت الألعاب كلها قدامك في شبكة", "ملفي والإحصائيات اتظبطوا", "الإشعارات اتصلحت: رسايل الصحاب والدعوات وطلبات الصداقة بقت بتوصل", "لعبة جديدة: طرنيب — شركا 2 ضد 2 بالمزايدة، ضد الكمبيوتر أو مع 3 من صحابك", "لعبة جديدة: السلّم والثعبان — لحد 4 لاعيبة", "بطولة الأسبوع بين الصحاب: ترتيب بيتصفّر كل جمعة، والتلاتة الأوائل ياخدوا كوينز", "صندوق هدية بعد كل 5 جيمات: كوينز أو شكل جديد من المحل"], "2.1.1": ["الإشعارات اتصلحت: رسايل الصحاب والدعوات وطلبات الصداقة بقت بتوصل", "لما تدوس على إشعار رسالة، بيفتحلك الشات بتاعها على طول", "زرار «جرّب الإشعارات» بقى يقولك السبب بالظبط لو فيه مشكلة", "نغمة جديدة للعبة 🎵 — شغّلها من الإعدادات ← الموسيقى، وتقدر ترجع للموسيقى الهادية من نفس المكان", "لعبة جديدة: طرنيب — شركا 2 ضد 2 بالمزايدة، ضد الكمبيوتر أو مع 3 من صحابك", "لعبة جديدة: السلّم والثعبان — لحد 4 لاعيبة", "بطولة الأسبوع بين الصحاب: ترتيب بيتصفّر كل جمعة، والتلاتة الأوائل ياخدوا كوينز", "صندوق هدية بعد كل 5 جيمات: كوينز أو شكل جديد من المحل", "لقب تحت اسمك حسب اللعبة اللي بتكسب فيها أكتر، وبيبان لصحابك", "اليوم السابع في مكافأة الدخول بقى فيه صندوق كمان", "الورق بيتوزّع قدامك ورقة ورقة، وصوت جديد للورق", "بورد الطاولة بقى له عمق ولمعة", "نتيجة استيمشن بقت تتسجّل في نتايجك (كانت بتضيع)"], "2.1.0": ["نغمة جديدة للعبة 🎵 — شغّلها من الإعدادات ← الموسيقى، وتقدر ترجع للموسيقى الهادية من نفس المكان", "لعبة جديدة: طرنيب — شركا 2 ضد 2 بالمزايدة، ضد الكمبيوتر أو مع 3 من صحابك", "لعبة جديدة: السلّم والثعبان — لحد 4 لاعيبة", "بطولة الأسبوع بين الصحاب: ترتيب بيتصفّر كل جمعة، والتلاتة الأوائل ياخدوا كوينز", "صندوق هدية بعد كل 5 جيمات: كوينز أو شكل جديد من المحل", "لقب تحت اسمك حسب اللعبة اللي بتكسب فيها أكتر، وبيبان لصحابك", "اليوم السابع في مكافأة الدخول بقى فيه صندوق كمان", "الورق بيتوزّع قدامك ورقة ورقة، وصوت جديد للورق", "بورد الطاولة بقى له عمق ولمعة", "نتيجة استيمشن بقت تتسجّل في نتايجك (كانت بتضيع)"], "2.0.0": ["شكل جديد للعبة كلها: رئيسية مرتبة، شريط تنقّل تحت، وإعدادات ومحل وشرح بتصميم واحد", "ترابيزة كوتشينة حقيقية للبصرة واستيمشن، وتقدر تغيّر لونها من المحل", "استيمشن: اللاعيبة قاعدين حوالين الترابيزة، وكل ورقة بتنزل قدام صاحبها", "لعبة جديدة: أربعة تكسب — ضد الكمبيوتر أو مع صاحبك", "الردود جوه اللعب اتغيّرت: جُمل جاهزة وإيموجي بشكل أهدى", "زرار الرجوع: ضغطتين على الرئيسية يقفلوا الأبلكيشن", "استيمشن وأربعة تكسب بقوا في تحدّي الصحاب وفي نتايجك", "بروفايل الصاحب بشكل جديد"], "1.1.1": ["كل تحديث بقى له رقم جديد، فالأبلكيشن هيبلّغك بيه أول ما ينزل", "زرار «نزّل التحديث» بقى ينزّل ملف الأبلكيشن على طول", "اللعبة بتفتح أسرع بكتير", "رقم حسابك بقى يبان في الإعدادات"], "1.1.0": ["اللعبة بقت تفتح أسرع بكتير — فايربيز مابقتش توقف ظهور اللعبة، والملفات بتتخزّن من أول مرة", "رقم الإصدار بقى واحد في كل مكان — في الأبلكيشن وفي صفحة التنزيل", "استيمشن بقت تتلعب مع صحابك — أربعة أونلاين، بالمناقصة والحكم والتوقّع", "لوحة المزايدة اتحركت فوق، مابقتش مغطّية الورق اللي في إيدك", "شكل الكوتشينة اتعمل من أول وجديد: ورق زي الحقيقي، والورق في إيدك بيتفرد مروحة", "الأكلة بقت تفضل على الترابيزة لحد ما تشوف الورقة الرابعة ومين كسبها", "بورد لودو اتعمل من جديد بشكل أحلى", "موسيقى جديدة هادية، والقديمة اللي فيها خرشة اتشالت", "زرار الرجوع بقى يشتغل صح ويسألك قبل ما تخرج", "المحل كبر: 11 ثيم و7 ورق و7 أحجار و7 إيموجي و7 إطارات، وكل تبويب بيقولك الحاجة بتبان فين", "الإشعارات: القناة بقت تتعمل مع فتح الأبلكيشن، والإشعار بيبان جوه اللعبة، وتجربة الإشعار بقت تقولك وقفت فين بالظبط", "رقم حسابك بقى يبان في الإعدادات عشان نقدر نفحص الإشعارات"], "1.0.12": ["لعبة جديدة: استيمشن بأربع لاعيبة، بالمناقصة والحكم والتوقّع", "شرح كامل لاستيمشن جوه اللعبة: إزاي تزايد وتحسب نقطك", "تصليح الإشعارات: الجهاز بقى يتسجّل صح أول ما يفتح الأبلكيشن"]};
+var CHANGES = {"2.2.0": ["⚽ جديد: كورة الأساطير — ماتشات 1 ضد 1 بالراس والشوطة والقوى الخاصة", "12 لعيب منهم 4 أساطير هم الأقوى — اشتريهم ورقّي سرعتهم ونطّهم وشوطتهم بالكوينز", "مشوار من 5 دوريات و30 ماتش، وكل دوري آخره ماتش زعيم", "ماتش سريع بـ 4 مستويات (سهل لحد أسطوري)، واتنين يلعبوا على موبايل واحد", "🎅 بابا نويل بيطير بالزلاجة والغزلان فوق الشاشة في الكريسماس — دوس عليه وخد هدية كل يوم"], "2.1.5": ["🎅 بابا نويل بيطير بالزلاجة والغزلان فوق الشاشة في الكريسماس — دوس عليه وخد هدية كل يوم", "طاقية بابا نويل على صورتك مع ثيم الكريسماس، وشاشة البداية بقت كريسماس", "الكلام بقى بمقاسه الطبيعي حتى لو موبايلك متظبّط على خط كبير — مفيش أسامي بتتقص ولا كروت بتتكسر", "الشات اتجدد: كلام أصغر وفقاعات أشيك، والإيموجي لوحده بيبان كبير، وزرار إرسال جديد", "كارت التحدي اللي خلص بقى مظبوط، وزرار الجايزة جنبه", "الطاولة بقت أسرع بكتير: الدور بتاع اللي قدامك بقى ياخد نص الوقت", "لما نسخة جديدة تنزل هيجيلك إشعار، ولما تدوس عليه يفتحلك التحديث على طول"], "2.1.4": ["الكلام بقى بمقاسه الطبيعي حتى لو موبايلك متظبّط على خط كبير — مفيش أسامي بتتقص ولا كروت بتتكسر", "الشات اتجدد: كلام أصغر وفقاعات أشيك، والإيموجي لوحده بيبان كبير، وزرار إرسال جديد", "كارت التحدي اللي خلص بقى مظبوط، وزرار الجايزة جنبه", "الطاولة بقت أسرع بكتير: الدور بتاع اللي قدامك بقى ياخد نص الوقت", "لما نسخة جديدة تنزل هيجيلك إشعار، ولما تدوس عليه يفتحلك التحديث على طول", "شاشة البداية جديدة: تحية على حسب الوقت وجملة مختلفة كل مرة تفتح", "أقسام المحل بقت 8 مربعات باينين كلهم بأيقونات، من غير سحب لجنب", "قسم جديد في المحل: صندوق الحظ 🎁 — حاجة جديدة مش عندك بـ 600 كوينز"], "2.1.3": ["الطاولة بقت أسرع بكتير: الدور بتاع اللي قدامك بقى ياخد نص الوقت", "لما نسخة جديدة تنزل هيجيلك إشعار، ولما تدوس عليه يفتحلك التحديث على طول", "شاشة البداية جديدة: تحية على حسب الوقت وجملة مختلفة كل مرة تفتح", "أقسام المحل بقت 8 مربعات باينين كلهم بأيقونات، من غير سحب لجنب", "قسم جديد في المحل: صندوق الحظ 🎁 — حاجة جديدة مش عندك بـ 600 كوينز", "الإشعارات اتصلحت: رسايل الصحاب والدعوات وطلبات الصداقة بقت بتوصل", "لعبة جديدة: طرنيب — شركا 2 ضد 2 بالمزايدة، ضد الكمبيوتر أو مع 3 من صحابك", "لعبة جديدة: السلّم والثعبان — لحد 4 لاعيبة"], "2.1.2": ["شاشة البداية جديدة: تحية على حسب الوقت وجملة مختلفة كل مرة تفتح", "أقسام المحل بقت 8 مربعات باينين كلهم بأيقونات، من غير سحب لجنب", "قسم جديد في المحل: صندوق الحظ 🎁 — حاجة جديدة مش عندك بـ 600 كوينز", "شاشة الأصحاب وترتيب الصحاب اتظبطوا، ومبقاش فيه حاجة طالعة برّه الشاشة", "«إزاي تلعب» بقت الألعاب كلها قدامك في شبكة", "ملفي والإحصائيات اتظبطوا", "الإشعارات اتصلحت: رسايل الصحاب والدعوات وطلبات الصداقة بقت بتوصل", "لعبة جديدة: طرنيب — شركا 2 ضد 2 بالمزايدة، ضد الكمبيوتر أو مع 3 من صحابك", "لعبة جديدة: السلّم والثعبان — لحد 4 لاعيبة", "بطولة الأسبوع بين الصحاب: ترتيب بيتصفّر كل جمعة، والتلاتة الأوائل ياخدوا كوينز", "صندوق هدية بعد كل 5 جيمات: كوينز أو شكل جديد من المحل"], "2.1.1": ["الإشعارات اتصلحت: رسايل الصحاب والدعوات وطلبات الصداقة بقت بتوصل", "لما تدوس على إشعار رسالة، بيفتحلك الشات بتاعها على طول", "زرار «جرّب الإشعارات» بقى يقولك السبب بالظبط لو فيه مشكلة", "نغمة جديدة للعبة 🎵 — شغّلها من الإعدادات ← الموسيقى، وتقدر ترجع للموسيقى الهادية من نفس المكان", "لعبة جديدة: طرنيب — شركا 2 ضد 2 بالمزايدة، ضد الكمبيوتر أو مع 3 من صحابك", "لعبة جديدة: السلّم والثعبان — لحد 4 لاعيبة", "بطولة الأسبوع بين الصحاب: ترتيب بيتصفّر كل جمعة، والتلاتة الأوائل ياخدوا كوينز", "صندوق هدية بعد كل 5 جيمات: كوينز أو شكل جديد من المحل", "لقب تحت اسمك حسب اللعبة اللي بتكسب فيها أكتر، وبيبان لصحابك", "اليوم السابع في مكافأة الدخول بقى فيه صندوق كمان", "الورق بيتوزّع قدامك ورقة ورقة، وصوت جديد للورق", "بورد الطاولة بقى له عمق ولمعة", "نتيجة استيمشن بقت تتسجّل في نتايجك (كانت بتضيع)"], "2.1.0": ["نغمة جديدة للعبة 🎵 — شغّلها من الإعدادات ← الموسيقى، وتقدر ترجع للموسيقى الهادية من نفس المكان", "لعبة جديدة: طرنيب — شركا 2 ضد 2 بالمزايدة، ضد الكمبيوتر أو مع 3 من صحابك", "لعبة جديدة: السلّم والثعبان — لحد 4 لاعيبة", "بطولة الأسبوع بين الصحاب: ترتيب بيتصفّر كل جمعة، والتلاتة الأوائل ياخدوا كوينز", "صندوق هدية بعد كل 5 جيمات: كوينز أو شكل جديد من المحل", "لقب تحت اسمك حسب اللعبة اللي بتكسب فيها أكتر، وبيبان لصحابك", "اليوم السابع في مكافأة الدخول بقى فيه صندوق كمان", "الورق بيتوزّع قدامك ورقة ورقة، وصوت جديد للورق", "بورد الطاولة بقى له عمق ولمعة", "نتيجة استيمشن بقت تتسجّل في نتايجك (كانت بتضيع)"], "2.0.0": ["شكل جديد للعبة كلها: رئيسية مرتبة، شريط تنقّل تحت، وإعدادات ومحل وشرح بتصميم واحد", "ترابيزة كوتشينة حقيقية للبصرة واستيمشن، وتقدر تغيّر لونها من المحل", "استيمشن: اللاعيبة قاعدين حوالين الترابيزة، وكل ورقة بتنزل قدام صاحبها", "لعبة جديدة: أربعة تكسب — ضد الكمبيوتر أو مع صاحبك", "الردود جوه اللعب اتغيّرت: جُمل جاهزة وإيموجي بشكل أهدى", "زرار الرجوع: ضغطتين على الرئيسية يقفلوا الأبلكيشن", "استيمشن وأربعة تكسب بقوا في تحدّي الصحاب وفي نتايجك", "بروفايل الصاحب بشكل جديد"], "1.1.1": ["كل تحديث بقى له رقم جديد، فالأبلكيشن هيبلّغك بيه أول ما ينزل", "زرار «نزّل التحديث» بقى ينزّل ملف الأبلكيشن على طول", "اللعبة بتفتح أسرع بكتير", "رقم حسابك بقى يبان في الإعدادات"], "1.1.0": ["اللعبة بقت تفتح أسرع بكتير — فايربيز مابقتش توقف ظهور اللعبة، والملفات بتتخزّن من أول مرة", "رقم الإصدار بقى واحد في كل مكان — في الأبلكيشن وفي صفحة التنزيل", "استيمشن بقت تتلعب مع صحابك — أربعة أونلاين، بالمناقصة والحكم والتوقّع", "لوحة المزايدة اتحركت فوق، مابقتش مغطّية الورق اللي في إيدك", "شكل الكوتشينة اتعمل من أول وجديد: ورق زي الحقيقي، والورق في إيدك بيتفرد مروحة", "الأكلة بقت تفضل على الترابيزة لحد ما تشوف الورقة الرابعة ومين كسبها", "بورد لودو اتعمل من جديد بشكل أحلى", "موسيقى جديدة هادية، والقديمة اللي فيها خرشة اتشالت", "زرار الرجوع بقى يشتغل صح ويسألك قبل ما تخرج", "المحل كبر: 11 ثيم و7 ورق و7 أحجار و7 إيموجي و7 إطارات، وكل تبويب بيقولك الحاجة بتبان فين", "الإشعارات: القناة بقت تتعمل مع فتح الأبلكيشن، والإشعار بيبان جوه اللعبة، وتجربة الإشعار بقت تقولك وقفت فين بالظبط", "رقم حسابك بقى يبان في الإعدادات عشان نقدر نفحص الإشعارات"], "1.0.12": ["لعبة جديدة: استيمشن بأربع لاعيبة، بالمناقصة والحكم والتوقّع", "شرح كامل لاستيمشن جوه اللعبة: إزاي تزايد وتحسب نقطك", "تصليح الإشعارات: الجهاز بقى يتسجّل صح أول ما يفتح الأبلكيشن"]};
 function verNum(v) { var p = String(v || '0').split('.'); return (+p[0] || 0) * 1e6 + (+p[1] || 0) * 1e3 + (+p[2] || 0); }
 var updLast = 0;
 function checkUpdate(manual) {

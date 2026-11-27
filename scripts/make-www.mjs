@@ -10,6 +10,7 @@ for (const f of fs.readdirSync('.')) {
 }
 // الأصوات (نغمة اللعبة)
 if (fs.existsSync('audio')) fs.cpSync('audio', `${OUT}/audio`, { recursive: true });
+if (fs.existsSync('kora.js')) fs.copyFileSync('kora.js', `${OUT}/kora.js`);
 let html = fs.readFileSync('index.html', 'utf8');
 // جوه الأبلكيشن مفيش داعي للـ service worker
 html = html.replace(/<script>if \('serviceWorker'[\s\S]*?<\/script>/, '');
